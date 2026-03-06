@@ -1,0 +1,55 @@
+{
+    "name": "Edge Case 5 - The Wall Hugging Test",
+    "description": "Drones literally spawn touching the X=0.1 boundary wall and must fly to the opposite wall.",
+    "episodes": 1,
+    "scenarios": [
+        {
+            "start_positions": [
+                [
+                    0.1,
+                    1.0
+                ],
+                [
+                    0.1,
+                    3.0
+                ],
+                [
+                    0.1,
+                    5.0
+                ],
+                [
+                    0.1,
+                    7.0
+                ],
+                [
+                    0.1,
+                    9.0
+                ],
+                [
+                    0.1,
+                    11.0
+                ],
+                [
+                    0.1,
+                    13.0
+                ],
+                [
+                    0.1,
+                    15.0
+                ],
+                [
+                    0.1,
+                    17.0
+                ],
+                [
+                    0.1,
+                    19.0
+                ]
+            ],
+            "goal": [
+                19.0,
+                10.0
+            ]
+        }
+    ]
+}

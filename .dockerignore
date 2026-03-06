@@ -1,0 +1,9 @@
+# Docker build artifacts
+ppo_swarm_tensorboard/
+ppo_swarm_tensorboard_experiments/
+__pycache__/
+*.py[cod]
+.git/
+.gitignore
+.vscode/
+.idea/
