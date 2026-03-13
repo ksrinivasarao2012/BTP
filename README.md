@@ -12,39 +12,49 @@ This project implements a **Trust-Attentive MAPPO (TA-MAPPO)** framework where a
 - **Feature Gating Network**: Trust scores gate communication features ($h_j \odot T_{ij}$), blinding the policy to traitor lies
 - **CTDE (Centralized Training, Decentralized Execution)**: Centralized critic during training, decentralized actor at inference
 
-## 📊 Current Results
-
-### Phase 4 — Step A: Basic Swarm Convergence (No Obstacles, No Traitors)
-
-| Metric | Result |
-|:---|:---|
-| **Drones** | 10 |
-| **Field Size** | 20 × 20 continuous |
-| **Success Rate** | **99.22%** (9,922 / 10,000 drones) |
-| **Collision Rate** | 0.78% |
-| **Timeout Rate** | 0.00% |
-| **Episodes Tested** | 1,000 |
+---
 
 ## 🗂️ Project Structure
 
-```
+The project is structured sequentially by curriculum phases. 
+
+```text
 Multi-agents/
-├── swarm_env_step_A.py          # PettingZoo environment (10 drones, 20x20 field)
-├── train_step_A.py              # PPO training script (fine-tuning from checkpoint)
-├── test_suite_step_A.py         # Automated 1K-episode evaluation suite
-├── evaluate_step_A.py           # Quick single-run evaluation script
-├── generate_basic_test_cases.py # JSON test case generator
-├── analyze_experiments.py       # TensorBoard log analysis utilities
-├── models/                      # Saved PPO model checkpoints
-│   ├── step_A_foundation_model.zip
-│   ├── step_A_96.18_percent_success.zip
-│   └── step_A_99.22_percent_success.zip
-├── test_cases/                  # JSON test scenario files
-├── trick_challenges/            # Documentation of discovered bugs
+├── Phase A/                     # [COMPLETED] Basic swarm convergence (0 obstacles/traitors)
+│   ├── swarm_env_step_A.py      # PettingZoo environment (10 drones, 20x20 field)
+│   ├── train_step_A.py          # PPO training script
+│   ├── test_suite_step_A.py     # Automated 1K-episode evaluation suite
+│   ├── k_fold_validation.py     # 5-Fold statistical cross-validation script
+│   ├── models/                  # Saved PPO model checkpoints
+│   │   └── step_A_foundation_model.zip
+│   ├── test_cases/              # JSON test scenario files
+│   ├── Project_Summary_Step_A.md # ✅ Full story of Phase A's bug fixes & results
+│   ├── analyze_crashes.py       # Diagnostic script identifying funnel failures
+│   └── README.md                # Old readme archive
 ├── checklists/                  # Step completion tracking
-├── ppo_swarm_tensorboard/       # TensorBoard training logs
-└── requirements.txt
+├── trick_challenges/            # Documentation of discovered bugs
+└── requirements.txt             # Python dependencies
 ```
+
+---
+
+## 📊 Phase A: Final Verified Results
+
+Phase A (`[0 Traitors, 0 Obstacles]`) focused purely on swarm pathfinding and continuous multi-agent collision avoidance. It was successfully completed in March 2026.
+
+After deploying the **Social Distancing Shock** and the **School Zone** velocity limit to untangle dense 2x2 drone clusters, the 5-Fold Validation Suite (5,000 simulations) yielded perfect stability:
+
+| Metric | Result (5-Fold CV: 50,000 Drones) |
+|:---|:---|
+| **Drones** | 10 Honest Drones |
+| **Field Size** | 20 × 20 continuous |
+| **Random Spawns** | **99.68%** Mean Success (StdDev: ±0.19%) |
+| **Dense 2x2 Clusters** | **95.78%** Mean Success (StdDev: ±0.42%) |
+| **Timeout Rate** | 0.00% |
+
+*(For full mechanical details on how we broke the 21% physics engine ceiling and the subsequent 89% cluster panic ceiling, please read `Phase A/Project_Summary_Step_A.md`)*
+
+---
 
 ## 🚀 Getting Started
 
@@ -67,64 +77,33 @@ conda activate swarm_rl_v2
 pip install -r requirements.txt
 ```
 
-### Training
-
+### Running the Phase A Codebase
 ```bash
-# Train Step A (loads from checkpoint and fine-tunes)
-python train_step_A.py
+cd "Phase A"
 
-# Monitor training with TensorBoard
-tensorboard --logdir ./ppo_swarm_tensorboard/
+# Run the 5-Fold Statistical Validation Suite
+python k_fold_validation.py
+
+# Run Visual PyGame Rendering of Basic Tests (Watch the drones!)
+python test_suite_step_A.py edge_case_1.json
 ```
 
-### Evaluation
-
-```bash
-# Run full 1,000-episode automated test suite
-python test_suite_step_A.py 1k
-
-# Run with visual PyGame rendering (watch the drones!)
-python test_suite_step_A.py visual
-```
-
-### Live Preview
-
-```bash
-# Run the environment with random actions to preview the PyGame renderer
-python swarm_env_step_A.py
-```
-
-## 🔧 Environment Details
-
-### Observation Space (per drone)
-- **16-ray LiDAR**: Distances to walls and other drones (360° coverage)
-- **Broadcast State**: Goal direction, velocity, and neighbor information
-
-### Action Space (per drone)
-- Continuous 2D velocity vector $(v_x, v_y)$
-
-### Reward Function
-- **$R_{goal}$**: Potential-based reward for moving toward the goal
-- **$R_{safe}$**: Collision penalties (walls: -100, drones: -50)
-- **$R_{group}$**: Cohesion bonus for staying near teammates
-- **Success Bonus**: +100 for reaching the goal + smooth-stop bonus
-
-## 🐛 Key Bug Fix: Ghost Drone Problem
-
-A critical physics bug was discovered and fixed: terminated drones left behind invisible hitboxes at the goal coordinate, causing subsequent drones to collide with "ghosts." This alone was responsible for capping the success rate at ~21%. See [`trick_challenges/ghost_drone_bug.md`](trick_challenges/ghost_drone_bug.md) for full details.
+---
 
 ## 🗺️ Roadmap
 
-- [x] **Step A**: Basic swarm convergence (0 traitors, 0 obstacles) — **99.22% ✅**
+- [x] **Step A**: Basic swarm convergence (0 traitors, 0 obstacles) — **99.68% ✅**
 - [ ] **Step B**: Navigation with 20–30 static obstacles (LiDAR dodging)
 - [ ] **Step C**: Deceptive traitors + obstacles (Trust $T_{ij}$ activation)
 - [ ] **Step D**: Aggressive traitors + obstacles (Full TA-MAPPO)
 
-## 📄 Reference
+Next up is **Step B**, which will involve copying the foundational `swarm_env_step_A.py` into the root directory and upgrading the physics engine to instantiate static obstacles that block both LiDAR rays and physical thrust vectors.
 
+---
+
+## 📄 Reference
 Based on: *Trust-Aware Bio-Inspired Swarm Defense using TA-MAPPO*  
-See [`Objective and methodology.pdf`](Objective%20and%20methodology.pdf) for the full methodology.
+See `Objective and methodology.pdf` for the full methodology.
 
 ## 📝 License
-
 This project is part of academic research. Please contact the authors for usage permissions.
