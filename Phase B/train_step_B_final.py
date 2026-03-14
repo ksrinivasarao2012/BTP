@@ -12,10 +12,12 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.vec_env import DummyVecEnv
 from swarm_env_step_B import SwarmLidarEnv_StepB
 
-def make_env():
-    """Create a single environment."""
+def make_env(target_density=0.20):
+    """Create a single environment with specific density."""
     def _init():
-        return SwarmLidarEnv_StepB(render_mode=None)
+        env = SwarmLidarEnv_StepB(render_mode=None)
+        env.target_density = target_density
+        return env
     return _init
 
 def train_step_B():
@@ -29,12 +31,8 @@ def train_step_B():
     print("  Density: 10% | Goal: Learn LiDAR-to-Motor coupling")
     print("="*60)
     
-    # Create environment with 10% density
-    env_b1 = SwarmLidarEnv_StepB(render_mode=None)
-    env_b1.target_density = 0.10
-    
-    # Wrap for SB3 with DummyVecEnv (single env, no multiprocessing)
-    wrapped_env_b1 = DummyVecEnv([make_env])
+    # Wrap for SB3 with DummyVecEnv
+    wrapped_env_b1 = DummyVecEnv([make_env(target_density=0.10)])
     
     # Manually set observation and action spaces
     dummy_env = SwarmLidarEnv_StepB(render_mode=None)
@@ -92,11 +90,8 @@ def train_step_B():
     print("="*60)
     
     # Create new environment with 20% density
-    env_b2 = SwarmLidarEnv_StepB(render_mode=None)
-    env_b2.target_density = 0.20
-    
     # Wrap for SB3
-    wrapped_env_b2 = DummyVecEnv([make_env])
+    wrapped_env_b2 = DummyVecEnv([make_env(target_density=0.20)])
     wrapped_env_b2.observation_space = obs_space
     wrapped_env_b2.action_space = act_space
     

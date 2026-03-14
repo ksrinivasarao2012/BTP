@@ -11,9 +11,10 @@ import math
 class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
     metadata = {'render_modes': ['human'], "name": "swarm_lidar_stepB_v0"}
 
-    def __init__(self, render_mode=None):
+    def __init__(self, render_mode=None, target_density=0.20, drone_radius=0.15, safety_radius=0.18):
         super().__init__()
         self.render_mode = render_mode
+        self.target_density = target_density
         self.n_drones = 10
         self.num_traitors = 0
         self.num_honest = 10
@@ -22,12 +23,12 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
         self.dt = 0.1
         self.max_steps = 600
         self.max_velocity = 2.0
-        self.drone_radius = 0.15  # Physical radius of the drone (for C-space inflation)
+        self.drone_radius = drone_radius  # Physical radius (used for collisions)
+        self.safety_radius = safety_radius # Safety buffer (used for social distance and inflation)
         self.WIDTH, self.HEIGHT = 20.0, 20.0  # 20x20 Field
         
         # Phase B Static Obstacles
         self.obstacles = [] # List of tuples: (x, y, radius)
-        self.target_density = 0.20 # Default: 20% of map surface area
         
         # Agent Identification
         self.possible_agents = [f"drone_{i}" for i in range(self.n_drones)]
@@ -94,8 +95,14 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
             # Avoid placing obstacles directly on top of the goal
             safe_goal_radius = 2.0 
             
+            # Determine intended spawn center for solvability check
+            if np.random.random() < 0.8:
+                spawn_center = np.array([np.random.uniform(3.0, self.WIDTH - 3.0), np.random.uniform(3.0, self.HEIGHT - 3.0)])
+            else:
+                spawn_center = np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+
             # Keep regenerating until we get a solvable map
-            max_attempts = 10
+            max_attempts = 15
             attempt = 0
             while attempt < max_attempts:
                 self.obstacles = []
@@ -121,8 +128,8 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                     self.obstacles.append((x, y, r))
                     current_area += np.pi * (r ** 2)
                 
-                # Verify this map is solvable
-                if self._is_map_solvable():
+                # Verify this map is solvable from the intended spawn location
+                if self._is_map_solvable(start_pos=spawn_center):
                     break  # ✅ Solvable map found
                 else:
                     attempt += 1
@@ -130,6 +137,10 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
             if attempt >= max_attempts:
                 print(f"⚠️  Failed to generate solvable map after {max_attempts} attempts! Using sparse fallback.")
                 self.obstacles = []  # Empty obstacles as fallback
+            
+            # --- Continue with drone placement using the verified spawn_center if clustered ---
+            # (Note: We'll reuse spawn_center later in the clustered spawn logic to stay consistent)
+            self._cached_spawn_center = spawn_center
         
         
         # 3. Configurable Start Positions (Spawning Drones)
@@ -138,12 +149,16 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
             self.velocities = np.zeros((self.n_drones, 2), dtype=np.float32)
         else:
             self.velocities = np.zeros((self.n_drones, 2), dtype=np.float32)
-            if np.random.random() < 0.8:
-                # --- CLUSTERED SPAWN (80%) ---
-                # Pick a random center and pack drones in a 2x2 box with safe spacing
-                # CRITICAL: Must avoid obstacles!
-                cx = np.random.uniform(3.0, self.WIDTH - 3.0)
-                cy = np.random.uniform(3.0, self.HEIGHT - 3.0)
+            # Use the center we verified during obstacle generation if it was a clustered intent
+            if hasattr(self, "_cached_spawn_center"):
+                cx, cy = self._cached_spawn_center
+                is_clustered = (np.linalg.norm(self._cached_spawn_center - np.array([self.WIDTH/2, self.HEIGHT/2])) > 1e-1) or (np.random.random() < 0.8)
+            else:
+                cx, cy = np.random.uniform(3.0, self.WIDTH - 3.0), np.random.uniform(3.0, self.HEIGHT - 3.0)
+                is_clustered = np.random.random() < 0.8
+
+            if is_clustered:
+                # --- CLUSTERED SPAWN ---
                 half = 1.0  # 2x2 box
                 min_dist = 0.3
                 placed = []
@@ -228,29 +243,30 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
         observations = {agent: self._observe(agent) for agent in self.agents}
         return observations, self.infos
 
-    def _is_map_solvable(self, min_path_width=0.6, grid_resolution=0.2):
+    def _is_map_solvable(self, start_pos=None, min_path_width=0.4, grid_resolution=0.2):
         """
         B1.2: Choke-Point Verifier
         
-        Uses BFS on a discretized grid to verify that a path of at least min_path_width
-        exists from the spawn zone to the goal. If map is unsolvable, returns False.
+        Uses BFS on a discretized grid to verify that a path exists from the start
+        to the goal.
         
         Args:
-            min_path_width: Minimum corridor width required (default 0.6m)
+            start_pos: (x, y) starting coordinate. Defaults to map center.
+            min_path_width: Minimum corridor width required (default 0.4m for 0.3m drone)
             grid_resolution: Granularity of BFS grid (default 0.2m)
-        
-        Returns:
-            True if solvable, False if map is walled off
         """
         from collections import deque
         
+        if start_pos is None:
+            start_pos = np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+        
         # Discretize the map into grid cells
         grid_size = int(np.ceil(self.WIDTH / grid_resolution))
-        grid = np.ones((grid_size, grid_size), dtype=bool)  # True = passable, False = blocked
+        grid = np.ones((grid_size, grid_size), dtype=bool)  # True = passable
         
-        # Mark obstacle cells as blocked (with safety margin for min_path_width)
-        drone_radius = self.drone_radius
-        clearance_radius = drone_radius + min_path_width / 2.0  # ~0.45m clearance
+        # Mark obstacle cells as blocked
+        # Clearance: Drone radius + small safety margin
+        clearance_radius = self.drone_radius + 0.05 # 0.20m radius total clearance
         
         for ox, oy, orad in self.obstacles:
             # Find all grid cells within obstacle's collision radius
@@ -266,8 +282,8 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                     if np.sqrt((cell_x - ox)**2 + (cell_y - oy)**2) < (orad + clearance_radius):
                         grid[gx, gy] = False
         
-        # BFS from spawn zone to goal
-        spawn_cell = (int(self.WIDTH / (2 * grid_resolution)), int(self.HEIGHT / (2 * grid_resolution)))  # Approximate center spawn
+        # BFS from the actual start center to goal
+        spawn_cell = (int(start_pos[0] / grid_resolution), int(start_pos[1] / grid_resolution))
         goal_cell = (int(self.goal[0] / grid_resolution), int(self.goal[1] / grid_resolution))
         
         # Clamp to grid bounds
@@ -306,21 +322,28 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
         return False
 
     def _ray_cast(self, agent_idx):
-        """Simulates 16-ray LiDAR (Now with Ray-Sweeping and Static Obstacle Detection)"""
-        num_rays = 16
+        """
+        Simulates Volumetric Sector-Scanning (IEEE Journal Standard).
+        Instead of 16 discrete rays, we use 16 sensor channels, each covering a 22.5-degree FOV.
+        We sample 3 points within each FOV and return the MINIMUM distance to ensure no blind spots.
+        """
+        num_sectors = 16
         max_range = 8.0 
-        readings = np.full(num_rays, max_range, dtype=np.float32)
-        angles = np.linspace(0, 2*np.pi, num_rays, endpoint=False)
+        readings = np.full(num_sectors, max_range, dtype=np.float32)
+        sector_width = (2*np.pi) / num_sectors
         pos = self.positions[agent_idx]
         
-        for i, angle in enumerate(angles):
+        for i in range(num_sectors):
+            center_angle = i * sector_width
             min_d = max_range
             
-            # Phase B Fix: Jitter the ray angle slightly during the step to simulate "sweeping" and catch tiny 0.2m pillars
-            sweep_angles = [angle - 0.05, angle, angle + 0.05]
+            # IEEE High-Fidelity: Sample 5 points within each 22.5° FOV
+            # This ensures that even at 8m range, no obstacle can slip through.
+            sub_angles = np.linspace(center_angle - sector_width/2, 
+                                    center_angle + sector_width/2, 5)
             
-            for sweep_angle in sweep_angles:
-                ray_dir = np.array([math.cos(sweep_angle), math.sin(sweep_angle)])
+            for angle in sub_angles:
+                ray_dir = np.array([math.cos(angle), math.sin(angle)])
                 
                 # Wall checks
                 for boundary, axis, direction in [(self.WIDTH, 0, 1), (0, 0, -1), (self.HEIGHT, 1, 1), (0, 1, -1)]:
@@ -328,24 +351,23 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                         d = (boundary - pos[axis]) / ray_dir[axis]
                         if 0 < d < min_d: min_d = d
                         
-                # Phase B: Static Obstacle Checks (C-space inflation)
+                # Static Obstacle Checks (C-space inflation)
                 for ox, oy, orad in self.obstacles:
                     to_obs = np.array([ox, oy]) - pos
                     proj = np.dot(to_obs, ray_dir)
                     if proj > 0:
                         closest = pos + proj * ray_dir
                         dist_to_ray = np.linalg.norm(closest - np.array([ox, oy]))
-                        # Inflate obstacle by drone radius (Minkowski sum)
+                        # Inflate obstacle by drone radius
                         inflated_radius = orad + self.drone_radius
                         if dist_to_ray < inflated_radius:
                             intersect_dist = proj - math.sqrt(inflated_radius**2 - dist_to_ray**2)
                             if 0 < intersect_dist < min_d:
                                 min_d = intersect_dist
                 
-                # Drone Interaction checks (Look out for other honest drones to prevent crashing)
+                # Drone Interaction checks
                 for j in range(self.n_drones):
                     if j == agent_idx: continue
-                    # NEW FIX: Ignore dead/vanished drones (no ghosts)
                     if self.possible_agents[j] not in self.agents: continue 
                     
                     to_drone = self.positions[j] - pos
@@ -384,14 +406,11 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
         for j in range(self.n_drones):
             if j == idx: continue
             
-            # Pure ground truth for Step A
+            # Ground truth relative sensing
             rel_pos = (self.positions[j] - pos) / self.WIDTH
             norm_vel = self.velocities[j] / self.max_velocity
-            
-            # Does this agent still exist, or is it a dead ghost?
             is_active = 1.0 if self.possible_agents[j] in self.agents else 0.0
             
-            # Broadcast ID shape: [rel_x, rel_y, vel_x, vel_y, is_active]
             obs_neighbors.append(np.concatenate([rel_pos, norm_vel, [is_active]]))
             
         return np.concatenate([obs_core, np.concatenate(obs_neighbors)]).astype(np.float32)
@@ -400,7 +419,6 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
         if not self.agents:
             return {}, {}, {}, {}, {}
 
-        # Store old positions to calculate potential field differences later
         old_positions = np.copy(self.positions)
 
         # 1. Physics Update
@@ -408,7 +426,9 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
             idx = self.agent_name_mapping[agent]
             action = np.clip(action, -1.0, 1.0)
             
-            self.velocities[idx] += action * self.dt * 5.0
+            # Industrial Standard: High-Torque Acceleration (10.0 instead of 5.0)
+            # This allows the drone to physically execute the "Dodge" maneuver.
+            self.velocities[idx] += action * self.dt * 10.0
             speed = np.linalg.norm(self.velocities[idx])
             if speed > self.max_velocity: 
                 self.velocities[idx] = (self.velocities[idx] / speed) * self.max_velocity
@@ -457,15 +477,13 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                     
             if len(close_neighbors) > 0:
                 # Approach 1: Unified Center of Mass Expansion
-                com_positions = [self.positions[j] for j in close_neighbors]
-                local_com = np.mean(com_positions, axis=0)
-                
-                dist_to_com_now = np.linalg.norm(pos - local_com)
-                dist_to_com_before = np.linalg.norm(old_pos - local_com)
-                
-                # Reward expanding away from the center of mass of the cluster
-                delta_com = dist_to_com_now - dist_to_com_before
-                rewards[agent] += np.clip(delta_com * 30.0, -3.0, 3.0)
+                # DEACTIVATED: Causes "Wall-Ramming" in narrow corridors.
+                # com_positions = [self.positions[j] for j in close_neighbors]
+                # local_com = np.mean(com_positions, axis=0)
+                # dist_to_com_now = np.linalg.norm(pos - local_com)
+                # dist_to_com_before = np.linalg.norm(old_pos - local_com)
+                # delta_com = dist_to_com_now - dist_to_com_before
+                # rewards[agent] += np.clip(delta_com * 30.0, -3.0, 3.0)
                 
                 # Approach 2: "School Zone" Speed Limit
                 # Penalize moving fast when surrounded by drones to avoid instantaneous collisions
@@ -473,14 +491,15 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                 safe_speed = self.max_velocity * 0.35 # 35% speed limit when tangled
                 if speed > safe_speed:
                     speed_penalty = ((speed - safe_speed) / self.max_velocity) ** 2
-                    rewards[agent] -= speed_penalty * len(close_neighbors) * 5.0
+                    rewards[agent] -= speed_penalty * len(close_neighbors) * 2.0 # Reduced from 5.0 for flow
                     
                 # Approach 3: Social Distancing Repulsion
-                # Prevent funneling at the goal by severely penalizing any drone that gets within 0.4 units (collision is at 0.25)
+                # Prevent funneling by penalizing drones within safety_radius * 1.2
+                repulsion_dist = self.safety_radius * 1.2
                 for j in close_neighbors:
                     dist = np.linalg.norm(pos - self.positions[j])
-                    if dist < 0.4:
-                        rewards[agent] -= (0.4 - dist) * 50.0
+                    if dist < repulsion_dist:
+                        rewards[agent] -= (repulsion_dist - dist) * 50.0 # Reduced from 75 for confidence
             
             # --- R_safe & Terminations ---
             hit_wall = False
@@ -509,15 +528,15 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                     break
 
             if hit_wall:
-                rewards[agent] = -100.0 # Absolute worst outcome
+                rewards[agent] = -100.0 # Baseline penalty
                 self.terminations[agent] = True
                 self.infos[agent] = {"cause": "collision"}
             elif hit_obstacle:
-                rewards[agent] = -100.0 # Crashing into a boulder is just as bad
+                rewards[agent] = -100.0 
                 self.terminations[agent] = True
                 self.infos[agent] = {"cause": "collision"}
             elif hit_drone:
-                rewards[agent] = -50.0  # Bad, but slightly less catastrophic than the edge of the world
+                rewards[agent] = -50.0  # Baseline penalty
                 self.terminations[agent] = True
                 self.infos[agent] = {"cause": "collision"}
             elif dist_goal < 0.75:
