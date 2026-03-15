@@ -90,25 +90,95 @@ class EntropyDecayCallback(BaseCallback):
 
 def worker(remote, parent_remote, density, drone_radius, safety_radius):
     parent_remote.close()
-    env = SwarmLidarEnv_StepB(render_mode=None, target_density=density, 
-                             drone_radius=drone_radius, safety_radius=safety_radius)
+    env = SwarmLidarEnv_StepB(render_mode=None, target_density=density,
+                              drone_radius=drone_radius, safety_radius=safety_radius)
+    
+    # Track which drones are truly done (ghost state)
+    n_drones = 10
+    ghost_obs = {}   # stores last real obs for each dead drone
+    
     try:
         while True:
             cmd, data = remote.recv()
             if cmd == 'step':
-                actions = {f"drone_{i}": data[i] for i in range(10)}
+                actions = {f"drone_{i}": data[i] for i in range(n_drones) if f"drone_{i}" in env.agents}
                 obs_d, rew_d, term_d, trunc_d, info_d = env.step(actions)
-                if not env.agents:
-                    obs_d, info_d = env.reset()
                 
-                obs = np.array([obs_d.get(f"drone_{i}", np.zeros(env.observation_space("drone_0").shape)) for i in range(10)], dtype=np.float32)
-                rews = np.array([rew_d.get(f"drone_{i}", 0.0) for i in range(10)], dtype=np.float32)
-                dones = np.array([term_d.get(f"drone_{i}", True) or trunc_d.get(f"drone_{i}", True) for i in range(10)], dtype=bool)
-                infos = [info_d.get(f"drone_{i}", {}) for i in range(10)]
-                remote.send((obs, rews, dones, infos))
+                zero_obs = np.zeros(env.observation_space("drone_0").shape, dtype=np.float32)
+                
+                obs_list  = []
+                rew_list  = []
+                done_list = []
+                info_list = []
+                
+                # Check if entire episode is over
+                all_done = not env.agents
+                
+                for i in range(n_drones):
+                    agent = f"drone_{i}"
+                    
+                    if all_done:
+                        # Entire episode finished — reset and send terminal_observation
+                        pass  # handled below
+                    elif term_d.get(agent, False) or trunc_d.get(agent, False):
+                        # This specific drone just died this step — real termination
+                        last_obs = obs_d.get(agent, zero_obs)
+                        ghost_obs[agent] = last_obs
+                        obs_list.append(last_obs)
+                        rew_list.append(rew_d.get(agent, 0.0))
+                        done_list.append(False)   # absorbing state trick — stay active as ghost
+                        info_list.append(info_d.get(agent, {}))
+                    elif agent in ghost_obs:
+                        # Drone is already dead — absorbing state
+                        obs_list.append(ghost_obs[agent])
+                        rew_list.append(0.0)
+                        done_list.append(False)  # NOT done — absorbing state trick
+                        info_list.append({})
+                    else:
+                        # Drone is alive and active
+                        obs_list.append(obs_d.get(agent, zero_obs))
+                        rew_list.append(rew_d.get(agent, 0.0))
+                        done_list.append(False)
+                        info_list.append(info_d.get(agent, {}))
+                
+                if all_done:
+                    # Save terminal observations BEFORE reset
+                    terminal_obs = {}
+                    for i in range(n_drones):
+                        agent = f"drone_{i}"
+                        if agent in ghost_obs:
+                            terminal_obs[agent] = ghost_obs[agent]
+                        else:
+                            terminal_obs[agent] = obs_d.get(agent, zero_obs)
+                    
+                    # Reset environment
+                    new_obs_d, _ = env.reset()
+                    ghost_obs.clear()
+                    
+                    obs_list = []
+                    rew_list = []
+                    done_list = []
+                    info_list = []
+                    
+                    for i in range(n_drones):
+                        agent = f"drone_{i}"
+                        info = info_d.get(agent, {})
+                        # Inject terminal_observation — CRITICAL for SB3 GAE bootstrap
+                        info['terminal_observation'] = terminal_obs[agent]
+                        obs_list.append(new_obs_d.get(agent, zero_obs))
+                        rew_list.append(rew_d.get(agent, 0.0))
+                        done_list.append(True)   # real episode end for all
+                        info_list.append(info)
+                
+                obs  = np.array(obs_list,  dtype=np.float32)
+                rews = np.array(rew_list,  dtype=np.float32)
+                dones = np.array(done_list, dtype=bool)
+                remote.send((obs, rews, dones, info_list))
+            
             elif cmd == 'reset':
                 obs_d, info_d = env.reset()
-                obs = np.array([obs_d.get(f"drone_{i}", np.zeros(env.observation_space("drone_0").shape)) for i in range(10)], dtype=np.float32)
+                ghost_obs.clear()
+                obs = np.array([obs_d.get(f"drone_{i}", np.zeros(env.observation_space("drone_0").shape)) for i in range(n_drones)], dtype=np.float32)
                 remote.send(obs)
             elif cmd == 'close':
                 env.close(); remote.close(); break
@@ -116,6 +186,7 @@ def worker(remote, parent_remote, density, drone_radius, safety_radius):
                 env.set_target_density(data)
             elif cmd == 'get_spaces':
                 remote.send((env.observation_space("drone_0"), env.action_space("drone_0")))
+    
     except Exception as e:
         import traceback
         print(f"[Worker ERROR] {e}")
@@ -198,7 +269,7 @@ def train_apex_ultra():
     # 4. Callback Integration
     # SB3 save_freq is expressed in env.step() calls. 
     # Total desired steps per checkpoint = 250,000. 
-    # env.num_envs = 120 (12 workers * 10 drones).
+    # env.num_envs = 100 (10 workers * 10 drones).
     checkpoint_freq = max(1, 250_000 // env.num_envs)
     
     checkpoint_callback = CheckpointCallback(

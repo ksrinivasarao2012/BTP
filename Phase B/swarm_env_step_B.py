@@ -73,6 +73,7 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
         self.infos = {agent: {} for agent in self.agents}
         self.steps = 0
         self.obstacles = []
+        self.lidar_cache = {}
         
         # 1. Configurable Global Goal
         if options and "goal" in options:
@@ -413,7 +414,6 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
     def step(self, actions):
         if not self.agents: return {}, {}, {}, {}, {}
         old_positions = np.copy(self.positions)
-        self.lidar_cache = {agent: self._ray_cast(self.agent_name_mapping[agent]) for agent in self.agents}
         for agent, action in actions.items():
             idx = self.agent_name_mapping[agent]
             action = np.clip(action, -1.0, 1.0)
@@ -423,6 +423,7 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
             self.positions[idx] += self.velocities[idx] * self.dt
             self.positions[idx][0] = np.clip(self.positions[idx][0], 0.0, self.WIDTH)
             self.positions[idx][1] = np.clip(self.positions[idx][1], 0.0, self.HEIGHT)
+        self.lidar_cache = {agent: self._ray_cast(self.agent_name_mapping[agent]) for agent in self.agents}
         self.steps += 1
         rewards = {agent: 0.0 for agent in self.agents}
         for agent in self.agents:
@@ -479,13 +480,21 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
                 self.terminations[agent] = True
         if self.steps >= self.max_steps:
              for agent in self.agents: self.truncations[agent] = True
+
+        # 1. SNAPSHOT FIRST — capture exact crash state before teleportation
+        observations = {agent: self._observe(agent) for agent in self.agents}
+
+        # 2. TELEPORT DEAD DRONES — move them out of the way
         for agent in self.possible_agents:
             if self.terminations[agent] or self.truncations[agent]:
                 idx = self.agent_name_mapping[agent]
                 self.positions[idx] = np.array([-100.0, -100.0], dtype=np.float32)
                 self.velocities[idx] = np.zeros(2, dtype=np.float32)
+
+        # 3. REMOVE FROM ACTIVE LIST — after snapshot and teleport
         self.agents = [agent for agent in self.agents if not (self.terminations[agent] or self.truncations[agent])]
-        return {agent: self._observe(agent) for agent in self.agents}, rewards, self.terminations, self.truncations, self.infos
+
+        return observations, rewards, self.terminations, self.truncations, self.infos
 
     def render(self):
         if self.render_mode != "human": return
