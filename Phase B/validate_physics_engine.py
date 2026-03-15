@@ -23,6 +23,7 @@ def test_choke_point_verification(num_tests=50):
     print("="*70)
     
     env = SwarmLidarEnv_StepB(render_mode=None)
+    env.test_mode = True
     solvable_count = 0
     unsolvable_rejected = 0
     
@@ -64,6 +65,7 @@ def test_obstacle_rendering(num_tests=5):
     print("="*70)
     
     env = SwarmLidarEnv_StepB(render_mode="human")
+    env.test_mode = True
     print("  🎮 Initializing PyGame renderer...")
     
     for test_num in range(num_tests):
@@ -96,6 +98,7 @@ def test_ray_sweep_tiny_detection(num_tests=20):
     print("="*70)
     
     env = SwarmLidarEnv_StepB(render_mode=None)
+    env.test_mode = True
     detection_count = 0
     
     for test_num in range(num_tests):
@@ -142,6 +145,7 @@ def test_spawn_collision_detection(num_tests=30):
     print("="*70)
     
     env = SwarmLidarEnv_StepB(render_mode=None)
+    env.test_mode = True
     valid_spawns = 0
     
     for test_num in range(num_tests):

@@ -114,6 +114,7 @@ def run_evaluation(env, model, num_episodes, description, options_list=None):
 def run_basic_edge_cases(model_path, specific_file=None, render=False):
     """Load and run all JSON test cases from test_cases/ directory."""
     env = SwarmLidarEnv_StepB(render_mode="human" if render else None)
+    env.test_mode = True
     model = PPO.load(model_path)
     
     if specific_file:
@@ -155,6 +156,7 @@ def run_basic_edge_cases(model_path, specific_file=None, render=False):
 def run_random_test(model_path, num_episodes, description):
     """Run N episodes with randomly generated obstacles (using the density generator)."""
     env = SwarmLidarEnv_StepB(render_mode=None)
+    env.test_mode = True
     model = PPO.load(model_path)
     
     run_evaluation(env, model, num_episodes, description)
@@ -189,6 +191,7 @@ def generate_clustered_positions(cluster_center, cluster_size=2.0, min_dist=0.3,
 def run_clustered_test(model_path, num_episodes, description):
     """Start all drones in a tight cluster and place goal far away."""
     env = SwarmLidarEnv_StepB(render_mode=None)
+    env.test_mode = True
     model = PPO.load(model_path)
     options_list = []
     for _ in range(num_episodes):
@@ -242,6 +245,7 @@ if __name__ == "__main__":
         run_basic_edge_cases(model_path, specific_file=None)
         # Filter to only edge cases
         env = SwarmLidarEnv_StepB(render_mode=None)
+        env.test_mode = True
         model = PPO.load(model_path)
         files = sorted(glob.glob("test_cases/edge/*.json"))
         for filepath in files:
@@ -257,16 +261,27 @@ if __name__ == "__main__":
                 options_list.append(opts)
             run_evaluation(env, model, len(scenarios), test_case["name"], options_list)
     elif mode == "1k":
-        run_1k_random(model_path)
+        num_ep = 1000
+        if len(sys.argv) > 3:
+            # Look for first numeric argument as episode count
+            for arg in sys.argv[3:]:
+                if arg.isdigit():
+                    num_ep = int(arg)
+                    break
+        run_random_test(model_path, num_ep, f"{num_ep} Random Spawn (20% Density)")
     elif mode == "cluster":
-        run_clustered_test(model_path, 1000, "1K Clustered Starts")
-    elif mode == "all":
-        run_basic_edge_cases(model_path)
-        run_1k_random(model_path)
-        run_clustered_test(model_path, 1000, "1K Clustered Starts")
+        num_ep = 1000
+        if len(sys.argv) > 3:
+            for arg in sys.argv[3:]:
+                if arg.isdigit():
+                    num_ep = int(arg)
+                    break
+        run_clustered_test(model_path, num_ep, f"{num_ep} Clustered Starts")
     elif os.path.exists(mode):
-        # Specific JSON file — render with PyGame!
-        run_basic_edge_cases(model_path, specific_file=mode, render=True)
+        # Specific JSON file 
+        # Search for --no-render flag in any position
+        render_flag = "--no-render" not in sys.argv
+        run_basic_edge_cases(model_path, specific_file=mode, render=render_flag)
     else:
         print(f"❌ Unknown mode: {mode}")
         sys.exit(1)

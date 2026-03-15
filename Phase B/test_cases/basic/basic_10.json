@@ -1,0 +1,62 @@
+{
+    "name": "Basic 10 - The Start Squeeze",
+    "description": "A tight start with an obstacle immediately in the path.",
+    "episodes": 1,
+    "scenarios": [
+        {
+            "start_positions": [
+                [
+                    3.0,
+                    3.0
+                ],
+                [
+                    3.2,
+                    3.2
+                ],
+                [
+                    3.4,
+                    3.4
+                ],
+                [
+                    3.6,
+                    3.6
+                ],
+                [
+                    3.8,
+                    3.8
+                ],
+                [
+                    4.0,
+                    4.0
+                ],
+                [
+                    4.2,
+                    4.2
+                ],
+                [
+                    4.4,
+                    4.4
+                ],
+                [
+                    4.6,
+                    4.6
+                ],
+                [
+                    4.8,
+                    4.8
+                ]
+            ],
+            "goal": [
+                17.0,
+                17.0
+            ],
+            "obstacles": [
+                [
+                    5.0,
+                    5.0,
+                    0.8
+                ]
+            ]
+        }
+    ]
+}
