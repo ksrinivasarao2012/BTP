@@ -472,14 +472,19 @@ class SwarmLidarEnv_StepB(ParallelEnv, GymEnv):
             if hit_wall or hit_obstacle:
                 rewards[agent] = -500.0 
                 self.terminations[agent] = True
+                self.infos[agent]["cause"] = "collision"
             elif hit_drone:
                 rewards[agent] = -500.0 
                 self.terminations[agent] = True
+                self.infos[agent]["cause"] = "collision"
             elif dist_goal < 0.75:
                 rewards[agent] += 500.0 + (100.0 / (1.0 + np.linalg.norm(self.velocities[idx])))
                 self.terminations[agent] = True
+                self.infos[agent]["cause"] = "success"
         if self.steps >= self.max_steps:
-             for agent in self.agents: self.truncations[agent] = True
+            for agent in self.agents:
+                self.truncations[agent] = True
+                self.infos[agent]["cause"] = "timeout"
 
         # 1. SNAPSHOT FIRST — capture exact crash state before teleportation
         observations = {agent: self._observe(agent) for agent in self.agents}
