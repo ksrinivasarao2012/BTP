@@ -1,0 +1,118 @@
+<frozen importlib._bootstrap>:241: RuntimeWarning: Your system is avx2 capable but pygame was not built with support for it. The performance of some of your blits could be adversely affected. Consider enabling compile time detection with environment variables like PYGAME_DETECT_AVX2=1 if you are compiling without cross compilation.
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pygame/pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+🔥 Phase B4: Congestion Control Curriculum Starting (10 Cores)...
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:370: UserWarning: Your environment should override the action_space function. Attempting to use the action_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pettingzoo/utils/env.py:358: UserWarning: Your environment should override the observation_space function. Attempting to use the observation_spaces dict attribute.
+  warnings.warn(
+Using cpu device
+🔭 Performing Weight Surgery (Apex-Ultra -> Phase B4 100-dim)...
+✅ Pre-trained weights adapted.
+
+🚀 PHASE: Density=0.2 | Steps=300.0k
+Logging to ./ppo_swarm_tensorboard_congestion/PPO_4
+-------------------------------
+| time/              |        |
+|    fps             | 1635   |
+|    iterations      | 1      |
+|    time_elapsed    | 125    |
+|    total_timesteps | 204800 |
+-------------------------------
+------------------------------------------
+| time/                   |              |
+|    fps                  | 1064         |
+|    iterations           | 2            |
+|    time_elapsed         | 384          |
+|    total_timesteps      | 409600       |
+| train/                  |              |
+|    approx_kl            | 0.0038436926 |
+|    clip_fraction        | 0.0362       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4           |
+|    explained_variance   | 0.808        |
+|    learning_rate        | 2e-05        |
+|    loss                 | -0.0131      |
+|    n_updates            | 10           |
+|    policy_gradient_loss | -0.00575     |
+|    std                  | 1.79         |
+|    value_loss           | 0.101        |
+------------------------------------------
+
+🚀 PHASE: Density=0.3 | Steps=400.0k
+Logging to ./ppo_swarm_tensorboard_congestion/PPO_4
+-------------------------------
+| time/              |        |
+|    fps             | 1695   |
+|    iterations      | 1      |
+|    time_elapsed    | 120    |
+|    total_timesteps | 614400 |
+-------------------------------
+------------------------------------------
+| time/                   |              |
+|    fps                  | 1014         |
+|    iterations           | 2            |
+|    time_elapsed         | 403          |
+|    total_timesteps      | 819200       |
+| train/                  |              |
+|    approx_kl            | 0.0032822657 |
+|    clip_fraction        | 0.027        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4.03        |
+|    explained_variance   | 0.864        |
+|    learning_rate        | 2e-05        |
+|    loss                 | -0.0168      |
+|    n_updates            | 30           |
+|    policy_gradient_loss | -0.00679     |
+|    std                  | 1.82         |
+|    value_loss           | 0.0787       |
+------------------------------------------
+
+🚀 PHASE: Density=0.35 | Steps=300.0k
+Logging to ./ppo_swarm_tensorboard_congestion/PPO_4
+--------------------------------
+| time/              |         |
+|    fps             | 2184    |
+|    iterations      | 1       |
+|    time_elapsed    | 93      |
+|    total_timesteps | 1024000 |
+--------------------------------
+------------------------------------------
+| time/                   |              |
+|    fps                  | 1988         |
+|    iterations           | 2            |
+|    time_elapsed         | 205          |
+|    total_timesteps      | 1228800      |
+| train/                  |              |
+|    approx_kl            | 0.0029434138 |
+|    clip_fraction        | 0.0253       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -4.08        |
+|    explained_variance   | 0.854        |
+|    learning_rate        | 2e-05        |
+|    loss                 | -0.0515      |
+|    n_updates            | 50           |
+|    policy_gradient_loss | -0.00699     |
+|    std                  | 1.87         |
+|    value_loss           | 0.068        |
+------------------------------------------
+
+🏁 Phase B4 Training Complete. Model saved to ./models/apex_ultra_congestion_final

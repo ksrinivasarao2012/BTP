@@ -1,0 +1,5 @@
+Phase B K-Fold Validation (K=10, Total Drones=10000)
+Model: ./models/apex_ultra_mappo_final.zip
+Random: 95.23% ± 1.31%
+Cluster: 78.68% ± 2.81%
+ 

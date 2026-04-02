@@ -1,0 +1,65 @@
+<frozen importlib._bootstrap>:241: RuntimeWarning: Your system is avx2 capable but pygame was not built with support for it. The performance of some of your blits could be adversely affected. Consider enabling compile time detection with environment variables like PYGAME_DETECT_AVX2=1 if you are compiling without cross compilation.
+/home/ksr/miniconda3/envs/swarm_rl_v2/lib/python3.10/site-packages/pygame/pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+==================================================
+🤖 K-FOLD VALIDATION (FOLD 7 TO 7)
+   Model: ./models/apex_ultra_congestion_final.zip
+   Episodes per fold: 100
+==================================================
+
+
+--- FOLD 7/10 ---
+>> Running Random Spread Fold (Seed: 7000)...
+
+============================================================
+  TEST: Fold 7 - Random
+  Episodes: 100
+  Base Seed: 7000
+============================================================
+  Progress: 10/100 | Drone successes: 100 | Collisions: 0 | Timeouts: 0
+  Progress: 20/100 | Drone successes: 196 | Collisions: 1 | Timeouts: 3
+  Progress: 30/100 | Drone successes: 292 | Collisions: 3 | Timeouts: 5
+  Progress: 40/100 | Drone successes: 392 | Collisions: 3 | Timeouts: 5
+  Progress: 50/100 | Drone successes: 492 | Collisions: 3 | Timeouts: 5
+  Progress: 60/100 | Drone successes: 592 | Collisions: 3 | Timeouts: 5
+  Progress: 70/100 | Drone successes: 691 | Collisions: 3 | Timeouts: 6
+  Progress: 80/100 | Drone successes: 790 | Collisions: 3 | Timeouts: 7
+  Progress: 90/100 | Drone successes: 888 | Collisions: 4 | Timeouts: 8
+  Progress: 100/100 | Drone successes: 986 | Collisions: 6 | Timeouts: 8
+
+📊 RESULTS: Fold 7 - Random
+   Success Rate (per drone):   98.6% (986/1000)
+   Collision Rate (per drone): 0.6% (6/1000)
+   Timeout Rate (per drone):   0.8% (8/1000)
+   Episode Success (all 10 drones): 91.0% (91/100)
+   Episode Success (>=1 drone):  100.0% (100/100)
+   Avg Episode Time: 0.85s
+
+>> Running Dense Cluster Fold (Seed: 7000)...
+
+============================================================
+  TEST: Fold 7 - Clustered
+  Episodes: 100
+  Base Seed: 7000
+============================================================
+  Progress: 10/100 | Drone successes: 62 | Collisions: 34 | Timeouts: 4
+  Progress: 20/100 | Drone successes: 137 | Collisions: 57 | Timeouts: 6
+  Progress: 30/100 | Drone successes: 220 | Collisions: 71 | Timeouts: 9
+  Progress: 40/100 | Drone successes: 302 | Collisions: 88 | Timeouts: 10
+  Progress: 50/100 | Drone successes: 380 | Collisions: 109 | Timeouts: 11
+  Progress: 60/100 | Drone successes: 470 | Collisions: 118 | Timeouts: 12
+  Progress: 70/100 | Drone successes: 550 | Collisions: 137 | Timeouts: 13
+  Progress: 80/100 | Drone successes: 637 | Collisions: 150 | Timeouts: 13
+  Progress: 90/100 | Drone successes: 720 | Collisions: 167 | Timeouts: 13
+  Progress: 100/100 | Drone successes: 799 | Collisions: 188 | Timeouts: 13
+
+📊 RESULTS: Fold 7 - Clustered
+   Success Rate (per drone):   79.9% (799/1000)
+   Collision Rate (per drone): 18.8% (188/1000)
+   Timeout Rate (per drone):   1.3% (13/1000)
+   Episode Success (all 10 drones): 47.0% (47/100)
+   Episode Success (>=1 drone):  98.0% (98/100)
+   Avg Episode Time: 1.30s
+Fold 7 Results: Random= 98.60%, Clustered= 79.90%
+
+✅ Fold 7 complete.

@@ -1,0 +1,117 @@
+/home/ksr/Documents/tries/Anti_BTP/adv/new_ppo_build/evaluate_1m.py:135: RuntimeWarning: invalid value encountered in sqrt
+  offsets = np.sqrt(valid_r[hit_mask]**2 - dist_to_ray[hit_mask]**2)
+🚀 Starting Batch Test: 1000000 Episodes
+Conditions: Random Start/Goal, At least 2 Obstacles Blocking Path
+✅ Model 'lidar_single_agent_smooth' loaded.
+Progress: 10000/1000000 | Rate: 26.7 eps/sec | Succ: 9350 (93.5%) | Crash: 180
+Progress: 20000/1000000 | Rate: 27.3 eps/sec | Succ: 18671 (93.4%) | Crash: 364
+Progress: 30000/1000000 | Rate: 27.5 eps/sec | Succ: 27995 (93.3%) | Crash: 541
+Progress: 40000/1000000 | Rate: 27.9 eps/sec | Succ: 37346 (93.4%) | Crash: 723
+Progress: 50000/1000000 | Rate: 28.1 eps/sec | Succ: 46706 (93.4%) | Crash: 913
+Progress: 60000/1000000 | Rate: 28.3 eps/sec | Succ: 56083 (93.5%) | Crash: 1075
+Progress: 70000/1000000 | Rate: 28.2 eps/sec | Succ: 65400 (93.4%) | Crash: 1248
+Progress: 80000/1000000 | Rate: 28.1 eps/sec | Succ: 74708 (93.4%) | Crash: 1420
+Progress: 90000/1000000 | Rate: 28.2 eps/sec | Succ: 84047 (93.4%) | Crash: 1616
+Progress: 100000/1000000 | Rate: 28.2 eps/sec | Succ: 93379 (93.4%) | Crash: 1803
+Progress: 110000/1000000 | Rate: 28.2 eps/sec | Succ: 102709 (93.4%) | Crash: 1996
+Progress: 120000/1000000 | Rate: 28.1 eps/sec | Succ: 111970 (93.3%) | Crash: 2194
+Progress: 130000/1000000 | Rate: 28.1 eps/sec | Succ: 121311 (93.3%) | Crash: 2358
+Progress: 140000/1000000 | Rate: 28.2 eps/sec | Succ: 130628 (93.3%) | Crash: 2547
+Progress: 150000/1000000 | Rate: 28.2 eps/sec | Succ: 139983 (93.3%) | Crash: 2723
+Progress: 160000/1000000 | Rate: 28.3 eps/sec | Succ: 149351 (93.3%) | Crash: 2896
+Progress: 170000/1000000 | Rate: 28.3 eps/sec | Succ: 158700 (93.4%) | Crash: 3092
+Progress: 180000/1000000 | Rate: 28.3 eps/sec | Succ: 167975 (93.3%) | Crash: 3300
+Progress: 190000/1000000 | Rate: 28.3 eps/sec | Succ: 177320 (93.3%) | Crash: 3467
+Progress: 200000/1000000 | Rate: 28.3 eps/sec | Succ: 186669 (93.3%) | Crash: 3641
+Progress: 210000/1000000 | Rate: 28.4 eps/sec | Succ: 196066 (93.4%) | Crash: 3805
+Progress: 220000/1000000 | Rate: 28.4 eps/sec | Succ: 205405 (93.4%) | Crash: 3985
+Progress: 230000/1000000 | Rate: 28.4 eps/sec | Succ: 214741 (93.4%) | Crash: 4167
+Progress: 240000/1000000 | Rate: 28.4 eps/sec | Succ: 224058 (93.4%) | Crash: 4364
+Progress: 250000/1000000 | Rate: 28.4 eps/sec | Succ: 233370 (93.3%) | Crash: 4574
+Progress: 260000/1000000 | Rate: 28.4 eps/sec | Succ: 242685 (93.3%) | Crash: 4782
+Progress: 270000/1000000 | Rate: 28.4 eps/sec | Succ: 251978 (93.3%) | Crash: 4976
+Progress: 280000/1000000 | Rate: 28.4 eps/sec | Succ: 261254 (93.3%) | Crash: 5198
+Progress: 290000/1000000 | Rate: 28.4 eps/sec | Succ: 270609 (93.3%) | Crash: 5369
+Progress: 300000/1000000 | Rate: 28.4 eps/sec | Succ: 279914 (93.3%) | Crash: 5555
+Progress: 310000/1000000 | Rate: 28.4 eps/sec | Succ: 289285 (93.3%) | Crash: 5731
+Progress: 320000/1000000 | Rate: 28.4 eps/sec | Succ: 298610 (93.3%) | Crash: 5931
+Progress: 330000/1000000 | Rate: 28.4 eps/sec | Succ: 307881 (93.3%) | Crash: 6153
+Progress: 340000/1000000 | Rate: 28.4 eps/sec | Succ: 317212 (93.3%) | Crash: 6357
+Progress: 350000/1000000 | Rate: 28.4 eps/sec | Succ: 326523 (93.3%) | Crash: 6569
+Progress: 360000/1000000 | Rate: 28.4 eps/sec | Succ: 335832 (93.3%) | Crash: 6761
+Progress: 370000/1000000 | Rate: 28.4 eps/sec | Succ: 345131 (93.3%) | Crash: 6959
+Progress: 380000/1000000 | Rate: 28.4 eps/sec | Succ: 354456 (93.3%) | Crash: 7142
+Progress: 390000/1000000 | Rate: 28.4 eps/sec | Succ: 363779 (93.3%) | Crash: 7347
+Progress: 400000/1000000 | Rate: 28.4 eps/sec | Succ: 373090 (93.3%) | Crash: 7549
+Progress: 410000/1000000 | Rate: 28.4 eps/sec | Succ: 382421 (93.3%) | Crash: 7747
+Progress: 420000/1000000 | Rate: 28.4 eps/sec | Succ: 391798 (93.3%) | Crash: 7922
+Progress: 430000/1000000 | Rate: 28.4 eps/sec | Succ: 401132 (93.3%) | Crash: 8103
+Progress: 440000/1000000 | Rate: 28.4 eps/sec | Succ: 410446 (93.3%) | Crash: 8295
+Progress: 450000/1000000 | Rate: 28.4 eps/sec | Succ: 419766 (93.3%) | Crash: 8491
+Progress: 460000/1000000 | Rate: 28.4 eps/sec | Succ: 429106 (93.3%) | Crash: 8674
+Progress: 470000/1000000 | Rate: 28.4 eps/sec | Succ: 438384 (93.3%) | Crash: 8862
+Progress: 480000/1000000 | Rate: 28.4 eps/sec | Succ: 447647 (93.3%) | Crash: 9081
+Progress: 490000/1000000 | Rate: 28.4 eps/sec | Succ: 456969 (93.3%) | Crash: 9250
+Progress: 500000/1000000 | Rate: 28.4 eps/sec | Succ: 466321 (93.3%) | Crash: 9441
+Progress: 510000/1000000 | Rate: 28.4 eps/sec | Succ: 475666 (93.3%) | Crash: 9617
+Progress: 520000/1000000 | Rate: 28.4 eps/sec | Succ: 485009 (93.3%) | Crash: 9791
+Progress: 530000/1000000 | Rate: 28.4 eps/sec | Succ: 494332 (93.3%) | Crash: 9983
+Progress: 540000/1000000 | Rate: 28.4 eps/sec | Succ: 503672 (93.3%) | Crash: 10164
+Progress: 550000/1000000 | Rate: 28.4 eps/sec | Succ: 512971 (93.3%) | Crash: 10363
+Progress: 560000/1000000 | Rate: 28.4 eps/sec | Succ: 522306 (93.3%) | Crash: 10544
+Progress: 570000/1000000 | Rate: 28.4 eps/sec | Succ: 531626 (93.3%) | Crash: 10749
+Progress: 580000/1000000 | Rate: 28.4 eps/sec | Succ: 540917 (93.3%) | Crash: 10931
+Progress: 590000/1000000 | Rate: 28.4 eps/sec | Succ: 550273 (93.3%) | Crash: 11123
+Progress: 600000/1000000 | Rate: 28.4 eps/sec | Succ: 559612 (93.3%) | Crash: 11318
+Progress: 610000/1000000 | Rate: 28.4 eps/sec | Succ: 568922 (93.3%) | Crash: 11507
+Progress: 620000/1000000 | Rate: 28.4 eps/sec | Succ: 578259 (93.3%) | Crash: 11705
+Progress: 630000/1000000 | Rate: 28.3 eps/sec | Succ: 587532 (93.3%) | Crash: 11884
+Progress: 640000/1000000 | Rate: 28.3 eps/sec | Succ: 596849 (93.3%) | Crash: 12086
+Progress: 650000/1000000 | Rate: 28.3 eps/sec | Succ: 606146 (93.3%) | Crash: 12292
+Progress: 660000/1000000 | Rate: 28.3 eps/sec | Succ: 615460 (93.3%) | Crash: 12466
+Progress: 670000/1000000 | Rate: 28.3 eps/sec | Succ: 624782 (93.3%) | Crash: 12651
+Progress: 680000/1000000 | Rate: 28.3 eps/sec | Succ: 634140 (93.3%) | Crash: 12831
+Progress: 690000/1000000 | Rate: 28.4 eps/sec | Succ: 643504 (93.3%) | Crash: 13009
+Progress: 700000/1000000 | Rate: 28.4 eps/sec | Succ: 652848 (93.3%) | Crash: 13200
+Progress: 710000/1000000 | Rate: 28.4 eps/sec | Succ: 662114 (93.3%) | Crash: 13411
+Progress: 720000/1000000 | Rate: 28.4 eps/sec | Succ: 671461 (93.3%) | Crash: 13590
+Progress: 730000/1000000 | Rate: 28.4 eps/sec | Succ: 680821 (93.3%) | Crash: 13778
+Progress: 740000/1000000 | Rate: 28.4 eps/sec | Succ: 690167 (93.3%) | Crash: 13964
+Progress: 750000/1000000 | Rate: 28.4 eps/sec | Succ: 699454 (93.3%) | Crash: 14160
+Progress: 760000/1000000 | Rate: 28.4 eps/sec | Succ: 708780 (93.3%) | Crash: 14356
+Progress: 770000/1000000 | Rate: 28.4 eps/sec | Succ: 718097 (93.3%) | Crash: 14549
+Progress: 780000/1000000 | Rate: 28.4 eps/sec | Succ: 727431 (93.3%) | Crash: 14740
+Progress: 790000/1000000 | Rate: 28.4 eps/sec | Succ: 736762 (93.3%) | Crash: 14918
+Progress: 800000/1000000 | Rate: 28.4 eps/sec | Succ: 746082 (93.3%) | Crash: 15095
+Progress: 810000/1000000 | Rate: 28.4 eps/sec | Succ: 755397 (93.3%) | Crash: 15294
+Progress: 820000/1000000 | Rate: 28.4 eps/sec | Succ: 764679 (93.3%) | Crash: 15475
+Progress: 830000/1000000 | Rate: 28.4 eps/sec | Succ: 773999 (93.3%) | Crash: 15650
+Progress: 840000/1000000 | Rate: 28.4 eps/sec | Succ: 783320 (93.3%) | Crash: 15852
+Progress: 850000/1000000 | Rate: 28.4 eps/sec | Succ: 792664 (93.3%) | Crash: 16041
+Progress: 860000/1000000 | Rate: 28.4 eps/sec | Succ: 801961 (93.3%) | Crash: 16241
+Progress: 870000/1000000 | Rate: 28.3 eps/sec | Succ: 811291 (93.3%) | Crash: 16433
+Progress: 880000/1000000 | Rate: 28.3 eps/sec | Succ: 820617 (93.3%) | Crash: 16623
+Progress: 890000/1000000 | Rate: 28.3 eps/sec | Succ: 829931 (93.3%) | Crash: 16817
+Progress: 900000/1000000 | Rate: 28.3 eps/sec | Succ: 839297 (93.3%) | Crash: 16983
+Progress: 910000/1000000 | Rate: 28.3 eps/sec | Succ: 848637 (93.3%) | Crash: 17175
+Progress: 920000/1000000 | Rate: 28.3 eps/sec | Succ: 857962 (93.3%) | Crash: 17326
+Progress: 930000/1000000 | Rate: 28.3 eps/sec | Succ: 867235 (93.3%) | Crash: 17504
+Progress: 940000/1000000 | Rate: 28.3 eps/sec | Succ: 876599 (93.3%) | Crash: 17677
+Progress: 950000/1000000 | Rate: 28.3 eps/sec | Succ: 885889 (93.3%) | Crash: 17867
+Progress: 960000/1000000 | Rate: 28.3 eps/sec | Succ: 895192 (93.2%) | Crash: 18033
+Progress: 970000/1000000 | Rate: 28.3 eps/sec | Succ: 904561 (93.3%) | Crash: 18219
+Progress: 980000/1000000 | Rate: 28.3 eps/sec | Succ: 913909 (93.3%) | Crash: 18417
+Progress: 990000/1000000 | Rate: 28.2 eps/sec | Succ: 923211 (93.3%) | Crash: 18630
+Progress: 1000000/1000000 | Rate: 28.2 eps/sec | Succ: 932530 (93.3%) | Crash: 18832
+
+========================================
+       FINAL BATCH RESULTS
+========================================
+Total Episodes: 1000000
+✅ Success Rate: 93.25%
+💥 Obstacle Crashes: 1.88%
+🧱 Wall Crashes:     0.00%
+⏳ Timeouts:         4.86%
+========================================
+
+📊 Results saved to performance_results.csv

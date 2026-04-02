@@ -1,0 +1,16 @@
+{
+    "name": "Basic 11 - The U-Trap (Local Minima)",
+    "description": "A U-shaped wall blocking direct line-of-sight. Drones must temporarily fly away from the goal to escape.",
+    "episodes": 1,
+    "scenarios": [
+        {
+            "start_positions": [[5.0, 10.0], [4.5, 10.5], [4.5, 9.5], [4.0, 11.0], [4.0, 9.0], [3.5, 10.0], [3.5, 11.5], [3.5, 8.5], [3.0, 10.5], [3.0, 9.5]],
+            "goal": [17.0, 10.0],
+            "obstacles": [
+                [10.0, 10.0, 0.5], [10.0, 11.0, 0.5], [10.0, 9.0, 0.5], 
+                [9.5, 12.0, 0.5], [9.5, 8.0, 0.5],
+                [8.5, 12.5, 0.5], [8.5, 7.5, 0.5]
+            ]
+        }
+    ]
+}
