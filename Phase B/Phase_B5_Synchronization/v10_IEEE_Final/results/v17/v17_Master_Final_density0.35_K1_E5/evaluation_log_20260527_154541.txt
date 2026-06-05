@@ -1,0 +1,60 @@
+================================================================================
+  IEEE-GRADE K-FOLD VALIDATION SUITE | v17 Master (752D Hybrid VFH)
+================================================================================
+  Timestamp         : 20260527_154541
+  Model Path        : d:\Swarm\BTP\models\v17_Master_Final.zip
+  Model SHA-256     : 9d1bd071cc7d6aab6c9a74daee5ac7452f0046b8543369b36486b3cf25447e86
+  Observation Dim   : 752 (Actor: 222D Local + Critic: 530D Global)
+  Sensing Radii     : Environment defaults (100m unlimited for v17)
+  Obstacle Density  : 0.35
+  K-Folds           : 1
+  Episodes per Fold : 5  (Total: 10 flights)
+  CPU Cores         : 2
+  Python            : 3.10.20
+  PyTorch           : 2.11.0+cpu
+  Stable-Baselines3 : 2.8.0
+  NumPy             : 2.2.5
+  Platform          : Windows-10-10.0.26200-SP0
+================================================================================
+
+=======================================================
+  --- FOLD 1/1 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 5 episodes...
+  Time: 13.7s | Avg Steps/Ep: 800.0 | Throughput: 0.05 (Successes / 100 Steps)
+  [SUCCESS]    42.00%  (21 / 50 drones)
+  [COLLISION]  44.00%  (22)
+  [TIMEOUT]    14.00%  (7)
+
+  [CLUSTERED Spawn] Evaluating 5 episodes...
+  Time: 13.3s | Avg Steps/Ep: 660.4 | Throughput: 0.03 (Successes / 100 Steps)
+  [SUCCESS]    22.00%  (11 / 50 drones)
+  [COLLISION]  68.00%  (34)
+  [TIMEOUT]    10.00%  (5)
+
+[OK] Per-episode details saved: results\v17\v17_Master_Final_density0.35_K1_E5\per_episode_details_20260527_154541.csv
+[OK] Fold summary saved: results\v17\v17_Master_Final_density0.35_K1_E5\fold_summary_20260527_154541.csv
+
+=====================================================================================
+  PHASE B MASTER (v17 752D VFH): K-FOLD FINAL SUMMARY
+  K=1, 5 Eps/Fold | Density=0.35 | R_s=8.0m R_c=10.0m
+=====================================================================================
+  Metric                 |         Random Spawn         |        Cluster Spawn        
+  -----------------------------------------------------------------------------------
+  Success                |  42.00 +/- 0.00            |  22.00 +/- 0.00  
+  Collision              |  44.00 +/- 0.00            |  68.00 +/- 0.00  
+  Timeout                |  14.00 +/- 0.00            |  10.00 +/- 0.00  
+  Throughput             |   0.05 +/- 0.00            |   0.03 +/- 0.00  
+  -----------------------------------------------------------------------------------
+  95% CI (Success)         | [42.00%, 42.00%]              | [22.00%, 22.00%]
+  Wilcoxon Signed-Rank     | N/A (need paired folds)
+  Statistical Significance | N/A
+=====================================================================================
+[OK] Statistical summary saved: results\v17\v17_Master_Final_density0.35_K1_E5\statistical_summary_20260527_154541.csv
+[OK] Bar chart saved: results\v17\v17_Master_Final_density0.35_K1_E5\v17_master_evaluation_chart_20260527_154541.png
+[OK] Box plot saved: results\v17\v17_Master_Final_density0.35_K1_E5\v17_master_boxplot_20260527_154541.png
+[OK] Throughput chart saved: results\v17\v17_Master_Final_density0.35_K1_E5\v17_master_throughput_20260527_154541.png
+
+[DIAG] Scanning 10 episode logs for multi-drone failures...
+[DIAG] Generated 3 failure diagnostic plots.

@@ -1,5 +1,9 @@
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
 import torch
+torch.set_num_threads(1)
 import torch.nn as nn
 import numpy as np
 from stable_baselines3 import PPO
@@ -87,6 +91,8 @@ class MAPPO_Policy_v15(ActorCriticPolicy):
         self.mlp_extractor = MAPPO_Extractor_v15(self.features_dim, self.net_arch, self.activation_fn)
 
 def worker(remote, parent_remote):
+    import torch
+    torch.set_num_threads(1)
     parent_remote.close()
     env = SwarmLidarEnv_v15_Final()
     n_drones = 10; ghost_obs = {}; total_obs_dim = 202 + 530
@@ -216,8 +222,8 @@ def run_v15_master_training():
     curriculum = CurriculumCallback()
     
     print("\n🥇 [V15-Master] Initializing Terminal Certification Run (50M steps)...")
-    # [Terminal UI FIX] Added progress_bar=True for real-time tracking
-    model.learn(total_timesteps=50_000_000, callback=[checkpoint, curriculum], progress_bar=True)
+    # [Terminal UI FIX] Changed progress_bar to False to avoid ImportError when tqdm/rich are missing
+    model.learn(total_timesteps=50_000_000, callback=[checkpoint, curriculum], progress_bar=False)
     model.save("./models/v15_Master_Final_50M"); env.save("./models/v15_Master_Normalize.pkl"); env.close()
 
 if __name__ == "__main__":

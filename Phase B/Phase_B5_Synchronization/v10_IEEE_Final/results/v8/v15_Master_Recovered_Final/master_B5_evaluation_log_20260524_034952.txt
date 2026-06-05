@@ -1,0 +1,8 @@
+
+==================================================
+🤖 K-FOLD VALIDATION LAUNCHED (K=10, 10 Cores Parallelized)
+   Episodes per fold: 200 (Total: 2000 drone flights total)
+   Dynamic Hardware Acceleration: Parallelized episodes within folds
+==================================================
+
+Error: Model not found at ../../models/v15_Master_Recovered_Final.zip

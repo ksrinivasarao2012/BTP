@@ -1,0 +1,11 @@
+Mode,Fold,Success_Rate,Collision_Rate,Timeout_Rate
+random,1,89.2,4.2,6.6000000000000005
+random,2,88.3,4.2,7.5
+random,3,84.1,7.1,8.799999999999999
+random,4,88.0,4.3999999999999995,7.6
+random,5,87.9,4.0,8.1
+clustered,1,89.2,6.3,4.5
+clustered,2,93.0,4.5,2.5
+clustered,3,89.3,6.9,3.8
+clustered,4,90.3,6.800000000000001,2.9000000000000004
+clustered,5,91.60000000000001,6.0,2.4

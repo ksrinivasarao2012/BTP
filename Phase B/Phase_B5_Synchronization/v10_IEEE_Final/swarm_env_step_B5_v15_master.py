@@ -3,10 +3,11 @@ from pettingzoo import ParallelEnv
 from gymnasium import spaces
 from collections import deque
 import math
+import heapq
 
-# [V15 Master Vectorized Optimization - Hardened]
-# This version combines high-performance NumPy broadcasting with IEEE-grade Trust metrics.
-# Features: Vectorized LiDAR, Sigmoid LUT, Pairwise Distance Matrices.
+# [V15 Master Vectorized Optimization - Hardened & Dijkstra Synchronized]
+# Combines vectorized LiDAR, Sigmoid LUT, and Pairwise distance matrices
+# with B10's 8-Way Dijkstra Grid Solver and Dynamic Wall-Glide scaling.
 
 R_SENSOR_NORM = 8.0 # Standardized for observation scaling
 R_COMM_NORM   = 10.0
@@ -36,7 +37,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
         self.render_mode  = render_mode
         self.target_density = target_density
         self.n_drones     = 10
-        self.max_steps    = 800
+        self.max_steps    = 1200 # Upgraded to match B10 to cure timeout limits
         self.WIDTH        = 20.0
         self.HEIGHT       = 20.0
         self.drone_radius = 0.15
@@ -84,12 +85,112 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
         self.dist_matrix    = np.zeros((self.n_drones, self.n_drones), dtype=np.float32)
         self.vel_diff_cache = np.zeros((self.n_drones, self.n_drones, 2), dtype=np.float32)
 
+        # Ray cast static pre-computations
+        self.num_sectors, self.rays_per_sector = 16, 12
+        self.num_rays = self.num_sectors * self.rays_per_sector
+        sector_width = (2 * np.pi) / self.num_sectors
+        self.center_angles = np.arange(self.num_sectors) * sector_width
+        offsets = np.linspace(-sector_width/2, sector_width/2, self.rays_per_sector, endpoint=False)
+        angles = (self.center_angles[:, np.newaxis] + offsets).flatten()
+        self.ray_dirs = np.stack([np.cos(angles), np.sin(angles)], axis=1).astype(np.float32)
+        
+        self.others_radii = {k: np.full(k, 2 * self.drone_radius, dtype=np.float32) for k in range(1, 11)}
+
     def set_curriculum(self, r_sensor: float, r_comm: float):
         self.current_r_sensor = float(r_sensor)
         self.current_r_comm = float(r_comm)
 
     def set_target_density(self, density: float):
         self.target_density = density
+
+    def _compute_shortest_path_distance_map(self):
+        """Dijkstra Shortest-Path Grid Solver for exact 8-way diagonal physics"""
+        grid_resolution = 0.2
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        grid = np.ones((grid_size, grid_size), dtype=bool)
+        clearance_radius = self.drone_radius + 0.05
+        
+        # Mark obstacle regions as blocked
+        for ox, oy, orad in self.obstacles:
+            x_range = np.arange(max(0, int((ox - orad - clearance_radius) / grid_resolution)),
+                               min(grid_size, int((ox + orad + clearance_radius) / grid_resolution) + 1))
+            y_range = np.arange(max(0, int((oy - orad - clearance_radius) / grid_resolution)),
+                               min(grid_size, int((oy + orad + clearance_radius) / grid_resolution) + 1))
+            for gx in x_range:
+                for gy in y_range:
+                    cell_x = gx * grid_resolution + grid_resolution / 2
+                    cell_y = gy * grid_resolution + grid_resolution / 2
+                    if np.sqrt((cell_x - ox)**2 + (cell_y - oy)**2) < (orad + clearance_radius):
+                        grid[gx, gy] = False
+                        
+        goal_cell = (np.clip(int(self.goal[0] / grid_resolution), 0, grid_size - 1),
+                     np.clip(int(self.goal[1] / grid_resolution), 0, grid_size - 1))
+                     
+        self.shortest_path_map = np.full((grid_size, grid_size), 999.0, dtype=np.float32)
+        if not grid[goal_cell[0], goal_cell[1]]:
+            return
+            
+        self.shortest_path_map[goal_cell[0], goal_cell[1]] = 0.0
+        pq = [(0.0, goal_cell[0], goal_cell[1])]
+        
+        while pq:
+            curr_dist, cx, cy = heapq.heappop(pq)
+            if curr_dist > self.shortest_path_map[cx, cy]:
+                continue
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0: continue
+                    nx, ny = cx + dx, cy + dy
+                    if 0 <= nx < grid_size and 0 <= ny < grid_size:
+                        if grid[nx, ny]:
+                            step_dist = np.sqrt(dx**2 + dy**2) * grid_resolution
+                            new_dist = curr_dist + step_dist
+                            if new_dist < self.shortest_path_map[nx, ny]:
+                                self.shortest_path_map[nx, ny] = new_dist
+                                heapq.heappush(pq, (new_dist, nx, ny))
+
+    def get_shortest_path_distance(self, pos):
+        """O(1) topological shortest-path distance query"""
+        grid_resolution = 0.2
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        gx = np.clip(int(pos[0] / grid_resolution), 0, grid_size - 1)
+        gy = np.clip(int(pos[1] / grid_resolution), 0, grid_size - 1)
+        dist = self.shortest_path_map[gx, gy]
+        if dist >= 999.0:
+            return np.linalg.norm(self.goal - pos)
+        return dist
+
+    def get_shortest_path_direction(self, pos):
+        """Returns the unit vector pointing in the direction of shortest path descent"""
+        grid_resolution = 0.2
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        gx = np.clip(int(pos[0] / grid_resolution), 0, grid_size - 1)
+        gy = np.clip(int(pos[1] / grid_resolution), 0, grid_size - 1)
+        
+        min_dist = self.shortest_path_map[gx, gy]
+        best_dir = self.goal - pos
+        best_dist = np.linalg.norm(best_dir)
+        best_dir = best_dir / (best_dist + 1e-5)
+        
+        if min_dist < 999.0:
+            best_nx, best_ny = gx, gy
+            lowest_val = min_dist
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0: continue
+                    nx, ny = gx + dx, gy + dy
+                    if 0 <= nx < grid_size and 0 <= ny < grid_size:
+                        val = self.shortest_path_map[nx, ny]
+                        if val < lowest_val:
+                            lowest_val = val
+                            best_nx, best_ny = nx, ny
+            if best_nx != gx or best_ny != gy:
+                dir_vec = np.array([best_nx - gx, best_ny - gy], dtype=np.float32)
+                norm = np.linalg.norm(dir_vec)
+                if norm > 1e-5:
+                    return dir_vec / norm
+                    
+        return best_dir
 
     def _compute_distance_matrix(self):
         """Vectorized pairwise distances using NumPy broadcasting."""
@@ -129,7 +230,6 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
         self.global_state = np.zeros(530, dtype=np.float32)
         for j in range(self.n_drones):
             if f"drone_{j}" in self.agents:
-                # 52 dimensions per agent in critic input
                 g_lid = self.lidar_cache.get(f"drone_{j}", self._ray_cast(j)) / R_SENSOR_NORM
                 self.global_state[j * 52 : (j+1) * 52] = np.concatenate([
                     self.positions[j] / self.WIDTH,
@@ -138,23 +238,13 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
                 ])
 
     def _ray_cast(self, idx):
-        num_sectors, rays_per_sector = 16, 12
-        num_rays = num_sectors * rays_per_sector
         max_range = R_SENSOR_NORM
         pos = self.positions[idx]
-        
-        sector_width = (2 * np.pi) / num_sectors
-        center_angles = np.arange(num_sectors) * sector_width
-        offsets = np.linspace(-sector_width/2, sector_width/2, rays_per_sector, endpoint=False)
-        angles = (center_angles[:, np.newaxis] + offsets).flatten()
-        
-        ray_dirs = np.stack([np.cos(angles), np.sin(angles)], axis=1)
-        min_dists = np.full(num_rays, max_range, dtype=np.float32)
+        min_dists = np.full(self.num_rays, max_range, dtype=np.float32)
 
-        # Vectorized circle intersector
         def intersect_circles(centers, radii):
             rel_pos = centers - pos
-            proj = rel_pos @ ray_dirs.T
+            proj = rel_pos @ self.ray_dirs.T
             rel_pos_sq = np.sum(rel_pos**2, axis=1, keepdims=True)
             dist_to_ray_sq = rel_pos_sq - proj**2
             hit_mask = (proj > 0) & (dist_to_ray_sq < radii[:, np.newaxis]**2)
@@ -163,38 +253,65 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
                 dists = proj - np.sqrt(np.maximum(sqrt_arg, 0))
                 dists[~hit_mask] = max_range
                 return np.min(dists, axis=0)
-            return np.full(num_rays, max_range, dtype=np.float32)
+            return np.full(self.num_rays, max_range, dtype=np.float32)
 
-        # Boundaries
         for b, ax, side in [(self.WIDTH, 0, 1), (0, 0, -1), (self.HEIGHT, 1, 1), (0, 1, -1)]:
-            mask = ray_dirs[:, ax] * side > 1e-6
+            mask = self.ray_dirs[:, ax] * side > 1e-6
             if np.any(mask):
-                d = (b - pos[ax]) / ray_dirs[mask, ax]
+                d = (b - pos[ax]) / self.ray_dirs[mask, ax]
                 min_dists[mask] = np.minimum(min_dists[mask], np.where(d > 0, d, max_range).astype(np.float32))
 
-        if self.obstacles:
-            obs_array = np.array(self.obstacles)
-            min_dists = np.minimum(min_dists, intersect_circles(obs_array[:, :2], obs_array[:, 2] + self.drone_radius))
+        if len(self.obstacles) > 0:
+            min_dists = np.minimum(min_dists, intersect_circles(self.obstacles_array[:, :2], self.obstacles_array[:, 2] + self.drone_radius))
         
         others = [j for j in range(self.n_drones) if j != idx and f"drone_{j}" in self.agents]
         if others:
-            min_dists = np.minimum(min_dists, intersect_circles(self.positions[others], np.full(len(others), 2*self.drone_radius)))
+            radii = self.others_radii.get(len(others), None)
+            if radii is None:
+                radii = np.full(len(others), 2 * self.drone_radius, dtype=np.float32)
+            min_dists = np.minimum(min_dists, intersect_circles(self.positions[others], radii))
 
-        sector_res = min_dists.reshape(num_sectors, rays_per_sector)
-        readings = np.zeros(num_sectors * 3, dtype=np.float32)
-        readings[:num_sectors] = np.min(sector_res, axis=1)
-        readings[num_sectors:2*num_sectors] = np.mean(sector_res, axis=1)
-        readings[2*num_sectors:] = np.std(sector_res, axis=1)
+        sector_res = min_dists.reshape(self.num_sectors, self.rays_per_sector)
+        readings = np.zeros(self.num_sectors * 3, dtype=np.float32)
+        readings[:self.num_sectors] = np.min(sector_res, axis=1)
+        readings[self.num_sectors:2*self.num_sectors] = np.mean(sector_res, axis=1)
+        readings[2*self.num_sectors:] = np.std(sector_res, axis=1)
         return readings
 
     def _observe(self, agent):
         idx = self.agent_name_mapping[agent]
         pos, vel = self.positions[idx], self.velocities[idx]
-        dg = np.linalg.norm(self.goal - pos)
-        ug = (self.goal - pos) / (dg + 1e-5)
+        
+        # [V15 DIJKSTRA SYNCHRONIZATION]
+        # Query Dijkstra distance map & descent direction instead of raw Euclidean vectors
+        dist_goal = self.get_shortest_path_distance(pos)
+        to_goal = self.get_shortest_path_direction(pos)
         lidar_48 = self.lidar_cache.get(agent, self._ray_cast(idx))
 
-        obs_self = np.concatenate([vel / V_MAX_NORM, ug, [dg / 28.28], [np.arctan2(vel[1], vel[0]) / np.pi]])
+        # [V15 DYNAMIC WALL-GLIDE SCALING]
+        # Active only if stagnant >= 40. Escalates to 0.75 if severe stagnation >= 60.
+        stagnant_count = self.steps_stagnant.get(agent, 0)
+        if stagnant_count >= 40:
+            min_sector = np.argmin(lidar_48[:16])
+            sector_width = (2 * np.pi) / 16
+            angle = min_sector * sector_width
+            
+            t_cw = np.array([-np.sin(angle), np.cos(angle)], dtype=np.float32)
+            t_ccw = np.array([np.sin(angle), -np.cos(angle)], dtype=np.float32)
+            
+            if np.dot(t_cw, to_goal) >= np.dot(t_ccw, to_goal):
+                t_glide = t_cw
+            else:
+                t_glide = t_ccw
+                
+            alpha = 0.75 if stagnant_count >= 60 else 0.55
+            
+            to_goal = (1.0 - alpha) * to_goal + alpha * t_glide
+            to_goal_norm = np.linalg.norm(to_goal)
+            if to_goal_norm > 1e-5:
+                to_goal = to_goal / to_goal_norm
+
+        obs_self = np.concatenate([vel / V_MAX_NORM, to_goal, [dist_goal / 28.28], [np.arctan2(vel[1], vel[0]) / np.pi]])
         obs_lidar = lidar_48 / R_SENSOR_NORM
 
         neighbor_slots, pos_discs = [], []
@@ -220,6 +337,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
 
                 p_disc, v_disc = 0.0, 0.0
                 if is_vis and is_comm:
+                    # Simulated local relative discrepancy (UWB/AoA emulation)
                     p_disc = np.linalg.norm(s_pos - c_pos) / R_SENSOR_NORM
                     v_disc = np.linalg.norm(s_vel - c_vel) / (2*V_MAX_NORM)
                     pos_discs.append(p_disc)
@@ -236,7 +354,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
 
         congestion = sum(1 for j in range(self.n_drones) if j != idx and f"drone_{j}" in self.agents and self.dist_matrix[idx, j] < 1.0) / self.n_drones
         self.position_history[agent].append(pos.copy())
-        hist = list(self.position_history[agent])
+        hist = list(self.position_history[agent])[-5:]
         while len(hist) < 5: hist.insert(0, pos.copy())
         rel_hist = np.concatenate([(h - pos) / self.WIDTH for h in hist])
 
@@ -248,14 +366,51 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
         return np.concatenate([obs_a, self.global_state]).astype(np.float32)
 
     def _generate_obstacles(self, sc):
-        target = (self.WIDTH * self.HEIGHT) * self.target_density; obs, cur = [], 0.0
-        for _ in range(200):
+        target = (self.WIDTH * self.HEIGHT) * self.target_density
+        obs = []
+        
+        raster_res = 0.05
+        rw = int(self.WIDTH / raster_res)
+        rh = int(self.HEIGHT / raster_res)
+        occupied = np.zeros((rw, rh), dtype=bool)
+        
+        cur = 0.0
+
+        for _ in range(2000):
             if cur >= target: break
-            ch = np.random.random(); r = np.random.uniform(1.5, 2.5) if ch<0.2 else (np.random.uniform(0.6, 1.4) if ch<0.6 else np.random.uniform(0.2, 0.5))
-            cx, cy = np.random.uniform(r, self.WIDTH-r), np.random.uniform(r, self.HEIGHT-r)
-            if np.linalg.norm([cx,cy]-self.goal) <= r+2.0 or np.linalg.norm([cx,cy]-sc) <= r+1.65: continue
-            if not any(np.linalg.norm([cx,cy]-np.array([ox,oy])) <= r+orad+0.5 for ox,oy,orad in obs):
-                obs.append((cx, cy, r)); cur += np.pi * (r**2)
+            
+            ch = np.random.random()
+            if ch < 0.2:
+                r = np.random.uniform(1.5, 2.5)
+            elif ch < 0.6:
+                r = np.random.uniform(0.6, 1.4)
+            else:
+                r = np.random.uniform(0.2, 0.5)
+                
+            cx, cy = np.random.uniform(r/2.0, self.WIDTH-r/2.0), np.random.uniform(r/2.0, self.HEIGHT-r/2.0)
+            
+            if np.linalg.norm([cx,cy]-self.goal) <= r+2.0 or np.linalg.norm([cx,cy]-sc) <= r+2.85: continue
+            
+            xmin = max(0, int((cx - r) / raster_res))
+            xmax = min(rw, int((cx + r) / raster_res) + 1)
+            ymin = max(0, int((cy - r) / raster_res))
+            ymax = min(rh, int((cy + r) / raster_res) + 1)
+
+            lx = np.arange(xmin, xmax) * raster_res + raster_res / 2
+            ly = np.arange(ymin, ymax) * raster_res + raster_res / 2
+            LX, LY = np.meshgrid(lx, ly, indexing='ij')
+
+            new_cells = (LX - cx)**2 + (LY - cy)**2 <= r**2
+            
+            newly_covered = np.sum(new_cells & ~occupied[xmin:xmax, ymin:ymax])
+            if newly_covered == 0:
+                continue
+                
+            cur += newly_covered * raster_res**2
+
+            occupied[xmin:xmax, ymin:ymax] |= new_cells
+            obs.append((cx, cy, r))
+            
         return obs
 
     def _is_map_solvable(self, start_pos, grid_res=0.2):
@@ -273,18 +428,20 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
         while q:
             x, y = q.popleft()
             if (x,y) == gc: return True
-            for dx, dy in [(-1,0),(1,0),(0,-1),(0,1)]:
+            for dx, dy in [(-1,0), (1,0), (0,-1), (0,1), (-1,-1), (-1,1), (1,-1), (1,1)]:
                 nx, ny = x+dx, y+dy
                 if 0<=nx<gs and 0<=ny<gs and grid[nx,ny] and (nx,ny) not in vis:
                     vis.add((nx,ny)); q.append((nx,ny))
         return False
 
     def reset(self, seed=None, options=None):
+        if seed is not None:
+            np.random.seed(seed)
         self.agents, self.steps = self.possible_agents[:], 0
         self.infos = {a: {} for a in self.agents}
         self.steps_stagnant = {a: 0 for a in self.possible_agents}
         self.best_dist_to_goal = {a: 99.0 for a in self.possible_agents}
-        self.position_history = {a: deque(maxlen=5) for a in self.possible_agents}
+        self.position_history = {a: deque(maxlen=15) for a in self.possible_agents}
         self.last_actions = {a: np.zeros(2, dtype=np.float32) for a in self.possible_agents}
         
         self.goal = np.array(options["goal"]) if (options and "goal" in options) else np.array([np.random.uniform(2.0, 18.0), np.random.uniform(2.0, 18.0)])
@@ -292,7 +449,6 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             sc = np.random.uniform(2.0, 18.0, size=2)
             if np.linalg.norm(sc - self.goal) > 7.0: break
         else:
-            # [FIX 1] Spawns exactly opposite the goal to prevent instant-wins
             sc = np.clip(np.array([self.WIDTH, self.HEIGHT]) - self.goal, 2.0, 18.0)
         self.start_center = sc
 
@@ -301,17 +457,45 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             if self._is_map_solvable(sc): break
         else: self.obstacles = []
         
-        self.positions, self.velocities = np.zeros((self.n_drones, 2)), np.zeros((self.n_drones, 2))
-        is_cl = np.random.random() < 0.5
+        self.obstacles_array = np.array(self.obstacles, dtype=np.float32) if self.obstacles else np.empty((0, 3), dtype=np.float32)
+        
+        # Precompute Dijkstra Topological Shortest Path Map
+        self._compute_shortest_path_distance_map()
+
+        self.positions = np.zeros((self.n_drones, 2), dtype=np.float32)
+        self.velocities = np.zeros((self.n_drones, 2), dtype=np.float32)
+        
+        if options and "spawn_mode" in options:
+            is_cl = (options["spawn_mode"] == "clustered")
+        else:
+            is_cl = np.random.random() < 0.5
+
         for i in range(self.n_drones):
             pl = False
-            for _ in range(200):
-                p = np.random.uniform(sc-1.5, sc+1.5, 2) if is_cl else np.random.uniform(1.0, 19.0, 2)
-                if all(np.linalg.norm(p-self.positions[j]) >= 0.35 for j in range(i)) and all(np.linalg.norm(p-[ox,oy]) >= 0.2+orad for ox,oy,orad in self.obstacles):
-                    self.positions[i], pl = p, True; break
-            if not pl: self.positions[i] = np.clip(sc+np.random.uniform(-0.3, 0.3, 2), 0.3, 19.7)
-        
-        for a in self.agents: self.best_dist_to_goal[a] = np.linalg.norm(self.goal - self.positions[self.agent_name_mapping[a]])
+            # For clustered mode, dynamically expand the search window to find safe spaces.
+            # For random mode, sample the entire 1.0 to 19.0 area.
+            search_radii = [1.5, 2.0, 2.5, 3.5] if is_cl else [9.0]
+            
+            for search_radius in search_radii:
+                for _ in range(150):
+                    p = np.random.uniform(sc - search_radius, sc + search_radius, 2) if is_cl else np.random.uniform(1.0, 19.0, 2)
+                    p = np.clip(p, 0.6, 19.4)
+                    # Enforce a safe 0.50m peer spacing (well above the 0.30m collision boundary)
+                    # and a safe 0.45m + orad obstacle spacing (30cm clear outer boundary).
+                    if all(np.linalg.norm(p - self.positions[j]) >= 0.50 for j in range(i)) and all(np.linalg.norm(p - np.array([ox,oy])) >= (0.45 + orad) for ox, oy, orad in self.obstacles):
+                        self.positions[i], pl = p, True; break
+                if pl: break
+                
+            if not pl:
+                # Spiral fallback guarantees safe 0.60m spacing even under extreme congestion
+                angle = i * (2.0 * np.pi / self.n_drones)
+                r_dist = 0.60 * (1.0 + i // 5)
+                self.positions[i] = np.clip(sc + np.array([r_dist * np.cos(angle), r_dist * np.sin(angle)], dtype=np.float32), 0.6, 19.4)
+
+        # Seed initial best distances using topological shortest path distance
+        for a in self.agents: 
+            idx = self.agent_name_mapping[a]
+            self.best_dist_to_goal[a] = self.get_shortest_path_distance(self.positions[idx])
 
         self._prepare_broadcasts()
         self.lidar_cache = {f"drone_{j}": self._ray_cast(j) for j in range(self.n_drones)}
@@ -329,8 +513,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             idx = self.agent_name_mapping[agent]; act = np.clip(act, -1.0, 1.0)
             self.velocities[idx] += act * self.dt * 10.0
             nc = sum(1 for j in range(self.n_drones) if j!=idx and f"drone_{j}" in self.agents and self.dist_matrix[idx,j] < 1.0)
-            # [MICRO-OPT] math.exp is faster than np.exp for scalars
-            mx = max(self.max_velocity * math.exp(-0.15 * nc), 0.75); sp = np.linalg.norm(self.velocities[idx])
+            mx = max(self.max_velocity * math.exp(-0.08 * nc), 1.1); sp = np.linalg.norm(self.velocities[idx])
             if sp > mx: self.velocities[idx] = (self.velocities[idx]/sp)*mx
             self.positions[idx] = np.clip(self.positions[idx] + self.velocities[idx]*self.dt, 0, 20.0)
         
@@ -342,14 +525,42 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
         rew, terms, truncs = {}, {}, {}
         for a in self.agents:
             idx, pos = self.agent_name_mapping[a], self.positions[idx]
-            dg, sp = np.linalg.norm(self.goal-pos), np.linalg.norm(self.velocities[idx])
-            ug = (self.goal-pos)/(dg+1e-6); r = 100.0*(np.linalg.norm(self.goal-old_p[idx])-dg)-0.25
-            al = np.dot(self.velocities[idx]/(sp+1e-6), ug)
-            if dg < self.best_dist_to_goal[a]-0.1: self.best_dist_to_goal[a], self.steps_stagnant[a] = dg, 0
-            elif sp > 0.5 and al < 0.2: self.steps_stagnant[a] = max(0, self.steps_stagnant[a]-1)
-            else: self.steps_stagnant[a] += 1
-            if self.steps_stagnant[a] > 50: r -= min((self.steps_stagnant[a]-50)*0.25, 25.0)
+            sp = np.linalg.norm(self.velocities[idx])
+            
+            # [V15 DIJKSTRA SYNCHRONIZATION]
+            # Replace straight-line Euclidean tracking with Dijkstra progress
+            path_dist = self.get_shortest_path_distance(pos)
+            old_path_dist = self.get_shortest_path_distance(old_p[idx])
+            goal_progress = old_path_dist - path_dist
+            reward_goal = 100.0 * goal_progress
+            
+            r = reward_goal - 0.25
+            
+            # Directional alignment bonus
+            sp_dir = self.get_shortest_path_direction(pos)
+            vel_alignment = np.dot(self.velocities[idx] / (sp + 1e-6), sp_dir) if sp > 0.3 else 0.0
+            if vel_alignment > 0.5:
+                r += 0.5 * vel_alignment
 
+            # Spatial stagnation check over a 15-step trailing window
+            if len(self.position_history[a]) >= 15:
+                disp = np.linalg.norm(pos - self.position_history[a][0])
+                is_stagnant = disp < 0.2
+            else:
+                is_stagnant = False
+                
+            if path_dist < self.best_dist_to_goal[a]-0.1 and not is_stagnant: 
+                self.best_dist_to_goal[a] = path_dist
+                self.steps_stagnant[a] = 0
+            elif is_stagnant: 
+                self.steps_stagnant[a] += 1
+            else: 
+                self.steps_stagnant[a] = max(0, self.steps_stagnant[a]-1)
+                
+            if self.steps_stagnant[a] > 50: 
+                r -= min((self.steps_stagnant[a]-50)*0.25, 25.0)
+
+            # TTC & Flocking Avoidance Logic
             for j in range(self.n_drones):
                 if j == idx or f"drone_{j}" not in self.agents: continue
                 d = self.dist_matrix[idx, j]; rp, rv = self.positions[j]-pos, self.velocities[idx]-self.velocities[j]
@@ -365,14 +576,13 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
                     v_n = np.linalg.norm(self.velocities[j])
                     if sp>0.1 and v_n>0.1:
                         c_sim = np.dot(self.velocities[idx], self.velocities[j])/(sp*v_n)
-                        # [FIX 2] Reduced to 0.2 to prevent proximity conflict
-                        r += 0.2 * c_sim * max(0.0, al)
+                        r += 0.2 * c_sim * max(0.0, vel_alignment)
 
             if a in self.last_actions: r -= 0.05 * np.linalg.norm(act - self.last_actions[a])**2
             self.last_actions[a] = act.copy()
             ld = self.lidar_cache[a]; fm = (ld[31]+ld[16]+ld[17])/3.0; r += (fm/R_SENSOR_NORM)*0.2
             ml = np.min(ld[:16])
-            if ml < 0.15: r -= ((0.15-ml)/0.15)**2
+            if ml < 0.15: r -= ((0.15 - ml) / 0.15)**2
 
             hw = min(pos[0], 20-pos[0], pos[1], 20-pos[1]) <= 0.05
             ho = any(np.linalg.norm(pos-[ox,oy]) < 0.15+orad for ox,oy,orad in self.obstacles)
@@ -380,12 +590,16 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             
             if hw or ho or hd:
                 r, terms[a] = -500.0, True; self.infos[a]["cause"] = "collision"
-            elif dg < 0.75:
+                # print(f"[ENV DIAG] Step {self.steps}: Agent {a} collided at pos {pos.tolist()}. Reasons: wall={hw}, obs={ho}, drone={hd}", flush=True)
+            elif path_dist < 0.75:
                 r += 500.0 + (100.0/(1.0+sp))
                 terms[a], self.infos[a]["cause"] = True, "success"
             else: terms[a] = False
             rew[a], truncs[a] = float(r), self.steps >= self.max_steps
-        
+            if truncs[a] and not terms[a]:
+                self.infos[a]["cause"] = "timeout"
+                rew[a] -= 200.0 # Timeout terminal penalty matching B10 env
+                
         obs = {a: self._observe(a) for a in self.agents}
         for a in list(self.agents):
             if terms.get(a, False) or truncs.get(a, False):

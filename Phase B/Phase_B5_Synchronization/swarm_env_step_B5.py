@@ -13,7 +13,7 @@ import sys
 class SwarmLidarEnv_StepB5(ParallelEnv):
     metadata = {'render_modes': ['human'], "name": "swarm_lidar_stepB5_v0"}
 
-    def __init__(self, render_mode=None, target_density=0.20, drone_radius=0.15, safety_radius=0.19):
+    def __init__(self, render_mode=None, target_density=0.20, drone_radius=0.15, safety_radius=0.19, stagnation_limit=40, breadcrumb_lifetime=250, repulsion_scale=2.0, sensing_radius=5.0):
         super().__init__()
         self.render_mode = render_mode
         self.target_density = target_density
@@ -28,6 +28,13 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         self.safety_radius = safety_radius 
         self.WIDTH, self.HEIGHT = 20.0, 20.0 
         
+        # Stigmergy Parameters
+        self.stagnation_limit = stagnation_limit
+        self.breadcrumb_lifetime = breadcrumb_lifetime
+        self.repulsion_scale = repulsion_scale
+        self.sensing_radius = sensing_radius
+        self.breadcrumbs = [] # list of ((x, y), lifetime)
+        
         self.obstacles = [] 
         self.possible_agents = [f"drone_{i}" for i in range(self.n_drones)]
         self.agent_name_mapping = dict(zip(self.possible_agents, list(range(self.n_drones))))
@@ -38,8 +45,8 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         
         self.action_spaces = {agent: spaces.Box(low=-1.0, high=1.0, shape=(2,), dtype=np.float32) for agent in self.possible_agents}
 
-        # 130-Dim Local (120 + 10 trajectory) + 520-Dim Global = 650 Total
-        self.obs_size = 130 + 520
+        # 132-Dim Local (120 core + 10 trajectory + 2 breadcrumb) + 520-Dim Global = 652 Total
+        self.obs_size = 132 + 520
         self.observation_spaces = {agent: spaces.Box(low=-np.inf, high=np.inf, shape=(self.obs_size,), dtype=np.float32) for agent in self.possible_agents}
         
         # SB3 Gym Compatibility
@@ -95,6 +102,8 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         return False
 
     def reset(self, seed=None, options=None):
+        if seed is not None:
+            np.random.seed(seed)
         self.agents = self.possible_agents[:]
         self.terminations = {agent: False for agent in self.agents}
         self.truncations = {agent: False for agent in self.agents}
@@ -102,6 +111,7 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         self.steps = 0
         self.obstacles = []
         self.lidar_cache = {}
+        self.breadcrumbs = []
         
         self.last_actions = {agent: np.zeros(2, dtype=np.float32) for agent in self.possible_agents}
         self.best_dist_to_goal = {agent: 999.0 for agent in self.possible_agents}
@@ -112,8 +122,15 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         
         if options and "goal" in options:
             self.goal = np.array(options["goal"], dtype=np.float32)
+            spawn_center = np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
         else:
             self.goal = np.array([np.random.uniform(2.0, self.WIDTH - 2.0), np.random.uniform(2.0, self.HEIGHT - 2.0)], dtype=np.float32)
+            for _ in range(200):
+                spawn_center = np.array([np.random.uniform(3.0, self.WIDTH - 3.0), np.random.uniform(3.0, self.HEIGHT - 3.0)]) if np.random.random() < 0.8 else np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+                if np.linalg.norm(spawn_center - self.goal) >= 8.0:
+                    break
+            else:
+                spawn_center = np.clip(np.array([self.WIDTH, self.HEIGHT]) - self.goal, 3.0, self.WIDTH - 3.0)
 
         if options and "obstacles" in options:
             self.obstacles = options["obstacles"] 
@@ -125,8 +142,7 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         # [FIX 1] Generate obstacles WITH solvability check
         if not (options and "obstacles" in options):
             target_area = (self.WIDTH * self.HEIGHT) * self.target_density
-            safe_goal_radius = 2.0 
-            spawn_center = np.array([np.random.uniform(3.0, self.WIDTH - 3.0), np.random.uniform(3.0, self.HEIGHT - 3.0)]) if np.random.random() < 0.8 else np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+            safe_goal_radius = 2.0
 
             for attempt in range(50):
                 self.obstacles = []
@@ -175,10 +191,22 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
                     self.positions[i] = np.array(placed[-1], dtype=np.float32)
             else:
                 for i in range(self.n_drones):
-                    for _ in range(100):
+                    placed = False
+                    for _ in range(500):
                         x, y = np.random.uniform(1.0, self.WIDTH - 1.0), np.random.uniform(1.0, self.HEIGHT - 1.0)
-                        if all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles):
-                            self.positions[i] = np.array([x, y], dtype=np.float32); break
+                        if np.linalg.norm(np.array([x, y]) - self.goal) >= 8.0 and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles):
+                            if self._is_map_solvable(start_pos=np.array([x, y])):
+                                self.positions[i] = np.array([x, y], dtype=np.float32)
+                                placed = True
+                                break
+                    if not placed:
+                        # Fallback to clustered area if completely random placements keep failing
+                        for _ in range(100):
+                            x, y = np.random.uniform(cx - 2.0, cx + 2.0), np.random.uniform(cy - 2.0, cy + 2.0)
+                            x, y = np.clip(x, 1.0, self.WIDTH - 1.0), np.clip(y, 1.0, self.HEIGHT - 1.0)
+                            if np.linalg.norm(np.array([x, y]) - self.goal) >= 8.0 and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles):
+                                self.positions[i] = np.array([x, y], dtype=np.float32)
+                                break
             
         for i in range(self.n_drones):
             for ox, oy, orad in self.obstacles:
@@ -204,7 +232,7 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         num_sectors = 16
         rays_per_sector = 12
         num_rays = num_sectors * rays_per_sector
-        max_range = 8.0
+        max_range = 12.0
         pos = self.positions[agent_idx]
         sector_width = (2 * np.pi) / num_sectors
         center_angles = np.arange(num_sectors) * sector_width
@@ -255,7 +283,7 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         to_goal = (self.goal - pos) / (dist_goal + 1e-5)
         lidar = self.lidar_cache[agent] if hasattr(self, 'lidar_cache') and agent in self.lidar_cache else self._ray_cast(idx)
         
-        obs_core = np.concatenate([vel / self.max_velocity, to_goal, [dist_goal / (self.WIDTH * 1.414)], [np.arctan2(vel[1], vel[0]) / np.pi], lidar / 8.0])
+        obs_core = np.concatenate([vel / self.max_velocity, to_goal, [dist_goal / (self.WIDTH * 1.414)], [np.arctan2(vel[1], vel[0]) / np.pi], lidar / 12.0])
         
         obs_neighbors = []
         sync_features = []
@@ -293,10 +321,19 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
         while len(hist) < 5: hist.insert(0, pos.copy())
         rel_hist = np.concatenate([(h - pos) / self.WIDTH for h in hist])  # 10 floats
         
-        final_local = np.zeros(130, dtype=np.float32)
+        final_local = np.zeros(132, dtype=np.float32)
         copy_len = min(120, len(obs_local))
         final_local[:copy_len] = obs_local[:copy_len]
         final_local[120:130] = rel_hist  # Trajectory memory slots
+        
+        # [STIGMERGY SENSOR]
+        obs_breadcrumb = np.zeros(2, dtype=np.float32)
+        if self.breadcrumbs:
+            dists = [np.linalg.norm(pos - np.array(b[0])) for b in self.breadcrumbs]
+            if dists and min(dists) < self.sensing_radius:
+                obs_breadcrumb = (np.array(self.breadcrumbs[np.argmin(dists)][0]) - pos) / self.sensing_radius
+        final_local[130:132] = obs_breadcrumb
+        
         global_state = np.zeros(520, dtype=np.float32) 
         
         g_pos = np.zeros(self.n_drones * 2, dtype=np.float32)
@@ -326,6 +363,9 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
     def step(self, actions):
         if not self.agents: return {}, {}, {}, {}, {}
         old_positions = np.copy(self.positions)
+        
+        # Decay Breadcrumbs
+        self.breadcrumbs = [(p, t-1) for p, t in self.breadcrumbs if t > 1]
         
         for agent in self.agents:
             self.terminations[agent] = False
@@ -370,10 +410,18 @@ class SwarmLidarEnv_StepB5(ParallelEnv):
             else:
                 self.steps_stagnant[agent] += 1
                 
-            # Truncated frustration: Maximize desperation to scatter, but limit absolute value to prevent Critic despair
-            if self.steps_stagnant[agent] > 50:
-                frustration = min((self.steps_stagnant[agent] - 50) * 0.25, 25.0)
+            # Stagnation & Breadcrumb drop
+            if self.steps_stagnant[agent] > self.stagnation_limit:
+                if not any(np.linalg.norm(pos - np.array(b[0])) < 0.5 for b in self.breadcrumbs):
+                    self.breadcrumbs.append((tuple(pos), self.breadcrumb_lifetime))
+                frustration = min((self.steps_stagnant[agent] - self.stagnation_limit) * 0.25, 25.0)
                 rewards[agent] -= frustration
+                
+            # Breadcrumb repulsion
+            if self.breadcrumbs:
+                min_b = min(np.linalg.norm(pos - np.array(b[0])) for b in self.breadcrumbs)
+                if min_b < 1.0:
+                    rewards[agent] -= (1.0 - min_b) * self.repulsion_scale
                 
             unit_to_goal = (self.goal - pos) / (dist_goal + 1e-6)
 

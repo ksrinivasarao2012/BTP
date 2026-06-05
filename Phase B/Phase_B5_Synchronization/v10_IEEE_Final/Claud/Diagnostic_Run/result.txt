@@ -1,0 +1,67 @@
+(swarm_rl) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud\Diagnostic_Run> python diagnostic_distance.py           
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+pygame 2.6.1 (SDL 2.28.4, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing environment...
+Environment Width : 20.0
+Environment Height: 20.0
+Goal: [17. 17.]
+Collecting distance metrics for 1000 maps...
+Processed 100/1000 maps...
+Processed 200/1000 maps...
+Processed 300/1000 maps...
+Processed 400/1000 maps...
+Processed 500/1000 maps...
+Processed 600/1000 maps...
+Processed 700/1000 maps...
+Processed 800/1000 maps...
+Processed 900/1000 maps...
+Processed 1000/1000 maps...
+Collection complete in 271.62 seconds.
+
+=================================================
+START-GOAL DISTANCE ANALYSIS
+=================================================
+Maps Analyzed: 1000
+Total Distances: 10000
+
+Mean: 13.60
+Std:  3.18
+Min:  8.00
+Max:  22.51
+
+P05:  8.66
+P10:  9.27
+P25:  11.08
+P50:  13.54
+P75:  15.78
+P90:  17.86
+P95:  19.25
+
+Mean(Map Means):    13.60
+Std(Map Means):     1.01
+
+Mean(Map Minimums): 9.13
+Mean(Map Maximums): 18.69
+=================================================
+
+=================================================
+INTERPRETATION SECTION
+=================================================
+1. Current hardcoded threshold: 8.0 m
+2. Proposed scaled threshold:   0.40 * 40 = 16.0 m
+
+3. Comparison:
+   - P10  : 9.27 m
+   - P50  : 13.54 m
+   - Mean : 13.60 m
+   - P90  : 17.86 m
+
+4. Recommendation:
+   -> WARNING: 16 m is greater than the median (P50) of the legacy distribution.
+   -> 16 m would significantly increase benchmark difficulty relative to the legacy distribution.
+=================================================
+
+Saved histogram to: D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud\Diagnostic_Run\distance_distribution.png
+(swarm_rl) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud\Diagnostic_Run> 

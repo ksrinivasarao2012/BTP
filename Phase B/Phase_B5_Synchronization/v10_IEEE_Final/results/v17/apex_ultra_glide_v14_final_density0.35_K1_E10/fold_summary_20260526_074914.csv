@@ -1,0 +1,3 @@
+Mode,Fold,Success_Rate,Collision_Rate,Timeout_Rate
+random,1,70.0,1.0,28.999999999999996
+clustered,1,66.0,4.0,30.0

@@ -20,16 +20,16 @@ from multiprocessing import Process, Pipe
 class MAPPO_Extractor_B5(nn.Module):
     def __init__(self, features_dim, net_arch, activation_fn):
         super().__init__()
-        # Actor pi: input[:130] -> 130 local dims (120 core + 10 trajectory history)
+        # Actor pi: input[:132] -> 132 local dims (120 core + 10 trajectory history + 2 breadcrumb)
         pi_layers = []
-        last_layer_dim_pi = 130
+        last_layer_dim_pi = 132
         for curr_layer_dim in net_arch['pi']:
             pi_layers.append(nn.Linear(last_layer_dim_pi, curr_layer_dim))
             pi_layers.append(activation_fn())
             last_layer_dim_pi = curr_layer_dim
         self.policy_net = nn.Sequential(*pi_layers)
 
-        # Critic vf: input[130:] -> 520 global dims
+        # Critic vf: input[132:] -> 520 global dims
         vf_layers = []
         last_layer_dim_vf = 520
         for curr_layer_dim in net_arch['vf']:
@@ -41,9 +41,9 @@ class MAPPO_Extractor_B5(nn.Module):
         self.latent_dim_pi = last_layer_dim_pi
         self.latent_dim_vf = last_layer_dim_vf
 
-    def forward(self, features): return self.policy_net(features[:, :130]), self.value_net(features[:, 130:])
-    def forward_actor(self, features): return self.policy_net(features[:, :130])
-    def forward_critic(self, features): return self.value_net(features[:, 130:])
+    def forward(self, features): return self.policy_net(features[:, :132]), self.value_net(features[:, 132:])
+    def forward_actor(self, features): return self.policy_net(features[:, :132])
+    def forward_critic(self, features): return self.value_net(features[:, 132:])
 
 class MAPPO_Policy_B5(ActorCriticPolicy):
     def __init__(self, observation_space, action_space, lr_schedule, *args, **kwargs):
@@ -51,9 +51,22 @@ class MAPPO_Policy_B5(ActorCriticPolicy):
     def _build_mlp_extractor(self) -> None:
         self.mlp_extractor = MAPPO_Extractor_B5(self.features_dim, self.net_arch, self.activation_fn)
 
-def worker(remote, parent_remote, density, drone_radius, safety_radius):
+def worker(remote, parent_remote, density, drone_radius, safety_radius, config=None):
     parent_remote.close()
-    env = SwarmLidarEnv_StepB5(render_mode=None, target_density=density)
+    
+    stagnation_limit = config.get("stagnation_limit", 40) if config else 40
+    breadcrumb_lifetime = config.get("breadcrumb_lifetime", 250) if config else 250
+    repulsion_scale = config.get("repulsion_scale", 2.0) if config else 2.0
+    sensing_radius = config.get("sensing_radius", 5.0) if config else 5.0
+
+    env = SwarmLidarEnv_StepB5(
+        render_mode=None, 
+        target_density=density,
+        stagnation_limit=stagnation_limit,
+        breadcrumb_lifetime=breadcrumb_lifetime,
+        repulsion_scale=repulsion_scale,
+        sensing_radius=sensing_radius
+    )
     n_drones = 10
     ghost_obs = {}
     try:
@@ -87,7 +100,7 @@ def worker(remote, parent_remote, density, drone_radius, safety_radius):
             elif cmd == 'reset':
                 obs_d, _ = env.reset(options={"spawn_mode": "clustered" if np.random.random() < 0.7 else "random"})
                 ghost_obs.clear()
-                remote.send(np.array([obs_d.get(f"drone_{i}", np.zeros(130+520)) for i in range(n_drones)], dtype=np.float32))
+                remote.send(np.array([obs_d.get(f"drone_{i}", np.zeros(132+520)) for i in range(n_drones)], dtype=np.float32))
             elif cmd == 'close': env.close(); break
             elif cmd == 'set_density': env.set_target_density(data)
             elif cmd == 'get_spaces': remote.send((env.observation_spaces["drone_0"], env.action_spaces["drone_0"]))
@@ -95,11 +108,11 @@ def worker(remote, parent_remote, density, drone_radius, safety_radius):
         remote.close()
 
 class MultiProcessPZEnv_B5(VecEnv):
-    def __init__(self, n_workers, density=0.20):
+    def __init__(self, n_workers, density=0.20, config=None):
         self.closed = False
         self.n_workers = n_workers
         self.remotes, self.work_remotes = zip(*[Pipe() for _ in range(n_workers)])
-        self.ps = [Process(target=worker, args=(work_remote, remote, density, 0.15, 0.19), daemon=True) for (work_remote, remote) in zip(self.work_remotes, self.remotes)]
+        self.ps = [Process(target=worker, args=(work_remote, remote, density, 0.15, 0.19, config), daemon=True) for (work_remote, remote) in zip(self.work_remotes, self.remotes)]
         for p in self.ps: p.start()
         for remote in self.work_remotes: remote.close()
         self.remotes[0].send(('get_spaces', None))
@@ -127,36 +140,70 @@ class MultiProcessPZEnv_B5(VecEnv):
     def env_is_wrapped(self, wrapper_class, indices=None): return [False] * self.num_envs
 
 def run_sync_training():
+    import json
+    
+    # Load optimal stigmergy config if it exists
+    config = None
+    config_path = "best_stigmergy_config.json"
+    if os.path.exists(config_path):
+        with open(config_path, "r") as f:
+            config = json.load(f)
+        print(f"Loaded optimal Stigmergy config: {config}")
+    else:
+        print("No optimal Stigmergy config found. Using default parameters.")
+
     num_cpu = 10 
-    print(f"PHASE B5 v6: Trajectory Memory — 130-dim Obs + Extended Training ({num_cpu} Cores)...")
-    base_env = MultiProcessPZEnv_B5(n_workers=num_cpu, density=0.25)
+    print(f"PHASE B5: Stigmergy Fine-Tuning — 132-dim Obs ({num_cpu} Cores)...")
+    base_env = MultiProcessPZEnv_B5(n_workers=num_cpu, density=0.35, config=config)
     env = VecNormalize(base_env, norm_obs=False, norm_reward=True, clip_reward=10.0)
     policy_kwargs = dict(net_arch=dict(pi=[256, 256, 128], vf=[256, 256, 128]), activation_fn=torch.nn.ReLU)
 
-    # Train from SCRATCH (architecture changed: 130 local dims)
-    print("Training from scratch with 130-dim trajectory memory observation.")
-    model = PPO(MAPPO_Policy_B5, env, learning_rate=3e-5, n_steps=2048, batch_size=256, ent_coef=0.03, gamma=0.99, policy_kwargs=policy_kwargs, verbose=1)
+    # Check for existing fine-tuned model first to resume or initialize
+    FINE_TUNE_MODEL = "./models/stigmergy_step_B5_sync_optimized.zip"
+    if os.path.exists(FINE_TUNE_MODEL):
+        print(f"Resuming from existing optimized model: {FINE_TUNE_MODEL}...")
+        model = PPO.load(FINE_TUNE_MODEL, env=env, learning_rate=1e-5)
+    else:
+        print("Initializing new PPO model with 132-dim local observations...")
+        model = PPO(MAPPO_Policy_B5, env, learning_rate=2e-5, n_steps=2048, batch_size=256, ent_coef=0.01, gamma=0.99, policy_kwargs=policy_kwargs, verbose=1)
+
+        # --- WEIGHT SURGERY ---
+        OLD_MODEL = "../../models/v15_Master_Recovered_Final.zip"
+        if not os.path.exists(OLD_MODEL):
+            OLD_MODEL = "./models/apex_ultra_glide_v14_final.zip"
+            
+        if os.path.exists(OLD_MODEL):
+            print(f"Weight Surgery: Adapting {OLD_MODEL} (130 -> 132 local dims)...")
+            with zipfile.ZipFile(OLD_MODEL, "r") as zip_f:
+                with zip_f.open("policy.pth") as pth_f:
+                    old_params = torch.load(io.BytesIO(pth_f.read()), map_location="cpu", weights_only=True)
+            new_state = model.policy.state_dict()
+            for k, v in old_params.items():
+                if k == "mlp_extractor.policy_net.0.weight":
+                    nv = torch.zeros((256, 132))
+                    nv[:, :130] = v
+                    new_state[k] = nv
+                elif k in new_state and new_state[k].shape == v.shape:
+                    new_state[k] = v
+            model.policy.load_state_dict(new_state)
+            print("Weight Surgery completed successfully!")
+        else:
+            print("Warning: No base pre-trained model found for surgery. Training from scratch.")
+
+    # Extended deep fine-tuning for 3M steps at density 0.35 under optimal config
+    steps = 3_000_000
+    print(f"\nStarting Stigmergy Fine-Tuning: {steps} steps at obstacle density 0.35...")
+    env.env_method("set_target_density", 0.35)
     
-    # 10M Step Progressive Curriculum
-    curriculum = [
-        (2_000_000, 0.15),   # Easy: learn basic navigation + memory usage
-        (2_000_000, 0.20),   # Medium: obstacle threading with history
-        (3_000_000, 0.30),   # Hard: dense clutter maze navigation
-        (3_000_000, 0.35),   # Ultra-dense: final stress hardening
-    ]
-    total_steps = 0
-    os.makedirs("./models/checkpoints_b5v6/", exist_ok=True)
-    checkpoint_callback = CheckpointCallback(save_freq=500_000, save_path='./models/checkpoints_b5v6/', name_prefix='b5v6_mem')
-    for steps, density in curriculum:
-        print(f"\nPHASE: Density={density} | Steps={steps/1e3:.0f}k")
-        env.env_method("set_target_density", density)
-        model.learn(total_timesteps=steps, reset_num_timesteps=False, callback=checkpoint_callback)
-        total_steps += steps
-        model.save(f"./models/apex_ultra_sync_v6_mid_{total_steps//1000}k")
-    model.save("./models/apex_ultra_sync_v6_final")
-    env.save("./models/vecnormalize_sync_v6_final.pkl")
+    os.makedirs("./models/checkpoints_stigmergy/", exist_ok=True)
+    checkpoint_callback = CheckpointCallback(save_freq=500_000, save_path='./models/checkpoints_stigmergy/', name_prefix='stigmergy_B5')
+    
+    model.learn(total_timesteps=steps, reset_num_timesteps=False, callback=checkpoint_callback)
+    
+    model.save("./models/stigmergy_step_B5_sync_optimized")
+    env.save("./models/vecnormalize_stigmergy_final.pkl")
     env.close()
-    print(f"\nPhase B5 v6 Training Complete ({total_steps/1e6:.1f}M steps). Model saved.")
+    print("\nStigmergy Fine-Tuning Complete. Optimized model saved successfully!")
 
 if __name__ == "__main__":
     run_sync_training()

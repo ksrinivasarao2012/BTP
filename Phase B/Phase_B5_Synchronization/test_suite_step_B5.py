@@ -3,12 +3,17 @@ import time
 import torch
 torch.set_num_threads(1)
 import json
+import matplotlib.pyplot as plt
+import shutil
 import glob
 import os
 import sys
 from stable_baselines3 import PPO
 from swarm_env_step_B5 import SwarmLidarEnv_StepB5 as SwarmLidarEnv
 from train_step_B5_sync import MAPPO_Policy_B5 as MAPPO_Policy, MAPPO_Extractor_B5 as MAPPO_Extractor
+
+# Fixed obstacle density for all evaluations (overrides default 0.20)
+FIXED_DENSITY = 0.35
 
 # ======================================================
 #  PHASE B5: Test Suite (Synchronization Evaluation)
@@ -125,7 +130,7 @@ def run_evaluation(env, model, num_episodes, description, options_list=None, bas
 
 def run_random_test(model_path, num_episodes, description="Random Spread B5", seed=None, log_trajectories=None, output_dir=None):
     """Run N episodes with randomly generated obstacles (using the density generator)."""
-    env = SwarmLidarEnv(render_mode=None)
+    env = SwarmLidarEnv(render_mode=None, target_density=FIXED_DENSITY)
     model = PPO.load(model_path, custom_objects={"policy_class": MAPPO_Policy})
     options = [{"spawn_mode": "random"}] * num_episodes
     do_log = log_trajectories if log_trajectories is not None else (num_episodes <= 10)
@@ -162,7 +167,7 @@ def generate_clustered_positions(cluster_center, cluster_size=3.0, min_dist=0.6,
 
 def run_clustered_test(model_path, num_episodes, description="Dense Cluster B5", seed=None, log_trajectories=None, output_dir=None):
     """Start all drones in a tight cluster using the environment's hardened spawner."""
-    env = SwarmLidarEnv(render_mode=None)
+    env = SwarmLidarEnv(render_mode=None, target_density=FIXED_DENSITY)
     model = PPO.load(model_path, custom_objects={"policy_class": MAPPO_Policy})
 
     if seed is not None:

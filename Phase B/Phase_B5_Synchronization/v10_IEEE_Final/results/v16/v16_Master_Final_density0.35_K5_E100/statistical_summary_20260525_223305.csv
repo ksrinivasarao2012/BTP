@@ -1,0 +1,2 @@
+Random_Success_Mean,Random_Success_Std,Random_Success_CI_Lo,Random_Success_CI_Hi,Cluster_Success_Mean,Cluster_Success_Std,Cluster_Success_CI_Lo,Cluster_Success_CI_Hi,Wilcoxon_Test,Significance,Model_SHA256,Density,R_sensor,R_comm,K_Folds,Episodes_Per_Fold,Timestamp
+3.6399999999999997,0.11401754250991364,3.4984285223017726,3.7815714776982268,0.0,0.0,0.0,0.0,"W=0.00, p=0.0625",NOT SIGNIFICANT (p >= 0.05),eb845d6428a86dbc57da6b38bf183c5c0beb033ee7cb24e2b969ec956b99e3d5,0.35,8.0,10.0,5,100,20260525_223305

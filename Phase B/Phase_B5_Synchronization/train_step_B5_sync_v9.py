@@ -1,4 +1,6 @@
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"] = "True"
+os.environ["OMP_NUM_THREADS"] = "1"
 import torch
 import torch.nn as nn
 import numpy as np
@@ -46,6 +48,9 @@ class MAPPO_Policy_B5(ActorCriticPolicy):
         self.mlp_extractor = MAPPO_Extractor_B5(self.features_dim, self.net_arch, self.activation_fn)
 
 def worker(remote, parent_remote, density, drone_radius, safety_radius):
+    import os
+    os.environ["KMP_DUPLICATE_LIB_OK"] = "True"
+    os.environ["OMP_NUM_THREADS"] = "1"
     parent_remote.close()
     env = SwarmLidarEnv_StepB5(render_mode=None, target_density=density)
     n_drones = 10
@@ -126,8 +131,8 @@ def run_v9_training():
     base_env = MultiProcessPZEnv_B5(n_workers=num_cpu, density=0.25)
     env = VecNormalize(base_env, norm_obs=False, norm_reward=True, clip_reward=10.0)
     
-    # Load v6 weights (Stable foundation)
-    model_path = "./models/apex_ultra_sync_v6_final.zip"
+    # Load v8 weights (Most advanced synchronization foundation)
+    model_path = "./models/apex_ultra_sync_v8_final.zip"
     print(f"Loading weights from {model_path}...")
     
     custom_objects = {"policy_class": MAPPO_Policy_B5}

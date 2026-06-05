@@ -1,0 +1,65 @@
+
+==================================================
+[LAUNCH] K-FOLD VALIDATION LAUNCHED (K=1, 1 Cores Parallelized)
+   Model: apex_ultra_glide_v14_final
+   Episodes per fold: 1 (Total: 1 drone flights total)
+   Dynamic Hardware Acceleration: Parallelized episodes within folds
+==================================================
+
+
+============================================================
+>> Running RANDOM Spread Folds...
+============================================================
+
+--- FOLD 1/1 ---
+[RANDOM Spawn] Evaluating 1 episodes across 1 cores...
+
+==========================================
+  RESULTS: Fold 1 - Random
+==========================================
+Total Episodes Run: 1
+Total Drones Evaluated: 10
+Time Taken: 21.27 seconds
+Average Steps/Episode: 800.0
+------------------------------------------
+[SUCCESS] Success Rate:    40.00% (4)
+[COLLISION] Collision Rate:   0.00% (0)
+[TIMEOUT] Timeout Rate:    60.00% (6)
+==========================================
+
+
+============================================================
+>> Running CLUSTERED Spread Folds...
+============================================================
+
+--- FOLD 1/1 ---
+[CLUSTERED Spawn] Evaluating 1 episodes across 1 cores...
+
+==========================================
+  RESULTS: Fold 1 - Clustered
+==========================================
+Total Episodes Run: 1
+Total Drones Evaluated: 10
+Time Taken: 27.64 seconds
+Average Steps/Episode: 800.0
+------------------------------------------
+[SUCCESS] Success Rate:     0.00% (0)
+[COLLISION] Collision Rate:   0.00% (0)
+[TIMEOUT] Timeout Rate:   100.00% (10)
+==========================================
+
+[OK] Results successfully saved to: results/v14\apex_ultra_glide_v14_final\master_B10_evaluation_results_20260520_015454.csv
+[WARNING] Could not generate plot automatically: [Errno 28] No space left on device
+
+[SCAN] Scanning 582 parallel trajectory logs for multi-drone failures...
+[SUCCESS] No multi-drone failure scenarios detected (Perfect navigation bounds)!
+
+=====================================================================================
+           PHASE B10 MASTER: K-FOLD COMPARISON (K=1, 1 Eps/Fold)
+=====================================================================================
+Metric                    | Random Spawn              | Cluster Spawn            
+-------------------------------------------------------------------------------------
+[SUCCESS] Success Rate    |  40.00% ±  nan            |   0.00% ±  nan
+[COLLISION] Collision Rate |   0.00% ±  nan            |   0.00% ±  nan
+[TIMEOUT] Timeout Rate    |  60.00% ±  nan            | 100.00% ±  nan
+=====================================================================================

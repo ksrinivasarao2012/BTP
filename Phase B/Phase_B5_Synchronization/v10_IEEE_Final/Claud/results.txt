@@ -1,0 +1,1074 @@
+  (swarm_rl) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud> python validate_topology_regime.py
+
+  --- Validating Regime: 30.0x30.0 | Density: 0.20 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 12 -> Valid: 10/500 (Rejects: 0 corridor, 2 reachability)
+    Attempt 22 -> Valid: 20/500 (Rejects: 0 corridor, 2 reachability)
+    Attempt 33 -> Valid: 30/500 (Rejects: 0 corridor, 3 reachability)
+    Attempt 46 -> Valid: 40/500 (Rejects: 0 corridor, 6 reachability)
+    Attempt 56 -> Valid: 50/500 (Rejects: 0 corridor, 6 reachability)
+    Attempt 68 -> Valid: 60/500 (Rejects: 0 corridor, 8 reachability)
+    Attempt 80 -> Valid: 70/500 (Rejects: 0 corridor, 10 reachability)
+    Attempt 91 -> Valid: 80/500 (Rejects: 0 corridor, 11 reachability)
+    Attempt 103 -> Valid: 90/500 (Rejects: 0 corridor, 13 reachability)
+    Attempt 118 -> Valid: 100/500 (Rejects: 0 corridor, 18 reachability)
+    Attempt 129 -> Valid: 110/500 (Rejects: 0 corridor, 19 reachability)
+    Attempt 140 -> Valid: 120/500 (Rejects: 0 corridor, 20 reachability)
+    Attempt 151 -> Valid: 130/500 (Rejects: 0 corridor, 21 reachability)
+    Attempt 162 -> Valid: 140/500 (Rejects: 0 corridor, 22 reachability)
+    Attempt 174 -> Valid: 150/500 (Rejects: 0 corridor, 24 reachability)
+    Attempt 187 -> Valid: 160/500 (Rejects: 0 corridor, 27 reachability)
+    Attempt 199 -> Valid: 170/500 (Rejects: 0 corridor, 29 reachability)
+    Attempt 209 -> Valid: 180/500 (Rejects: 0 corridor, 29 reachability)
+    Attempt 220 -> Valid: 190/500 (Rejects: 0 corridor, 30 reachability)
+    Attempt 232 -> Valid: 200/500 (Rejects: 0 corridor, 32 reachability)
+    Attempt 243 -> Valid: 210/500 (Rejects: 0 corridor, 33 reachability)
+    Attempt 253 -> Valid: 220/500 (Rejects: 0 corridor, 33 reachability)
+    Attempt 264 -> Valid: 230/500 (Rejects: 0 corridor, 34 reachability)
+    Attempt 279 -> Valid: 240/500 (Rejects: 0 corridor, 39 reachability)
+    Attempt 292 -> Valid: 250/500 (Rejects: 0 corridor, 42 reachability)
+    Attempt 304 -> Valid: 260/500 (Rejects: 0 corridor, 44 reachability)
+    Attempt 317 -> Valid: 270/500 (Rejects: 0 corridor, 47 reachability)
+    Attempt 331 -> Valid: 280/500 (Rejects: 0 corridor, 51 reachability)
+    Attempt 345 -> Valid: 290/500 (Rejects: 0 corridor, 55 reachability)
+    Attempt 356 -> Valid: 300/500 (Rejects: 0 corridor, 56 reachability)
+    Attempt 367 -> Valid: 310/500 (Rejects: 0 corridor, 57 reachability)
+    Attempt 377 -> Valid: 320/500 (Rejects: 0 corridor, 57 reachability)
+    Attempt 387 -> Valid: 330/500 (Rejects: 0 corridor, 57 reachability)
+    Attempt 399 -> Valid: 340/500 (Rejects: 0 corridor, 59 reachability)
+    Attempt 410 -> Valid: 350/500 (Rejects: 0 corridor, 60 reachability)
+    Attempt 422 -> Valid: 360/500 (Rejects: 0 corridor, 62 reachability)
+    Attempt 433 -> Valid: 370/500 (Rejects: 0 corridor, 63 reachability)
+    Attempt 446 -> Valid: 380/500 (Rejects: 0 corridor, 66 reachability)
+    Attempt 458 -> Valid: 390/500 (Rejects: 0 corridor, 68 reachability)
+    Attempt 470 -> Valid: 400/500 (Rejects: 0 corridor, 70 reachability)
+    Attempt 481 -> Valid: 410/500 (Rejects: 0 corridor, 71 reachability)
+    Attempt 491 -> Valid: 420/500 (Rejects: 0 corridor, 71 reachability)
+    Attempt 503 -> Valid: 430/500 (Rejects: 0 corridor, 73 reachability)
+    Attempt 513 -> Valid: 440/500 (Rejects: 0 corridor, 73 reachability)
+    Attempt 525 -> Valid: 450/500 (Rejects: 0 corridor, 75 reachability)
+    Attempt 538 -> Valid: 460/500 (Rejects: 0 corridor, 78 reachability)
+    Attempt 549 -> Valid: 470/500 (Rejects: 0 corridor, 79 reachability)
+    Attempt 561 -> Valid: 480/500 (Rejects: 0 corridor, 81 reachability)
+    Attempt 571 -> Valid: 490/500 (Rejects: 0 corridor, 81 reachability)
+    Attempt 584 -> Valid: 500/500 (Rejects: 0 corridor, 84 reachability)
+  Validation complete in 149.18s
+
+  --- Validating Regime: 30.0x30.0 | Density: 0.25 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 10 -> Valid: 10/500 (Rejects: 0 corridor, 0 reachability)
+    Attempt 21 -> Valid: 20/500 (Rejects: 0 corridor, 1 reachability)
+    Attempt 33 -> Valid: 30/500 (Rejects: 0 corridor, 3 reachability)
+    Attempt 45 -> Valid: 40/500 (Rejects: 0 corridor, 5 reachability)
+    Attempt 61 -> Valid: 50/500 (Rejects: 0 corridor, 11 reachability)
+    Attempt 73 -> Valid: 60/500 (Rejects: 0 corridor, 13 reachability)
+    Attempt 84 -> Valid: 70/500 (Rejects: 0 corridor, 14 reachability)
+    Attempt 96 -> Valid: 80/500 (Rejects: 0 corridor, 16 reachability)
+    Attempt 109 -> Valid: 90/500 (Rejects: 0 corridor, 19 reachability)
+    Attempt 124 -> Valid: 100/500 (Rejects: 0 corridor, 24 reachability)
+    Attempt 136 -> Valid: 110/500 (Rejects: 0 corridor, 26 reachability)
+    Attempt 149 -> Valid: 120/500 (Rejects: 0 corridor, 29 reachability)
+    Attempt 160 -> Valid: 130/500 (Rejects: 0 corridor, 30 reachability)
+    Attempt 174 -> Valid: 140/500 (Rejects: 0 corridor, 34 reachability)
+    Attempt 186 -> Valid: 150/500 (Rejects: 0 corridor, 36 reachability)
+    Attempt 196 -> Valid: 160/500 (Rejects: 0 corridor, 36 reachability)
+    Attempt 206 -> Valid: 170/500 (Rejects: 0 corridor, 36 reachability)
+    Attempt 218 -> Valid: 180/500 (Rejects: 0 corridor, 38 reachability)
+    Attempt 228 -> Valid: 190/500 (Rejects: 0 corridor, 38 reachability)
+    Attempt 239 -> Valid: 200/500 (Rejects: 0 corridor, 39 reachability)
+    Attempt 251 -> Valid: 210/500 (Rejects: 0 corridor, 41 reachability)
+    Attempt 264 -> Valid: 220/500 (Rejects: 0 corridor, 44 reachability)
+    Attempt 275 -> Valid: 230/500 (Rejects: 0 corridor, 45 reachability)
+    Attempt 286 -> Valid: 240/500 (Rejects: 0 corridor, 46 reachability)
+    Attempt 301 -> Valid: 250/500 (Rejects: 0 corridor, 51 reachability)
+    Attempt 314 -> Valid: 260/500 (Rejects: 0 corridor, 54 reachability)
+    Attempt 326 -> Valid: 270/500 (Rejects: 0 corridor, 56 reachability)
+    Attempt 337 -> Valid: 280/500 (Rejects: 0 corridor, 57 reachability)
+    Attempt 348 -> Valid: 290/500 (Rejects: 0 corridor, 58 reachability)
+    Attempt 367 -> Valid: 300/500 (Rejects: 0 corridor, 67 reachability)
+    Attempt 379 -> Valid: 310/500 (Rejects: 0 corridor, 69 reachability)
+    Attempt 390 -> Valid: 320/500 (Rejects: 0 corridor, 70 reachability)
+    Attempt 403 -> Valid: 330/500 (Rejects: 0 corridor, 73 reachability)
+    Attempt 415 -> Valid: 340/500 (Rejects: 0 corridor, 75 reachability)
+    Attempt 428 -> Valid: 350/500 (Rejects: 0 corridor, 78 reachability)
+    Attempt 439 -> Valid: 360/500 (Rejects: 0 corridor, 79 reachability)
+    Attempt 451 -> Valid: 370/500 (Rejects: 0 corridor, 81 reachability)
+    Attempt 463 -> Valid: 380/500 (Rejects: 0 corridor, 83 reachability)
+    Attempt 474 -> Valid: 390/500 (Rejects: 0 corridor, 84 reachability)
+    Attempt 484 -> Valid: 400/500 (Rejects: 0 corridor, 84 reachability)
+    Attempt 494 -> Valid: 410/500 (Rejects: 0 corridor, 84 reachability)
+    Attempt 505 -> Valid: 420/500 (Rejects: 0 corridor, 85 reachability)
+    Attempt 516 -> Valid: 430/500 (Rejects: 0 corridor, 86 reachability)
+    Attempt 528 -> Valid: 440/500 (Rejects: 0 corridor, 88 reachability)
+    Attempt 539 -> Valid: 450/500 (Rejects: 0 corridor, 89 reachability)
+    Attempt 549 -> Valid: 460/500 (Rejects: 0 corridor, 89 reachability)
+    Attempt 560 -> Valid: 470/500 (Rejects: 0 corridor, 90 reachability)
+    Attempt 574 -> Valid: 480/500 (Rejects: 0 corridor, 94 reachability)
+    Attempt 585 -> Valid: 490/500 (Rejects: 0 corridor, 95 reachability)
+    Attempt 598 -> Valid: 500/500 (Rejects: 0 corridor, 98 reachability)
+  Validation complete in 146.14s
+
+  --- Validating Regime: 30.0x30.0 | Density: 0.30 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 11 -> Valid: 10/500 (Rejects: 0 corridor, 1 reachability)
+    Attempt 21 -> Valid: 20/500 (Rejects: 0 corridor, 1 reachability)
+    Attempt 33 -> Valid: 30/500 (Rejects: 0 corridor, 3 reachability)
+    Attempt 45 -> Valid: 40/500 (Rejects: 0 corridor, 5 reachability)
+    Attempt 57 -> Valid: 50/500 (Rejects: 0 corridor, 7 reachability)
+    Attempt 68 -> Valid: 60/500 (Rejects: 0 corridor, 8 reachability)
+    Attempt 82 -> Valid: 70/500 (Rejects: 0 corridor, 12 reachability)
+    Attempt 96 -> Valid: 80/500 (Rejects: 0 corridor, 16 reachability)
+    Attempt 113 -> Valid: 90/500 (Rejects: 0 corridor, 23 reachability)
+    Attempt 125 -> Valid: 100/500 (Rejects: 0 corridor, 25 reachability)
+    Attempt 139 -> Valid: 110/500 (Rejects: 0 corridor, 29 reachability)
+    Attempt 153 -> Valid: 120/500 (Rejects: 0 corridor, 33 reachability)
+    Attempt 168 -> Valid: 130/500 (Rejects: 0 corridor, 38 reachability)
+    Attempt 180 -> Valid: 140/500 (Rejects: 0 corridor, 40 reachability)
+    Attempt 195 -> Valid: 150/500 (Rejects: 0 corridor, 45 reachability)
+    Attempt 209 -> Valid: 160/500 (Rejects: 0 corridor, 49 reachability)
+    Attempt 222 -> Valid: 170/500 (Rejects: 0 corridor, 52 reachability)
+    Attempt 234 -> Valid: 180/500 (Rejects: 0 corridor, 54 reachability)
+    Attempt 244 -> Valid: 190/500 (Rejects: 0 corridor, 54 reachability)
+    Attempt 258 -> Valid: 200/500 (Rejects: 0 corridor, 58 reachability)
+    Attempt 270 -> Valid: 210/500 (Rejects: 0 corridor, 60 reachability)
+    Attempt 280 -> Valid: 220/500 (Rejects: 0 corridor, 60 reachability)
+    Attempt 292 -> Valid: 230/500 (Rejects: 0 corridor, 62 reachability)
+    Attempt 307 -> Valid: 240/500 (Rejects: 0 corridor, 67 reachability)
+    Attempt 324 -> Valid: 250/500 (Rejects: 0 corridor, 74 reachability)
+    Attempt 336 -> Valid: 260/500 (Rejects: 0 corridor, 76 reachability)
+    Attempt 349 -> Valid: 270/500 (Rejects: 0 corridor, 79 reachability)
+    Attempt 363 -> Valid: 280/500 (Rejects: 0 corridor, 83 reachability)
+    Attempt 375 -> Valid: 290/500 (Rejects: 0 corridor, 85 reachability)
+    Attempt 392 -> Valid: 300/500 (Rejects: 0 corridor, 92 reachability)
+    Attempt 403 -> Valid: 310/500 (Rejects: 0 corridor, 93 reachability)
+    Attempt 419 -> Valid: 320/500 (Rejects: 0 corridor, 99 reachability)
+    Attempt 431 -> Valid: 330/500 (Rejects: 0 corridor, 101 reachability)
+    Attempt 442 -> Valid: 340/500 (Rejects: 0 corridor, 102 reachability)
+    Attempt 457 -> Valid: 350/500 (Rejects: 0 corridor, 107 reachability)
+    Attempt 470 -> Valid: 360/500 (Rejects: 0 corridor, 110 reachability)
+    Attempt 481 -> Valid: 370/500 (Rejects: 0 corridor, 111 reachability)
+    Attempt 497 -> Valid: 380/500 (Rejects: 0 corridor, 117 reachability)
+    Attempt 511 -> Valid: 390/500 (Rejects: 0 corridor, 121 reachability)
+    Attempt 524 -> Valid: 400/500 (Rejects: 0 corridor, 124 reachability)
+    Attempt 534 -> Valid: 410/500 (Rejects: 0 corridor, 124 reachability)
+    Attempt 548 -> Valid: 420/500 (Rejects: 0 corridor, 128 reachability)
+    Attempt 560 -> Valid: 430/500 (Rejects: 0 corridor, 130 reachability)
+    Attempt 571 -> Valid: 440/500 (Rejects: 0 corridor, 131 reachability)
+    Attempt 587 -> Valid: 450/500 (Rejects: 0 corridor, 137 reachability)
+    Attempt 605 -> Valid: 460/500 (Rejects: 0 corridor, 145 reachability)
+    Attempt 620 -> Valid: 470/500 (Rejects: 0 corridor, 150 reachability)
+    Attempt 631 -> Valid: 480/500 (Rejects: 0 corridor, 151 reachability)
+    Attempt 642 -> Valid: 490/500 (Rejects: 0 corridor, 152 reachability)
+    Attempt 653 -> Valid: 500/500 (Rejects: 0 corridor, 153 reachability)
+  Validation complete in 128.01s
+
+  --- Validating Regime: 30.0x30.0 | Density: 0.35 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 16 -> Valid: 10/500 (Rejects: 0 corridor, 6 reachability)
+    Attempt 28 -> Valid: 20/500 (Rejects: 0 corridor, 8 reachability)
+    Attempt 43 -> Valid: 30/500 (Rejects: 0 corridor, 13 reachability)
+    Attempt 60 -> Valid: 40/500 (Rejects: 0 corridor, 20 reachability)
+    Attempt 72 -> Valid: 50/500 (Rejects: 0 corridor, 22 reachability)
+    Attempt 87 -> Valid: 60/500 (Rejects: 0 corridor, 27 reachability)
+    Attempt 100 -> Valid: 70/500 (Rejects: 0 corridor, 30 reachability)
+    Attempt 116 -> Valid: 80/500 (Rejects: 0 corridor, 36 reachability)
+    Attempt 132 -> Valid: 90/500 (Rejects: 0 corridor, 42 reachability)
+    Attempt 149 -> Valid: 100/500 (Rejects: 0 corridor, 49 reachability)
+    Attempt 166 -> Valid: 110/500 (Rejects: 0 corridor, 56 reachability)
+    Attempt 179 -> Valid: 120/500 (Rejects: 0 corridor, 59 reachability)
+    Attempt 202 -> Valid: 130/500 (Rejects: 0 corridor, 72 reachability)
+    Attempt 220 -> Valid: 140/500 (Rejects: 0 corridor, 80 reachability)
+    Attempt 236 -> Valid: 150/500 (Rejects: 0 corridor, 86 reachability)
+    Attempt 249 -> Valid: 160/500 (Rejects: 0 corridor, 89 reachability)
+    Attempt 264 -> Valid: 170/500 (Rejects: 0 corridor, 94 reachability)
+    Attempt 275 -> Valid: 180/500 (Rejects: 0 corridor, 95 reachability)
+    Attempt 289 -> Valid: 190/500 (Rejects: 0 corridor, 99 reachability)
+    Attempt 302 -> Valid: 200/500 (Rejects: 0 corridor, 102 reachability)
+    Attempt 316 -> Valid: 210/500 (Rejects: 0 corridor, 106 reachability)
+    Attempt 338 -> Valid: 220/500 (Rejects: 0 corridor, 118 reachability)
+    Attempt 356 -> Valid: 230/500 (Rejects: 0 corridor, 126 reachability)
+    Attempt 371 -> Valid: 240/500 (Rejects: 0 corridor, 131 reachability)
+    Attempt 384 -> Valid: 250/500 (Rejects: 0 corridor, 134 reachability)
+    Attempt 399 -> Valid: 260/500 (Rejects: 0 corridor, 139 reachability)
+    Attempt 412 -> Valid: 270/500 (Rejects: 0 corridor, 142 reachability)
+    Attempt 426 -> Valid: 280/500 (Rejects: 0 corridor, 146 reachability)
+    Attempt 442 -> Valid: 290/500 (Rejects: 0 corridor, 152 reachability)
+    Attempt 457 -> Valid: 300/500 (Rejects: 0 corridor, 157 reachability)
+    Attempt 471 -> Valid: 310/500 (Rejects: 0 corridor, 161 reachability)
+    Attempt 483 -> Valid: 320/500 (Rejects: 0 corridor, 163 reachability)
+    Attempt 497 -> Valid: 330/500 (Rejects: 0 corridor, 167 reachability)
+    Attempt 511 -> Valid: 340/500 (Rejects: 0 corridor, 171 reachability)
+    Attempt 527 -> Valid: 350/500 (Rejects: 0 corridor, 177 reachability)
+    Attempt 543 -> Valid: 360/500 (Rejects: 0 corridor, 183 reachability)
+    Attempt 558 -> Valid: 370/500 (Rejects: 0 corridor, 188 reachability)
+    Attempt 571 -> Valid: 380/500 (Rejects: 0 corridor, 191 reachability)
+    Attempt 596 -> Valid: 390/500 (Rejects: 0 corridor, 206 reachability)
+    Attempt 609 -> Valid: 400/500 (Rejects: 0 corridor, 209 reachability)
+    Attempt 626 -> Valid: 410/500 (Rejects: 0 corridor, 216 reachability)
+    Attempt 650 -> Valid: 420/500 (Rejects: 0 corridor, 230 reachability)
+    Attempt 663 -> Valid: 430/500 (Rejects: 0 corridor, 233 reachability)
+    Attempt 683 -> Valid: 440/500 (Rejects: 0 corridor, 243 reachability)
+    Attempt 700 -> Valid: 450/500 (Rejects: 0 corridor, 250 reachability)
+    Attempt 716 -> Valid: 460/500 (Rejects: 0 corridor, 256 reachability)
+    Attempt 729 -> Valid: 470/500 (Rejects: 0 corridor, 259 reachability)
+    Attempt 740 -> Valid: 480/500 (Rejects: 0 corridor, 260 reachability)
+    Attempt 756 -> Valid: 490/500 (Rejects: 0 corridor, 266 reachability)
+    Attempt 766 -> Valid: 500/500 (Rejects: 0 corridor, 266 reachability)
+  Validation complete in 186.72s
+
+  --- Validating Regime: 40.0x40.0 | Density: 0.25 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 10 -> Valid: 10/500 (Rejects: 0 corridor, 0 reachability)
+    Attempt 25 -> Valid: 20/500 (Rejects: 0 corridor, 5 reachability)
+    Attempt 36 -> Valid: 30/500 (Rejects: 0 corridor, 6 reachability)
+    Attempt 47 -> Valid: 40/500 (Rejects: 0 corridor, 7 reachability)
+    Attempt 59 -> Valid: 50/500 (Rejects: 0 corridor, 9 reachability)
+    Attempt 69 -> Valid: 60/500 (Rejects: 0 corridor, 9 reachability)
+    Attempt 80 -> Valid: 70/500 (Rejects: 0 corridor, 10 reachability)
+    Attempt 93 -> Valid: 80/500 (Rejects: 0 corridor, 13 reachability)
+    Attempt 105 -> Valid: 90/500 (Rejects: 0 corridor, 15 reachability)
+    Attempt 118 -> Valid: 100/500 (Rejects: 0 corridor, 18 reachability)
+    Attempt 129 -> Valid: 110/500 (Rejects: 0 corridor, 19 reachability)
+    Attempt 140 -> Valid: 120/500 (Rejects: 0 corridor, 20 reachability)
+    Attempt 153 -> Valid: 130/500 (Rejects: 0 corridor, 23 reachability)
+    Attempt 164 -> Valid: 140/500 (Rejects: 0 corridor, 24 reachability)
+    Attempt 175 -> Valid: 150/500 (Rejects: 0 corridor, 25 reachability)
+    Attempt 185 -> Valid: 160/500 (Rejects: 0 corridor, 25 reachability)
+    Attempt 196 -> Valid: 170/500 (Rejects: 0 corridor, 26 reachability)
+    Attempt 210 -> Valid: 180/500 (Rejects: 0 corridor, 30 reachability)
+    Attempt 222 -> Valid: 190/500 (Rejects: 0 corridor, 32 reachability)
+    Attempt 235 -> Valid: 200/500 (Rejects: 0 corridor, 35 reachability)
+    Attempt 248 -> Valid: 210/500 (Rejects: 0 corridor, 38 reachability)
+    Attempt 262 -> Valid: 220/500 (Rejects: 0 corridor, 42 reachability)
+    Attempt 272 -> Valid: 230/500 (Rejects: 0 corridor, 42 reachability)
+    Attempt 282 -> Valid: 240/500 (Rejects: 0 corridor, 42 reachability)
+    Attempt 294 -> Valid: 250/500 (Rejects: 0 corridor, 44 reachability)
+    Attempt 307 -> Valid: 260/500 (Rejects: 0 corridor, 47 reachability)
+    Attempt 317 -> Valid: 270/500 (Rejects: 0 corridor, 47 reachability)
+    Attempt 331 -> Valid: 280/500 (Rejects: 0 corridor, 51 reachability)
+    Attempt 343 -> Valid: 290/500 (Rejects: 0 corridor, 53 reachability)
+    Attempt 354 -> Valid: 300/500 (Rejects: 0 corridor, 54 reachability)
+    Attempt 364 -> Valid: 310/500 (Rejects: 0 corridor, 54 reachability)
+    Attempt 375 -> Valid: 320/500 (Rejects: 0 corridor, 55 reachability)
+    Attempt 386 -> Valid: 330/500 (Rejects: 0 corridor, 56 reachability)
+    Attempt 398 -> Valid: 340/500 (Rejects: 0 corridor, 58 reachability)
+    Attempt 409 -> Valid: 350/500 (Rejects: 0 corridor, 59 reachability)
+    Attempt 426 -> Valid: 360/500 (Rejects: 0 corridor, 66 reachability)
+    Attempt 437 -> Valid: 370/500 (Rejects: 0 corridor, 67 reachability)
+    Attempt 450 -> Valid: 380/500 (Rejects: 0 corridor, 70 reachability)
+    Attempt 462 -> Valid: 390/500 (Rejects: 0 corridor, 72 reachability)
+    Attempt 477 -> Valid: 400/500 (Rejects: 0 corridor, 77 reachability)
+    Attempt 487 -> Valid: 410/500 (Rejects: 0 corridor, 77 reachability)
+    Attempt 497 -> Valid: 420/500 (Rejects: 0 corridor, 77 reachability)
+    Attempt 511 -> Valid: 430/500 (Rejects: 0 corridor, 81 reachability)
+    Attempt 525 -> Valid: 440/500 (Rejects: 0 corridor, 85 reachability)
+    Attempt 536 -> Valid: 450/500 (Rejects: 0 corridor, 86 reachability)
+    Attempt 548 -> Valid: 460/500 (Rejects: 0 corridor, 88 reachability)
+    Attempt 560 -> Valid: 470/500 (Rejects: 0 corridor, 90 reachability)
+    Attempt 572 -> Valid: 480/500 (Rejects: 0 corridor, 92 reachability)
+    Attempt 582 -> Valid: 490/500 (Rejects: 0 corridor, 92 reachability)
+    Attempt 592 -> Valid: 500/500 (Rejects: 0 corridor, 92 reachability)
+  Validation complete in 156.22s
+
+  --- Validating Regime: 40.0x40.0 | Density: 0.30 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 14 -> Valid: 10/500 (Rejects: 0 corridor, 4 reachability)
+    Attempt 26 -> Valid: 20/500 (Rejects: 0 corridor, 6 reachability)
+    Attempt 37 -> Valid: 30/500 (Rejects: 0 corridor, 7 reachability)
+    Attempt 49 -> Valid: 40/500 (Rejects: 0 corridor, 9 reachability)
+    Attempt 61 -> Valid: 50/500 (Rejects: 0 corridor, 11 reachability)
+    Attempt 71 -> Valid: 60/500 (Rejects: 0 corridor, 11 reachability)
+    Attempt 83 -> Valid: 70/500 (Rejects: 0 corridor, 13 reachability)
+    Attempt 95 -> Valid: 80/500 (Rejects: 0 corridor, 15 reachability)
+    Attempt 106 -> Valid: 90/500 (Rejects: 0 corridor, 16 reachability)
+    Attempt 119 -> Valid: 100/500 (Rejects: 0 corridor, 19 reachability)
+    Attempt 130 -> Valid: 110/500 (Rejects: 0 corridor, 20 reachability)
+    Attempt 149 -> Valid: 120/500 (Rejects: 0 corridor, 29 reachability)
+    Attempt 161 -> Valid: 130/500 (Rejects: 0 corridor, 31 reachability)
+    Attempt 178 -> Valid: 140/500 (Rejects: 0 corridor, 38 reachability)
+    Attempt 196 -> Valid: 150/500 (Rejects: 0 corridor, 46 reachability)
+    Attempt 212 -> Valid: 160/500 (Rejects: 0 corridor, 52 reachability)
+    Attempt 223 -> Valid: 170/500 (Rejects: 0 corridor, 53 reachability)
+    Attempt 235 -> Valid: 180/500 (Rejects: 0 corridor, 55 reachability)
+    Attempt 248 -> Valid: 190/500 (Rejects: 0 corridor, 58 reachability)
+    Attempt 260 -> Valid: 200/500 (Rejects: 0 corridor, 60 reachability)
+    Attempt 272 -> Valid: 210/500 (Rejects: 0 corridor, 62 reachability)
+    Attempt 282 -> Valid: 220/500 (Rejects: 0 corridor, 62 reachability)
+    Attempt 293 -> Valid: 230/500 (Rejects: 0 corridor, 63 reachability)
+    Attempt 306 -> Valid: 240/500 (Rejects: 0 corridor, 66 reachability)
+    Attempt 317 -> Valid: 250/500 (Rejects: 0 corridor, 67 reachability)
+    Attempt 330 -> Valid: 260/500 (Rejects: 0 corridor, 70 reachability)
+    Attempt 344 -> Valid: 270/500 (Rejects: 0 corridor, 74 reachability)
+    Attempt 355 -> Valid: 280/500 (Rejects: 0 corridor, 75 reachability)
+    Attempt 368 -> Valid: 290/500 (Rejects: 0 corridor, 78 reachability)
+    Attempt 379 -> Valid: 300/500 (Rejects: 0 corridor, 79 reachability)
+    Attempt 390 -> Valid: 310/500 (Rejects: 0 corridor, 80 reachability)
+    Attempt 403 -> Valid: 320/500 (Rejects: 0 corridor, 83 reachability)
+    Attempt 414 -> Valid: 330/500 (Rejects: 0 corridor, 84 reachability)
+    Attempt 425 -> Valid: 340/500 (Rejects: 0 corridor, 85 reachability)
+    Attempt 436 -> Valid: 350/500 (Rejects: 0 corridor, 86 reachability)
+    Attempt 449 -> Valid: 360/500 (Rejects: 0 corridor, 89 reachability)
+    Attempt 461 -> Valid: 370/500 (Rejects: 0 corridor, 91 reachability)
+    Attempt 475 -> Valid: 380/500 (Rejects: 0 corridor, 95 reachability)
+    Attempt 488 -> Valid: 390/500 (Rejects: 0 corridor, 98 reachability)
+    Attempt 500 -> Valid: 400/500 (Rejects: 0 corridor, 100 reachability)
+    Attempt 514 -> Valid: 410/500 (Rejects: 0 corridor, 104 reachability)
+    Attempt 524 -> Valid: 420/500 (Rejects: 0 corridor, 104 reachability)
+    Attempt 541 -> Valid: 430/500 (Rejects: 0 corridor, 111 reachability)
+    Attempt 554 -> Valid: 440/500 (Rejects: 0 corridor, 114 reachability)
+    Attempt 567 -> Valid: 450/500 (Rejects: 0 corridor, 117 reachability)
+    Attempt 578 -> Valid: 460/500 (Rejects: 0 corridor, 118 reachability)
+    Attempt 589 -> Valid: 470/500 (Rejects: 0 corridor, 119 reachability)
+    Attempt 600 -> Valid: 480/500 (Rejects: 0 corridor, 120 reachability)
+    Attempt 614 -> Valid: 490/500 (Rejects: 0 corridor, 124 reachability)
+    Attempt 626 -> Valid: 500/500 (Rejects: 0 corridor, 126 reachability)
+  Validation complete in 298.59s
+
+  --- Validating Regime: 40.0x40.0 | Density: 0.35 ---
+    [INFO] Computational Raster Resolution: 0.1m
+    Attempt 13 -> Valid: 10/500 (Rejects: 0 corridor, 3 reachability)
+    Attempt 27 -> Valid: 20/500 (Rejects: 0 corridor, 7 reachability)
+    Attempt 41 -> Valid: 30/500 (Rejects: 0 corridor, 11 reachability)
+    Attempt 54 -> Valid: 40/500 (Rejects: 0 corridor, 14 reachability)
+    Attempt 68 -> Valid: 50/500 (Rejects: 0 corridor, 18 reachability)
+    Attempt 82 -> Valid: 60/500 (Rejects: 0 corridor, 22 reachability)
+    Attempt 95 -> Valid: 70/500 (Rejects: 0 corridor, 25 reachability)
+    Attempt 108 -> Valid: 80/500 (Rejects: 0 corridor, 28 reachability)
+    Attempt 122 -> Valid: 90/500 (Rejects: 0 corridor, 32 reachability)
+    Attempt 137 -> Valid: 100/500 (Rejects: 0 corridor, 37 reachability)
+    Attempt 150 -> Valid: 110/500 (Rejects: 0 corridor, 40 reachability)
+    Attempt 164 -> Valid: 120/500 (Rejects: 0 corridor, 44 reachability)
+    Attempt 177 -> Valid: 130/500 (Rejects: 0 corridor, 47 reachability)
+    Attempt 191 -> Valid: 140/500 (Rejects: 0 corridor, 51 reachability)
+    Attempt 204 -> Valid: 150/500 (Rejects: 0 corridor, 54 reachability)
+    Attempt 215 -> Valid: 160/500 (Rejects: 0 corridor, 55 reachability)
+    Attempt 230 -> Valid: 170/500 (Rejects: 0 corridor, 60 reachability)
+    Attempt 242 -> Valid: 180/500 (Rejects: 0 corridor, 62 reachability)
+    Attempt 256 -> Valid: 190/500 (Rejects: 0 corridor, 66 reachability)
+    Attempt 271 -> Valid: 200/500 (Rejects: 0 corridor, 71 reachability)
+    Attempt 282 -> Valid: 210/500 (Rejects: 0 corridor, 72 reachability)
+    Attempt 296 -> Valid: 220/500 (Rejects: 0 corridor, 76 reachability)
+    Attempt 308 -> Valid: 230/500 (Rejects: 0 corridor, 78 reachability)
+    Attempt 322 -> Valid: 240/500 (Rejects: 0 corridor, 82 reachability)
+    Attempt 336 -> Valid: 250/500 (Rejects: 0 corridor, 86 reachability)
+    Attempt 349 -> Valid: 260/500 (Rejects: 0 corridor, 89 reachability)
+    Attempt 365 -> Valid: 270/500 (Rejects: 0 corridor, 95 reachability)
+    Attempt 383 -> Valid: 280/500 (Rejects: 0 corridor, 103 reachability)
+    Attempt 396 -> Valid: 290/500 (Rejects: 0 corridor, 106 reachability)
+    Attempt 408 -> Valid: 300/500 (Rejects: 0 corridor, 108 reachability)
+    Attempt 423 -> Valid: 310/500 (Rejects: 0 corridor, 113 reachability)
+    Attempt 434 -> Valid: 320/500 (Rejects: 0 corridor, 114 reachability)
+    Attempt 446 -> Valid: 330/500 (Rejects: 0 corridor, 116 reachability)
+    Attempt 456 -> Valid: 340/500 (Rejects: 0 corridor, 116 reachability)
+    Attempt 473 -> Valid: 350/500 (Rejects: 0 corridor, 123 reachability)
+    Attempt 488 -> Valid: 360/500 (Rejects: 0 corridor, 128 reachability)
+    Attempt 509 -> Valid: 370/500 (Rejects: 0 corridor, 139 reachability)
+    Attempt 523 -> Valid: 380/500 (Rejects: 0 corridor, 143 reachability)
+    Attempt 537 -> Valid: 390/500 (Rejects: 0 corridor, 147 reachability)
+    Attempt 548 -> Valid: 400/500 (Rejects: 0 corridor, 148 reachability)
+    Attempt 561 -> Valid: 410/500 (Rejects: 0 corridor, 151 reachability)
+    Attempt 573 -> Valid: 420/500 (Rejects: 0 corridor, 153 reachability)
+    Attempt 585 -> Valid: 430/500 (Rejects: 0 corridor, 155 reachability)
+    Attempt 599 -> Valid: 440/500 (Rejects: 0 corridor, 159 reachability)
+    Attempt 614 -> Valid: 450/500 (Rejects: 0 corridor, 164 reachability)
+    Attempt 628 -> Valid: 460/500 (Rejects: 0 corridor, 168 reachability)
+    Attempt 640 -> Valid: 470/500 (Rejects: 0 corridor, 170 reachability)
+    Attempt 652 -> Valid: 480/500 (Rejects: 0 corridor, 172 reachability)
+    Attempt 666 -> Valid: 490/500 (Rejects: 0 corridor, 176 reachability)
+    Attempt 677 -> Valid: 500/500 (Rejects: 0 corridor, 177 reachability)
+  Validation complete in 303.26s
+
+  =========================================================
+              GEOMETRIC REACHABILITY TABLE
+  =========================================================
+  Regime               | Total Attempts  | Reach Rejections   | Corridor Rejects   | Reachability Rate
+  -----------------------------------------------------------------------------------------------
+  30x30 D=0.20         | 584             | 84                 | 0                  | 85.6%
+  30x30 D=0.25         | 598             | 98                 | 0                  | 83.6%
+  30x30 D=0.30         | 653             | 153                | 0                  | 76.6%
+  30x30 D=0.35         | 766             | 266                | 0                  | 65.3%
+  40x40 D=0.25         | 592             | 92                 | 0                  | 84.5%
+  40x40 D=0.30         | 626             | 126                | 0                  | 79.9%
+  40x40 D=0.35         | 677             | 177                | 0                  | 73.9%
+
+  =========================================================
+                MAP GENERATION EFFICIENCY TABLE
+  =========================================================
+  Regime               | Mean Density    | Retries/Valid Map
+  ---------------------------------------------------------------------------
+  30x30 D=0.20         | 0.204           | 0.17
+  30x30 D=0.25         | 0.254           | 0.20
+  30x30 D=0.30         | 0.304           | 0.31
+  30x30 D=0.35         | 0.354           | 0.53
+  40x40 D=0.25         | 0.252           | 0.18
+  40x40 D=0.30         | 0.302           | 0.25
+  40x40 D=0.35         | 0.352           | 0.35
+
+  =========================================================
+                    GEOMETRIC TOPOLOGY STATS
+  =========================================================
+  Regime               | W_min (mean+/-std)   | W_sm_min (mean+/-std)  | W_p10 (mean+/-std)   | Tortuosity (mean+/-std)
+  --------------------------------------------------------------------------------------------------------------
+  30x30 D=0.20         | 0.45 +/- 0.23 m    | 0.46 +/- 0.24 m      | 0.60 +/- 0.39 m    | 1.13 +/- 0.11
+  30x30 D=0.25         | 0.42 +/- 0.09 m    | 0.42 +/- 0.11 m      | 0.51 +/- 0.21 m    | 1.17 +/- 0.16
+  30x30 D=0.30         | 0.41 +/- 0.06 m    | 0.41 +/- 0.07 m      | 0.47 +/- 0.16 m    | 1.23 +/- 0.21
+  30x30 D=0.35         | 0.40 +/- 0.03 m    | 0.41 +/- 0.04 m      | 0.44 +/- 0.11 m    | 1.35 +/- 0.34
+  40x40 D=0.25         | 0.41 +/- 0.06 m    | 0.41 +/- 0.07 m      | 0.51 +/- 0.19 m    | 1.14 +/- 0.10
+  40x40 D=0.30         | 0.40 +/- 0.03 m    | 0.40 +/- 0.03 m      | 0.46 +/- 0.12 m    | 1.19 +/- 0.14
+  40x40 D=0.35         | 0.40 +/- 0.01 m    | 0.40 +/- 0.01 m      | 0.43 +/- 0.06 m    | 1.28 +/- 0.24
+
+
+  (swarm_rl) PS D:\Swpython validate_survivability.pynization\v10_IEEE_Final\Claud>
+  C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+    from pkg_resources import resource_stream, resource_exists
+pygame 2.6.1 (SDL 2.28.4, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+
+=========================================================
+          STAGE 2: RANDOM POLICY SURVIVABILITY
+=========================================================
+
+--- Evaluating Regime: Target Density 0.20 ---
+  Ep 1/20 | Dur: 800 | TTC: 45
+  Ep 2/20 | Dur: 739 | TTC: 34
+  Ep 3/20 | Dur: 424 | TTC: 38
+  Ep 4/20 | Dur: 800 | TTC: 15
+  Ep 5/20 | Dur: 721 | TTC: 24
+  Ep 6/20 | Dur: 535 | TTC: 54
+  Ep 7/20 | Dur: 370 | TTC: 40
+  Ep 8/20 | Dur: 348 | TTC: 26
+  Ep 9/20 | Dur: 408 | TTC: 16
+  Ep 10/20 | Dur: 584 | TTC: 39
+  Ep 11/20 | Dur: 800 | TTC: 23
+  Ep 12/20 | Dur: 474 | TTC: 28
+  Ep 13/20 | Dur: 203 | TTC: 27
+  Ep 14/20 | Dur: 212 | TTC: 17
+  Ep 15/20 | Dur: 668 | TTC: 33
+  Ep 16/20 | Dur: 271 | TTC: 36
+  Ep 17/20 | Dur: 800 | TTC: 36
+  Ep 18/20 | Dur: 211 | TTC: 12
+  Ep 19/20 | Dur: 271 | TTC: 29
+  Ep 20/20 | Dur: 800 | TTC: 38
+--- Evaluating Regime: Target Density 0.30 ---
+  Ep 1/20 | Dur: 304 | TTC: 34
+  Ep 2/20 | Dur: 738 | TTC: 20
+  Ep 3/20 | Dur: 678 | TTC: 43
+  Ep 4/20 | Dur: 247 | TTC: 31
+  Ep 5/20 | Dur: 205 | TTC: 26
+  Ep 6/20 | Dur: 548 | TTC: 36
+  Ep 7/20 | Dur: 506 | TTC: 15
+  Ep 8/20 | Dur: 186 | TTC: 41
+  Ep 9/20 | Dur: 518 | TTC: 23
+  Ep 10/20 | Dur: 535 | TTC: 22
+  Ep 11/20 | Dur: 385 | TTC: 21
+  Ep 12/20 | Dur: 181 | TTC: 19
+  Ep 13/20 | Dur: 275 | TTC: 37
+  Ep 14/20 | Dur: 349 | TTC: 17
+  Ep 15/20 | Dur: 197 | TTC: 35
+  Ep 16/20 | Dur: 316 | TTC: 20
+  Ep 17/20 | Dur: 165 | TTC: 8
+  Ep 18/20 | Dur: 148 | TTC: 30
+  Ep 19/20 | Dur: 222 | TTC: 31
+  Ep 20/20 | Dur: 602 | TTC: 43
+--- Evaluating Regime: Target Density 0.35 ---
+  Ep 1/20 | Dur: 342 | TTC: 35
+  Ep 2/20 | Dur: 526 | TTC: 31
+  Ep 3/20 | Dur: 435 | TTC: 21
+  Ep 4/20 | Dur: 269 | TTC: 37
+  Ep 5/20 | Dur: 686 | TTC: 24
+  Ep 6/20 | Dur: 204 | TTC: 29
+  Ep 7/20 | Dur: 379 | TTC: 17
+  Ep 8/20 | Dur: 529 | TTC: 43
+  Ep 9/20 | Dur: 220 | TTC: 27
+  Ep 10/20 | Dur: 372 | TTC: 8
+  Ep 11/20 | Dur: 246 | TTC: 16
+  Ep 12/20 | Dur: 404 | TTC: 27
+  Ep 13/20 | Dur: 523 | TTC: 39
+  Ep 14/20 | Dur: 256 | TTC: 20
+  Ep 15/20 | Dur: 800 | TTC: 41
+  Ep 16/20 | Dur: 178 | TTC: 17
+  Ep 17/20 | Dur: 233 | TTC: 30
+  Ep 18/20 | Dur: 227 | TTC: 46
+  Ep 19/20 | Dur: 271 | TTC: 48
+  Ep 20/20 | Dur: 219 | TTC: 28
+
+===========================================================================================================
+                                RANDOM POLICY SURVIVABILITY METRICS
+===========================================================================================================
+Density    | Mean Ep. Dur.   | Mean TTC     | Inst. Death %   | Throughput   | Collisions/Ep   | Timeouts
+---------------------------------------------------------------------------------------------------------
+0.20       | 522.0           | 30.5         | 0.0           % | 0.0       % | 9.8             | 5
+0.30       | 365.2           | 27.6         | 5.0           % | 0.0       % | 10.0            | 0
+0.35       | 365.9           | 29.2         | 5.0           % | 0.0       % | 9.9             | 1
+
+[Insights]
+- Mean Ep. Dur.: Average steps before the episode terminates.
+- Mean TTC (Time To Collision): Average step at which the FIRST collision occurs.
+- Inst. Death %: % of episodes where a collision happened in <= 1.0 second.
+- Throughput: % of all generated agents that successfully reached the goal.
+- Timeouts: Episodes hitting 800 steps (random policies almost never timeout, usually die first).
+(swarm_rl) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud> 
+
+
+
+
+
+
+
+
+
+(base) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud> conda run -n swarm_rl python -u validate_survivability.py --episodes 5 --seeds 42 43 --workers 4
+pygame 2.6.1 (SDL 2.28.4, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+
+=========================================================
+          STAGE 2: RANDOM POLICY SURVIVABILITY
+  Macro Seeds: [42, 43] | Episodes/Seed: 5 | Workers: 4
+=========================================================
+
+--- Evaluating Regime: 30x30 D=0.20 ---
+  Completed 10 total episodes for regime 30x30 D=0.20.
+--- Evaluating Regime: 30x30 D=0.25 ---
+  Completed 10 total episodes for regime 30x30 D=0.25.
+--- Evaluating Regime: 30x30 D=0.30 ---
+  Completed 10 total episodes for regime 30x30 D=0.30.
+--- Evaluating Regime: 30x30 D=0.35 ---
+  Completed 10 total episodes for regime 30x30 D=0.35.
+--- Evaluating Regime: 40x40 D=0.20 ---
+  Completed 10 total episodes for regime 40x40 D=0.20.
+--- Evaluating Regime: 40x40 D=0.25 ---
+  Completed 10 total episodes for regime 40x40 D=0.25.
+--- Evaluating Regime: 40x40 D=0.30 ---
+  Completed 10 total episodes for regime 40x40 D=0.30.
+--- Evaluating Regime: 40x40 D=0.35 ---
+  Completed 10 total episodes for regime 40x40 D=0.35.
+
+===========================================================================================================================================================
+                                      RANDOM POLICY SURVIVABILITY METRICS
+                                      Seeds: [42, 43] | Episodes/Seed: 5
+===========================================================================================================================================================
+Regime          | Ep. Dur (Mean+/-CI) | TTC (Mean+/-CI)  | TTC p5   | Inst.Death%  | Throughput  | Coll/Ep (Mean+/-CI) | Cascades   | Timeouts
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+30x30 D=0.20    | 662+/-107          | 59.0+/-19.1      | 25       | 0.0        % | 0.0      % | 8.7+/-1.1           | 3.4        | 0
+30x30 D=0.25    | 574+/-135          | 51.0+/-16.9      | 22       | 0.0        % | 0.0      % | 9.2+/-0.9           | 3.9        | 0
+30x30 D=0.30    | 618+/-147          | 66.7+/-19.2      | 24       | 0.0        % | 0.0      % | 8.6+/-1.0           | 4.1        | 0
+30x30 D=0.35    | 613+/-142          | 58.7+/-14.3      | 29       | 0.0        % | 0.0      % | 9.0+/-1.0           | 4.0        | 0
+40x40 D=0.20    | 706+/-80           | 102.5+/-61.7     | 34       | 0.0        % | 0.0      % | 8.6+/-1.2           | 3.4        | 0
+40x40 D=0.25    | 702+/-85           | 61.8+/-15.3      | 28       | 0.0        % | 0.0      % | 8.3+/-1.2           | 3.6        | 0
+40x40 D=0.30    | 574+/-148          | 56.0+/-15.3      | 26       | 0.0        % | 0.0      % | 9.3+/-0.7           | 4.2        | 0
+40x40 D=0.35    | 589+/-108          | 61.1+/-16.6      | 30       | 0.0        % | 0.0      % | 9.4+/-0.7           | 4.2        | 0
+
+[Legend]
+  Ep. Dur.    = Average steps before termination (Bootstrapped 95% CI)
+  TTC         = Step at which FIRST collision occurs (Bootstrapped 95% CI)
+  Inst.Death% = Episodes with collision in <= 1.0 second
+  Coll/Ep     = Collisions per episode (Bootstrapped 95% CI)
+  Cascades    = Mean collisions happening within 20 steps of a prior collision
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+(base) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud> conda run -n swarm_rl python -u validate_survivability.py --episodes 5 --seeds 42 43 --workers 15
+pygame 2.6.1 (SDL 2.28.4, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+
+=========================================================
+       STAGE 2: RANDOM POLICY SURVIVABILITY (OPTIMIZED)
+  Seeds: [42, 43] | Eps/seed: 5 | Workers: 15
+  Max steps/episode: 800
+=========================================================
+
+  Total episodes to run: 80
+
+
+===========================================================================================================================================================
+                       RANDOM POLICY SURVIVABILITY METRICS  (OPTIMIZED)
+                       Seeds: [42, 43] | Episodes/Seed: 5 | Max Steps: 800
+===========================================================================================================================================================
+Regime          | Ep.Dur (MeanÂ±CI)   | TTC (MeanÂ±CI)    | TTC p5   | Inst.Death%  | Throughput  | Coll/Ep (MeanÂ±CI)   | Cascades   | Timeouts | N
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+30x30 D=0.20    | 726Â±71             | 59.3Â±16.3        | 20       | 0.0        % | 1.0      % | 8.0Â±1.3             | 3.2        | 0        | 10
+30x30 D=0.25    | 624Â±115            | 46.6Â±11.4        | 25       | 0.0        % | 0.0      % | 9.1Â±0.6             | 3.7        | 0        | 10
+30x30 D=0.30    | 614Â±96             | 63.2Â±14.6        | 31       | 0.0        % | 0.0      % | 9.7Â±0.4             | 4.6        | 0        | 10
+30x30 D=0.35    | 586Â±129            | 54.3Â±15.9        | 21       | 0.0        % | 0.0      % | 9.6Â±0.4             | 4.6        | 0        | 10
+40x40 D=0.20    | 748Â±69             | 81.2Â±24.1        | 39       | 0.0        % | 0.0      % | 8.3Â±0.9             | 3.4        | 0        | 10
+40x40 D=0.25    | 689Â±103            | 60.5Â±17.5        | 23       | 0.0        % | 0.0      % | 8.2Â±1.0             | 3.0        | 0        | 10
+40x40 D=0.30    | 722Â±72             | 60.4Â±18.8        | 17       | 0.0        % | 0.0      % | 9.3Â±0.7             | 3.0        | 0        | 10
+40x40 D=0.35    | 649Â±92             | 56.5Â±19.3        | 24       | 0.0        % | 1.0      % | 9.1Â±0.8             | 4.1        | 0        | 10
+
+[Legend]
+  Ep.Dur      = Steps before episode ends (Bootstrap 95% CI)
+  TTC         = Step of first collision   (Bootstrap 95% CI)
+  Inst.Death% = Episodes with collision within 1.0 s of start
+  Throughput  = Fraction of drones that reached the goal
+  Coll/Ep     = Collisions per episode    (Bootstrap 95% CI)
+  Cascades    = Collisions within 20 steps of prior collision
+  N           = Total episodes completed
+
+  Results saved to D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud\results\survivability_validation
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+
+Episodes:   0%|          | 0/80 [00:00<?, ?ep/s]C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.   
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+
+Episodes:   1%|â–�         | 1/80 [21:15<27:58:54, 1275.13s/ep]
+Episodes:  16%|â–ˆâ–‹        | 13/80 [23:33<1:30:37, 81.16s/ep]
+Episodes:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 49/80 [26:22<10:15, 19.85s/ep]
+Episodes:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 53/80 [30:26<11:00, 24.48s/ep]
+Episodes:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 61/80 [31:40<06:34, 20.76s/ep]
+Episodes:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 73/80 [32:25<01:44, 14.94s/ep]
+Episodes: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 80/80 [32:25<00:00, 24.32s/ep]
+(base) PS D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud> conda run -n swarm_rl python -u validate_survivability.py --episodes 50 --seeds 42 43 44 45 46 --workers 8
+pygame 2.6.1 (SDL 2.28.4, Python 3.10.20)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+
+=========================================================
+       STAGE 2: RANDOM POLICY SURVIVABILITY (OPTIMIZED)
+  Seeds: [42, 43, 44, 45, 46] | Eps/seed: 50 | Workers: 8
+  Max steps/episode: 800
+=========================================================
+
+  Total episodes to run: 2000
+
+
+===========================================================================================================================================================
+                       RANDOM POLICY SURVIVABILITY METRICS  (OPTIMIZED)
+                       Seeds: [42, 43, 44, 45, 46] | Episodes/Seed: 50 | Max Steps: 800       
+===========================================================================================================================================================
+Regime          | Ep.Dur (MeanÂ±CI)   | TTC (MeanÂ±CI)    | TTC p5   | Inst.Death%  | Throughput  | Coll/Ep (MeanÂ±CI)   | Cascades   | Timeouts | N
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+30x30 D=0.20    | 707Â±18             | 76.7Â±7.2         | 20       | 0.0        % | 0.4      % | 8.5Â±0.2             | 3.2        | 0        | 250
+30x30 D=0.25    | 683Â±20             | 70.3Â±6.7         | 18       | 0.0        % | 0.1      % | 8.9Â±0.2             | 3.6        | 0        | 250
+30x30 D=0.30    | 647Â±23             | 63.7Â±6.2         | 16       | 0.0        % | 0.3      % | 9.2Â±0.1             | 3.7        | 0        | 250
+30x30 D=0.35    | 606Â±26             | 65.5Â±7.2         | 18       | 0.0        % | 0.0      % | 9.4Â±0.1             | 4.1        | 0        | 250
+40x40 D=0.20    | 746Â±15             | 79.7Â±8.2         | 20       | 0.0        % | 0.4      % | 7.9Â±0.2             | 2.7        | 0        | 250
+40x40 D=0.25    | 718Â±17             | 79.9Â±9.3         | 20       | 0.4        % | 0.4      % | 8.5Â±0.2             | 3.2        | 0        | 250
+40x40 D=0.30    | 681Â±22             | 74.4Â±7.4         | 18       | 0.0        % | 0.2      % | 8.8Â±0.2             | 3.6        | 0        | 250
+40x40 D=0.35    | 651Â±24             | 62.6Â±5.9         | 19       | 0.0        % | 0.4      % | 9.2Â±0.1             | 3.9        | 0        | 250
+
+[Legend]
+  Ep.Dur      = Steps before episode ends (Bootstrap 95% CI)
+  TTC         = Step of first collision   (Bootstrap 95% CI)
+  Inst.Death% = Episodes with collision within 1.0 s of start
+  Throughput  = Fraction of drones that reached the goal
+  Coll/Ep     = Collisions per episode    (Bootstrap 95% CI)
+  Cascades    = Collisions within 20 steps of prior collision
+  N           = Total episodes completed
+
+  Results saved to D:\Swarm\BTP\Phase B\Phase_B5_Synchronization\v10_IEEE_Final\Claud\results\survivability_validation
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+
+Episodes:   0%|          | 0/2000 [00:00<?, ?ep/s]C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81. 
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+
+Episodes:   0%|          | 1/2000 [10:53<362:43:51, 653.24s/ep]
+Episodes:   1%|          | 13/2000 [11:10<20:37:26, 37.37s/ep]
+Episodes:   1%|          | 21/2000 [12:59<14:20:37, 26.09s/ep]
+Episodes:   1%|â–�         | 29/2000 [15:16<12:18:26, 22.48s/ep]
+Episodes:   2%|â–�         | 33/2000 [16:23<11:35:18, 21.21s/ep]
+Episodes:   2%|â–�         | 41/2000 [20:42<13:54:29, 25.56s/ep]
+Episodes:   2%|â–�         | 45/2000 [22:21<13:47:04, 25.38s/ep]
+Episodes:   3%|â–Ž         | 57/2000 [25:37<11:20:55, 21.03s/ep]
+Episodes:   3%|â–Ž         | 61/2000 [26:15<10:10:09, 18.88s/ep]
+Episodes:   4%|â–�         | 77/2000 [28:02<6:42:26, 12.56s/ep]
+Episodes:   4%|â–�         | 81/2000 [28:43<6:30:27, 12.21s/ep]
+Episodes:   4%|â–�         | 85/2000 [33:34<12:21:27, 23.23s/ep]
+Episodes:   5%|â–�         | 93/2000 [34:34<9:28:03, 17.87s/ep]
+Episodes:   5%|â–Œ         | 109/2000 [36:41<6:48:35, 12.96s/ep]
+Episodes:   6%|â–Œ         | 113/2000 [37:47<7:04:21, 13.49s/ep]
+Episodes:   6%|â–Œ         | 121/2000 [43:54<12:06:28, 23.20s/ep]
+Episodes:   7%|â–‹         | 137/2000 [44:42<7:11:03, 13.88s/ep]
+Episodes:   7%|â–‹         | 149/2000 [46:06<5:57:18, 11.58s/ep]
+Episodes:   8%|â–Š         | 153/2000 [47:55<7:02:08, 13.71s/ep]
+Episodes:   8%|â–Š         | 157/2000 [48:56<7:09:38, 13.99s/ep]
+Episodes:   8%|â–Š         | 161/2000 [50:33<8:08:11, 15.93s/ep]
+Episodes:   8%|â–Š         | 165/2000 [52:22<9:20:07, 18.31s/ep]
+Episodes:   8%|â–Š         | 169/2000 [54:06<10:14:24, 20.13s/ep]
+Episodes:   9%|â–‰         | 177/2000 [57:12<10:49:33, 21.38s/ep]
+Episodes:   9%|â–‰         | 185/2000 [57:50<7:43:54, 15.34s/ep]
+Episodes:  10%|â–‰         | 197/2000 [57:59<4:28:36,  8.94s/ep]
+Episodes:  10%|â–ˆ         | 201/2000 [1:02:13<9:10:33, 18.36s/ep]
+Episodes:  10%|â–ˆ         | 209/2000 [1:02:24<6:20:03, 12.73s/ep]
+Episodes:  11%|â–ˆ         | 213/2000 [1:03:07<6:08:01, 12.36s/ep]
+Episodes:  11%|â–ˆ         | 217/2000 [1:05:31<8:37:51, 17.43s/ep]
+Episodes:  11%|â–ˆâ–�        | 225/2000 [1:08:28<9:27:55, 19.20s/ep]
+Episodes:  12%|â–ˆâ–�        | 237/2000 [1:10:46<7:42:31, 15.74s/ep]
+Episodes:  13%|â–ˆâ–Ž        | 253/2000 [1:11:58<5:08:16, 10.59s/ep]
+Episodes:  13%|â–ˆâ–Ž        | 261/2000 [1:13:05<4:50:37, 10.03s/ep]
+Episodes:  13%|â–ˆâ–Ž        | 269/2000 [1:14:21<4:44:50,  9.87s/ep]
+Episodes:  14%|â–ˆâ–�        | 277/2000 [1:16:47<5:49:34, 12.17s/ep]
+Episodes:  15%|â–ˆâ–�        | 293/2000 [1:19:29<5:20:47, 11.28s/ep]
+Episodes:  15%|â–ˆâ–Œ        | 305/2000 [1:20:12<4:09:14,  8.82s/ep]
+Episodes:  16%|â–ˆâ–Œ        | 321/2000 [1:20:48<2:57:30,  6.34s/ep]
+Episodes:  16%|â–ˆâ–‹        | 325/2000 [1:21:32<3:12:19,  6.89s/ep]
+Episodes:  16%|â–ˆâ–‹        | 329/2000 [1:22:29<3:41:03,  7.94s/ep]
+Episodes:  17%|â–ˆâ–‹        | 337/2000 [1:24:19<4:27:28,  9.65s/ep]
+Episodes:  17%|â–ˆâ–‹        | 341/2000 [1:25:07<4:37:56, 10.05s/ep]
+Episodes:  17%|â–ˆâ–‹        | 349/2000 [1:25:40<3:42:50,  8.10s/ep]
+Episodes:  18%|â–ˆâ–Š        | 353/2000 [1:25:50<3:13:42,  7.06s/ep]
+Episodes:  18%|â–ˆâ–Š        | 357/2000 [1:26:38<3:41:55,  8.10s/ep]
+Episodes:  18%|â–ˆâ–Š        | 369/2000 [1:27:59<3:22:37,  7.45s/ep]
+Episodes:  19%|â–ˆâ–Š        | 373/2000 [1:28:58<3:58:03,  8.78s/ep]
+Episodes:  19%|â–ˆâ–‰        | 377/2000 [1:29:29<3:52:45,  8.61s/ep]
+Episodes:  19%|â–ˆâ–‰        | 381/2000 [1:29:50<3:30:37,  7.81s/ep]
+Episodes:  20%|â–ˆâ–‰        | 397/2000 [1:32:17<3:49:38,  8.60s/ep]
+Episodes:  20%|â–ˆâ–ˆ        | 401/2000 [1:33:14<4:15:02,  9.57s/ep]
+Episodes:  20%|â–ˆâ–ˆ        | 405/2000 [1:33:38<3:55:58,  8.88s/ep]
+Episodes:  21%|â–ˆâ–ˆ        | 417/2000 [1:35:34<4:02:53,  9.21s/ep]
+Episodes:  21%|â–ˆâ–ˆ        | 421/2000 [1:35:47<3:35:09,  8.18s/ep]
+Episodes:  21%|â–ˆâ–ˆâ–�       | 429/2000 [1:38:04<4:52:24, 11.17s/ep]
+Episodes:  22%|â–ˆâ–ˆâ–�       | 437/2000 [1:38:25<3:39:20,  8.42s/ep]
+Episodes:  22%|â–ˆâ–ˆâ–�       | 449/2000 [1:41:02<4:26:59, 10.33s/ep]
+Episodes:  23%|â–ˆâ–ˆâ–Ž       | 457/2000 [1:41:52<3:56:17,  9.19s/ep]
+Episodes:  23%|â–ˆâ–ˆâ–Ž       | 469/2000 [1:43:35<3:48:21,  8.95s/ep]
+Episodes:  24%|â–ˆâ–ˆâ–�       | 481/2000 [1:44:07<2:51:16,  6.77s/ep]
+Episodes:  24%|â–ˆâ–ˆâ–�       | 485/2000 [1:45:57<4:04:52,  9.70s/ep]
+Episodes:  25%|â–ˆâ–ˆâ–�       | 497/2000 [1:46:50<3:12:33,  7.69s/ep]
+Episodes:  25%|â–ˆâ–ˆâ–Œ       | 501/2000 [1:47:21<3:12:31,  7.71s/ep]
+Episodes:  25%|â–ˆâ–ˆâ–Œ       | 509/2000 [1:48:26<3:14:39,  7.83s/ep]
+Episodes:  26%|â–ˆâ–ˆâ–Œ       | 513/2000 [1:49:33<3:53:30,  9.42s/ep]
+Episodes:  26%|â–ˆâ–ˆâ–Œ       | 517/2000 [1:49:59<3:39:03,  8.86s/ep]
+Episodes:  26%|â–ˆâ–ˆâ–Œ       | 521/2000 [1:53:16<7:21:16, 17.90s/ep]
+Episodes:  26%|â–ˆâ–ˆâ–‹       | 525/2000 [1:54:20<7:09:23, 17.47s/ep]
+Episodes:  27%|â–ˆâ–ˆâ–‹       | 541/2000 [1:57:20<5:36:30, 13.84s/ep]
+Episodes:  27%|â–ˆâ–ˆâ–‹       | 545/2000 [2:00:18<7:43:50, 19.13s/ep]
+Episodes:  28%|â–ˆâ–ˆâ–Š       | 557/2000 [2:03:25<7:03:46, 17.62s/ep]
+Episodes:  29%|â–ˆâ–ˆâ–‰       | 577/2000 [2:05:07<4:28:51, 11.34s/ep]
+Episodes:  29%|â–ˆâ–ˆâ–‰       | 585/2000 [2:29:15<19:19:58, 49.19s/ep]
+Episodes:  30%|â–ˆâ–ˆâ–‰       | 593/2000 [2:29:35<14:48:22, 37.88s/ep]
+Episodes:  30%|â–ˆâ–ˆâ–‰       | 597/2000 [2:30:52<13:42:11, 35.16s/ep]
+Episodes:  30%|â–ˆâ–ˆâ–ˆ       | 601/2000 [2:33:04<13:30:39, 34.77s/ep]
+Episodes:  30%|â–ˆâ–ˆâ–ˆ       | 609/2000 [2:35:48<11:36:13, 30.03s/ep]
+Episodes:  31%|â–ˆâ–ˆâ–ˆ       | 621/2000 [2:37:08<7:47:07, 20.32s/ep]
+Episodes:  31%|â–ˆâ–ˆâ–ˆâ–�      | 629/2000 [2:37:28<5:49:06, 15.28s/ep]
+Episodes:  32%|â–ˆâ–ˆâ–ˆâ–�      | 633/2000 [2:40:50<8:03:19, 21.21s/ep]
+Episodes:  32%|â–ˆâ–ˆâ–ˆâ–�      | 649/2000 [2:43:49<6:07:06, 16.30s/ep]
+Episodes:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 665/2000 [2:46:14<4:56:06, 13.31s/ep]
+Episodes:  33%|â–ˆâ–ˆâ–ˆâ–Ž      | 669/2000 [2:49:47<6:48:42, 18.42s/ep]
+Episodes:  34%|â–ˆâ–ˆâ–ˆâ–�      | 677/2000 [2:51:16<6:03:46, 16.50s/ep]
+Episodes:  34%|â–ˆâ–ˆâ–ˆâ–�      | 681/2000 [2:51:46<5:30:09, 15.02s/ep]
+Episodes:  34%|â–ˆâ–ˆâ–ˆâ–�      | 685/2000 [2:52:20<5:03:13, 13.84s/ep]
+Episodes:  35%|â–ˆâ–ˆâ–ˆâ–�      | 697/2000 [2:53:10<3:26:30,  9.51s/ep]
+Episodes:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 701/2000 [2:56:56<6:24:06, 17.74s/ep]
+Episodes:  35%|â–ˆâ–ˆâ–ˆâ–Œ      | 709/2000 [2:59:50<6:50:01, 19.06s/ep]
+Episodes:  36%|â–ˆâ–ˆâ–ˆâ–‹      | 725/2000 [3:01:28<4:31:18, 12.77s/ep]
+Episodes:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 733/2000 [3:03:31<4:43:37, 13.43s/ep]
+Episodes:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 737/2000 [3:06:11<6:10:15, 17.59s/ep]
+Episodes:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 741/2000 [3:06:47<5:35:41, 16.00s/ep]
+Episodes:  37%|â–ˆâ–ˆâ–ˆâ–‹      | 749/2000 [3:07:22<4:10:38, 12.02s/ep]
+Episodes:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 753/2000 [3:07:56<3:56:12, 11.37s/ep]
+Episodes:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 761/2000 [3:17:06<11:00:29, 31.99s/ep]
+Episodes:  38%|â–ˆâ–ˆâ–ˆâ–Š      | 769/2000 [3:18:37<8:32:46, 24.99s/ep]
+Episodes:  39%|â–ˆâ–ˆâ–ˆâ–‰      | 777/2000 [3:23:15<9:34:06, 28.17s/ep]
+Episodes:  40%|â–ˆâ–ˆâ–ˆâ–‰      | 793/2000 [3:30:46<9:26:41, 28.17s/ep]
+Episodes:  41%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 825/2000 [3:33:12<4:43:47, 14.49s/ep]
+Episodes:  41%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 829/2000 [3:36:06<5:36:04, 17.22s/ep]
+Episodes:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 837/2000 [3:36:41<4:40:43, 14.48s/ep]
+Episodes:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 841/2000 [3:36:50<4:09:10, 12.90s/ep]
+Episodes:  42%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 849/2000 [3:38:04<3:48:29, 11.91s/ep]
+Episodes:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 857/2000 [3:41:47<5:11:40, 16.36s/ep]
+Episodes:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 861/2000 [3:43:08<5:22:53, 17.01s/ep]
+Episodes:  43%|â–ˆâ–ˆâ–ˆâ–ˆâ–Ž     | 869/2000 [3:46:24<6:06:38, 19.45s/ep]
+Episodes:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 877/2000 [3:46:42<4:22:24, 14.02s/ep]
+Episodes:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 885/2000 [3:48:43<4:26:54, 14.36s/ep]
+Episodes:  44%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 889/2000 [3:49:09<3:59:16, 12.92s/ep]
+Episodes:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–�     | 897/2000 [3:54:26<6:45:15, 22.04s/ep]
+Episodes:  45%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 901/2000 [3:54:46<5:43:01, 18.73s/ep]
+Episodes:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 917/2000 [3:55:20<2:59:07,  9.92s/ep]
+Episodes:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–Œ     | 921/2000 [3:57:38<4:09:12, 13.86s/ep]
+Episodes:  46%|â–ˆâ–ˆâ–ˆâ–ˆâ–‹     | 929/2000 [4:01:03<5:12:45, 17.52s/ep]
+Episodes:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 957/2000 [4:02:22<2:28:44,  8.56s/ep]
+Episodes:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 961/2000 [4:03:03<2:31:25,  8.74s/ep]
+Episodes:  48%|â–ˆâ–ˆâ–ˆâ–ˆâ–Š     | 969/2000 [4:05:42<3:16:04, 11.41s/ep]
+Episodes:  49%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 977/2000 [4:06:56<3:05:09, 10.86s/ep]
+Episodes:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–‰     | 993/2000 [4:07:22<1:57:06,  6.98s/ep]
+Episodes:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 1001/2000 [4:10:01<2:45:39,  9.95s/ep]
+Episodes:  50%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 1005/2000 [4:11:23<3:09:45, 11.44s/ep]
+Episodes:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 1013/2000 [4:12:34<2:56:07, 10.71s/ep]
+Episodes:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     | 1021/2000 [4:12:42<2:08:27,  7.87s/ep]
+Episodes:  51%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1025/2000 [4:15:53<4:00:09, 14.78s/ep]
+Episodes:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1033/2000 [4:17:11<3:31:19, 13.11s/ep]
+Episodes:  52%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1041/2000 [4:21:22<5:03:05, 18.96s/ep]
+Episodes:  53%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 1057/2000 [4:24:34<4:05:40, 15.63s/ep]
+Episodes:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž    | 1073/2000 [4:25:35<2:47:26, 10.84s/ep]
+Episodes:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1081/2000 [4:28:53<3:33:59, 13.97s/ep]
+Episodes:  54%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1085/2000 [4:29:22<3:18:34, 13.02s/ep]
+Episodes:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1093/2000 [4:31:27<3:28:10, 13.77s/ep]
+Episodes:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�    | 1097/2000 [4:31:47<3:05:07, 12.30s/ep]
+Episodes:  55%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 1109/2000 [4:35:23<3:37:44, 14.66s/ep]
+Episodes:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ    | 1121/2000 [4:37:06<3:01:35, 12.40s/ep]
+Episodes:  56%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 1129/2000 [4:38:32<2:53:44, 11.97s/ep]
+Episodes:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 1141/2000 [4:41:00<2:53:24, 12.11s/ep]
+Episodes:  57%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹    | 1145/2000 [4:43:09<3:34:24, 15.05s/ep]
+Episodes:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 1153/2000 [4:44:34<3:13:53, 13.74s/ep]
+Episodes:  58%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 1165/2000 [4:45:50<2:31:19, 10.87s/ep]
+Episodes:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š    | 1173/2000 [4:49:35<3:33:52, 15.52s/ep]
+Episodes:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 1177/2000 [4:49:40<3:01:10, 13.21s/ep]
+Episodes:  59%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 1185/2000 [4:50:00<2:13:28,  9.83s/ep]
+Episodes:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰    | 1193/2000 [4:51:15<2:10:39,  9.71s/ep]
+Episodes:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 1201/2000 [4:52:34<2:09:41,  9.74s/ep]
+Episodes:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 1205/2000 [4:54:34<2:57:37, 13.41s/ep]
+Episodes:  60%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 1209/2000 [4:56:38<3:43:49, 16.98s/ep]
+Episodes:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    | 1217/2000 [4:58:14<3:17:43, 15.15s/ep]
+Episodes:  61%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1229/2000 [5:00:05<2:41:12, 12.55s/ep]
+Episodes:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1237/2000 [5:00:58<2:17:14, 10.79s/ep]
+Episodes:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1241/2000 [5:01:01<1:54:30,  9.05s/ep]
+Episodes:  62%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1245/2000 [5:03:03<2:47:57, 13.35s/ep]
+Episodes:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 1257/2000 [5:04:29<2:09:41, 10.47s/ep]
+Episodes:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 1261/2000 [5:04:50<1:57:43,  9.56s/ep]
+Episodes:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 1265/2000 [5:08:43<3:58:53, 19.50s/ep]
+Episodes:  63%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž   | 1269/2000 [5:09:21<3:30:26, 17.27s/ep]
+Episodes:  64%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1277/2000 [5:17:55<7:10:19, 35.71s/ep]
+Episodes:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1293/2000 [5:18:16<3:26:25, 17.52s/ep]
+Episodes:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�   | 1297/2000 [5:20:36<3:57:53, 20.30s/ep]
+Episodes:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 1305/2000 [5:29:10<6:34:03, 34.02s/ep]
+Episodes:  65%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 1309/2000 [5:30:08<5:50:32, 30.44s/ep]
+Episodes:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ   | 1313/2000 [5:32:59<6:17:30, 32.97s/ep]
+Episodes:  66%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 1329/2000 [5:35:37<3:49:00, 20.48s/ep]
+Episodes:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 1337/2000 [5:40:28<4:35:12, 24.91s/ep]
+Episodes:  67%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹   | 1341/2000 [5:45:42<6:11:35, 33.83s/ep]
+Episodes:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 1361/2000 [5:46:13<2:53:34, 16.30s/ep]
+Episodes:  68%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 1369/2000 [5:52:33<4:09:07, 23.69s/ep]
+Episodes:  69%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š   | 1373/2000 [5:56:48<5:08:13, 29.49s/ep]
+Episodes:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 1401/2000 [6:02:22<3:10:47, 19.11s/ep]
+Episodes:  70%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 1405/2000 [6:06:37<3:57:03, 23.91s/ep]
+Episodes:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 1417/2000 [6:07:07<2:46:37, 17.15s/ep]
+Episodes:  71%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   | 1421/2000 [6:13:08<4:17:41, 26.70s/ep]
+Episodes:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 1441/2000 [6:16:34<2:55:03, 18.79s/ep]
+Episodes:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 1445/2000 [6:16:45<2:35:43, 16.83s/ep]
+Episodes:  72%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 1449/2000 [6:23:26<4:27:36, 29.14s/ep]
+Episodes:  73%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž  | 1469/2000 [6:27:27<3:00:18, 20.37s/ep]
+Episodes:  74%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 1477/2000 [6:32:41<3:34:52, 24.65s/ep]
+Episodes:  75%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�  | 1493/2000 [6:38:38<3:20:35, 23.74s/ep]
+Episodes:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ  | 1513/2000 [6:44:58<2:56:49, 21.79s/ep]
+Episodes:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 1525/2000 [6:45:03<2:08:09, 16.19s/ep]
+Episodes:  76%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 1529/2000 [6:50:24<3:02:46, 23.28s/ep]
+Episodes:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 1541/2000 [6:51:56<2:19:42, 18.26s/ep]
+Episodes:  77%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹  | 1545/2000 [6:52:29<2:08:28, 16.94s/ep]
+Episodes:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 1557/2000 [6:56:15<2:10:04, 17.62s/ep]
+Episodes:  78%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š  | 1561/2000 [6:58:20<2:23:44, 19.65s/ep]
+Episodes:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 1577/2000 [6:59:56<1:34:29, 13.40s/ep]
+Episodes:  79%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 1585/2000 [7:00:52<1:21:40, 11.81s/ep]
+Episodes:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰  | 1593/2000 [7:05:42<2:03:20, 18.18s/ep]
+Episodes:  80%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 1609/2000 [7:07:15<1:24:07, 12.91s/ep]
+Episodes:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  | 1621/2000 [7:08:21<1:06:49, 10.58s/ep]
+Episodes:  81%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 1629/2000 [7:08:52<55:49,  9.03s/ep]
+Episodes:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 1633/2000 [7:11:17<1:18:52, 12.90s/ep]
+Episodes:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 1637/2000 [7:11:50<1:13:17, 12.12s/ep]
+Episodes:  82%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 1649/2000 [7:12:28<48:53,  8.36s/ep]
+Episodes:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 1653/2000 [7:13:04<49:04,  8.48s/ep]
+Episodes:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 1665/2000 [7:17:14<1:15:56, 13.60s/ep]
+Episodes:  83%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž | 1669/2000 [7:19:51<1:38:24, 17.84s/ep]
+Episodes:  84%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 1689/2000 [7:19:57<43:14,  8.34s/ep]
+Episodes:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–� | 1697/2000 [7:21:22<44:52,  8.89s/ep]
+Episodes:  85%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 1701/2000 [7:26:05<1:28:50, 17.83s/ep]
+Episodes:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 1717/2000 [7:26:20<48:02, 10.19s/ep]
+Episodes:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ | 1721/2000 [7:26:33<42:58,  9.24s/ep]
+Episodes:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 1725/2000 [7:26:40<36:31,  7.97s/ep]
+Episodes:  86%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 1729/2000 [7:28:47<56:40, 12.55s/ep]
+Episodes:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 1733/2000 [7:28:55<45:41, 10.27s/ep]
+Episodes:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 1737/2000 [7:31:48<1:19:00, 18.02s/ep]
+Episodes:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 1745/2000 [7:32:25<53:36, 12.61s/ep]
+Episodes:  87%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹ | 1749/2000 [7:32:43<45:22, 10.84s/ep]
+Episodes:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 1761/2000 [7:35:03<44:46, 11.24s/ep]
+Episodes:  88%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 1769/2000 [7:36:03<38:44, 10.06s/ep]
+Episodes:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š | 1773/2000 [7:37:14<43:17, 11.44s/ep]
+Episodes:  89%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 1777/2000 [7:40:52<1:16:00, 20.45s/ep]
+Episodes:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰ | 1793/2000 [7:44:12<55:40, 16.14s/ep]
+Episodes:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 1805/2000 [7:44:51<36:58, 11.38s/ep]
+Episodes:  90%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 1809/2000 [7:45:22<34:31, 10.85s/ep]
+Episodes:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ | 1813/2000 [7:46:28<36:57, 11.86s/ep]
+Episodes:  91%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 1825/2000 [7:47:59<29:13, 10.02s/ep]
+Episodes:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 1833/2000 [7:49:24<28:22, 10.20s/ep]
+Episodes:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 1837/2000 [7:50:29<30:29, 11.22s/ep]
+Episodes:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 1841/2000 [7:52:00<35:42, 13.47s/ep]
+Episodes:  92%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 1849/2000 [7:54:16<37:05, 14.74s/ep]
+Episodes:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 1857/2000 [7:54:41<25:48, 10.83s/ep]
+Episodes:  93%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 1869/2000 [7:58:24<30:42, 14.07s/ep]
+Episodes:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Ž| 1873/2000 [7:58:55<27:33, 13.02s/ep]
+Episodes:  94%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–�| 1885/2000 [8:02:20<28:14, 14.73s/ep]
+Episodes:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 1901/2000 [8:04:03<18:12, 11.04s/ep]
+Episodes:  95%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 1905/2000 [8:05:28<19:41, 12.44s/ep]
+Episodes:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 1917/2000 [8:07:53<17:02, 12.32s/ep]
+Episodes:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Œ| 1921/2000 [8:10:22<21:06, 16.03s/ep]
+Episodes:  96%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 1929/2000 [8:11:15<15:38, 13.22s/ep]
+Episodes:  97%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‹| 1949/2000 [8:16:02<11:44, 13.80s/ep]
+Episodes:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 1961/2000 [8:17:14<07:25, 11.41s/ep]
+Episodes:  98%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 1969/2000 [8:17:27<04:44,  9.19s/ep]
+Episodes:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–Š| 1973/2000 [8:17:44<03:50,  8.53s/ep]
+Episodes:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 1977/2000 [8:18:08<03:05,  8.09s/ep]
+Episodes:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 1981/2000 [8:20:05<03:50, 12.15s/ep]
+Episodes:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 1985/2000 [8:20:25<02:39, 10.63s/ep]
+Episodes:  99%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 1989/2000 [8:20:41<01:39,  9.07s/ep]
+Episodes: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‰| 1997/2000 [8:21:34<00:24,  8.06s/ep]
+Episodes: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 2000/2000 [8:21:34<00:00, 15.05s/ep]

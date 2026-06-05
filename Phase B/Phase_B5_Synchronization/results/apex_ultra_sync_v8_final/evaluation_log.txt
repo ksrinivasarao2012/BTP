@@ -1,0 +1,74 @@
+==================================================
+🤖 K-FOLD VALIDATION LAUNCHED (K=1)
+   Episodes per fold: 2
+   Total drone simulations: 40 per category
+==================================================
+
+
+--- FOLD 1/1 ---
+>> Running Random Spread Fold...
+[Fold 1 - Random] Generating 2 pure random scenarios...
+
+============================================================
+  TEST (B5 SYNC): Fold 1 - Random
+  Episodes: 2
+  Base Seed: 1000
+============================================================
+  Progress: 1/2 | Drone successes: 9 | Collisions: 0 | Timeouts: 1
+  Progress: 2/2 | Drone successes: 19 | Collisions: 0 | Timeouts: 1
+
+==========================================
+  RESULTS: Fold 1 - Random
+==========================================
+Total Episodes Run: 2
+Total Drones Evaluated: 20
+Time Taken: 32.46 seconds
+Average Steps/Episode: 490.0
+------------------------------------------
+🎯 Success Rate:   95.00% (19)
+💥 Collision Rate: 0.00% (0)
+⏳ Timeout Rate:   5.00% (1)
+==========================================
+
+>> Running Dense Cluster Fold...
+[Fold 1 - Clustered] Generating 2 clustered scenarios...
+
+============================================================
+  TEST (B5 SYNC): Fold 1 - Clustered
+  Episodes: 2
+  Base Seed: 1000
+============================================================
+  Progress: 1/2 | Drone successes: 10 | Collisions: 0 | Timeouts: 0
+  Progress: 2/2 | Drone successes: 20 | Collisions: 0 | Timeouts: 0
+
+==========================================
+  RESULTS: Fold 1 - Clustered
+==========================================
+Total Episodes Run: 2
+Total Drones Evaluated: 20
+Time Taken: 23.18 seconds
+Average Steps/Episode: 108.0
+------------------------------------------
+🎯 Success Rate:   100.00% (20)
+💥 Collision Rate: 0.00% (0)
+⏳ Timeout Rate:   0.00% (0)
+==========================================
+
+Fold 1 Results: Random= 95.00%, Clustered= 100.00%
+
+==================================================
+FINAL K-FOLD SUMMARY (Folds 1-1)
+==================================================
+Random Mean:
+  Success:   95.00% +/- 0.00%
+  Collision: 0.00% +/- 0.00%
+  Timeout:   5.00% +/- 0.00%
+==================================================
+
+
+Clustered Mean:
+  Success:   100.00% +/- 0.00%
+  Collision: 0.00% +/- 0.00%
+  Timeout:   0.00% +/- 0.00%
+==================================================
+

@@ -1,0 +1,20 @@
+==================================================
+🤖 K-FOLD VALIDATION LAUNCHED (K=10)
+   Episodes per fold: 200
+   Total drone simulations: 40,000 per category
+==================================================
+
+
+--- FOLD 1/10 ---
+>> Running Random Spread Fold...
+[Fold 1 - Random] Generating 200 pure random scenarios...
+
+============================================================
+  TEST (B5 SYNC): Fold 1 - Random
+  Episodes: 200
+  Base Seed: 1000
+============================================================
+  Progress: 20/200 | Drone successes: 171 | Collisions: 13 | Timeouts: 16
+  Progress: 40/200 | Drone successes: 339 | Collisions: 29 | Timeouts: 32
+  Progress: 60/200 | Drone successes: 517 | Collisions: 37 | Timeouts: 46
+  Progress: 80/200 | Drone successes: 698 | Collisions: 45 | Timeouts: 57

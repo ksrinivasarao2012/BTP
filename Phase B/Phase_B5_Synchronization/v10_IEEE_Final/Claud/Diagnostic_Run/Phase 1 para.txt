@@ -1,0 +1,42 @@
+| Parameter                   | Value                   | Status |
+| --------------------------- | ----------------------- | ------ |
+| Environment Width           | 20 m                    | ✅      |
+| Environment Height          | 20 m                    | ✅      |
+| Number of Drones            | 10                      | ✅      |
+| Goal Position               | (17,17)                 | ✅      |
+| Spawn Region                | Uniform(1,19)           | ✅      |
+| Minimum Spawn-Goal Distance | 8.0 m                   | ✅      |
+| Spawn Separation            | 0.8 m                   | ✅      |
+| Max Velocity                | 1.2 m/s                 | ✅      |
+| Time Step (dt)              | 0.1 s                   | ✅      |
+| Episode Length              | 800 steps               | ✅      |
+| Drone Radius                | 0.15 m                  | ✅      |
+| Target Density              | 0.30 (validation)       | ✅      |
+| Observation Normalization   | dist_goal / 28.0        | ✅      |
+| LiDAR Sectors               | 64                      | ✅      |
+| LiDAR Range                 | 8.0 m                   | ✅      |
+| Connectivity Validation     | Flood-fill reachability | ✅      |
+| Obstacle Grid Resolution    | 0.1 m                   | ✅      |
+
+
+| Component         | Dimension |
+| ----------------- | --------- |
+| Self State        | 7         |
+| LiDAR             | 192       |
+| Neighbors         | 144       |
+| Context           | 23        |
+| Actor Observation | 366       |
+| Critic State      | 1960      |
+| Padding           | 10        |
+| Total Observation | 2336      |
+
+| Component         | Dimension |
+| ----------------- | --------- |
+| Self State        | 7         |
+| LiDAR             | 192       |
+| Neighbors         | 144       |
+| Context           | 23        |
+| Actor Observation | 366       |
+| Critic State      | 1960      |
+| Padding           | 10        |
+| Total Observation | 2336      |

@@ -1,0 +1,65 @@
+
+==================================================
+[LAUNCH] K-FOLD VALIDATION LAUNCHED (K=1, 2 Cores Parallelized)
+   Model: apex_ultra_glide_v14_final_density_0.35
+   Episodes per fold: 2 (Total: 2 drone flights total)
+   Dynamic Hardware Acceleration: Parallelized episodes within folds
+==================================================
+
+
+============================================================
+>> Running RANDOM Spread Folds...
+============================================================
+
+--- FOLD 1/1 ---
+[RANDOM Spawn] Evaluating 2 episodes across 2 cores...
+
+==========================================
+  RESULTS: Fold 1 - Random
+==========================================
+Total Episodes Run: 2
+Total Drones Evaluated: 20
+Time Taken: 8.14 seconds
+Average Steps/Episode: 800.0
+------------------------------------------
+[SUCCESS] Success Rate:    60.00% (12)
+[COLLISION] Collision Rate:   0.00% (0)
+[TIMEOUT] Timeout Rate:    40.00% (8)
+==========================================
+
+
+============================================================
+>> Running CLUSTERED Spread Folds...
+============================================================
+
+--- FOLD 1/1 ---
+[CLUSTERED Spawn] Evaluating 2 episodes across 2 cores...
+
+==========================================
+  RESULTS: Fold 1 - Clustered
+==========================================
+Total Episodes Run: 2
+Total Drones Evaluated: 20
+Time Taken: 10.71 seconds
+Average Steps/Episode: 800.0
+------------------------------------------
+[SUCCESS] Success Rate:    15.00% (3)
+[COLLISION] Collision Rate:   0.00% (0)
+[TIMEOUT] Timeout Rate:    85.00% (17)
+==========================================
+
+[OK] Results successfully saved to: results/v14\apex_ultra_glide_v14_final_density_0.35\master_B10_evaluation_results_20260524_032411.csv
+[OK] Comparison plot successfully saved to: results/v14\apex_ultra_glide_v14_final_density_0.35\master_B10_evaluation_comparison_20260524_032411.png
+
+[SCAN] Scanning 1002 parallel trajectory logs for multi-drone failures...
+[OK] Generated 274 failure diagnostic plots in results folder!
+
+=====================================================================================
+           PHASE B10 MASTER: K-FOLD COMPARISON (K=1, 2 Eps/Fold)
+=====================================================================================
+Metric                    | Random Spawn              | Cluster Spawn            
+-------------------------------------------------------------------------------------
+[SUCCESS] Success Rate    |  60.00% ±  nan            |  15.00% ±  nan
+[COLLISION] Collision Rate |   0.00% ±  nan            |   0.00% ±  nan
+[TIMEOUT] Timeout Rate    |  40.00% ±  nan            |  85.00% ±  nan
+=====================================================================================

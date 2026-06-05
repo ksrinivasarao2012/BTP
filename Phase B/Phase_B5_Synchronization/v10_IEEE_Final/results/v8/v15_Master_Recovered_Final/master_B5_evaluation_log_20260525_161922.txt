@@ -1,0 +1,63 @@
+
+==================================================
+🤖 K-FOLD VALIDATION LAUNCHED (K=5, 5 Cores Parallelized)
+   Episodes per fold: 100 (Total: 500 drone flights total)
+   Dynamic Hardware Acceleration: Parallelized episodes within folds
+==================================================
+
+
+=======================================================
+  --- FOLD 1/5 ---
+=======================================================
+
+[RANDOM Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 1 - Random
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 18.77 seconds
+Average Steps/Episode: 14.5
+------------------------------------------
+🎯 Success Rate:     4.40% (44)
+💥 Collision Rate:  95.60% (956)
+⏳ Timeout Rate:     0.00% (0)
+==========================================
+
+[CLUSTERED Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 1 - Clustered
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 25.69 seconds
+Average Steps/Episode: 19.9
+------------------------------------------
+🎯 Success Rate:     0.00% (0)
+💥 Collision Rate: 100.00% (1000)
+⏳ Timeout Rate:     0.00% (0)
+==========================================
+
+
+=======================================================
+  --- FOLD 2/5 ---
+=======================================================
+
+[RANDOM Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 2 - Random
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 19.22 seconds
+Average Steps/Episode: 14.3
+------------------------------------------
+🎯 Success Rate:     4.10% (41)
+💥 Collision Rate:  95.90% (959)
+⏳ Timeout Rate:     0.00% (0)
+==========================================
+
+[CLUSTERED Spawn] Evaluating 100 episodes across 5 cores...

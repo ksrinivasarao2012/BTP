@@ -1,0 +1,24 @@
+================================================================================
+  IEEE-GRADE K-FOLD VALIDATION SUITE | v17 Master (732D Hybrid VFH)
+================================================================================
+  Timestamp         : 20260527_141533
+  Model Path        : d:\Swarm\BTP\models\v17_Master_Final.zip
+  Model SHA-256     : 9d1bd071cc7d6aab6c9a74daee5ac7452f0046b8543369b36486b3cf25447e86
+  Observation Dim   : 752 (Actor: 222D Local + Critic: 530D Global)
+  Sensing Radii     : Environment defaults (100m unlimited for v17)
+  Obstacle Density  : 0.35
+  K-Folds           : 10
+  Episodes per Fold : 200  (Total: 4000 flights)
+  CPU Cores         : 10
+  Python            : 3.10.20
+  PyTorch           : 2.11.0+cpu
+  Stable-Baselines3 : 2.8.0
+  NumPy             : 2.2.5
+  Platform          : Windows-10-10.0.26200-SP0
+================================================================================
+
+=======================================================
+  --- FOLD 1/10 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 200 episodes...

@@ -1,0 +1,126 @@
+================================================================================
+  IEEE-GRADE K-FOLD VALIDATION SUITE | v16 Master (732D)
+================================================================================
+  Timestamp         : 20260525_223305
+  Model Path        : d:\Swarm\BTP\models\v16_Master_Final.zip
+  Model SHA-256     : eb845d6428a86dbc57da6b38bf183c5c0beb033ee7cb24e2b969ec956b99e3d5
+  Observation Dim   : 732 (Actor: 202D Local + Critic: 530D Global)
+  Sensing Radii     : Environment defaults (100m unlimited for v16; 12m LiDAR for v10-v14)
+  Obstacle Density  : 0.35
+  K-Folds           : 5
+  Episodes per Fold : 100  (Total: 1000 flights)
+  CPU Cores         : 5
+  Python            : 3.10.20
+  PyTorch           : 2.11.0+cpu
+  Stable-Baselines3 : 2.8.0
+  NumPy             : 2.2.5
+  Platform          : Windows-10-10.0.26200-SP0
+================================================================================
+
+=======================================================
+  --- FOLD 1/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 22.3s | Avg Steps/Ep: 14.8
+  [SUCCESS]     3.60%  (36 / 1000 drones)
+  [COLLISION]  96.40%  (964)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 77.9s | Avg Steps/Ep: 21.6
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 2/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 46.1s | Avg Steps/Ep: 14.4
+  [SUCCESS]     3.70%  (37 / 1000 drones)
+  [COLLISION]  96.30%  (963)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 32.3s | Avg Steps/Ep: 21.1
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 3/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 18.2s | Avg Steps/Ep: 15.1
+  [SUCCESS]     3.80%  (38 / 1000 drones)
+  [COLLISION]  96.20%  (962)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 31.0s | Avg Steps/Ep: 21.8
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 4/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 27.6s | Avg Steps/Ep: 13.9
+  [SUCCESS]     3.60%  (36 / 1000 drones)
+  [COLLISION]  96.40%  (964)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 56.9s | Avg Steps/Ep: 20.9
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 5/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 19.2s | Avg Steps/Ep: 14.5
+  [SUCCESS]     3.50%  (35 / 1000 drones)
+  [COLLISION]  96.50%  (965)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 36.6s | Avg Steps/Ep: 22.4
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+[OK] Per-episode details saved: results\v16\v16_Master_Final_density0.35_K5_E100\per_episode_details_20260525_223305.csv
+[OK] Fold summary saved: results\v16\v16_Master_Final_density0.35_K5_E100\fold_summary_20260525_223305.csv
+
+=====================================================================================
+  PHASE B MASTER (v16 732D): K-FOLD FINAL SUMMARY
+  K=5, 100 Eps/Fold | Density=0.35 | R_s=8.0m R_c=10.0m
+=====================================================================================
+  Metric                 |         Random Spawn         |        Cluster Spawn        
+  -----------------------------------------------------------------------------------
+  Success                |   3.64% +/- 0.10            |   0.00% +/- 0.00  
+  Collision              |  96.36% +/- 0.10            | 100.00% +/- 0.00  
+  Timeout                |   0.00% +/- 0.00            |   0.00% +/- 0.00  
+  -----------------------------------------------------------------------------------
+  95% CI (Success)         | [3.50%, 3.78%]              | [0.00%, 0.00%]
+  Wilcoxon Signed-Rank     | W=0.00, p=0.0625
+  Statistical Significance | NOT SIGNIFICANT (p >= 0.05)
+=====================================================================================
+[OK] Statistical summary saved: results\v16\v16_Master_Final_density0.35_K5_E100\statistical_summary_20260525_223305.csv
+[OK] Bar chart saved: results\v16\v16_Master_Final_density0.35_K5_E100\v16_master_evaluation_chart_20260525_223305.png
+[OK] Box plot saved: results\v16\v16_Master_Final_density0.35_K5_E100\v16_master_boxplot_20260525_223305.png
+
+[DIAG] Scanning 1000 episode logs for multi-drone failures...
+[DIAG] No multi-drone failure scenarios detected.

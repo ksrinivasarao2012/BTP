@@ -1,0 +1,119 @@
+
+==================================================
+[LAUNCH] K-FOLD VALIDATION LAUNCHED (K=5, 5 Cores Parallelized)
+   Model: apex_ultra_glide_v14_final_density_0.35
+   Episodes per fold: 100 (Total: 500 drone flights total)
+   Dynamic Hardware Acceleration: Parallelized episodes within folds
+==================================================
+
+
+=======================================================
+  --- FOLD 1/5 ---
+=======================================================
+
+[RANDOM Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 1 - Random
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 151.57 seconds
+Average Steps/Episode: 699.0
+------------------------------------------
+[SUCCESS] Success Rate:    81.70% (817)
+[COLLISION] Collision Rate:   3.70% (37)
+[TIMEOUT] Timeout Rate:    14.60% (146)
+==========================================
+
+[CLUSTERED Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 1 - Clustered
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 87.45 seconds
+Average Steps/Episode: 382.3
+------------------------------------------
+[SUCCESS] Success Rate:    84.80% (848)
+[COLLISION] Collision Rate:   5.70% (57)
+[TIMEOUT] Timeout Rate:     9.50% (95)
+==========================================
+
+
+=======================================================
+  --- FOLD 2/5 ---
+=======================================================
+
+[RANDOM Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 2 - Random
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 92.23 seconds
+Average Steps/Episode: 662.1
+------------------------------------------
+[SUCCESS] Success Rate:    82.70% (827)
+[COLLISION] Collision Rate:   6.60% (66)
+[TIMEOUT] Timeout Rate:    10.70% (107)
+==========================================
+
+[CLUSTERED Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 2 - Clustered
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 79.23 seconds
+Average Steps/Episode: 422.6
+------------------------------------------
+[SUCCESS] Success Rate:    87.00% (870)
+[COLLISION] Collision Rate:   5.00% (50)
+[TIMEOUT] Timeout Rate:     8.00% (80)
+==========================================
+
+
+=======================================================
+  --- FOLD 3/5 ---
+=======================================================
+
+[RANDOM Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 3 - Random
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 102.28 seconds
+Average Steps/Episode: 794.2
+------------------------------------------
+[SUCCESS] Success Rate:    78.90% (789)
+[COLLISION] Collision Rate:   4.80% (48)
+[TIMEOUT] Timeout Rate:    16.30% (163)
+==========================================
+
+[CLUSTERED Spawn] Evaluating 100 episodes across 5 cores...
+
+==========================================
+  RESULTS: Fold 3 - Clustered
+==========================================
+Total Episodes Run: 100
+Total Drones Evaluated: 1000
+Time Taken: 117.10 seconds
+Average Steps/Episode: 405.7
+------------------------------------------
+[SUCCESS] Success Rate:    81.20% (812)
+[COLLISION] Collision Rate:   6.00% (60)
+[TIMEOUT] Timeout Rate:    12.80% (128)
+==========================================
+
+
+=======================================================
+  --- FOLD 4/5 ---
+=======================================================
+
+[RANDOM Spawn] Evaluating 100 episodes across 5 cores...

@@ -1,0 +1,81 @@
+================================================================================
+  IEEE-GRADE K-FOLD VALIDATION SUITE | v15 Master (732D)
+================================================================================
+  Timestamp         : 20260525_162232
+  Model Path        : d:\Swarm\BTP\models\v15_Master_Recovered_Final.zip
+  Model SHA-256     : 432252598fb6a0b3e9334da9c75622ef3c04349f4cc37fab009fba90300a26e7
+  Observation Dim   : 732 (Actor: 202D Local + Critic: 530D Global)
+  Sensing Radii     : Environment defaults (100m unlimited for v15; 12m LiDAR for v10-v14)
+  Obstacle Density  : 0.35
+  K-Folds           : 5
+  Episodes per Fold : 100  (Total: 1000 flights)
+  CPU Cores         : 5
+  Python            : 3.10.20
+  PyTorch           : 2.11.0+cpu
+  Stable-Baselines3 : 2.8.0
+  NumPy             : 2.2.5
+  Platform          : Windows-10-10.0.26200-SP0
+================================================================================
+
+=======================================================
+  --- FOLD 1/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 39.8s | Avg Steps/Ep: 13.9
+  [SUCCESS]     2.20%  (22 / 1000 drones)
+  [COLLISION]  97.80%  (978)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 48.0s | Avg Steps/Ep: 19.9
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 2/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 22.7s | Avg Steps/Ep: 14.4
+  [SUCCESS]     2.20%  (22 / 1000 drones)
+  [COLLISION]  97.80%  (978)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 33.0s | Avg Steps/Ep: 20.1
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 3/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 35.8s | Avg Steps/Ep: 13.2
+  [SUCCESS]     2.20%  (22 / 1000 drones)
+  [COLLISION]  97.80%  (978)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...
+  Time: 84.2s | Avg Steps/Ep: 20.9
+  [SUCCESS]     0.00%  (0 / 1000 drones)
+  [COLLISION] 100.00%  (1000)
+  [TIMEOUT]     0.00%  (0)
+
+
+=======================================================
+  --- FOLD 4/5 ---
+=======================================================
+
+  [RANDOM Spawn] Evaluating 100 episodes...
+  Time: 16.4s | Avg Steps/Ep: 13.6
+  [SUCCESS]     3.30%  (33 / 1000 drones)
+  [COLLISION]  96.70%  (967)
+  [TIMEOUT]     0.00%  (0)
+
+  [CLUSTERED Spawn] Evaluating 100 episodes...

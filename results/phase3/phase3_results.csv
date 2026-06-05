@@ -1,0 +1,3 @@
+Width,Height,Density,d_min,Episodes_Run,Mean_Drone_Success_Rate,Std_Drone_Success_Rate,P10_Drone_Success,P50_Drone_Success,P90_Drone_Success,Difficulty_Spread,Mean_Episode_Success_Rate
+20.0,20.0,0.15,4.0,2,0.39999999999999997,0.29999999999999993,0.16,0.39999999999999997,0.64,0.48,0.0
+20.0,20.0,0.15,8.0,2,0.25,0.25,0.05,0.25,0.45,0.4,0.0
