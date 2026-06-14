@@ -117,7 +117,7 @@ def evaluate_single_config_p2(args):
     drone_succ_rate = successes / evaluated_drones if evaluated_drones > 0 else 0
     ep_succ_rate = episode_successes / total_episodes if total_episodes > 0 else 0
     coll_rate = collisions / evaluated_drones if evaluated_drones > 0 else 0
-    time_rate = timeouts / evaluated_drones if evaluated_drones > 0 else 0
+    timeout_rate = timeouts / evaluated_drones if evaluated_drones > 0 else 0
     
     return {
         'Width': w, 'Height': h, 'Density': density, 'd_min': d_min,
@@ -127,7 +127,7 @@ def evaluate_single_config_p2(args):
         'Drone_Success_Rate': drone_succ_rate,
         'Episode_Success_Rate': ep_succ_rate,
         'Collision_Rate': coll_rate,
-        'Timeout_Rate': time_rate,
+        'Timeout_Rate': timeout_rate,
         'Mean_Episode_Length': np.mean(ep_lengths) if ep_lengths else 0,
         'Mean_Time_To_Goal': np.mean(times_to_goal) if times_to_goal else 0,
         'Mean_Escape_Triggers': np.mean(escape_triggers) if escape_triggers else 0
@@ -144,18 +144,42 @@ def run_phase2():
     os.makedirs('results/phase2', exist_ok=True)
     os.makedirs('plots/difficulty', exist_ok=True)
     
+    results = []
+    completed_keys = set()
+    csv_path = 'results/phase2/phase2_results.csv'
+    if os.path.exists(csv_path):
+        try:
+            df_existing = pd.read_csv(csv_path)
+            for _, row in df_existing.iterrows():
+                completed_keys.add((int(row['Width']), int(row['Height']), float(row['Density']), int(row['d_min'])))
+                results.append(row.to_dict())
+            print(f"Loaded {len(completed_keys)} previously completed configurations from {csv_path}.")
+        except Exception as e:
+            print(f"Error reading existing CSV: {e}")
+            
     tasks = []
     for _, row in survivors_df.iterrows():
-        tasks.append((row['Width'], row['Height'], row['Density'], row['d_min'], num_episodes))
+        w, h, density, d_min = int(row['Width']), int(row['Height']), float(row['Density']), int(row['d_min'])
+        if (w, h, density, d_min) not in completed_keys:
+            tasks.append((w, h, density, d_min, num_episodes))
         
-    print(f"Starting Phase 2 Evaluation of {len(tasks)} configurations using 8 cores...")
+    print(f"Starting Phase 2 Evaluation of {len(tasks)} remaining configurations using 8 cores...")
     
-    from multiprocessing import Pool
-    with Pool(processes=8) as pool:
-        results = pool.map(evaluate_single_config_p2, tasks)
+    if tasks:
+        from multiprocessing import Pool
+        with Pool(processes=8) as pool:
+            completed = len(completed_keys)
+            total = len(completed_keys) + len(tasks)
+            for res in pool.imap_unordered(evaluate_single_config_p2, tasks):
+                results.append(res)
+                completed += 1
+                print(f"[{completed}/{total}] Configurations complete.")
+                # Save incrementally after each task completes
+                df_temp = pd.DataFrame(results)
+                df_temp.to_csv(csv_path, index=False)
         
     df = pd.DataFrame(results)
-    df.to_csv('results/phase2/phase2_results.csv', index=False)
+    df.to_csv(csv_path, index=False)
     
     # Phase 3 Selection Criteria
     phase2_survivors = df[(df['Drone_Success_Rate'] >= 0.40) & (df['Drone_Success_Rate'] <= 0.80)]

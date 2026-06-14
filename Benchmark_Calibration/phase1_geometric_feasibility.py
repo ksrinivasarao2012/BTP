@@ -105,11 +105,18 @@ def evaluate_config(args):
                 # Trace path back to collect corridor widths
                 cx_t, cy_t = px, py
                 min_cw_val = np.inf
+                visited_path = set()
                 while not (cx_t == gx and cy_t == gy):
+                    if cx_t < 0 or cy_t < 0 or cx_t >= rw or cy_t >= rh:
+                        break
+                    if (cx_t, cy_t) in visited_path:
+                        break
+                    visited_path.add((cx_t, cy_t))
+                    
                     min_cw_val = min(min_cw_val, dist_transform[cx_t, cy_t])
                     prev = prev_map[cx_t, cy_t]
                     cx_t, cy_t = int(prev[0]), int(prev[1])
-                if not np.isinf(min_cw_val):
+                if not np.isinf(min_cw_val) and (cx_t == gx and cy_t == gy):
                     corridor_widths.append(min_cw_val * 2.0)
                     
         except RuntimeError:
@@ -122,10 +129,23 @@ def evaluate_config(args):
         if total_attempts >= 20 and (success_count / total_attempts) < 0.75:
             break
             
-    total_generation_attempts = total_attempts
-    map_acceptance_rate = success_count / total_attempts if total_attempts > 0 else 0.0
-    density_failure_rate = env.total_failed_density / total_attempts if total_attempts > 0 else 0.0
-    connectivity_failure_rate = env.total_failed_connectivity / total_attempts if total_attempts > 0 else 0.0
+    total_generation_attempts = (
+        success_count
+        + env.total_failed_density
+        + env.total_failed_connectivity
+    )
+    map_acceptance_rate = (
+        success_count / total_generation_attempts
+        if total_generation_attempts > 0 else 0.0
+    )
+    density_failure_rate = (
+        env.total_failed_density / total_generation_attempts
+        if total_generation_attempts > 0 else 0.0
+    )
+    connectivity_failure_rate = (
+        env.total_failed_connectivity / total_generation_attempts
+        if total_generation_attempts > 0 else 0.0
+    )
     
     reachability_rate = reachable_drones / total_drones if total_drones > 0 else 0.0
     
@@ -214,30 +234,46 @@ def run_phase1():
     os.makedirs('plots/feasibility', exist_ok=True)
     os.makedirs('reports', exist_ok=True)
     
+    results = []
+    completed_keys = set()
+    csv_path = 'results/phase1/phase1_results.csv'
+    if os.path.exists(csv_path):
+        try:
+            df_existing = pd.read_csv(csv_path)
+            for _, row in df_existing.iterrows():
+                completed_keys.add((int(row['Width']), int(row['Height']), float(row['Density']), int(row['d_min'])))
+                results.append(row.to_dict())
+            print(f"Loaded {len(completed_keys)} previously completed configurations from {csv_path}.")
+        except Exception as e:
+            print(f"Error reading existing CSV: {e}")
+
     tasks = []
     for size in arena_sizes:
         w, h = size
         for density in densities:
             for d_min in d_min_candidates[size]:
-                tasks.append((w, h, density, d_min, num_maps, raster_res))
+                if size == (20, 20) and density == 0.40:
+                    continue
+                if (w, h, density, d_min) not in completed_keys:
+                    tasks.append((w, h, density, d_min, num_maps, raster_res))
                 
-    results = []
-    
     NUM_WORKERS = 10
-    print(f"Starting multiprocessing pool with {NUM_WORKERS} workers for {len(tasks)} configurations...")
+    print(f"Starting multiprocessing pool with {NUM_WORKERS} workers for {len(tasks)} remaining configurations...")
     
-    with mp.Pool(NUM_WORKERS) as pool:
-        completed = 0
-        total = len(tasks)
-        for res in pool.imap_unordered(evaluate_config, tasks):
-            results.append(res)
-            completed += 1
-            print(f"[{completed}/{total}] Configurations complete.")
-            # Save incrementally after each task completes
-            df_temp = pd.DataFrame(results)
-            df_temp.to_csv('results/phase1/phase1_results.csv', index=False)
+    if tasks:
+        with mp.Pool(NUM_WORKERS) as pool:
+            completed = len(completed_keys)
+            total = len(completed_keys) + len(tasks)
+            for res in pool.imap_unordered(evaluate_config, tasks):
+                results.append(res)
+                completed += 1
+                print(f"[{completed}/{total}] Configurations complete.")
+                # Save incrementally after each task completes
+                df_temp = pd.DataFrame(results)
+                df_temp.to_csv('results/phase1/phase1_results.csv', index=False)
             
     df = pd.DataFrame(results)
+    df = df[~((df['Width'] == 20) & (df['Height'] == 20) & (df['Density'] == 0.40))]
     df.to_csv('results/phase1/phase1_results.csv', index=False)
     
     # Selection criteria
@@ -293,7 +329,8 @@ def run_phase1():
     with open('reports/phase1_summary.txt', 'w') as f:
         f.write("Phase 1 Geometric Feasibility Summary\n")
         f.write("="*40 + "\n")
-        f.write(f"Total configurations tested: {len(df)}\n\n")
+        f.write(f"Total configurations tested: {len(df)}\n")
+        f.write(f"Maps evaluated per configuration (num_maps): {num_maps}\n\n")
         f.write("Selection Criteria:\n")
         f.write("  - Map Acceptance Rate >= 95%\n")
         f.write("  - P10 Corridor Width >= 0.4 m\n")
