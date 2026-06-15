@@ -1,0 +1,2467 @@
+===== PAGE 1 =====
+Citation: Chi, P .; Wei, J.; Wu, K.; Di,
+B.; Wang, Y. A Bio-Inspired
+Decision-Making Method of UAV
+Swarm for Attack-Defense
+Confrontation via Multi-Agent
+Reinforcement Learning. Biomimetics
+2023, 8, 222. https://doi.org/
+10.3390/biomimetics8020222
+Academic Editor: Xiangyin Zhang
+Received: 28 February 2023
+Revised: 24 May 2023
+Accepted: 24 May 2023
+Published: 25 May 2023
+Copyright: © 2023 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed under the terms and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+biomimetics 
+Article
+A Bio-Inspired Decision-Making Method of UA V Swarm for
+Attack-Defense Confrontation via Multi-Agent
+Reinforcement Learning
+Pei Chi 1, Jiahong Wei 2, Kun Wu 3,*, Bin Di 4 and Yingxun Wang 1
+1 Institute of Unmanned System, Beihang University, Beijing 100191, China
+2 School of Automation Science and Electrical Engineering, Beihang University, Beijing 100191, China
+3 Flying College, Beihang University, Beijing 100191, China
+4 Defense Innovation Institute, Academy of Military Sciences, Beijing 100071, China
+* Correspondence: wukun@buaa.edu.cn
+Abstract: The unmanned aerial vehicle (UAV) swarm is regarded as having a signiﬁcant role in
+modern warfare. The demand for UAV swarms with the capability of attack-defense confrontation is
+urgent. The existing decision-making methods of UAV swarm confrontation, such as multi-agent
+reinforcement learning (MARL), suffer from an exponential increase in training time as the size
+of the swarm increases. Inspired by group hunting behavior in nature, this paper presents a new
+bio-inspired decision-making method for UAV swarms for attack-defense confrontation via MARL.
+Firstly, a UAV swarm decision-making framework for confrontation based on grouping mechanisms
+is established. Secondly, a bio-inspired action space is designed, and a dense reward is added to
+the reward function to accelerate the convergence speed of training. Finally, numerical experiments
+are conducted to evaluate the performance of our method. The experiment results show that the
+proposed method can be applied to a swarm of 12 UAVs, and when the maximum acceleration of the
+enemy UAV is within 2.5 times ours, the swarm can well intercept the enemy, and the success rate is
+above 91%.
+Keywords: unmanned aerial vehicle; swarm; decision making; confrontation; multi-agentreinforcement
+learning
+1. Introduction
+With the development and maturity of unmanned aerial vehicle (UAV) ﬂight control
+technology, the platform performance and intelligence level of UAVs are constantly improv-
+ing. Therefore, the UAV is widely used in the military ﬁeld and has become more and more
+signiﬁcant in modern warfare [1–3]. Through collaboration among UAVs, the UAV swarm
+consisting of multiple UAVs can overcome the limitations of a single UAV in perception
+and execution and complete complex tasks [4–9], such as dynamic task allocation, collabo-
+rative reconnaissance, and attack-defense confrontation. Among these tasks, the method
+for attack-defense confrontation is highly valued as an emerging military technique that
+requires that the UAV make proper decisions autonomously according to the situation. The
+need for a UAV swarm with high-level confrontation intelligence is urgent.
+This paper focuses on the attack-defense confrontation of a UAV swarm. Generally,
+in an attack-defense confrontation, the UAV swarm competes against a certain number
+of enemies with a certain level of intelligence to maximize their respective beneﬁts. The
+objective of the UAV swarm mainly consists of two parts: destroying the enemy in a
+limited amount of time and protecting the base from the enemy’s invasion. The existing
+decision-making methods for attack-defense confrontations include matrix game methods,
+differential game methods, and expert system methods. However, these methods require
+Biomimetics 2023, 8, 222. https://doi.org/10.3390/biomimetics8020222 https://www.mdpi.com/journal/biomimetics
+===== PAGE 2 =====
+Biomimetics 2023, 8, 222 2 of 24
+some level of simpliﬁcation and have the shortcoming that they are only suitable for small-
+scale and static scenarios. When the size of the UAV swarm is large and the scenarios are
+dynamic, it is hard to establish and solve the model.
+In recent years, decision-making methods based on multi-agent reinforcement learning
+(MARL) have drawn a lot of attention. UAVs in the swarm are regarded as agents, and
+the agents receive rewards and learn the strategy through their interactions with the
+environment. Compared with other methods like differential game methods and expert
+system methods, methods based on MARL care less about the model of the system and are
+easier to design. Therefore, methods based on MARL are widely used by many researchers
+to solve the confrontation problem of UAV swarms. Since the solution space of the swarm
+confrontation problem is large and it is hard to obtain an effective strategy using standard
+MARL methods, researchers developed many methods based on MARL to increase the
+success rate. In [ 10], a hierarchical MARL framework for UAV swarm confrontation is
+proposed. A set of high-level macro actions and low-level primitive actions are designed
+to reduce the action space explored by the agents and increase the convergence speed.
+The experiment results show that the proposed method improves the success rate from
+57% to 91% in 10 vs. 10 scenarios. A rule-coupled method [ 11] is realized based on
+the multi-agent deep deterministic policy gradient (MADDPG) algorithm. The rules are
+summarized and reﬁned to guide the training of the agents. Compared with the original
+MADDPG algorithm, the rule-coupled method can obtain a better strategy with a higher
+success rate and shorter task completion time. The experiment results demonstrate that
+the UAV’s confrontation ability has improved. An improved multi-agent proximal policy
+optimization algorithm is proposed in [12]. The improved method adopts a framework
+of a centralized critic network and a decentralized actor network, which outperforms the
+framework of centralized critic network and centralized actor network in training time.
+The constraints of the environment and UAV dynamics are considered, and the method
+can achieve cooperation among UAVs without communication. A simulation environment
+for UAV swarm confrontation is constructed in [13]. In the scenario where 5 UAVs combat
+5 UAVs, the performance of the multi-agent soft actor critic (MASAC) method and the
+MADDPG method are compared. The results show that the MASAC method can obtain a
+higher success rate than the MADDPG method. The weighted mean effect of interactions
+between UAVs is considered, and a weighted mean ﬁeld reinforcement learning method
+for UAV swarm confrontation is proposed [ 14]. The method simpliﬁes the multi-agent
+problem to a two-agent problem and can be applied to a large-scale UAV swarm. In [15],
+scenario-transfer training methods and self-play training methods are proposed to deal
+with complex scenarios, and a 3 vs. 3 UAV combatant scenario is constructed. These
+training methods can train a new model of complex tasks based on the model trained from
+simple tasks and accelerate the convergence speed. An inheritance training method [16]
+based on the multi-agent proximal policy optimization method is developed to improve
+the generalization performance of the model. The idea of course learning is adopted in
+the method, and the results show that UAVs can search for and attack targets outside the
+training area. However, the above methods mainly focus on increasing the success rate
+under the condition that the swarm size is ﬁxed and small. For traditional MARL methods,
+the strategy trained for a certain number of UAVs is no longer feasible for a UAV swarm of
+a different size. Thus, the strategy has to be retrained as the swarm size changes. Due to
+the increase in swarm size, the dimensions of the state space and action space increase, and
+the solution space becomes larger. As a result, the training time increases exponentially as
+the swarm size increases.
+To address the above problems, we get inspiration from the hunting behavior of pack
+predators. In nature, instead of ﬂocking disorderly, many predators hunt for their prey by
+forming small-scale groups and making decisions autonomously through several types of
+interactions with each other. Compared with a large group, it is easier for small groups
+to cooperate. Inspired by this phenomenon, we propose a bio-inspired decision-making
+===== PAGE 3 =====
+Biomimetics 2023, 8, 222 3 of 24
+method for UAV swarms for attack-defense confrontation via multi-agent reinforcement
+learning. The main contributions of this paper are as follows:
+1. This paper proposes a bio-inspired decision-making method for UAV swarms for
+attack-defense confrontation via MARL. Traditional MARL methods suffer from an
+exponential increase in training time as the swarm size increases. To overcome this
+problem, the main idea of our method is to make the strategy trained for a small-sized
+UAV group applicable to a large-scale UAV swarm. Inspired by the phenomenon
+that predators hunt for prey in small groups, we propose the grouping mechanism,
+which divides the swarm into two types of groups. Through the grouping mechanism,
+interference between groups is avoided, so the strategy trained for small groups can
+be applied to a large-scale swarm, and the scalability of the UAV swarm is increased;
+2. To prevent the problem that the strategy is stuck in a local optimum during training,
+a bio-inspired action space is designed. Inspired by group hunting behavior in nature,
+we abstracted six types of actions that have a clear interactive effect. Compared with
+standard action space, the bio-inspired action space improves the success rate of the
+confrontation. Furthermore, as it is hard for the strategy to converge under a sparse
+reward, we design four types of dense rewards evaluating the status of the mission to
+accelerate the convergence of the strategy. The results show that an effective strategy
+can be obtained after adding dense rewards;
+3. The numerical experiments are conducted to evaluate our method. The results show
+that our method can obtain effective strategies and take advantage of the UAV swarm.
+The success rate of the confrontation is increased, and the UAV swarm can intercept
+the enemy, which is faster than itself, through cooperation.
+This paper is organized as follows: In Section 2, the attack-defense confrontation
+problem is formulated, and the preliminary steps are introduced. In Section 3, the decision-
+making method of the UAV swarm for attack-defense confrontation is introduced in detail,
+including the framework, the grouping mechanism, and the design of MARL. In Section 4,
+the experiment results are presented, and the performance of our method is evaluated. In
+Section 5, the contribution of this paper is summarized, and future work is presented.
+2. Preliminaries
+2.1. Attack-Defense Confrontation Problem
+In this paper, the attack-defense confrontation problem can be formulated as follows:
+As Figure 1 shows, it is assumed that our base has detected an enemy UAV approaching.
+To protect our base, k UAVs are launched to intercept the enemy UAV . The objective of
+the enemy UAV is to approach our base while evading our UAVs. If our base is within
+the detection range of the enemy UAV , it is considered that our base is exposed, and the
+interception mission fails. Considering that the enemy UAV may take countermeasures
+such as radar and infrared countermeasures to defend itself, the attack from one UAV is not
+100% effective. Therefore, in this paper, only if the enemy UAV is within the attack range of
+four of our UAVs at the same time, it is considered that our UAVs cooperate to launch a
+saturation attack. In this case, it is conﬁdently believed that the enemy UAV is destroyed
+and the interception mission succeeds.
+As Figure 2 shows, the success conditions of the interception mission are deﬁned
+as follows:
+pi(tsuc )− penemy (tsuc )
+≤ ρatk,∃U ={u1, u2, u3, u4}⊆{1, 2, . . . ,k},∀i∈ U (1)
+pbase− penemy (t)
+≥ ρdet,∀t < tsuc (2)
+0≤ tsuc≤ tmax (3)
+where pi represents the position of the i-th UAV ,penemy represents the position of the enemy
+UAV ,ρatk represents the attack range of our UAVs, and U represents a set containing a
+===== PAGE 4 =====
+Biomimetics 2023, 8, 222 4 of 24
+certain 4 of k UAVs. Each element u in set U represents a UAV ,pbase represents the position
+of our base, ρdet represents the detection range of the enemy UAV . Equation (1) represents
+that the enemy UAV is within the attack range of 4 of our UAVs at tsuc. Equation (2)
+represents that our base is not exposed before tsuc. Equation (3) represents that our UAVs
+should accomplish the interception mission in a limited time tmax .
+Biomimetics 2023, 8, x FOR PEER REVIEW 4 of 24 
+ 
+ 
+Our UAVs
+Our base
+Attack range
+Detection range
+Enemy UAV
+ 
+Figure 1. Attack-defense confrontation problem. 
+As Figure 2 shows, the success conditions of the interception mission are de ﬁned as 
+follows: 
+1234() () , { , , , } { 1 , 2 , . . . , } ,i suc enemy suc atkp tp t U u u u u k i U ρ−≤ ∃ = ⊆ ∀ ∈  (1)
+() ,base enemy det sucp pt t t ρ−≥ ∀ <  (2)
+0 suc maxtt≤≤  (3)
+where ip  represents the position of the i-th UAV, enemyp  represents the position of the 
+enemy UAV, atkρ  represents the a ttack range of our UAVs, and U  represents a set con-
+taining a certain 4 of k UAVs. Each element u  in set U  represents a UAV, basep  repre-
+sents the position of our base, detρ  represents the detection range of the enemy UAV. 
+Equation (1) represents that the enemy UAV is within the attack range of 4 of our UAVs at 
+suct . Equation (2) represents that our base is not exposed before suct . Equation (3) repre-
+sents that our UAVs should accomplish the interception mission in a limited time maxt . 
+ 
+Figure 2. The success conditions of the intercept mission. 
+2.2. Dynamics Model of the UAV 
+The UAV is assumed to be a mass point in a two-dimensional plane. The dynamic 
+model of our UAVs is expressed as follows: 
+Figure 1. Attack-defense confrontation problem.
+Biomimetics 2023, 8, x FOR PEER REVIEW 4 of 24 
+ 
+ 
+Our UAVs
+Our base
+Attack range
+Detection range
+Enemy UAV
+ 
+Figure 1. Attack-defense confrontation problem. 
+As Figure 2 shows, the success conditions of the interception mission are de ﬁned as 
+follows: 
+1234() () , { , , , } { 1 , 2 , . . . , } ,i suc enemy suc atkp tp t U u u u u k i U ρ−≤ ∃ = ⊆ ∀ ∈  (1)
+() ,base enemy det sucp pt t t ρ−≥ ∀ <  (2)
+0 suc maxtt≤≤  (3)
+where ip  represents the position of the i-th UAV, enemyp  represents the position of the 
+enemy UAV, atkρ  represents the a ttack range of our UAVs, and U  represents a set con-
+taining a certain 4 of k UAVs. Each element u  in set U  represents a UAV, basep  repre-
+sents the position of our base, detρ  represents the detection range of the enemy UAV. 
+Equation (1) represents that the enemy UAV is within the attack range of 4 of our UAVs at 
+suct . Equation (2) represents that our base is not exposed before suct . Equation (3) repre-
+sents that our UAVs should accomplish the interception mission in a limited time maxt . 
+ 
+Figure 2. The success conditions of the intercept mission. 
+2.2. Dynamics Model of the UAV 
+The UAV is assumed to be a mass point in a two-dimensional plane. The dynamic 
+model of our UAVs is expressed as follows: 
+Figure 2. The success conditions of the intercept mission.
+2.2. Dynamics Model of the UAV
+The UAV is assumed to be a mass point in a two-dimensional plane. The dynamic
+model of our UAVs is expressed as follows:
+{ .
+pi = vi.
+vi = ai− λvi
+(4)
+where
+.
+pi represents the derivative of pi, i.e., the velocity of the i-th UAV ,vi represents
+the velocity of the i-th UAV ,
+.
+vi represents the derivative of vi, i.e., the acceleration of the
+i-th UAV ,ai represents the control input of the i-th UAV , andλ represents the linear drag
+coefﬁcient of the UAV .
+===== PAGE 5 =====
+Biomimetics 2023, 8, 222 5 of 24
+Limited by the performance of UAV , the magnitude of the velocity and acceleration of
+UAV should meet certain constraints:
+∥ai∥≤ amax (5)
+∥vi∥≤ vmax = amax
+λ (6)
+wherevmax and amax are the velocity limit constant and the acceleration limit constant, respectively .
+Similarly, the dynamics model of the enemy UAV is expressed as follows:
+{ .
+penemy = venemy.
+venemy = aenemy− λvenemy
+(7)
+where
+.
+penemy represents the derivative of penemy , i.e., the velocity of the enemy UAV; venemy
+represents the velocity of the enemy UAV;
+.
+venemy represents the derivative of venemy , i.e.,
+the acceleration of the enemy UAV;aenemy represents the control input of the enemy UAV;
+and λ represents the linear drag coefﬁcient of the UAV .
+The magnitude of the velocity and acceleration of the enemy UAV should also meet
+certain constraints: aenemy
+≤ aenemy
+max (8)
+venemy
+≤ venemy
+max = aenemy
+max
+λ (9)
+where venemy
+max and aenemy
+max are the velocity limit constant and the acceleration limit constant,
+respectively.
+2.3. Movement Strategy of Enemy UAV
+In an attack-defense confrontation problem, the objective of the enemy UAV is to
+approach our base as close as possible while keeping as far away as possible from our UAVs.
+To make the enemy UAV move autonomously, we design the enemy UAV’s movement
+strategy based on the artiﬁcial potential ﬁeld method. The basic idea is to assume that the
+enemy UAV is subject to an attractive force generated by our base and repulsive forces
+generated by our UAVs. The enemy UAV moves in a certain direction according to the
+combined force.
+The control input aenemy of the enemy UAV is expressed as follows:
+a′
+enemy = f
+(
+pbase , penemy
+)
++
+k
+∑
+i=1
+g
+(
+pi, penemy
+)
+(10)
+aenemy =
+
+
+
+a′
+enemy ,
+a′
+enemy
+≤ aenemy
+max
+aenemy
+max
+a′enemy
+∥a′enemy∥ ,
+a′
+enemy
+ > aenemy
+max
+(11)
+where f
+(
+pbase , penemy
+)
+represents the attractive force and g
+(
+pi, penemy
+)
+represents the repul-
+sive force. They can be calculated using the following formulas:
+f
+(
+pbase , penemy
+)
+= aenemy
+max
+pbase− penemypbase− penemy
+ (12)
+g
+(
+pi, penemy
+)
+=−e
+−(∥pi−penemy∥√
+2ρdet
+)
+4
+aenemy
+max
+pi− penemypi− penemy
+ (13)
+The magnitude of the attractive force is constant, so the enemy UAV will move towards
+our base even if it is far from it. When the enemy UAV is far from our UAV , it is not necessary
+to change the movement direction. Therefore, only if the distance between the enemy UAV
+===== PAGE 6 =====
+Biomimetics 2023, 8, 222 6 of 24
+and our UAV is smaller than ρdet, the magnitude of the repulsive force will be large enough
+to affect the movement direction of the enemy UAV .
+2.4. Multi-Agent Reinforcement Learning
+Reinforcement learning (RL) is a method that enables an agent to learn the optimal
+behavior strategy through interactions with the environment and is suitable for solving
+decision-making problems.
+Multi-agent reinforcement learning (MARL) is an extension of RL in multi-agent
+systems. Typically, MARL algorithms adopt a framework of centralized training and
+decentralized execution (CTDE) [ 17,18]. The CTDE framework of MARL is shown in
+Figure 3.
+Biomimetics 2023, 8, x FOR PEER REVIEW 6 of 24 
+ 
+ 
+,
+,
+enemy
+enemy enemy max
+enemy enemyenemy enemy
+max enemy max
+enemy
+aa a
+a aaa a
+a
+ ′′ ≤
+ ′=  ′ > ′
+ (11)
+where () ,base enemyfp p  represents the a ttractive force and () ,ie n e m ygpp  represents the re-
+pulsive force. They can be calculated using the following formulas: 
+() ,
+base enemyenemy
+base enemy max
+base enemy
+ppfp p a
+pp
+−=
+−
+ (12)
+()
+4
+2
+,
+ie n e m y
+det
+pp
+ie n e m yenemy
+i enemy max
+ie n e m y
+ppgpp e a
+pp
+ρ
+ −− −=−
+−
+ (13)
+The magnitude of the a ttractive force is constant, so the enemy UAV will move to-
+wards our base even if it is far from it. When the enemy UAV is far from our UAV, it is not 
+necessary to change the movement direction. Therefore, only if the distance between the 
+enemy UAV and our UAV is smaller than detρ , the magnitude of the repulsive force will 
+be large enough to aﬀect the movement direction of the enemy UAV. 
+2.4. Multi-Agent Reinforcement Learning 
+Reinforcement learning (RL) is a method that enables an agent to learn the optimal 
+behavior strategy through interactions with the environment and is suitable for solving 
+decision-making problems. 
+Multi-agent reinforcement learning (MARL) is an extension of RL in multi-agent sys-
+tems. Typically, MARL algorithms adopt a framework of centralized training and decen-
+tralized execution (CTDE) [17,18]. The CTDE framework of MARL is shown in Figure 3. 
+Environment
+Critic
+Network
+Actor
+NetworkActor
+NetworkActor
+NetworkActor
+Network
+State
+Agent 1
+. . n
+Reward
+Local Observation Action
+ 
+Figure 3. The CTDE framework of MARL. 
+There are two types of neural networks in the CDTE framework: actor networks and 
+critic networks. The input of the actor network is the local observation of agent i denoted 
+by io , and the output of the actor network is the action for agent i to execute, denoted by 
+ia . The input of the critic network is the joint state 
+12(, , . . . , )ns oo o=  consisting of all local 
+observations and the joint action 
+1(, . . , )a n
+t aa= , and the output of the critic network is the 
+state-action value. At time step t, every agent selects its action independently according to 
+its actor network. After the joint action ta  is executed, the joint state ts  will be updated, 
+Figure 3. The CTDE framework of MARL.
+There are two types of neural networks in the CDTE framework: actor networks and
+critic networks. The input of the actor network is the local observation of agent i denoted
+by oi, and the output of the actor network is the action for agent i to execute, denoted
+by ai. The input of the critic network is the joint state s = ( o1, o2, . . ., on) consisting of
+all local observations and the joint action at = ( a1, . . ., an), and the output of the critic
+network is the state-action value. At time step t, every agent selects its action independently
+according to its actor network. After the joint action at is executed, the joint state st will be
+updated, and the reward r(st, at) received by all agents will be used to train the actor and
+critic networks.
+The critic network parameterized by φ is trained by minimizing
+L(φ) = ( Qφ(st, at)− y)2 (14)
+where L(φ) represents the loss function of the critic network parameterized by φ, st rep-
+resents the joint state at time step t, at represents the joint action at time step t, Qφ(st, at)
+represents the output of the critic network, y represents the expected output of the critic
+network, and
+y = r(st, at) + E
+[
+∞
+∑
+l=1
+γlr(st+l, at+l)
+]
+(15)
+where r(st, at) represents the reward for executing the action at in the state st, γ is a
+discount coefﬁcient.
+===== PAGE 7 =====
+Biomimetics 2023, 8, 222 7 of 24
+The actor network parameterized by µ is updated according to
+∇µ J(µ) = E
+[
+∇µ log π(ai
+t
+⏐⏐⏐ oi
+t)(Qφ(st, at)− b(st, at))
+]
+(16)
+where J(µ) represents the objective function of the actor network parameterized by µ;
+π(ai
+t
+⏐⏐ oi
+t) represents the output of the actor network which is the probability for agent i to
+execute the action ai
+t with the local observation; and oi
+t, b(st, at) represents the baseline of
+state-action value.
+3. Methods
+3.1. Framework
+In an attack-defense confrontation problem, our UAVs should decide how to move to
+intercept the enemy UAV . Inspired by the predatory behavior of pack hunters in nature,
+we propose a bio-inspired decision-making method for UAV swarms for attack-defense
+confrontation. We divide our UAVs into attack groups and backup groups according to
+the grouping mechanism. The attack group directly engages with the enemy UAV and
+learns movement strategy via multi-agent reinforcement learning. Backup groups adjust
+their formation according to the position of the enemy UAV and are ready to engage.
+The framework of the decision-making method of the UAV swarm for attack-defense
+confrontation is shown in Figure 4.
+Biomimetics 2023, 8, x FOR PEER REVIEW 8 of 24 
+ 
+ 
+k UAVs
+Grouping
+MechanismOur UAV
+State
+Space
+Bio-Inspired 
+Action Space
+Our UAV
+Our UAV
+Our UAV
+Neural 
+Network
+Environment
+Group A
+Group B
+Group C
+State Reward Action
+Group BGroup C
+Attack Group
+Backup Groups
+Attack Group
+Backup Groups
+MARL
+ 
+Figure 4. Framework of decision-making methods for UAV swarms for attack-defense confronta-
+tion. 
+3.2. Grouping Mechanism 
+Based on the dataset of observations of wo lves hunting elk in Yellowstone National 
+Park, MacDulty suggests that the relation ship between hunting success and group sizes 
+is nonlinear [19]. When the group size is small, hunting success increases as the group size 
+increases. However, hunting success peaks at a small group size and levels o ﬀ when the 
+group s i ze i s  beyond 4. T he reason fo r  this phenom enon is th at i ndivid uals in  a sm all 
+group cooperate better and their abilities are fully exhibited, while in a large group, indi-
+viduals interfere with each other and some individuals cannot contribute to the hunt. 
+Similarly, when the group size of the UAV swarm is large, our UAVs interfere with 
+each other, making it diﬃcult to intercept the enemy UAV. Therefore, as shown in Figure 
+5, our UAV swarm is divided into several gr oups, and the area is divided into several 
+zones. Every group is composed of four UAVs and is distributed in diﬀerent zones. If the 
+enemy UAV enters a zone, the UAV group in the zone becomes the attack group, and other 
+UAV groups become the backup groups. 
+Zone 1 Zone 2 Zone 3
+Backup Group 1 Backup Group 2 Attack Group
+ 
+Figure 5. Grouping mechanism. 
+The a ttack group intercepts the enemy via MARL, which is presented in detail in 
+Section 3.3. If the enemy UAV moves to othe r zones, the UAV group stops pursuing to 
+prevent interfering with other UAV groups. 
+The backup groups should adjust their positions dynamically according to the posi-
+tion of our base and the enemy UAV. As show n in Figure 6, assuming that the current 
+position of our base () ,base b bpx y= , the current position of the enemy () ,enemy e epx y = , the 
+Figure 4. Framework of decision-making methods for UAV swarms for attack-defense confrontation.
+3.2. Grouping Mechanism
+Based on the dataset of observations of wolves hunting elk in Yellowstone National
+Park, MacDulty suggests that the relationship between hunting success and group sizes is
+nonlinear [19]. When the group size is small, hunting success increases as the group size
+increases. However, hunting success peaks at a small group size and levels off when the
+group size is beyond 4. The reason for this phenomenon is that individuals in a small group
+cooperate better and their abilities are fully exhibited, while in a large group, individuals
+interfere with each other and some individuals cannot contribute to the hunt.
+Similarly, when the group size of the UAV swarm is large, our UAVs interfere with
+each other, making it difﬁcult to intercept the enemy UAV . Therefore, as shown in Figure 5,
+===== PAGE 8 =====
+Biomimetics 2023, 8, 222 8 of 24
+our UAV swarm is divided into several groups, and the area is divided into several zones.
+Every group is composed of four UAVs and is distributed in different zones. If the enemy
+UAV enters a zone, the UAV group in the zone becomes the attack group, and other UAV
+groups become the backup groups.
+Biomimetics 2023, 8, x FOR PEER REVIEW 8 of 24 
+ 
+ 
+k UAVs
+Grouping
+MechanismOur UAV
+State
+Space
+Bio-Inspired 
+Action Space
+Our UAV
+Our UAV
+Our UAV
+Neural 
+Network
+Environment
+Group A
+Group B
+Group C
+State Reward Action
+Group BGroup C
+Attack Group
+Backup Groups
+Attack Group
+Backup Groups
+MARL
+ 
+Figure 4. Framework of decision-making methods for UAV swarms for attack-defense confronta-
+tion. 
+3.2. Grouping Mechanism 
+Based on the dataset of observations of wo lves hunting elk in Yellowstone National 
+Park, MacDulty suggests that the relation ship between hunting success and group sizes 
+is nonlinear [19]. When the group size is small, hunting success increases as the group size 
+increases. However, hunting success peaks at a small group size and levels o ﬀ when the 
+group s i ze i s  beyond 4. T he reason fo r  this phenom enon is th at i ndivid uals in  a sm all 
+group cooperate better and their abilities are fully exhibited, while in a large group, indi-
+viduals interfere with each other and some individuals cannot contribute to the hunt. 
+Similarly, when the group size of the UAV swarm is large, our UAVs interfere with 
+each other, making it diﬃcult to intercept the enemy UAV. Therefore, as shown in Figure 
+5, our UAV swarm is divided into several gr oups, and the area is divided into several 
+zones. Every group is composed of four UAVs and is distributed in diﬀerent zones. If the 
+enemy UAV enters a zone, the UAV group in the zone becomes the attack group, and other 
+UAV groups become the backup groups. 
+Zone 1 Zone 2 Zone 3
+Backup Group 1 Backup Group 2 Attack Group
+ 
+Figure 5. Grouping mechanism. 
+The a ttack group intercepts the enemy via MARL, which is presented in detail in 
+Section 3.3. If the enemy UAV moves to othe r zones, the UAV group stops pursuing to 
+prevent interfering with other UAV groups. 
+The backup groups should adjust their positions dynamically according to the posi-
+tion of our base and the enemy UAV. As show n in Figure 6, assuming that the current 
+position of our base () ,base b bpx y= , the current position of the enemy () ,enemy e epx y = , the 
+Figure 5. Grouping mechanism.
+The attack group intercepts the enemy via MARL, which is presented in detail in
+Section 3.3. If the enemy UAV moves to other zones, the UAV group stops pursuing to
+prevent interfering with other UAV groups.
+The backup groups should adjust their positions dynamically according to the position
+of our base and the enemy UAV . As shown in Figure 6, assuming that the current position
+of our base pbase = (xb, yb), the current position of the enemy penemy = (xe, ye), the current
+position of the formation center of the UAV group pcenter = (xc, yc). The expected position
+of the formation center of the UAV group pe
+c = (xe
+c, ye
+c) should be on the line between our
+base and the enemy UAV .
+Biomimetics 2023, 8, x FOR PEER REVIEW 9 of 24 
+ 
+ 
+current position of the formation center of the UAV group () ,center c cpx y = . The expected 
+position of the formation center of the UAV group () ,ee e
+cc cp xy=  should be on the line be-
+tween our base and the enemy UAV. 
+Zone 1 Zone 2 Zone 3
+Backup Group 1
+Backup Group 2
+x
+y
+() ,bbx y
+() ,eex y() ,ee
+ccx y
+ 
+Figure 6. The movement strategy of backup groups. 
+The expected position of the formation center of the UAV group 
+e
+cp  can be expressed 
+as follows: 
+e
+ccx x=  (17)
+()
+e eb
+cb c b
+eb
+yyyy x x xx
+−=+ − −  (18)
+We design a discrete-time proportional-d erivative (PD) controller to control the 
+movement of UAVs in the backup groups. The control input ()iat  at time t  for the i-th 
+UAV can be determined as follows: 
+() () ()e
+ccet p t p t=−  (19)
+()() ()() () () ( ) () () ()
+()
+e
+ip d s s c c
+im a x
+a t k et k et et T T p t p t et
+at a
+ =+− − −
+≤
+ (20)
+where 2.5pk = , 2.2dk = , and 0.2sTs=  are parameters in the PD controller. 
+3.3. Design of MARL 
+The attack group is trained to intercept the enemy UAV based on MARL. Therefore, 
+the elements of MARL, including action space,  state space, and reward function, should 
+be designed, respectively. 
+3.3.1. Bio-Inspired Action Space 
+Many predators in nature hunt in groups for prey that is faster or larger than them-
+selves. Similarly, in an attack-defense confrontation, our UAVs are predators, and the en-
+emy UAV is the prey. Inspired by the hunting behavior of herd predators in nature, a bio-
+inspired action space is proposed. The bio-in spired action space contains two types of 
+interaction: interaction between enemy UAVs and our UAVs and interaction among our 
+UAVs. 
+(1) Interaction between Enemy UAVs and Our UAVs 
+MacNulty summarized the ethogram of larg e-carnivore predatory behavior by ob-
+serving wolves in Yellowstone National Park [20]. He proposed that predatory behavior 
+can be divided into six phases: search, approach, watch, a ttack-group, attack-individual, 
+Figure 6. The movement strategy of backup groups.
+The expected position of the formation center of the UAV group pe
+c can be expressed
+as follows:
+xe
+c = xc (17)
+ye
+c = yb + ye− yb
+xe− xb
+(xc− xb) (18)
+===== PAGE 9 =====
+Biomimetics 2023, 8, 222 9 of 24
+We design a discrete-time proportional-derivative (PD) controller to control the move-
+ment of UAVs in the backup groups. The control input ai(t) at time t for the i-th UAV can
+be determined as follows:
+e(t) =∥pe
+c(t)− pc(t)∥ (19)
+{ai(t) =
+(
+k pe(t) + kd(e(t)− e(t− Ts))/Ts
+)
+(pe
+c(t)− pc(t))/e(t)
+∥ai(t)∥≤ amax
+(20)
+where k p = 2.5, kd = 2.2, and Ts = 0.2s are parameters in the PD controller.
+3.3. Design of MARL
+The attack group is trained to intercept the enemy UAV based on MARL. Therefore,
+the elements of MARL, including action space, state space, and reward function, should be
+designed, respectively.
+3.3.1. Bio-Inspired Action Space
+Many predators in nature hunt in groups for prey that is faster or larger than them-
+selves. Similarly, in an attack-defense confrontation, our UAVs are predators, and the
+enemy UAV is the prey. Inspired by the hunting behavior of herd predators in nature, a
+bio-inspired action space is proposed. The bio-inspired action space contains two types
+of interaction: interaction between enemy UAVs and our UAVs and interaction among
+our UAVs.
+(1) Interaction between Enemy UAVs and Our UAVs
+MacNulty summarized the ethogram of large-carnivore predatory behavior by observ-
+ing wolves in Yellowstone National Park [20]. He proposed that predatory behavior can
+be divided into six phases: search, approach, watch, attack-group, attack-individual, and
+capture. This paper focuses on the three main phases of group hunting behavior: approach,
+watch, and attack-individual, and abstracts these three phases into three types of action.
+Approach. As shown in Figure 7, when our UAV and the enemy UAV are far apart,
+our UAV takes approaching action to quickly decrease the distance to the enemy UAV for
+performing the interception mission.
+Biomimetics 2023, 8, x FOR PEER REVIEW 10 of 24 
+ 
+ 
+and capture. This paper focuses on the three main phases of group hunting behavior: ap-
+proach, watch, and attack-individual, and abstracts these three phases into three types of 
+action. 
+Approach. As shown in Figure 7, when our UAV and the enemy UAV are far apart, 
+our UAV takes approaching action to quickly decrease the distance to the enemy UAV for 
+performing the interception mission. 
+Our UAV
+Enemy UAV
+Movement
+Direction
+ 
+Figure 7. Approach. 
+The control input of the i-th UAV can be calculated as follows: 
+enemy i
+im a x
+enemy i
+ppaa
+pp
+−=
+−
+ (21)
+Watch. As shown in Figure 8, when our UAV is not within the detection range of the 
+enemy UAV, it takes watching action to keep its distance from the enemy UAV and avoid 
+causing the enemy UAV to escape. During this phase, our UAVs encircle the enemy UAV 
+in preparation for the next phase of the interception mission. 
+Our UAV
+Enemy UAV
+Movement
+Direction
+enemyv
+iv
+ 
+Figure 8. Watch. 
+When our UAV takes action, it moves clockwise or counter-clockwise with the enemy 
+UAV as the center of the circle. As shown in Figure 9, taking clockwise motion as an ex-
+ample, the control input of the i-th UAV can be calculated as follows: 
+()t i enemy tvv v e=−  (22)
+2
+t
+r
+enemy i
+va
+pp
+=
+−
+ (23)
+Figure 7. Approach.
+===== PAGE 10 =====
+Biomimetics 2023, 8, 222 10 of 24
+The control input of the i-th UAV can be calculated as follows:
+ai = amax
+penemy− pipenemy− pi
+ (21)
+Watch. As shown in Figure 8, when our UAV is not within the detection range of the
+enemy UAV , it takes watching action to keep its distance from the enemy UAV and avoid
+causing the enemy UAV to escape. During this phase, our UAVs encircle the enemy UAV
+in preparation for the next phase of the interception mission.
+Biomimetics 2023, 8, x FOR PEER REVIEW 10 of 24 
+ 
+ 
+and capture. This paper focuses on the three main phases of group hunting behavior: ap-
+proach, watch, and attack-individual, and abstracts these three phases into three types of 
+action. 
+Approach. As shown in Figure 7, when our UAV and the enemy UAV are far apart, 
+our UAV takes approaching action to quickly decrease the distance to the enemy UAV for 
+performing the interception mission. 
+Our UAV
+Enemy UAV
+Movement
+Direction
+ 
+Figure 7. Approach. 
+The control input of the i-th UAV can be calculated as follows: 
+enemy i
+im a x
+enemy i
+ppaa
+pp
+−=
+−
+ (21)
+Watch. As shown in Figure 8, when our UAV is not within the detection range of the 
+enemy UAV, it takes watching action to keep its distance from the enemy UAV and avoid 
+causing the enemy UAV to escape. During this phase, our UAVs encircle the enemy UAV 
+in preparation for the next phase of the interception mission. 
+Our UAV
+Enemy UAV
+Movement
+Direction
+enemyv
+iv
+ 
+Figure 8. Watch. 
+When our UAV takes action, it moves clockwise or counter-clockwise with the enemy 
+UAV as the center of the circle. As shown in Figure 9, taking clockwise motion as an ex-
+ample, the control input of the i-th UAV can be calculated as follows: 
+()t i enemy tvv v e=−  (22)
+2
+t
+r
+enemy i
+va
+pp
+=
+−
+ (23)
+Figure 8. Watch.
+When our UAV takes action, it moves clockwise or counter-clockwise with the enemy
+UAV as the center of the circle. As shown in Figure 9, taking clockwise motion as an
+example, the control input of the i-th UAV can be calculated as follows:
+vt = ( vi− venemy )et (22)
+ar = v2
+tpenemy− pi
+ (23)
+θ = cos−1
+( ar
+amax
+)
+, ar < amax (24)
+ai =
+{R(θ)·amax er , ar < amax
+amax er , ar≥ amax
+(25)
+where vt represents tangential velocity of our UAV relative to the enemy UAV;et represents
+the unit vector perpendicular to the line from the position of our UAV to the position of the
+enemy UAV; ar represents centripetal acceleration corresponding to tangential velocity; θ
+represents the angle between the direction of the control input of our UAV and the direction
+of the line connecting the enemy UAV and our UAV;R(θ) represents rotation matrix; and
+er represents the unit vector in the direction of the line from the position of our UAV to the
+position of the enemy UAV .
+===== PAGE 11 =====
+Biomimetics 2023, 8, 222 11 of 24
+Biomimetics 2023, 8, x FOR PEER REVIEW 11 of 24 
+ 
+ 
+1cos , r
+rm a x
+max
+a aaaθ − =< 
+
+ (24)
+() ,
+,
+max r r max
+i
+max r r max
+R ae a aa ae a a
+θ ⋅<=  ≥
+ (25)
+where tv  represents tangential velocity of our UAV relative to the enemy UAV; te  rep-
+resents the unit vector perpendicular to the line from the position of our UAV to the posi-
+tion of the enemy UAV; ra  represents centripetal acceleration corresponding to tangen-
+tial velocity; θ  represents the angle between the direction of the control input of our 
+UAV and the direction of the line connecting the enemy UAV and our UAV; ()R θ  repre-
+sents rotation matrix; and re  represents the unit vector in the direction of the line from 
+the position of our UAV to the position of the enemy UAV. 
+θ
+iv
+enemyv
+re
+ia
+te
+ 
+Figure 9. The control input of watch (clockwise). 
+Similarly, the control input of counter-clockwise motion can be calculated as follows: 
+() ,
+,
+max r r max
+i
+max r r max
+R ae a aa ae a a
+θ−⋅ <=  ≥
+ (26)
+Attack-individual. As shown in Figure 10, similar to the harassment of the wolf pack, 
+our UAVs induce the enemy UAV to move in a certain direction by constantly alternating 
+between attack and retreat. In the process, our UAVs shrink the size of the encirclement, 
+eventually achieving the capture of the enemy UAV. 
+Our UAV
+Enemy UAV
+Movement
+Direction
+Current Position
+Future Position
+iv
+ia
+enemyv
+ 
+Our UAV
+Enemy UAV
+Movement
+Direction
+Future Position
+Current Position
+enemyv
+ia
+iv
+ 
+(a) ( b) 
+Figure 10. Attack-individual. (a) Attack; (b) retreat. 
+Figure 9. The control input of watch (clockwise).
+Similarly, the control input of counter-clockwise motion can be calculated as follows:
+ai =
+{R(−θ)·amax er , ar < amax
+amax er , ar≥ amax
+(26)
+Attack-individual. As shown in Figure 10, similar to the harassment of the wolf pack,
+our UAVs induce the enemy UAV to move in a certain direction by constantly alternating
+between attack and retreat. In the process, our UAVs shrink the size of the encirclement,
+eventually achieving the capture of the enemy UAV .
+Biomimetics 2023, 8, x FOR PEER REVIEW 11 of 24 
+ 
+ 
+1cos , r
+rm a x
+max
+a aaaθ − =< 
+
+ (24)
+() ,
+,
+max r r max
+i
+max r r max
+R ae a aa ae a a
+θ ⋅<=  ≥
+ (25)
+where tv  represents tangential velocity of our UAV relative to the enemy UAV; te  rep-
+resents the unit vector perpendicular to the line from the position of our UAV to the posi-
+tion of the enemy UAV; ra  represents centripetal acceleration corresponding to tangen-
+tial velocity; θ  represents the angle between the direction of the control input of our 
+UAV and the direction of the line connecting the enemy UAV and our UAV; ()R θ  repre-
+sents rotation matrix; and re  represents the unit vector in the direction of the line from 
+the position of our UAV to the position of the enemy UAV. 
+θ
+iv
+enemyv
+re
+ia
+te
+ 
+Figure 9. The control input of watch (clockwise). 
+Similarly, the control input of counter-clockwise motion can be calculated as follows: 
+() ,
+,
+max r r max
+i
+max r r max
+R ae a aa ae a a
+θ−⋅ <=  ≥
+ (26)
+Attack-individual. As shown in Figure 10, similar to the harassment of the wolf pack, 
+our UAVs induce the enemy UAV to move in a certain direction by constantly alternating 
+between attack and retreat. In the process, our UAVs shrink the size of the encirclement, 
+eventually achieving the capture of the enemy UAV. 
+Our UAV
+Enemy UAV
+Movement
+Direction
+Current Position
+Future Position
+iv
+ia
+enemyv
+ 
+Our UAV
+Enemy UAV
+Movement
+Direction
+Future Position
+Current Position
+enemyv
+ia
+iv
+ 
+(a) ( b) 
+Figure 10. Attack-individual. (a) Attack; (b) retreat. 
+Figure 10. Attack-individual. (a) Attack; (b) retreat.
+It is noted that the direction of the control input during our UAV’s attack and retreat
+is not along the direction of the line connecting our UAV and the enemy UAV but rather
+towards the predicted future position of the enemy UAV .
+The control input of an attack can be calculated as follows:
+ai = amax
+p′
+enemy− pip′enemy− pi
+
+(27)
+===== PAGE 12 =====
+Biomimetics 2023, 8, 222 12 of 24
+The control input of retreat can be calculated as follows:
+ai =−amax
+p′
+enemy− pip′enemy− pi
+
+(28)
+p′
+enemy in Equations (27) and (28) represents the predicted future position of the enemy
+UAV , which can be calculated as follows:
+p′
+enemy = penemy + λp
+pi− penemy
+venemy (29)
+where λd represents the prediction coefﬁcient. The larger the prediction coefﬁcient, the
+more distant the predicted future position.
+Additionally, it can be seen that the predicted future position is related to the speed of
+the enemy UAV and the distance between the enemy UAV and our UAV . This is because
+the greater the speed of the enemy UAV or the greater the distance between the enemy
+UAV and our UAV , the greater the offset required to intercept, and the greater the distance
+between the predicted future position and the current position.
+(2) Interaction among Our UAVs
+In this paper, interaction among our UAVs is abstracted into three types of action:
+separation, alignment, and cohesion.
+Separation. As shown in Figure 11, our UAVs take separation actions to prevent
+collisions between each other.
+Biomimetics 2023, 8, x FOR PEER REVIEW 12 of 24 
+ 
+ 
+It is noted that the direction of the control input during our UAV’s attack and retreat 
+is not along the direction of the line connecting our UAV and the enemy UAV but rather 
+towards the predicted future position of the enemy UAV. 
+The control input of an attack can be calculated as follows: 
+enemy i
+im a x
+enemy i
+ppaa
+pp
+′ −= ′ −
+ (27)
+The control input of retreat can be calculated as follows: 
+enemy i
+im a x
+enemy i
+ppaa
+pp
+′ −=− ′ −
+ (28)
+enemyp′  in Equations (27) and (28) represents the predicted future position of the en-
+emy UAV, which can be calculated as follows: 
+enemy enemy p i enemy enemypp p p v λ′ =+−  (29)
+where dλ  represents the prediction coe ﬃcient. The larger the prediction coe ﬃcient, the 
+more distant the predicted future position. 
+Additionally, it can be seen that the predicted future position is related to the speed 
+of the enemy UAV and the distance between the enemy UAV and our UAV. This is because 
+the greater the speed of the enemy UAV or the greater the distance between the enemy 
+UAV and our UAV, the greater the oﬀset required to intercept, and the greater the distance 
+between the predicted future position and the current position. 
+(2) Interaction among Our UAVs 
+In this paper, interaction among our UAVs is abstracted into three types of action: 
+separation, alignment, and cohesion. 
+Separation. As shown in Figure 11, our UAVs take separation actions to prevent col-
+lisions between each other. 
+Other UAV
+UAV i
+Movement
+Direction
+ 
+Figure 11. Separation. 
+The control input of the i-th UAV can be calculated as follows: 
+1,
+k
+ij
+ij
+jj i ij
+ppaw
+pp=≠
+−=
+−  (30)
+where jw  denotes the weighting factor which can be calculated as follows: 
+Figure 11. Separation.
+The control input of the i-th UAV can be calculated as follows:
+ai =
+k
+∑
+j=1,j̸=i
+wj
+pi− pjpi− pj
+ (30)
+where wj denotes the weighting factor which can be calculated as follows:
+wj = amax
+1
+∥pi−pj∥
+4
+∑
+j=1,j̸=i
+1
+∥pi−pj∥
+(31)
+Alignment. As shown in Figure 12, our UAVs take action to keep each other at a
+certain distance and achieve group movement.
+===== PAGE 13 =====
+Biomimetics 2023, 8, 222 13 of 24
+Biomimetics 2023, 8, x FOR PEER REVIEW 13 of 24 
+ 
+ 
+4
+1,
+1
+1
+ij
+jm a x
+jj i ij
+pp
+wa
+pp=≠
+−
+=
+−
+ (31)
+Alignment. As shown in Figure 12, our UAVs take action to keep each other at a cer-
+tain distance and achieve group movement. 
+Other UAV
+UAV i
+Movement
+Direction
+ 
+Figure 12. Alignment. 
+The control input of the i-th UAV can be calculated as follows: 
+avg
+im a x
+avg
+vaa
+v
+=  (32)
+where avgv  denotes the average velocity of other UAVs, which can be calculated as fol-
+lows: 
+4
+1,
+1
+3
+avg j
+jj i
+vv
+=≠
+=   (33)
+Cohesion. As shown in Figure 13, our UAVs take action to approach each other and 
+facilitate mutual support. 
+Other UAV
+UAV i
+Movement
+Direction
+ 
+Figure 13. Cohesion. 
+The control input of the i-th UAV can be calculated as follows: 
+avg i
+im a x
+avg i
+ppaa
+pp
+−=
+−
+ (34)
+Figure 12. Alignment.
+The control input of the i-th UAV can be calculated as follows:
+ai = amax
+vavgvavg
+ (32)
+where vavg denotes the average velocity of other UAVs, which can be calculated as follows:
+vavg = 1
+3
+4
+∑
+j=1,j̸=i
+vj (33)
+Cohesion. As shown in Figure 13, our UAVs take action to approach each other and
+facilitate mutual support.
+Biomimetics 2023, 8, x FOR PEER REVIEW 13 of 24 
+ 
+ 
+4
+1,
+1
+1
+ij
+jm a x
+jj i ij
+pp
+wa
+pp=≠
+−
+=
+−
+ (31)
+Alignment. As shown in Figure 12, our UAVs take action to keep each other at a cer-
+tain distance and achieve group movement. 
+Other UAV
+UAV i
+Movement
+Direction
+ 
+Figure 12. Alignment. 
+The control input of the i-th UAV can be calculated as follows: 
+avg
+im a x
+avg
+vaa
+v
+=  (32)
+where avgv  denotes the average velocity of other UAVs, which can be calculated as fol-
+lows: 
+4
+1,
+1
+3
+avg j
+jj i
+vv
+=≠
+=   (33)
+Cohesion. As shown in Figure 13, our UAVs take action to approach each other and 
+facilitate mutual support. 
+Other UAV
+UAV i
+Movement
+Direction
+ 
+Figure 13. Cohesion. 
+The control input of the i-th UAV can be calculated as follows: 
+avg i
+im a x
+avg i
+ppaa
+pp
+−=
+−
+ (34)
+Figure 13. Cohesion.
+The control input of the i-th UAV can be calculated as follows:
+ai = amax
+pavg− pipavg− pi
+ (34)
+===== PAGE 14 =====
+Biomimetics 2023, 8, 222 14 of 24
+where pavg denotes the average position of other UAVs which can be calculated as follows:
+pavg = 1
+3
+4
+∑
+j=1,j̸=i
+pj (35)
+(3) Action Space
+The action space of our UAVs contains nine actions, including approach, watch (clock-
+wise), watch (counter-clockwise), attack-individual (attack), attack-individual (retreat),
+separation, alignment, cohesion, and void. Each action corresponds to a control input, and
+the control input for void is 0.
+3.3.2. State Space
+The local observation oi of the i-th UAV consists of information from three parts: the
+enemy UAV , our base, and other UAVs. Speciﬁcally,oi can be expressed as follows:
+prel
+enemy = penemy− pi (36)
+vrel
+enemy = venemy− vi (37)
+prel
+base = pbase− pi (38)
+prel
+j,i = pj− pi (39)
+oi =
+{
+prel
+enemy , vrel
+enemy , prel
+base , prel
+1,i , . . . ,prel
+i−1,i, prel
+i+1,i, . . . ,prel
+4,i
+}
+(40)
+where prel
+enemy and vrel
+enemy represent the relative position and the relative velocity of the enemy
+UAV , respectively;pvel
+base represents the relative position of our base; and prel
+j,i represents the
+relative position of the j-th UAV .
+3.3.3. Reward Function
+In MARL, the score score suc is usually determined based on the success of the task,
+and it is used as a reward r for training.
+However, the biggest problem with such a setup is that the rewards are too sparse.
+Especially when it is hard to accomplish the task, the agents cannot obtain the rewards in a
+short time, and it is difﬁcult to evaluate the quality of the current strategy. The direction of
+updating the strategy shows randomness, causing the problem that the algorithm is difﬁcult
+to converge. To solve this problem, this paper modiﬁes the reward function by adding prior
+knowledge to the reward function and by evaluating the current status, adding a dense
+reward to induce the agents to update the strategy in the direction of the superior status.
+Considering that our UAVs need to approach the enemy UAV at a certain distance
+to perform the interception mission, a status evaluation function score dis related to the
+distance to the enemy UAV is added, and it can be expressed as follows:
+score dis = LJ(
+penemy− pi
+) (41)
+LJ(x) =
+
+
+
+4
+[(
+1
+1+(2
+√
+2−1)x/ρatk
+)2
+−
+(
+1
+1+(2
+√
+2−1)x/ρatk
+)4]
+, x > ρatk
+1 , x≤ ρatk
+(42)
+The function value remains constant when the distance is smaller than ρatk, and it
+decreases gradually to 0 as the distance increases. Furthermore, the functions are smooth,
+===== PAGE 15 =====
+Biomimetics 2023, 8, 222 15 of 24
+bounded, and differentiable in their domains, which facilitates the training of the neural
+network and avoids gradient explosion.
+Additionally, to avoid the enemy UAV escaping in the opposite direction from our
+UAVs, our UAVs should be scattered around the enemy and intercept the enemy from
+different directions. So, a status evaluation function score encircle related to the dispersion of
+our UAVs is added, and it can be expressed as follows:
+σ =
+√
+4
+∑
+i=1
+(
+θi− θ
+)2
+4 , θ = 1
+2 π (43)
+score encircle = 1− 2π· 4σ√
+3
+(44)
+where θi represents the angle between the line connecting the i-th UAV and the enemy and
+the line connecting its counter-clockwise neighboring UAV and the enemy, as shown in
+Figure 14, σ represents the standard deviation of the angles.
+Biomimetics 2023, 8, x FOR PEER REVIEW 15 of 24 
+ 
+ 
+() ()
+24
+114,LJ( ) 12 2 1 12 2 1
+1,
+atk
+atk atk
+atk
+xx xx
+x
+ρ
+ρρ
+ρ
+     −>  =  +− +− 
+ ≤
+ (42)
+The function value remains constant when the distance is smaller than atkρ , and it 
+decreases gradually to 0 as the distance increases. Furthermore, the functions are smooth, 
+bounded, and diﬀerentiable in their domains, which facilitates the training of the neural 
+network and avoids gradient explosion. 
+Additionally, to avoid the enemy UAV escaping in the opposite direction from our 
+UAVs, our UAVs should be sca ttered around the enemy and intercept the enemy from 
+diﬀerent directions. So, a status evaluation function encirclescore  related to the dispersion 
+of our UAVs is added, and it can be expressed as follows: 
+()
+2
+4
+1
+1,42
+i
+i
+θθ
+σθ π
+=
+−
+==   (43)
+412
+3
+encirclescore σπ=− ⋅  (44)
+where iθ  represents the angle between the line connecting the i-th UAV and the enemy 
+and the line connecting its counter-clockwise neighboring UAV and the enemy, as shown 
+in Figure 14, σ  represents the standard deviation of the angles. 
+Our UAV
+Enemy UAV
+iθ
+1iθ +
+1iθ −
+nUAV
+1nUAV +
+1nUAV −
+ 
+Figure 14. The deﬁnition of iθ . 
+Meanwhile, since the main goal of the interception mission is to prevent the enemy 
+from approaching our base, the closer the enem y is to our base, the greater the threat to 
+our base. A status evaluation function basescore   related to the distance to our base is 
+added, and it can be expressed as follows: 
+LJ( )base enemy basescore p p =− −  (45)
+() ()
+24
+114,LJ( ) 1 2 21 1 2 21
+1,
+det
+det det
+det
+xx xx
+x
+ρ
+ρρ
+ρ
+     −>  =  +− +− 
+ ≤
+ (46)
+Figure 14. The deﬁnition of θi.
+Meanwhile, since the main goal of the interception mission is to prevent the enemy
+from approaching our base, the closer the enemy is to our base, the greater the threat to our
+base. A status evaluation function score base related to the distance to our base is added, and
+it can be expressed as follows:
+score base =−LJ(
+penemy− pbase
+) (45)
+LJ(x) =
+
+
+
+4
+[(
+1
+1+(2
+√
+2−1)x/ρdet
+)2
+−
+(
+1
+1+(2
+√
+2−1)x/ρdet
+)4]
+, x > ρdet
+1 , x≤ ρdet
+(46)
+Additionally, in the early period of training, it is easy for the enemy to invade our
+base. To update the strategy of our UAVs for hindering the enemy, a time reward function
+score time is added and it can be expressed as follows:
+score time = t
+tmax
+(47)
+===== PAGE 16 =====
+Biomimetics 2023, 8, 222 16 of 24
+Therefore, the modiﬁed reward function for training is expressed as follows:
+r = ωsscore suc + ωdscore dis + ωescore encircle + ωbscore base + ωtscore time (48)
+where ωs = 10, ωd = 2, ωe = 3, ωb = 3, and ωt = 1 are weighting factors. The weight
+parameters in (48) were selected according to empiricism. The greater the contribution of
+the function to the intercept mission, the greater the weight parameter.
+4. Numerical Experiments
+In this section, the strategy of the attack group is trained, and the strategy is applied
+to a swarm of 12 UAVs according to the grouping mechanism. Numerical experiments
+with enemies with different maximum accelerations are executed to test the performance
+of our method.
+4.1. Experiment Setup
+The experiment environment is built using Unity’s ML-Agents Toolkit. As shown in
+Figure 15, the training environment is 100 m long and 100 m wide. The circle on the left
+represents our base. The four squares represent four UAVs of the attack group. The circle
+on the right represents the enemy UAV . Parameters of the environment are listed in Table 1.
+The training parameters of MARL are listed in Table 2.
+Biomimetics 2023, 8, x FOR PEER REVIEW 16 of 24 
+ 
+ 
+Additionally, in the early period of training , it is easy for the enemy to invade our 
+base. To update the strategy of our UAVs for hindering the enemy, a time reward function 
+timescore  is added and it can be expressed as follows: 
+time
+max
+tscore t=  (47)
+Therefore, the modiﬁed reward function for training is expressed as follows: 
+s suc d dis e encircle b base t timer score score score score scoreωωω ω ω=++ + +  (48)
+where 10sω =  , 2dω =  , 3eω =  , 3bω =  , and 1tω =   are weighting factors. The weight 
+parameters in (48) were selected according to empiricism. The greater the contribution of 
+the function to the intercept mission, the greater the weight parameter. 
+4. Numerical Experiments 
+In this section, the strategy of the attack group is trained, and the strategy is applied 
+to a swarm of 12 UAVs according to the grouping mechanism. Numerical experiments 
+with enemies with diﬀerent maximum accelerations are executed to test the performance 
+of our method. 
+4.1. Experiment Setup 
+The experiment environment is built using Unity’s ML-Agents Toolkit. As shown in 
+Figure 15, the training environment is 100 m long and 100 m wide. The circle on the left 
+represents our base. The four squares represent four UAVs of the attack group. The circle 
+on the right represents the enemy UAV. Parameters of the environment are listed in Table 
+1. The training parameters of MARL are listed in Table 2. 
+Our Base Enemy UAV
+Our UAVs
+100 m
+100 m
+(0, 0)
+(35, 0)
+(-17.5, 7.5)
+(-17.5, 2.5)
+(-17.5, -2.5)
+(-17.5, -7.5)
+(-30, 0)
+detρ atkρ
+ 
+Figure 15. The initial state of the attack group in the experiment environment. 
+Table 1. Parameters of the environment. 
+Parameter Speci ﬁcation Value 
+λ  Linear drag coe ﬃcient of the UAV 0.3 s −1 
+maxa  Maximum acceleration of our UAVs 0.3 m·s −2 
+Figure 15. The initial state of the attack group in the experiment environment.
+Table 1. Parameters of the environment.
+Parameter Speciﬁcation Value
+λ Linear drag coefﬁcient of the UAV 0.3 s−1
+amax Maximum acceleration of our UAVs 0.3 m·s−2
+vmax Maximum speed of our UAVs 1.0 m·s−1
+ρatk Attack range of our UAVs 5.0 m
+aenemy
+max Maximum acceleration of the enemy UAV 0.45 m·s−2
+venemy
+max Maximum speed of the enemy UAV 1.5 m·s−1
+ρdet Detection range of the enemy UAV 5.0 m
+tmax Maximum time of the mission 500 s
+===== PAGE 17 =====
+Biomimetics 2023, 8, 222 17 of 24
+Table 2. Training parameters of MARL.
+Parameter Value
+Learning rate 0.00005
+Batch size 1024
+Buffer size 10,240
+Discount factor 0.99
+Hidden units 512
+Fully connected layers 2
+As Figure 16 shows, 12 UAVs are divided into 3 groups, and the environment is 175 m
+long and 100 m wide.
+Biomimetics 2023, 8, x FOR PEER REVIEW 17 of 24 
+ 
+ 
+maxv  Maximum speed of our UAVs 1.0 m·s −1 
+atkρ  Attack range of our UAVs 5.0 m 
+enemy
+maxa  Maximum acceleration of the enemy UAV 0.45 m·s −2 
+enemy
+maxv  Maximum speed of the enemy UAV 1.5 m·s −1 
+detρ  Detection range of the enemy UAV 5.0 m 
+maxt  Maximum time of the mission 500 s 
+Table 2. Training parameters of MARL. 
+Parameter Value 
+Learning rate 0.00005 
+Batch size 1024 
+Buﬀer size 10,240 
+Discount factor 0.99 
+Hidden units 512 
+Fully connected layers 2 
+As Figure 16 shows, 12 UAVs are divided into 3 groups, and the environment is 175 
+m long and 100 m wide. 
+Our Base Enemy UAV
+Group 1 Group 2 Group 3
+(-17.5, 7.5)
+(-17.5, 2.5)
+(-17.5, -2.5)
+(-17.5, -7.5)
+(22.5, 7.5)
+(22.5, 2.5)
+(22.5, -2.5)
+(22.5, -7.5)
+(62.5, 7.5)
+(62.5, 2.5)
+(62.5, -2.5)
+(62.5, -7.5)
+(-30, 0) (100, 0)
+175 m
+100 m
+ 
+Figure 16. The initial state of the UAV swarm in the experiment environment. 
+4.2. Performance Analysis 
+To validate the bio-inspired action space in our method, the success rates of the 
+method with bio-inspired action space and the original action space in the training process 
+are compared. The original action space contains ﬁve actions: up, down, left, right, and 
+void. The curves of the success rates are shown in Figure 17, and the ﬁnal success rates 
+after 45,000 episodes of training are listed in Table 3. 
+Figure 16. The initial state of the UAV swarm in the experiment environment.
+4.2. Performance Analysis
+To validate the bio-inspired action space in our method, the success rates of the method
+with bio-inspired action space and the original action space in the training process are
+compared. The original action space contains ﬁve actions: up, down, left, right, and void.
+The curves of the success rates are shown in Figure 17, and the ﬁnal success rates after
+45,000 episodes of training are listed in Table 3.
+Biomimetics 2023, 8, x FOR PEER REVIEW 18 of 24 
+ 
+ 
+Episodes
+Success Rate
+Bio-Inspired Action Space
+Original Action Space
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 8k 16k 32k24k 40k
+ 
+Figure 17. The curve of success rate per 100 episodes in the training process. Dim curves in the ﬁgure 
+are the original curves of success rate, and bright curves are the smoothed ones using 1st-order low-
+pass-ﬁlter. 
+Table 3. Final success rates after 45,000 episodes of training. 
+Method Final Success Rate 
+Original Action Space 89% 
+Bio-Inspired Action Space 97% 
+It can be seen that both curves converged after 45,000 episodes of training. The curve 
+with bio-inspired action space grew slowly in  the early period of training, but it grew 
+rapidly after about 45,000 episodes, and the success rate eventually remained at 97%. The 
+curve with original action space grew rapidly in the early period of training, but it grew 
+slowly after 24,000 episodes, and the success ra te eventually remained at 89%. It shows 
+that the bio-inspired action space can avoid being stuck in a local optimum and increase 
+the ﬁnal success rate. Compared to the original action space, the bio-inspired action space 
+contains more types of actions, resulting in a slow growth in success rates in the early 
+period. However, these actions have a clear interactive e ﬀect on both our UAVs and the 
+enemy UAV, which facilitates the update of the strategy in a better direction. 
+After the strategy of the attack group is obtained, the success rate of the attack group 
+against enemies with diﬀerent maximum accelerations is evaluated. The results are shown 
+in Figure 18 and Table 4. 
+0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9
+0
+0.2
+0.4
+0.6
+0.8
+1
+Success Rate
+Maximum Acceleration of the Enemy / m·s−2
+ 
+Figure 18. Success rates of the a ttack group against the enemy with di ﬀerent maximum accelera-
+tions. 
+  
+Figure 17. The curve of success rate per 100 episodes in the training process. Dim curves in the
+ﬁgure are the original curves of success rate, and bright curves are the smoothed ones using 1st-order
+low-pass-ﬁlter.
+===== PAGE 18 =====
+Biomimetics 2023, 8, 222 18 of 24
+Table 3. Final success rates after 45,000 episodes of training.
+Method Final Success Rate
+Original Action Space 89%
+Bio-Inspired Action Space 97%
+It can be seen that both curves converged after 45,000 episodes of training. The curve
+with bio-inspired action space grew slowly in the early period of training, but it grew
+rapidly after about 45,000 episodes, and the success rate eventually remained at 97%. The
+curve with original action space grew rapidly in the early period of training, but it grew
+slowly after 24,000 episodes, and the success rate eventually remained at 89%. It shows
+that the bio-inspired action space can avoid being stuck in a local optimum and increase
+the ﬁnal success rate. Compared to the original action space, the bio-inspired action space
+contains more types of actions, resulting in a slow growth in success rates in the early
+period. However, these actions have a clear interactive effect on both our UAVs and the
+enemy UAV , which facilitates the update of the strategy in a better direction.
+After the strategy of the attack group is obtained, the success rate of the attack group
+against enemies with different maximum accelerations is evaluated. The results are shown
+in Figure 18 and Table 4.
+Biomimetics 2023, 8, x FOR PEER REVIEW 18 of 24 
+ 
+ 
+Episodes
+Success Rate
+Bio-Inspired Action Space
+Original Action Space
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 8k 16k 32k24k 40k
+ 
+Figure 17. The curve of success rate per 100 episodes in the training process. Dim curves in the figure 
+are the original curves of success rate, and bright curves are the smoothed ones using 1st-order low-
+pass-filter. 
+Table 3. Final success rates after 45,000 episodes of training. 
+Method Final Success Rate 
+Original Action Space 89% 
+Bio-Inspired Action Space 97% 
+It can be seen that both curves converged after 45,000 episodes of training. The curve 
+with bio-inspired action space grew slowly in the early period of training, but it grew 
+rapidly after about 45,000 episodes, and the success rate eventually remained at 97%. The 
+curve with original action space grew rapidly in the early period of training, but it grew 
+slowly after 24,000 episodes, and the success rate eventually remained at 89%. It shows 
+that the bio-inspired action space can avoid being stuck in a local optimum and increase 
+the final success rate. Compared to the original action space, the bio-inspired action space 
+contains more types of actions, resulting in a slow growth in success rate s in the early 
+period. However, these actions have a clear interactive effect on both our UAVs and the 
+enemy UAV, which facilitates the update of the strategy in a better direction. 
+After the strategy of the attack group is obtained, the success rate of the attack group 
+against enemies with different maximum accelerations is evaluated. The results are shown 
+in Figure 18 and Table 4. 
+0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9
+0
+0.2
+0.4
+0.6
+0.8
+1
+Success Rate
+Maximum Acceleration of the Enemy / m· s 2
+ 
+Figure 18. Success rates of the attack group against the enemy with different maximum accelera-
+tions. 
+  
+Figure 18. Success rates of the attack group against the enemy with different maximum accelerations.
+Table 4. Success rates of the attack group against the enemy with different maximum accelerations.
+Maximum Acceleration of the
+Enemy/m·s−2
+Maximum Acceleration of Our
+UA Vs/m·s−2 Acceleration Ratio Success Rate
+0.45
+0.3
+1.5 97%
+0.5 1.67 97%
+0.55 1.83 90%
+0.6 2 88%
+0.65 2.17 78%
+0.7 2.33 63%
+0.75 2.5 50%
+0.8 2.67 36%
+0.85 2.83 10%
+0.9 3 2%
+The strategy is applied to a swarm of 12 UAVs, and the success rate against enemies
+with different maximum accelerations is obtained. The results are shown in Figure 19 and
+Table 5.
+===== PAGE 19 =====
+Biomimetics 2023, 8, 222 19 of 24
+Biomimetics 2023, 8, x FOR PEER REVIEW 19 of 24 
+ 
+ 
+Table 4. Success rates of the attack group against the enemy with different maximum accelera-
+tions. 
+Maximum Acceleration of 
+the Enemy/m·s−2 
+Maximum Acceleration of 
+Our UAVs/m·s−2 Acceleration Ratio Success Rate 
+0.45 
+0.3 
+1.5 97% 
+0.5 1.67 97% 
+0.55 1.83 90% 
+0.6 2 88% 
+0.65 2.17 78% 
+0.7 2.33 63% 
+0.75 2.5 50% 
+0.8 2.67 36% 
+0.85 2.83 10% 
+0.9 3 2% 
+The strategy is applied to a swarm of 12 UAVs, and the success rate against enemies 
+with different maximum accelerations is obtained. The results are shown in Figure 19 and 
+Table 5. 
+Maximum Acceleration of the Enemy / m· s 2
+Success Rate
+0.45 0.5 0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+ 
+Figure 19. Success rates of the UAV swarm against the enemy with different maximum accelerations. 
+Table 5. Success rates of the UAV swarm against the enemy with different maximum accelerations. 
+Maximum Acceleration of 
+the Enemy/m·s−2 
+Maximum Acceleration of 
+Our UAVs/m·s−2 Acceleration Ratio Success Rate 
+0.45 
+0.3 
+1.5 100% 
+0.5 1.67 100% 
+0.55 1.83 96% 
+0.6 2 96% 
+0.65 2.17 95% 
+0.7 2.33 94% 
+0.75 2.5 91% 
+0.8 2.67 82% 
+0.85 2.83 69% 
+0.9 3 53% 
+Figure 19. Success rates of the UAV swarm against the enemy with different maximum accelerations.
+Table 5. Success rates of the UAV swarm against the enemy with different maximum accelerations.
+Maximum Acceleration of the
+Enemy/m·s−2
+Maximum Acceleration of Our
+UA Vs/m·s−2 Acceleration Ratio Success Rate
+0.45
+0.3
+1.5 100%
+0.5 1.67 100%
+0.55 1.83 96%
+0.6 2 96%
+0.65 2.17 95%
+0.7 2.33 94%
+0.75 2.5 91%
+0.8 2.67 82%
+0.85 2.83 69%
+0.9 3 53%
+It can be seen that the success rate decreases as the maximum acceleration of the
+enemy UAV increases. Compared to the success rate of the attack group, the success rate
+of the UAV swarm is higher. The success rate against enemies with 3 times the maximum
+acceleration of ours increased from 2% to 53%. It shows that the grouping mechanism of
+our method can take advantage of the UAV swarm and increase the success rate. When the
+enemy’s maximum acceleration is within 2.5 times ours, our UAV swarm can intercept the
+enemy well, and the success rate is 91%.
+4.3. Demonstration of Attack-Defense Confrontation
+In this subsection, the process of the interception mission performed by the attack
+group and the UAV swarm is recorded.
+Figures 20 and 21 show how the attack group intercepts an enemy UAV . The maximum
+acceleration of the enemy is 0.45 m·s−2, the maximum speed of the enemy is 1.5 m·s−1, the
+maximum acceleration of our UAVs is 0.3 m·s−2, and the maximum speed of our UAVs is
+1.0 m·s−1.
+===== PAGE 20 =====
+Biomimetics 2023, 8, 222 20 of 24
+Biomimetics 2023, 8, x FOR PEER REVIEW 20 of 24 
+ 
+ 
+It can be seen that the success rate decreases as the maximum acceleration of the en-
+emy UAV increases. Compared to the success rate of the attack group, the success rate of 
+the UAV swarm is higher. The success rate against enemies with 3 times the maximum 
+acceleration of ours increased from 2% to 53 %. It shows that the grouping mechanism of 
+our method can take advantage of the UAV swarm and increase the success rate. When 
+the enemy’s maximum acceleration is within 2.5 times ours, our UAV swarm can intercept 
+the enemy well, and the success rate is 91%. 
+4.3. Demonstration of Attack-Defense Confrontation 
+In this subsection, the process of the interception mission performed by the a ttack 
+group and the UAV swarm is recorded. 
+Figures 20 and 21 show how the a ttack group intercepts an enemy UAV. The maxi-
+mum acceleration of the enemy is 0.45 m·s−2, the maximum speed of the enemy is 1.5 m·s−1, 
+the maximum acceleration of our UAVs is 0.3 m·s−2, and the maximum speed of our UAVs 
+is 1.0 m·s−1. 
+t = 3 s t = 6 s t = 9 s
+t = 12 s t = 15 s t = 18 s
+t = 21 s t = 24 s t = 26 s
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+12
+3
+4
+12
+3
+4
+ 
+Figure 20. The trajectory of the attack group intercepting an enemy UAV. The number beside the 
+square represents the number of the UAV. For the entire process of the mission, see Video S1. 
+Velocity / m·s-1
+Time / s  
+0 5 10 15 20 25
+0
+10
+20
+30
+40
+50
+60
+70
+Enemy-Base
+UAV1-Enemy
+UAV2-Enemy
+UAV3-Enemy
+UAV4-Enemy
+Time / s
+Distance / m
+ 
+(a) ( b) 
+Figure 21. The state curves of the attack group and the enemy UAV. (a) Velocity; (b) distance. 
+When the episode begins, the a ttack group approaches the enemy UAV to perform 
+the interception mission. At t = 12 s, the speed of our UAVs shows a large diﬀerence. The 
+speed of UAV 1 and UAV 4 is about 0.9 m·s−1, faster than the speed of UAV 2 and UAV 3, 
+which is about 0.75 m·s−1. Thus, our UAVs form a U-shaped formation, which is helpful to 
+Figure 20. The trajectory of the attack group intercepting an enemy UAV . The number beside the
+square represents the number of the UAV . For the entire process of the mission, see Video S1.
+Biomimetics 2023, 8, x FOR PEER REVIEW 20 of 24 
+ 
+ 
+It can be seen that the success rate decreases as the maximum acceleration of the en-
+emy UAV increases. Compared to the success rate of the attack group, the success rate of 
+the UAV swarm is higher. The success rate against enem ies with 3 times the maximum 
+acceleration of ours increased from 2% to 53%. It shows that the grouping mechanism of 
+our method can take advantage of the UAV swarm and increase the success rate. When 
+the enemy’s maximum acceleration is within 2.5 times ours, our UAV swarm can intercept 
+the enemy well, and the success rate is 91%. 
+4.3. Demonstration of Attack-Defense Confrontation 
+In this subsection, the process of the interception mission performed by the attack 
+group and the UAV swarm is recorded. 
+Figures 20 and 21 show how the attack group intercepts an enemy UAV. The maxi-
+mum acceleration of the enemy is 0.45 m·s−2, the maximum speed of the enemy is 1.5 m·s−1, 
+the maximum acceleration of our UAVs is 0.3 m·s−2, and the maximum speed of our UAVs 
+is 1.0 m·s−1. 
+t = 3 s t = 6 s t = 9 s
+t = 12 s t = 15 s t = 18 s
+t = 21 s t = 24 s t = 26 s
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+1
+2
+3
+4
+12
+3
+4
+12
+3
+4
+ 
+Figure 20. The trajectory of the attack group intercepting an enemy UAV. The number beside the 
+square represents the number of the UAV. For the entire process of the mission, see Video S1. 
+Velocity / m·s-1
+Time / s
+ 
+Time / s
+Distance / m  
+(a) (b) 
+Figure 21. The state curves of the attack group and the enemy UAV. (a) Velocity; (b) distance. 
+When the episode begins, the attack group approaches the enemy UAV to perform 
+the interception mission. At t = 12 s, the speed of our UAVs shows a large difference. The 
+speed of UAV 1 and UAV 4 is about 0.9 m·s−1, faster than the speed of UAV 2 and UAV 3, 
+which is about 0.75 m·s−1. Thus, our UAVs form a U-shaped formation, which is helpful to 
+Figure 21. The state curves of the attack group and the enemy UAV . (a) Velocity; (b) distance.
+When the episode begins, the attack group approaches the enemy UAV to perform
+the interception mission. At t = 12 s, the speed of our UAVs shows a large difference. The
+speed of UAV 1 and UAV 4 is about 0.9 m·s−1, faster than the speed of UAV 2 and UAV 3,
+which is about 0.75 m·s−1. Thus, our UAVs form a U-shaped formation, which is helpful to
+avoid the enemy escaping. At t = 26 s, the enemy is within the attack range of our 4 UAVs,
+and the interception mission is successful.
+Figures 22 and 23 show how the UAV swarm intercepts an enemy UAV . Twelve UAVs
+are divided into three groups. Group 1 consists of UAVs 1 to 4. Group 2 consists of UAVs
+5 to 8. Group 3 consists of UAVs 9 to 12. The maximum acceleration of the enemy is
+0.75 m·s−2, the maximum speed of the enemy is 2.5 m·s−1, the maximum acceleration of
+our UAVs is 0.3 m·s−2, and the maximum speed of our UAVs is 1.0 m·s−1.
+===== PAGE 21 =====
+Biomimetics 2023, 8, 222 21 of 24
+Biomimetics 2023, 8, x FOR PEER REVIEW 21 of 24 
+ 
+ 
+avoid the enemy escaping. At t = 26 s, the enemy is within the attack range of our 4 UAVs, 
+and the interception mission is successful. 
+Figures 22 and 23 show how the UAV swarm intercepts an enemy UAV. Twelve UAVs 
+are divided into three groups. Group 1 consists of UAVs 1 to 4. Group 2 consists of UAVs 
+5 to 8. Group 3 consists of UAVs 9 to 12. The maximum acceleration of the enemy is 0.75 
+m·s−2, the maximum speed of the enemy is 2.5 m·s −1, the maximum acceleration of our 
+UAVs is 0.3 m·s−2, and the maximum speed of our UAVs is 1.0 m·s−1. 
+t = 0 s t = 5.2 s
+t = 47.1 s
+8
+t = 10.5 s t = 15.7 s
+t = 41.9 s
+t = 36.6 st = 31.4 s
+t = 26.2 st = 20.9 s
+7
+6
+5
+4
+3
+2
+1 9
+10
+11
+12
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+9
+10
+11
+12
+9
+10
+11 12
+9
+10 11
+12
+9
+10
+11
+12
+9
+10
+11
+12
+9
+10 11
+12
+9
+10
+11
+12
+910 11
+12
+910 11
+128
+7
+6
+5
+8
+7
+6 5
+ 
+Figure 22. The trajectory of the UAV swarm intercepting an enemy UAV. The number beside the 
+square represents the number of the UAV. For the entire process of the mission, see Video S2. 
+Time / s
+Velocity / m·s-1
+ Time / s
+Distance / m
+0 5 10 15 20 25 30 35 40 45
+0
+20
+40
+60
+80
+100
+120
+140
+Enemy-Base
+UAV1-Enemy
+UAV2-Enemy
+UAV3-Enemy
+UAV4-Enemy
+ 
+(a) ( b) 
+Figure 22. The trajectory of the UAV swarm intercepting an enemy UAV . The number beside the
+square represents the number of the UAV . For the entire process of the mission, see Video S2.
+When the episode begins, group 3 approaches the enemy UAV , and groups 1 and 2
+adjust their positions in their zones. From t = 20.9 s to t = 36.6 s, the enemy UAV , with the
+advantage of higher performance, accelerates to a higher speed to avoid the interception,
+breaks through the defense line formed by group 3 and enters the zone of group 2. Group
+2 forms a U-shaped formation at t = 41.9 s and eventually intercepts the enemy UAV at
+t = 47.1 s.
+Biomimetics 2023, 8, x FOR PEER REVIEW 21 of 24 
+ 
+ 
+avoid the enemy escaping. At t = 26 s, the enemy is within the attack range of our 4 UAVs, 
+and the interception mission is successful. 
+Figures 22 and 23 show how the UAV swarm intercepts an enemy UAV. Twelve UAVs 
+are divided into three groups. Group 1 consists of UAVs 1 to 4. Group 2 consists of UAVs 
+5 to 8. Group 3 consists of UAVs 9 to 12. The maximum acceleration of the enemy is 0.75 
+m·s−2, the maximum speed of the enemy is 2.5 m·s −1, the maximum acceleration of our 
+UAVs is 0.3 m·s−2, and the maximum speed of our UAVs is 1.0 m·s−1. 
+t = 0 s t = 5.2 s
+t = 47.1 s
+8
+t = 10.5 s t = 15.7 s
+t = 41.9 s
+t = 36.6 st = 31.4 s
+t = 26.2 st = 20.9 s
+7
+6
+5
+4
+3
+2
+1 9
+10
+11
+12
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+4
+3
+2
+1
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+8
+7
+6
+5
+9
+10
+11
+12
+9
+10
+11 12
+9
+10 11
+12
+9
+10
+11
+12
+9
+10
+11
+12
+9
+10 11
+12
+9
+10
+11
+12
+910 11
+12
+910 11
+128
+7
+6
+5
+8
+7
+6 5
+ 
+Figure 22. The trajectory of the UAV swarm intercepting an enemy UAV. The number beside the 
+square represents the number of the UAV. For the entire process of the mission, see Video S2. 
+Time / s
+Velocity / m·s-1
+ 
+Time / s
+Distance / m
+  
+(a) (b) 
+Figure 23. Cont.
+===== PAGE 22 =====
+Biomimetics 2023, 8, 222 22 of 24
+Biomimetics 2023, 8, x FOR PEER REVIEW 22 of 24 
+ 
+ 
+Time / s
+Velocity / m·s-1
+ 
+Time / s
+Distance / m
+  
+(c) (d) 
+Time / s
+Velocity / m·s-1
+ 
+Time / s
+Distance / m
+  
+(e) (f) 
+Figure 23. The state curves of the UAV swarm and the enemy UAV. ( a) velocity of group 1; ( b) 
+distance between group 1 and the enemy; (c) velocity of group 2; (d) distance between group 2 and 
+the enemy; (e) velocity of group 3; (f) distance between group 3 and the enemy. 
+When the episode begins, group 3 approaches the enemy UAV, and groups 1 and 2 
+adjust their positions in their zones. From t = 20.9 s to t = 36.6 s, the enemy UAV, with the 
+advantage of higher performance, accelerates to a higher speed to avoid the interception, 
+breaks through the defense line formed by group 3 and enters the zone of group 2. Group 
+2 forms a U-shaped formation at t = 41.9 s and eventually intercepts the enemy UAV at t = 
+47.1 s. 
+Although, in the above process, the enemy UAV broke through the defense line 
+formed by Group 3, Group 3 still played the role of hindering the enemy UAV and bought 
+enough time for Group 2 to dynamically adjust the position. As the enemy UAV entered 
+the zone of Group 2, Group 2 had already adjusted to a suitable position. So, it was able 
+for Group 2 to quickly form an interception formation and realize the interception of the 
+enemy. 
+5. Conclusions 
+This paper proposes a decision-making method for UAV swarms for attack-defense 
+confrontation via MARL. For traditional MARL methods, the training time increases ex-
+ponentially as the swarm size increases. Inspired by the phenomenon that many predators 
+in nature hunt in small groups, our method abstract s the grouping mechanism  to fully 
+utilize the capability of the UAV swarm and mitigate interference between UAVs. The 
+confrontation strategy is first obtained by training a group of four UAVs. Then, according 
+to the proposed grouping mechanism, we apply the strategy to a large r-scale swarm. 
+Figure 23. The state curves of the UAV swarm and the enemy UAV . (a) velocity of group 1;(b) distance
+between group 1 and the enemy; (c) velocity of group 2; (d) distance between group 2 and the enemy;
+(e) velocity of group 3; (f) distance between group 3 and the enemy.
+Although, in the above process, the enemy UAV broke through the defense line formed
+by Group 3, Group 3 still played the role of hindering the enemy UAV and bought enough
+time for Group 2 to dynamically adjust the position. As the enemy UAV entered the zone
+of Group 2, Group 2 had already adjusted to a suitable position. So, it was able for Group 2
+to quickly form an interception formation and realize the interception of the enemy.
+5. Conclusions
+This paper proposes a decision-making method for UAV swarms for attack-defense
+confrontation via MARL. For traditional MARL methods, the training time increases expo-
+nentially as the swarm size increases. Inspired by the phenomenon that many predators
+in nature hunt in small groups, our method abstracts the grouping mechanism to fully
+utilize the capability of the UAV swarm and mitigate interference between UAVs. The
+confrontation strategy is ﬁrst obtained by training a group of four UAVs. Then, according
+to the proposed grouping mechanism, we apply the strategy to a larger-scale swarm. There-
+fore, even if the swarm size increases, the training time remains the same. Furthermore,
+to prevent the strategy from being stuck in a local optimum during training, six types of
+===== PAGE 23 =====
+Biomimetics 2023, 8, 222 23 of 24
+actions that have a clear interactive effect are generalized from hunting behavior. Several
+experiments are conducted to evaluate the performance of our method. The results show
+that when the maximum acceleration of the enemy UAV is within 2.5 times ours, a swarm
+of 12 UAVs can intercept the enemy well, and the success rate is above 91%. In addition, the
+grouping mechanism can take advantage of the UAV swarm and increase the success rate.
+And the method with the bio-inspired action space has a higher success rate compared
+with the method with the standard action space.
+In this work, it is assumed that all UAVs are restricted to a 2D plane and that the
+UAV can obtain information about other UAVs without delay. Current work has mainly
+validated the effectiveness of our method on a simpliﬁed model. For future work, we will
+use a more precise dynamics model of UAVs and consider more constraints. Additionally,
+our method will be applied in a real-world ﬂight experiment to demonstrate its feasibility.
+Supplementary Materials: The following supporting information can be downloaded at: https:
+//www.mdpi.com/article/10.3390/biomimetics8020222/s1, Video S1: Animation 1; Video S2: Ani-
+mation 2.
+Author Contributions: Methodology, P .C. and J.W.; software, J.W. and K.W.; validation, J.W. and
+K.W.; investigation, B.D. and Y.W.; resources, K.W. and Y.W.; writing—original draft preparation,
+P .C. and J.W.; funding acquisition, B.D. All authors have read and agreed to the published version of
+the manuscript.
+Funding: This research was funded by the National Natural Science Foundation of China (No.
+62003365) and the Fundamental Research Funds for the Central Universities.
+Institutional Review Board Statement: Not applicable.
+Data Availability Statement: Not applicable.
+Conﬂicts of Interest: The authors declare no conﬂict of interest.
+References
+1. Muchiri, N.; Kimathi, S. A Review of Applications and Potential Applications of UAV . In Proceedings of the 2016 Annual
+Conference on Sustainable Research and Innovation, Milan, Italy, 4 May 2016.
+2. Fan, B.; Li, Y.; Zhang, R.; Fu, Q. Review on the Technological Development and Application of UAV Systems.Chin. J. Electron.
+2020, 29, 199–207. [CrossRef]
+3. Zhang, C.; Liu, Y.; Hu, C. Path Planning with Time Windows for Multiple UAVs Based on Gray Wolf Algorithm.Biomimetics 2022,
+7, 225. [CrossRef] [PubMed]
+4. Zhu, X. Analysis of Military Application of UAV Swarm Technology. In Proceedings of the 2020 3rd International Conference on
+Unmanned Systems, Harbin, China, 27 November 2020; pp. 1200–1204.
+5. Peng, Q.; Wu, H.; Xue, R. Review of Dynamic Task Allocation Methods for UAV Swarms Oriented to Ground Targets.Complex
+Syst. Model. Simul. 2021, 1, 163–175. [CrossRef]
+6. Wu, W.; Zhang, X.; Miao, Y. Starling-Behavior-Inspired Flocking Control of Fixed-Wing Unmanned Aerial Vehicle Swarm in
+Complex Environments with Dynamic Obstacles. Biomimetics 2022, 7, 214. [CrossRef] [PubMed]
+7. Li, R.; Ma, H. Research on UAV Swarm Cooperative Reconnaissance and Combat Technology. In Proceedings of the 2020 3rd
+International Conference on Unmanned Systems, Harbin, China, 27 November 2020; pp. 996–999.
+8. Wang, Y.; Bai, P .; Liang, X.; Wang, W.; Zhang, J.; Fu, Q. Reconnaissance Mission Conducted by UAV Swarms Based on Distributed
+PSO Path Planning Algorithms. IEEE Access 2019, 7, 105086–105099. [CrossRef]
+9. Xie, S.; Zhang, A.; Bi, W.; Tang, Y. Multi-UAV Mission Allocation under Constraint. Appl. Sci. 2019, 9, 2184. [CrossRef]
+10. Wang, B.; Li, S.; Gao, X.; Xie, T. UAV Swarm Confrontation Using Hierarchical Multiagent Reinforcement Learning.Int. J. Aerosp.
+Eng. 2021, 2021, 3360116. [CrossRef]
+11. Xiang, L.; Xie, T. Research on UAV Swarm Confrontation Task Based on MADDPG Algorithm. In Proceedings of the 2020 5th
+International Conference on Mechanical, Control and Computer Engineering, Harbin, China, 25 December 2022; pp. 1513–1518.
+12. Xuan, S.; Ke, L. UAV Swarm Attack-Defense Confrontation Based on Multi-Agent Reinforcement Learning. In Advances in
+Guidance, Navigation and Control, Proceedings of the 2020 International Conference on Guidance, Navigation and Control, Tianji, China,
+23–25 October 2020; Yan, L., Duan, H., Yu, X., Eds.; Springer: Singapore; pp. 5599–5608.
+13. Wang, Z.; Liu, F.; Guo, J.; Hong, C.; Chen, M.; Wang, E.; Zhao, Y. UAV Swarm Confrontation Based on Multi-Agent Deep
+Reinforcement Learning. In Proceedings of the 2022 41st Chinese Control Conference, Hefei, China, 25 July 2022; pp. 4996–5001.
+14. Wang, B.; Li, S.; Gao, X.; Xie, T. Weighted Mean Field Reinforcement Learning for Large-Scale UAV Swarm Confrontation.Appl.
+Intell. 2022, 53, 5274–5289. [CrossRef]
+===== PAGE 24 =====
+Biomimetics 2023, 8, 222 24 of 24
+15. Zhang, G.; Li, Y.; Xu, X.; Dai, H. Multiagent Reinforcement Learning for Swarm Confrontation Environments. In Intelligent
+Robotics and Applications, Proceedings of the 12th International Conference on Intelligent Robotics and Applications, Shenyang, China, 8–11
+August 2019; Yu, H., Liu, J., Liu, L., Ju, Z., Liu, Y., Zhou, D., Eds.; Springer: Cham, Switzerland; pp. 533–543.
+16. Zhan, G.; Zhang, X.; Li, Z.; Xu, L.; Zhou, D.; Yang, Z. Multiple-UAV Reinforcement Learning Algorithm Based on Improved PPO
+in Ray Framework. Drones 2022, 6, 166. [CrossRef]
+17. Lowe, R.; WU, Y.; Tamar, A.; Harb, J.; Pieter Abbeel, O.; Mordatch, I. Multi-Agent Actor-Critic for Mixed Cooperative-Competitive
+Environments. In Proceedings of the Advances in Neural Information Processing Systems, Long Beach, CA, USA, 4 December
+2017; Volume 30.
+18. Yu, C.; Velu, A.; Vinitsky, E.; Gao, J.; Wang, Y.; Bayen, A.; Wu, Y. The Surprising Effectiveness of PPO in Cooperative, Multi-Agent
+Games. arXiv 2021, arXiv:2103.01955.
+19. MacNulty, D.R.; Smith, D.W.; Mech, L.D.; Vucetich, J.A.; Packer, C. Nonlinear Effects of Group Size on the Success of Wolves
+Hunting Elk. Behav. Ecol. 2012, 23, 75–82. [CrossRef]
+20. MacNulty, D.R.; Mech, L.D.; Smith, D.W. A Proposed Ethogram of Large-Carnivore Predatory Behavior, Exempliﬁed by the Wolf.
+J. Mammal. 2007, 88, 595–605. [CrossRef]
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.

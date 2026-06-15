@@ -1,0 +1,3 @@
+comm_range,comm_label,density,success_rate,timeout_rate,drone_collision_rate,total_collision_rate,mean_steps_success
+0.0,0,0.2,0.9395,0.027,0.013,0.0335,76.38477913783927
+0.0,0,0.3,0.8845,0.054,0.016,0.0615,78.04748445449407

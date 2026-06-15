@@ -271,6 +271,7 @@ class SwarmLidarEnv_StepB10(ParallelEnv):
             
             is_clustered = (options["spawn_mode"] == "clustered") if (options and "spawn_mode" in options) else (np.random.random() < 0.9)
 
+            self.fallback_count = 0
             if is_clustered:
                 half = 1.5  
                 min_dist = 0.6 
@@ -282,6 +283,7 @@ class SwarmLidarEnv_StepB10(ParallelEnv):
                         if all(np.sqrt((x-px)**2 + (y-py)**2) >= min_dist for px, py in placed) and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles) and self._is_map_solvable(start_pos=np.array([x, y])):
                             placed.append([x, y]); found = True; break
                     if not found:
+                        self.fallback_count += 1
                         for _ in range(100):
                             x = np.random.uniform(cx - half - 1.5, cx + half + 1.5)
                             y = np.random.uniform(cy - half - 1.5, cy + half + 1.5)
@@ -404,7 +406,7 @@ class SwarmLidarEnv_StepB10(ParallelEnv):
             else:
                 t_glide = t_ccw
                 
-            # Blend the Wall-Glide vector into target guidance observation (alpha=0.35)
+            # Blend the Wall-Glide vector into target guidance observation (alpha=0.55)
             alpha = 0.55
             to_goal = (1.0 - alpha) * to_goal + alpha * t_glide
             # Normalize back to unit vector

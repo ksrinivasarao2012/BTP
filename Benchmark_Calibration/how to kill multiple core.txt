@@ -1,0 +1,2 @@
+how to know multiple are running : tasklist | findstr python
+how to kill them :  taskkill /F /IM python.exe

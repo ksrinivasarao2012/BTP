@@ -140,7 +140,7 @@ def run_phase2():
         print("No survivors file found. Run Phase 1 first.")
         return
         
-    num_episodes = 5
+    num_episodes = 100
     os.makedirs('results/phase2', exist_ok=True)
     os.makedirs('plots/difficulty', exist_ok=True)
     

@@ -1,0 +1,44 @@
+
+self.positions[idx] = np.clip(self.positions[idx]+self.velocities[idx]*self.dt, 0, 20.0)
+replace the above code with 
+self.positions[idx] = np.clip(self.positions[idx]+self.velocities[idx]*self.dt, 0, 20.0)
+# Zero velocity component into the wall to prevent boundary momentum accumulation
+if self.positions[idx][0] <= 0.0 or self.positions[idx][0] >= 20.0:
+    self.velocities[idx][0] = 0.0
+if self.positions[idx][1] <= 0.0 or self.positions[idx][1] >= 20.0:
+    self.velocities[idx][1] = 0.0
+
+    because 
+Here is the full picture and the next plan based on the diagnostic:
+---
+Diagnostic Findings
+┌─────────────┬───────┬───────┬───────────────────────────────────────────┐
+│    Cause    │ Count │   %   │                  Action                   │
+├─────────────┼───────┼───────┼───────────────────────────────────────────┤
+│ Wall        │ 932   │ 46.9% │ ✅ Fix — zero velocity at boundary        │
+├─────────────┼───────┼───────┼───────────────────────────────────────────┤
+│ Obstacle    │ 802   │ 40.4% │ ⚠️ Reward/policy issue (needs retraining) │
+├─────────────┼───────┼───────┼───────────────────────────────────────────┤
+│ Drone-drone │ 253   │ 12.7% │ Minor — mostly low-speed                  │
+└─────────────┴───────┴───────┴───────────────────────────────────────────┘
+Tunneling — 38/253 (15.0%) drone collisions tunneled (prev gap >0.45m). That's below the 30% threshold, so it's not significant enough to justify reducing dt.
+---
+Next Plan (in order)
+Fix 1 — Zero wall velocity (justified, apply now)
+Wall collisions are 46.9%. The fix: when a drone hits the boundary and gets clipped, zero its velocity component into the wall. Apply this to swarm_env_fixed.py.
+# After: self.positions[idx] = np.clip(...)
+# Add:
+if self.positions[idx][0] <= 0.0 or self.positions[idx][0] >
+    self.velocities[idx][0] = 0.0                                                                                                                       if self.positions[idx][1] <= 0.0 or self.positions[idx][1] >
+    self.velocities[idx][1] = 0.0                                                                                                                      
+Fix 2 — Do NOT reduce dt (not justified)                                                                                                               
+Tunneling is only 15% of drone collisions (38 cases). The diagnostic says skip this fix.                                                               
+Fix 3 — Obstacle collisions (40.4%) require retraining                                                                                                 
+Obstacle hits are a policy/reward problem, not a physics bug. The model never saw density 0.30 — it was trained at 0.26. This gets fixed during the new training run with swarm_env_fixed.py.
+---
+Immediate Next Steps
+1. Apply the wall velocity fix to swarm_env_fixed.py (5-min code edit)
+2. Fix train_fixed.py — disable the broken checkpoint fine-t
+3. Start training from scratch with swarm_env_fixed.py at the new density ceiling (0.30)
+4. Run ORCA baseline for the paper comparison
+Want me to apply the wall velocity fix to swarm_env_fixed.py

@@ -1,0 +1,6 @@
+density,success_rate,timeout_rate,wall_collision_rate,obstacle_collision_rate,drone_collision_rate,total_collision_rate,mean_steps_success,clean_maps,discarded_maps,fallback_count
+0.1,0.994,0.002,0.0,0.004,0.0,0.004,71.98792756539235,200,0,0
+0.15,0.976,0.009,0.0,0.015,0.0,0.015,74.26280737704919,200,0,1
+0.2,0.9645,0.025,0.0,0.0105,0.0,0.0105,84.10057024364956,200,0,3
+0.25,0.9525,0.0275,0.0,0.02,0.0,0.02,83.43569553805774,200,0,13
+0.3,0.909,0.064,0.0,0.027,0.0,0.027,86.25302530253025,200,0,15

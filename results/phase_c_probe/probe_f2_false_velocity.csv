@@ -1,0 +1,3 @@
+density,f,deception,honest_success,honest_timeout,honest_collision,honest_drone_collision,baseline_success,drop_vs_baseline
+0.2,2,false_velocity,95.3125,2.0625,2.625,0.25,95.55,0.24
+0.3,2,false_velocity,91.375,5.5625,3.0625,1.125,91.1,-0.28

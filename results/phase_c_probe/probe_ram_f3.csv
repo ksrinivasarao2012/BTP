@@ -1,0 +1,3 @@
+density,f,behavior,honest_success,honest_timeout,honest_collision,honest_drone_collision,baseline_success,drop_vs_baseline
+0.2,3,ram,70.0,2.4285714285714284,27.571428571428573,26.285714285714285,95.55,25.55
+0.3,3,ram,67.5,4.928571428571429,27.571428571428573,25.571428571428573,91.1,23.6

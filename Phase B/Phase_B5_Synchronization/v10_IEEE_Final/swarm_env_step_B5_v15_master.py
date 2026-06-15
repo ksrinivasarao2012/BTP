@@ -534,7 +534,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             goal_progress = old_path_dist - path_dist
             reward_goal = 100.0 * goal_progress
             
-            r = reward_goal - 0.25
+            r = reward_goal - 0.5
             
             # Directional alignment bonus
             sp_dir = self.get_shortest_path_direction(pos)
@@ -589,7 +589,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             hd = any(self.dist_matrix[idx,j] < 0.3 for j in range(self.n_drones) if j!=idx and f"drone_{j}" in self.agents)
             
             if hw or ho or hd:
-                r, terms[a] = -500.0, True; self.infos[a]["cause"] = "collision"
+                r, terms[a] = -150.0, True; self.infos[a]["cause"] = "collision"
                 # print(f"[ENV DIAG] Step {self.steps}: Agent {a} collided at pos {pos.tolist()}. Reasons: wall={hw}, obs={ho}, drone={hd}", flush=True)
             elif path_dist < 0.75:
                 r += 500.0 + (100.0/(1.0+sp))
@@ -598,7 +598,7 @@ class SwarmLidarEnv_v15_Final(ParallelEnv):
             rew[a], truncs[a] = float(r), self.steps >= self.max_steps
             if truncs[a] and not terms[a]:
                 self.infos[a]["cause"] = "timeout"
-                rew[a] -= 200.0 # Timeout terminal penalty matching B10 env
+                rew[a] -= 100.0 # Timeout terminal penalty
                 
         obs = {a: self._observe(a) for a in self.agents}
         for a in list(self.agents):

@@ -1,0 +1,3 @@
+comm_range,comm_label,density,success_rate,timeout_rate,total_collision_rate,mean_steps_success
+0.0,8to0_blackout,0.2,0.9065,0.0215,0.072,74.75179260893546
+0.0,8to0_blackout,0.3,0.834,0.0405,0.1255,73.11810551558753

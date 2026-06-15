@@ -1,0 +1,80 @@
+{
+  "metadata": {
+    "model": "checkpoints/phase1/test_model.zip",
+    "n_episodes": 5,
+    "density": 0.05,
+    "enable_communication": false,
+    "timestamp": "2026-06-12 11:41:58"
+  },
+  "summary": {
+    "success_rate": 0.0,
+    "success_rate_ci_lower": 0.0,
+    "success_rate_ci_upper": 0.07135003417431873,
+    "wall_collision_rate": 0.7,
+    "obstacle_collision_rate": 0.22,
+    "drone_collision_rate": 0.08,
+    "timeout_rate": 0.0,
+    "stuck_timeout_rate": 0.0,
+    "moving_timeout_rate": 0.0,
+    "mean_steps_to_success": 0.0,
+    "all_10_success_rate": 0.0,
+    "total_drone_attempts": 50
+  },
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 999000000,
+      "successes": 0,
+      "wall_collisions": 8,
+      "obstacle_collisions": 0,
+      "drone_collisions": 2,
+      "timeouts": 0,
+      "steps": 334,
+      "all_10_success": false
+    },
+    {
+      "episode": 1,
+      "seed": 999000001,
+      "successes": 0,
+      "wall_collisions": 6,
+      "obstacle_collisions": 4,
+      "drone_collisions": 0,
+      "timeouts": 0,
+      "steps": 514,
+      "all_10_success": false
+    },
+    {
+      "episode": 2,
+      "seed": 999000002,
+      "successes": 0,
+      "wall_collisions": 3,
+      "obstacle_collisions": 7,
+      "drone_collisions": 0,
+      "timeouts": 0,
+      "steps": 596,
+      "all_10_success": false
+    },
+    {
+      "episode": 3,
+      "seed": 999000003,
+      "successes": 0,
+      "wall_collisions": 10,
+      "obstacle_collisions": 0,
+      "drone_collisions": 0,
+      "timeouts": 0,
+      "steps": 453,
+      "all_10_success": false
+    },
+    {
+      "episode": 4,
+      "seed": 999000004,
+      "successes": 0,
+      "wall_collisions": 8,
+      "obstacle_collisions": 0,
+      "drone_collisions": 2,
+      "timeouts": 0,
+      "steps": 276,
+      "all_10_success": false
+    }
+  ]
+}

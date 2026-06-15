@@ -1,0 +1,7 @@
+cluster_radius,spawn_obstacle_clearance,sc_goal_min_dist,goal_spawn_clearance,inter_drone_min,goal_exclusion_radius,spawn_mode,density,pct_all10_ok,avg_drone_ok,clean_drone_successes,total_clean_maps,total_discarded,total_fallbacks,avg_fallback_rate,avg_actual_density,avg_obs_count,infeasible,recommended_ceiling,ceiling_reason
+2.0,0.25,8.0,5.0,0.3,0.7,clustered,0.2,0.998,99.94,9994,1000,0,0,0.0,0.20489759924027243,36.284,False,0.25,failed_at_0.30
+2.0,0.25,8.0,5.0,0.3,0.7,clustered,0.25,0.988,99.68,9968,1000,0,0,0.0,0.2532545456748329,54.546,False,0.25,failed_at_0.30
+2.0,0.25,8.0,5.0,0.3,0.7,clustered,0.3,0.899,94.84,9484,1000,0,0,0.0,0.30200210397143606,80.881,False,0.25,failed_at_0.30
+1.5,0.3,7.0,6.0,0.3,0.7,clustered,0.2,0.998,99.97,9997,1000,0,0,0.0,0.20495154634381824,36.254,False,0.25,failed_at_0.30
+1.5,0.3,7.0,6.0,0.3,0.7,clustered,0.25,0.992,99.72,9972,1000,0,0,0.0,0.2534964511965983,54.479,False,0.25,failed_at_0.30
+1.5,0.3,7.0,6.0,0.3,0.7,clustered,0.3,0.9155778894472362,95.36683417085428,9489,995,5,0,0.0,0.30210256022308496,81.585,False,0.25,failed_at_0.30

@@ -1,0 +1,5 @@
+cluster_radius,spawn_obstacle_clearance,sc_goal_min_dist,goal_spawn_clearance,inter_drone_min,goal_exclusion_radius,spawn_mode,density,pct_all10_ok,avg_drone_ok,clean_drone_successes,total_clean_maps,total_discarded,total_fallbacks,avg_fallback_rate,avg_actual_density,avg_obs_count
+1.5,0.0,8.0,8.0,0.3,2.0,clustered,0.26,0.9653342766183233,99.26777502652989,28063,2827,7173,0,0.0,0.2626484279618404,63.704
+1.5,0.0,8.0,8.0,0.3,2.0,clustered,0.27,0.9678052610914801,98.99096976835493,25213,2547,7453,0,0.0,0.272452544734913,68.9354
+1.5,0.0,8.0,8.0,0.3,2.0,clustered,0.28,0.9430029774564015,97.94130157379838,23026,2351,7649,0,0.0,0.2821912495414065,75.3307
+1.5,0.0,8.0,8.0,0.3,2.0,clustered,0.29,0.9239961759082218,96.37189292543022,20161,2092,7908,0,0.0,0.29195254873073706,81.5717

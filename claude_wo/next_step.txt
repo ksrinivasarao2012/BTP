@@ -1,0 +1,16 @@
+
+swarm_env_fixed.py: stores current_spawn_mode at reset, stamps spawn_mode into every terminal info dict (success / collision / timeout).
+
+train_fixed.py — SpawnModeCallback: every 100K steps it logs to TensorBoard under:
+- spawn/clustered_success_rate
+- spawn/scattered_success_rate
+- spawn/clustered_collision_rate etc.
+
+And prints a live line to console so you can see the split without opening TensorBoard.
+
+---
+On getting 85%+:
+
+The split will likely reveal something like scattered ~80%, clustered ~60% at the end of Stage 3. If that happens, the path to 85%+ overall is specifically fixing the clustered case — drones starting tight together under density 0.30 is the hard sub-problem. That would mean a Stage 4 or targeted reward tuning, not just more steps. The callback will tell you exactly where the ceiling is so you're not guessing.
+
+✻ Cooked for 50s

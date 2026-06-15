@@ -1,0 +1,30 @@
+Loading model: D:\Swarm\BTP\models\v15_Master_Final_50M
+  ...25/200 episodes
+  ...50/200 episodes
+  ...75/200 episodes
+  ...100/200 episodes
+  ...125/200 episodes
+  ...150/200 episodes
+  ...175/200 episodes
+  ...200/200 episodes
+
+=======================================================
+COLLISION DIAGNOSTIC — 200 episodes, density=0.26
+=======================================================
+Total collisions logged: 1987
+
+     Cause |  Count |      % | Avg impact speed
+--------------------------------------------------
+      wall |    932 |  46.9% |             1.87
+  obstacle |    802 |  40.4% |             1.87
+     drone |    253 |  12.7% |             1.64
+
+Drone-drone collisions: 253
+  Tunneled (prev gap >0.45m -> collision in 1 step): 38 (15.0%)
+  Avg previous-step separation: 0.375 m
+  Avg closing speed at impact:  1.29 m/s
+
+INTERPRETATION:
+  Dominant cause: wall (46.9%)
+  -> Walls are a major cause. Zeroing boundary velocity will help.
+(swarm_rl) PS D:\swarm\BTP\claude_wo>

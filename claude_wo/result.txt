@@ -1,0 +1,2519 @@
+(swarm_rl) PS D:\swarm\BTP\claude_wo> python density_sweep_v2_10drone.py
+================================================================================
+Density Sweep v2 — 10-Drone Strict Solvability (4-core multiprocessing)
+================================================================================
+Field=20.0x20.0m  N_Drones=10  Maps/Combination=50  Workers=4
+Infeasibility threshold: clean_drone_successes < 150 (out of 500)
+Acceptance: ALL 10/10 drones BFS-reachable (strict)
+CSV output: density_sweep_v2_results_20260608_025909.csv
+
+Total parameter combinations: 216
+Generating map pools per (sc_goal_min_dist, goal_spawn_clearance)...
+
+  Pool ready: sc_goal_min_dist=5.0  goal_spawn_clearance=1.0  (300 maps)
+  Pool ready: sc_goal_min_dist=5.0  goal_spawn_clearance=1.5  (300 maps)
+  Pool ready: sc_goal_min_dist=5.0  goal_spawn_clearance=2.0  (300 maps)
+  Pool ready: sc_goal_min_dist=6.0  goal_spawn_clearance=1.0  (300 maps)
+  Pool ready: sc_goal_min_dist=6.0  goal_spawn_clearance=1.5  (300 maps)
+  Pool ready: sc_goal_min_dist=6.0  goal_spawn_clearance=2.0  (300 maps)
+  Pool ready: sc_goal_min_dist=7.0  goal_spawn_clearance=1.0  (300 maps)
+  Pool ready: sc_goal_min_dist=7.0  goal_spawn_clearance=1.5  (300 maps)
+  Pool ready: sc_goal_min_dist=7.0  goal_spawn_clearance=2.0  (300 maps)
+  Pool ready: sc_goal_min_dist=8.0  goal_spawn_clearance=1.0  (300 maps)
+  Pool ready: sc_goal_min_dist=8.0  goal_spawn_clearance=1.5  (300 maps)
+  Pool ready: sc_goal_min_dist=8.0  goal_spawn_clearance=2.0  (300 maps)
+
+Running combinations with multiprocessing...
+
+[1/216] sc_goal=5.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[2/216] sc_goal=5.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   84.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[3/216] sc_goal=5.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[4/216] sc_goal=5.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   84.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[5/216] sc_goal=5.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[6/216] sc_goal=5.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   84.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[7/216] sc_goal=5.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[8/216] sc_goal=5.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   74.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   68.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   42.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[9/216] sc_goal=5.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[10/216] sc_goal=5.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   74.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   68.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   42.0% |   7.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[11/216] sc_goal=5.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[12/216] sc_goal=5.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   74.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   68.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   42.0% |   7.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[13/216] sc_goal=5.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   68.0% |   7.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[14/216] sc_goal=5.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   64.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.20 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   64.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   48.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   24.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[15/216] sc_goal=5.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   68.0% |   7.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[16/216] sc_goal=5.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   64.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.20 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   64.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   48.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   24.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[17/216] sc_goal=5.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   68.0% |   7.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[18/216] sc_goal=5.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   64.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.20 |   70.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   64.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   48.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   22.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[19/216] sc_goal=5.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[20/216] sc_goal=5.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.35 |   44.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[21/216] sc_goal=5.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[22/216] sc_goal=5.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   44.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[23/216] sc_goal=5.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[24/216] sc_goal=5.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   44.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[25/216] sc_goal=5.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[26/216] sc_goal=5.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   68.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   52.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   26.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[27/216] sc_goal=5.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[28/216] sc_goal=5.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   68.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   52.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   24.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[29/216] sc_goal=5.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[30/216] sc_goal=5.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   68.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   52.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   24.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[31/216] sc_goal=5.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   76.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[32/216] sc_goal=5.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   56.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.25 |   50.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   38.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   16.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[33/216] sc_goal=5.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   76.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[34/216] sc_goal=5.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   56.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.25 |   48.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   38.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   12.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[35/216] sc_goal=5.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   76.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[36/216] sc_goal=5.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   56.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.25 |   48.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   38.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   12.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[37/216] sc_goal=5.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[38/216] sc_goal=5.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[39/216] sc_goal=5.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[40/216] sc_goal=5.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[41/216] sc_goal=5.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[42/216] sc_goal=5.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[43/216] sc_goal=5.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[44/216] sc_goal=5.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   78.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   52.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[45/216] sc_goal=5.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[46/216] sc_goal=5.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   78.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   52.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[47/216] sc_goal=5.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[48/216] sc_goal=5.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   78.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   52.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[49/216] sc_goal=5.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   88.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[50/216] sc_goal=5.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   48.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[51/216] sc_goal=5.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[52/216] sc_goal=5.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   48.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[53/216] sc_goal=5.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   72.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[54/216] sc_goal=5.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   48.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[55/216] sc_goal=6.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[56/216] sc_goal=6.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[57/216] sc_goal=6.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[58/216] sc_goal=6.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[59/216] sc_goal=6.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[60/216] sc_goal=6.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[61/216] sc_goal=6.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[62/216] sc_goal=6.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   78.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   58.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   56.0% |   8.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[63/216] sc_goal=6.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[64/216] sc_goal=6.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   78.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   58.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   56.0% |   8.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[65/216] sc_goal=6.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[66/216] sc_goal=6.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.20 |   78.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   58.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   56.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[67/216] sc_goal=6.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   88.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[68/216] sc_goal=6.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   46.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[69/216] sc_goal=6.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[70/216] sc_goal=6.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   46.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[71/216] sc_goal=6.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   72.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[72/216] sc_goal=6.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   72.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   46.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[73/216] sc_goal=6.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[74/216] sc_goal=6.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.35 |   64.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[75/216] sc_goal=6.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[76/216] sc_goal=6.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.35 |   64.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[77/216] sc_goal=6.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[78/216] sc_goal=6.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.35 |   64.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[79/216] sc_goal=6.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[80/216] sc_goal=6.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   74.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   46.0% |   8.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[81/216] sc_goal=6.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[82/216] sc_goal=6.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   74.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   46.0% |   8.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[83/216] sc_goal=6.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[84/216] sc_goal=6.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   74.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   46.0% |   8.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[85/216] sc_goal=6.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   7.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[86/216] sc_goal=6.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   56.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.35 |   12.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[87/216] sc_goal=6.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   7.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[88/216] sc_goal=6.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   56.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.35 |   12.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[89/216] sc_goal=6.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   7.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[90/216] sc_goal=6.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   56.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   12.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[91/216] sc_goal=6.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[92/216] sc_goal=6.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   68.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[93/216] sc_goal=6.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[94/216] sc_goal=6.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   68.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[95/216] sc_goal=6.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[96/216] sc_goal=6.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   68.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[97/216] sc_goal=6.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[98/216] sc_goal=6.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   62.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   42.0% |   8.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[99/216] sc_goal=6.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[100/216] sc_goal=6.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   42.0% |   8.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[101/216] sc_goal=6.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[102/216] sc_goal=6.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   42.0% |   8.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[103/216] sc_goal=6.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[104/216] sc_goal=6.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   80.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   40.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   22.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[105/216] sc_goal=6.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[106/216] sc_goal=6.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   80.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   40.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   22.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[107/216] sc_goal=6.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[108/216] sc_goal=6.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   78.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   80.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   60.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   40.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   20.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[109/216] sc_goal=7.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[110/216] sc_goal=7.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[111/216] sc_goal=7.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[112/216] sc_goal=7.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[113/216] sc_goal=7.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[114/216] sc_goal=7.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[115/216] sc_goal=7.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[116/216] sc_goal=7.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   68.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   44.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[117/216] sc_goal=7.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[118/216] sc_goal=7.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   68.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   44.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[119/216] sc_goal=7.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[120/216] sc_goal=7.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   72.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   68.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   44.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[121/216] sc_goal=7.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[122/216] sc_goal=7.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   80.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   22.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[123/216] sc_goal=7.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   92.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[124/216] sc_goal=7.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   78.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   22.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[125/216] sc_goal=7.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[126/216] sc_goal=7.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   76.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   20.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[127/216] sc_goal=7.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[128/216] sc_goal=7.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   64.0% |   8.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[129/216] sc_goal=7.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[130/216] sc_goal=7.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   64.0% |   8.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[131/216] sc_goal=7.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[132/216] sc_goal=7.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   64.0% |   8.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[133/216] sc_goal=7.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[134/216] sc_goal=7.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   56.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   38.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[135/216] sc_goal=7.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[136/216] sc_goal=7.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   56.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   38.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[137/216] sc_goal=7.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[138/216] sc_goal=7.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   56.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   38.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[139/216] sc_goal=7.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   84.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[140/216] sc_goal=7.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   68.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.25 |   62.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   22.0% |   7.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[141/216] sc_goal=7.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   84.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[142/216] sc_goal=7.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.25 |   62.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   24.0% |   7.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[143/216] sc_goal=7.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   84.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[144/216] sc_goal=7.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   80.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   76.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.25 |   64.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   24.0% |   7.3/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[145/216] sc_goal=7.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[146/216] sc_goal=7.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[147/216] sc_goal=7.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[148/216] sc_goal=7.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[149/216] sc_goal=7.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   90.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.35  (all_pass)
+
+[150/216] sc_goal=7.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[151/216] sc_goal=7.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[152/216] sc_goal=7.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   48.0% |   8.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[153/216] sc_goal=7.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[154/216] sc_goal=7.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   48.0% |   8.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[155/216] sc_goal=7.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   78.0% |   8.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[156/216] sc_goal=7.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   76.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   8.9/10 |         50 |         0 |         0 |      False
+      0.35 |   48.0% |   8.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[157/216] sc_goal=7.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   7.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[158/216] sc_goal=7.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   80.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   54.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   42.0% |   8.3/10 |         50 |         0 |         0 |      False
+      0.35 |   28.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[159/216] sc_goal=7.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   7.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[160/216] sc_goal=7.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   78.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   54.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   42.0% |   8.3/10 |         50 |         0 |         0 |      False
+      0.35 |   28.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[161/216] sc_goal=7.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   7.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[162/216] sc_goal=7.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   78.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   54.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   42.0% |   8.3/10 |         50 |         0 |         0 |      False
+      0.35 |   28.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[163/216] sc_goal=8.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[164/216] sc_goal=8.0  goal_clr=1.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[165/216] sc_goal=8.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[166/216] sc_goal=8.0  goal_clr=1.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[167/216] sc_goal=8.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   94.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   9.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[168/216] sc_goal=8.0  goal_clr=1.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   72.0% |   9.3/10 |         50 |         0 |         0 |      False
+      0.35 |   70.0% |   9.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[169/216] sc_goal=8.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[170/216] sc_goal=8.0  goal_clr=1.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   58.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   46.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[171/216] sc_goal=8.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[172/216] sc_goal=8.0  goal_clr=1.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   58.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   46.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[173/216] sc_goal=8.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   90.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[174/216] sc_goal=8.0  goal_clr=1.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   76.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   58.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   46.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.1  (below_90pct)
+
+[175/216] sc_goal=8.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   66.0% |   7.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[176/216] sc_goal=8.0  goal_clr=1.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   80.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   40.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   28.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[177/216] sc_goal=8.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   66.0% |   7.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[178/216] sc_goal=8.0  goal_clr=1.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   78.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   40.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   28.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[179/216] sc_goal=8.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   66.0% |   7.0/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[180/216] sc_goal=8.0  goal_clr=1.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   78.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   58.0% |   9.1/10 |         50 |         0 |         0 |      False
+      0.30 |   40.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   28.0% |   7.7/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[181/216] sc_goal=8.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[182/216] sc_goal=8.0  goal_clr=1.5  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   88.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   62.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.2  (below_90pct)
+
+[183/216] sc_goal=8.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   88.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[184/216] sc_goal=8.0  goal_clr=1.5  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   62.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[185/216] sc_goal=8.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   96.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   86.0% |   8.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[186/216] sc_goal=8.0  goal_clr=1.5  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.35 |   62.0% |   8.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[187/216] sc_goal=8.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   84.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   82.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[188/216] sc_goal=8.0  goal_clr=1.5  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   62.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   40.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[189/216] sc_goal=8.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   84.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   82.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[190/216] sc_goal=8.0  goal_clr=1.5  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   62.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   40.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[191/216] sc_goal=8.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   84.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   80.0% |   8.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[192/216] sc_goal=8.0  goal_clr=1.5  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   88.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   60.0% |   9.0/10 |         50 |         0 |         0 |      False
+      0.35 |   40.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[193/216] sc_goal=8.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[194/216] sc_goal=8.0  goal_clr=1.5  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   68.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   46.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[195/216] sc_goal=8.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   96.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[196/216] sc_goal=8.0  goal_clr=1.5  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   82.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   62.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   68.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   46.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.9/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[197/216] sc_goal=8.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.30 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[198/216] sc_goal=8.0  goal_clr=1.5  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   90.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   64.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.25 |   68.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.30 |   44.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   30.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[199/216] sc_goal=8.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[200/216] sc_goal=8.0  goal_clr=2.0  bfs=0.40  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   54.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[201/216] sc_goal=8.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[202/216] sc_goal=8.0  goal_clr=2.0  bfs=0.40  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   54.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[203/216] sc_goal=8.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   92.0% |   9.2/10 |         50 |         0 |         0 |      False
+      0.35 |   84.0% |   8.4/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.3  (below_90pct)
+
+[204/216] sc_goal=8.0  goal_clr=2.0  bfs=0.40  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   80.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.35 |   52.0% |   8.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[205/216] sc_goal=8.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[206/216] sc_goal=8.0  goal_clr=2.0  bfs=0.45  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   52.0% |   8.8/10 |         50 |         0 |         0 |      False
+      0.35 |   36.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[207/216] sc_goal=8.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[208/216] sc_goal=8.0  goal_clr=2.0  bfs=0.45  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   52.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   36.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[209/216] sc_goal=8.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   94.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.30 |   86.0% |   8.6/10 |         50 |         0 |         0 |      False
+      0.35 |   74.0% |   7.6/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[210/216] sc_goal=8.0  goal_clr=2.0  bfs=0.45  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   94.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   86.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.25 |   82.0% |   9.6/10 |         50 |         0 |         0 |      False
+      0.30 |   52.0% |   8.7/10 |         50 |         0 |         0 |      False
+      0.35 |   34.0% |   7.8/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.15  (below_90pct)
+
+[211/216] sc_goal=8.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   58.0% |   6.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[212/216] sc_goal=8.0  goal_clr=2.0  bfs=0.50  inter=0.2  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   64.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   32.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   20.0% |   7.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[213/216] sc_goal=8.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   98.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   90.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   56.0% |   6.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[214/216] sc_goal=8.0  goal_clr=2.0  bfs=0.50  inter=0.35  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   64.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   32.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   20.0% |   7.2/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+[215/216] sc_goal=8.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=clustered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |  100.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.15 |   98.0% |  10.0/10 |         50 |         0 |         0 |      False
+      0.20 |   96.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.25 |   92.0% |   9.7/10 |         50 |         0 |         0 |      False
+      0.30 |   78.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   56.0% |   6.5/10 |         50 |         0 |         0 |      False
+  -> Ceiling: 0.25  (below_90pct)
+
+[216/216] sc_goal=8.0  goal_clr=2.0  bfs=0.50  inter=0.5  mode=scattered
+   Density |  All10% |  AvgOK |  CleanMaps | Discarded | Fallbacks | Infeasible
+  ---------------------------------------------------------------------------
+      0.10 |   84.0% |   9.8/10 |         50 |         0 |         0 |      False
+      0.15 |   86.0% |   9.9/10 |         50 |         0 |         0 |      False
+      0.20 |   66.0% |   9.5/10 |         50 |         0 |         0 |      False
+      0.25 |   66.0% |   9.4/10 |         50 |         0 |         0 |      False
+      0.30 |   32.0% |   8.2/10 |         50 |         0 |         0 |      False
+      0.35 |   20.0% |   7.1/10 |         50 |         0 |         0 |      False
+  -> Ceiling: None  (below_90pct)
+
+================================================================================
+FINAL SUMMARY — Conservative ceiling = min(clustered, scattered)
+================================================================================
+sc_dist | gs_clr | bfs_clr | inter |  clustered |  scattered |  conservative
+---------------------------------------------------------------------------
+    5.0 |    1.0 |    0.40 |   0.2 |       0.35 |        0.2 |           0.2
+    5.0 |    1.0 |    0.40 |  0.35 |       0.35 |        0.2 |           0.2
+    5.0 |    1.0 |    0.40 |   0.5 |       0.35 |        0.2 |           0.2
+    5.0 |    1.0 |    0.45 |   0.2 |        0.3 |        0.1 |           0.1
+    5.0 |    1.0 |    0.45 |  0.35 |        0.3 |        0.1 |           0.1
+    5.0 |    1.0 |    0.45 |   0.5 |        0.3 |        0.1 |           0.1
+    5.0 |    1.0 |    0.50 |   0.2 |        0.3 |       None |          NONE
+    5.0 |    1.0 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    5.0 |    1.0 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    5.0 |    1.5 |    0.40 |   0.2 |        0.3 |       0.25 |          0.25
+    5.0 |    1.5 |    0.40 |  0.35 |        0.3 |       0.25 |          0.25
+    5.0 |    1.5 |    0.40 |   0.5 |        0.3 |       0.25 |          0.25
+    5.0 |    1.5 |    0.45 |   0.2 |        0.3 |        0.1 |           0.1
+    5.0 |    1.5 |    0.45 |  0.35 |        0.3 |        0.1 |           0.1
+    5.0 |    1.5 |    0.45 |   0.5 |        0.3 |        0.1 |           0.1
+    5.0 |    1.5 |    0.50 |   0.2 |        0.3 |       None |          NONE
+    5.0 |    1.5 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    5.0 |    1.5 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    5.0 |    2.0 |    0.40 |   0.2 |       0.35 |       0.25 |          0.25
+    5.0 |    2.0 |    0.40 |  0.35 |       0.35 |       0.25 |          0.25
+    5.0 |    2.0 |    0.40 |   0.5 |       0.35 |       0.25 |          0.25
+    5.0 |    2.0 |    0.45 |   0.2 |        0.3 |        0.1 |           0.1
+    5.0 |    2.0 |    0.45 |  0.35 |        0.3 |        0.1 |           0.1
+    5.0 |    2.0 |    0.45 |   0.5 |        0.3 |        0.1 |           0.1
+    5.0 |    2.0 |    0.50 |   0.2 |       0.25 |       None |          NONE
+    5.0 |    2.0 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    5.0 |    2.0 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    6.0 |    1.0 |    0.40 |   0.2 |       0.35 |       0.25 |          0.25
+    6.0 |    1.0 |    0.40 |  0.35 |       0.35 |       0.25 |          0.25
+    6.0 |    1.0 |    0.40 |   0.5 |       0.35 |       0.25 |          0.25
+    6.0 |    1.0 |    0.45 |   0.2 |        0.3 |        0.1 |           0.1
+    6.0 |    1.0 |    0.45 |  0.35 |        0.3 |        0.1 |           0.1
+    6.0 |    1.0 |    0.45 |   0.5 |        0.3 |        0.1 |           0.1
+    6.0 |    1.0 |    0.50 |   0.2 |       0.25 |       None |          NONE
+    6.0 |    1.0 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    6.0 |    1.0 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    6.0 |    1.5 |    0.40 |   0.2 |        0.3 |        0.3 |           0.3
+    6.0 |    1.5 |    0.40 |  0.35 |        0.3 |        0.3 |           0.3
+    6.0 |    1.5 |    0.40 |   0.5 |        0.3 |        0.3 |           0.3
+    6.0 |    1.5 |    0.45 |   0.2 |        0.3 |        0.2 |           0.2
+    6.0 |    1.5 |    0.45 |  0.35 |        0.3 |        0.2 |           0.2
+    6.0 |    1.5 |    0.45 |   0.5 |        0.3 |        0.2 |           0.2
+    6.0 |    1.5 |    0.50 |   0.2 |        0.3 |       None |          NONE
+    6.0 |    1.5 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    6.0 |    1.5 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    6.0 |    2.0 |    0.40 |   0.2 |        0.3 |       0.25 |          0.25
+    6.0 |    2.0 |    0.40 |  0.35 |        0.3 |       0.25 |          0.25
+    6.0 |    2.0 |    0.40 |   0.5 |        0.3 |       0.25 |          0.25
+    6.0 |    2.0 |    0.45 |   0.2 |        0.3 |       0.15 |          0.15
+    6.0 |    2.0 |    0.45 |  0.35 |        0.3 |       0.15 |          0.15
+    6.0 |    2.0 |    0.45 |   0.5 |        0.3 |       0.15 |          0.15
+    6.0 |    2.0 |    0.50 |   0.2 |        0.3 |       None |          NONE
+    6.0 |    2.0 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    6.0 |    2.0 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    7.0 |    1.0 |    0.40 |   0.2 |        0.3 |       0.25 |          0.25
+    7.0 |    1.0 |    0.40 |  0.35 |        0.3 |       0.25 |          0.25
+    7.0 |    1.0 |    0.40 |   0.5 |        0.3 |       0.25 |          0.25
+    7.0 |    1.0 |    0.45 |   0.2 |        0.3 |       0.15 |          0.15
+    7.0 |    1.0 |    0.45 |  0.35 |        0.3 |       0.15 |          0.15
+    7.0 |    1.0 |    0.45 |   0.5 |        0.3 |       0.15 |          0.15
+    7.0 |    1.0 |    0.50 |   0.2 |        0.3 |       None |          NONE
+    7.0 |    1.0 |    0.50 |  0.35 |        0.3 |       None |          NONE
+    7.0 |    1.0 |    0.50 |   0.5 |        0.3 |       None |          NONE
+    7.0 |    1.5 |    0.40 |   0.2 |        0.3 |       0.15 |          0.15
+    7.0 |    1.5 |    0.40 |  0.35 |        0.3 |       0.15 |          0.15
+    7.0 |    1.5 |    0.40 |   0.5 |        0.3 |       0.15 |          0.15
+    7.0 |    1.5 |    0.45 |   0.2 |        0.3 |       0.15 |          0.15
+    7.0 |    1.5 |    0.45 |  0.35 |        0.3 |       0.15 |          0.15
+    7.0 |    1.5 |    0.45 |   0.5 |        0.3 |       0.15 |          0.15
+    7.0 |    1.5 |    0.50 |   0.2 |       0.25 |       None |          NONE
+    7.0 |    1.5 |    0.50 |  0.35 |       0.25 |       None |          NONE
+    7.0 |    1.5 |    0.50 |   0.5 |       0.25 |       None |          NONE
+    7.0 |    2.0 |    0.40 |   0.2 |       0.35 |        0.2 |           0.2
+    7.0 |    2.0 |    0.40 |  0.35 |       0.35 |        0.2 |           0.2
+    7.0 |    2.0 |    0.40 |   0.5 |       0.35 |        0.2 |           0.2
+    7.0 |    2.0 |    0.45 |   0.2 |        0.3 |        0.1 |           0.1
+    7.0 |    2.0 |    0.45 |  0.35 |        0.3 |        0.1 |           0.1
+    7.0 |    2.0 |    0.45 |   0.5 |        0.3 |        0.1 |           0.1
+    7.0 |    2.0 |    0.50 |   0.2 |       0.25 |       None |          NONE
+    7.0 |    2.0 |    0.50 |  0.35 |       0.25 |       None |          NONE
+    7.0 |    2.0 |    0.50 |   0.5 |        0.2 |       None |          NONE
+    8.0 |    1.0 |    0.40 |   0.2 |        0.3 |       0.25 |          0.25
+    8.0 |    1.0 |    0.40 |  0.35 |        0.3 |       0.25 |          0.25
+    8.0 |    1.0 |    0.40 |   0.5 |        0.3 |       0.25 |          0.25
+    8.0 |    1.0 |    0.45 |   0.2 |        0.3 |        0.1 |           0.1
+    8.0 |    1.0 |    0.45 |  0.35 |        0.3 |        0.1 |           0.1
+    8.0 |    1.0 |    0.45 |   0.5 |        0.3 |        0.1 |           0.1
+    8.0 |    1.0 |    0.50 |   0.2 |        0.2 |       None |          NONE
+    8.0 |    1.0 |    0.50 |  0.35 |        0.2 |       None |          NONE
+    8.0 |    1.0 |    0.50 |   0.5 |        0.2 |       None |          NONE
+    8.0 |    1.5 |    0.40 |   0.2 |        0.3 |        0.2 |           0.2
+    8.0 |    1.5 |    0.40 |  0.35 |        0.3 |       0.25 |          0.25
+    8.0 |    1.5 |    0.40 |   0.5 |        0.3 |       0.25 |          0.25
+    8.0 |    1.5 |    0.45 |   0.2 |       0.25 |       None |          NONE
+    8.0 |    1.5 |    0.45 |  0.35 |       0.25 |       None |          NONE
+    8.0 |    1.5 |    0.45 |   0.5 |       0.25 |       None |          NONE
+    8.0 |    1.5 |    0.50 |   0.2 |       0.25 |       None |          NONE
+    8.0 |    1.5 |    0.50 |  0.35 |       0.25 |       None |          NONE
+    8.0 |    1.5 |    0.50 |   0.5 |       0.25 |       None |          NONE
+    8.0 |    2.0 |    0.40 |   0.2 |        0.3 |       0.25 |          0.25
+    8.0 |    2.0 |    0.40 |  0.35 |        0.3 |       0.25 |          0.25
+    8.0 |    2.0 |    0.40 |   0.5 |        0.3 |       0.25 |          0.25
+    8.0 |    2.0 |    0.45 |   0.2 |       0.25 |       0.15 |          0.15
+    8.0 |    2.0 |    0.45 |  0.35 |       0.25 |       0.15 |          0.15
+    8.0 |    2.0 |    0.45 |   0.5 |       0.25 |       0.15 |          0.15
+    8.0 |    2.0 |    0.50 |   0.2 |       0.25 |       None |          NONE
+    8.0 |    2.0 |    0.50 |  0.35 |       0.25 |       None |          NONE
+    8.0 |    2.0 |    0.50 |   0.5 |       0.25 |       None |          NONE
+
+Full results saved to: density_sweep_v2_results_20260608_025909.csv
+(swarm_rl) PS D:\swarm\BTP\claude_wo>
