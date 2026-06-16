@@ -1,0 +1,3 @@
+ablated_feature,density,success_rate,timeout_rate,drone_collision_rate,total_collision_rate,mean_steps_success
+sync,0.2,0.9435,0.0215,0.013,0.035,77.83041865394807
+sync,0.3,0.889,0.0465,0.025,0.0645,79.7660292463442

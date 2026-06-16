@@ -33,8 +33,9 @@ from swarm_env_step_B10_8_0m import SwarmLidarEnv_StepB10_8_0m
 
 DENSITIES = [0.20, 0.30]
 NUM_MAPS = 200
-MODEL_PATH = "models/apex_ultra_glide_v14_8_0m_final.zip"
+MODEL_PATH = "models/apex_ultra_glide_v14_comm8_lidar_final.zip"   # CLEAN M0 (was leaky v14_8_0m)
 COMM = 8.0
+CONGESTION_MODE = "lidar"   # CLEAN: own-LiDAR crowding (was ground-truth "env")
 
 FEATURE_GROUPS = {
     "none":       None,
@@ -87,7 +88,7 @@ def main():
 
     results = []
     for density in DENSITIES:
-        env = SwarmLidarEnv_StepB10_8_0m(render_mode=None, target_density=density, communication_range=COMM)
+        env = SwarmLidarEnv_StepB10_8_0m(render_mode=None, target_density=density, communication_range=COMM, congestion_mode=CONGESTION_MODE)
         stats = {"success": 0, "timeout": 0, "wall_collision": 0, "obstacle_collision": 0,
                  "drone_collision": 0, "total_drones": 0, "total_steps_success": 0,
                  "success_count": 0, "discarded_maps": 0}
@@ -161,12 +162,12 @@ def main():
               f"timeout {row['timeout_rate']*100:.2f}% | drone-coll {row['drone_collision_rate']*100:.2f}% | "
               f"total-coll {row['total_collision_rate']*100:.2f}%")
 
-    out_dir = os.path.join("results", "eval_ablation")
+    out_dir = os.path.join("results", "clean", "eval_ablation")
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, f"ablate_{group}_metrics.csv")
     pd.DataFrame(results).to_csv(out, index=False)
     print(f"\n[OK] saved: {out}")
-    print("Compare against baseline 'none': 8m = 95.45% / 91.25%.")
+    print("Baseline 'none' on CLEAN M0 is the reference for this run.")
 
 
 if __name__ == "__main__":

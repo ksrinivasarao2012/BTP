@@ -216,11 +216,14 @@ def main():
     os.makedirs("./models/checkpoints_M1_ram/", exist_ok=True)
     cb = CheckpointCallback(save_freq=500_000, save_path="./models/checkpoints_M1_ram/", name_prefix="M1_ram")
 
-    # Add standard tqdm integration for SB3 training progress
+    # Set up the SB3 Logger to output both to standard output (for tables) and TensorBoard
+    from stable_baselines3.common.logger import configure
+    new_logger = configure("./logs/tb_M1_ram/", ["stdout", "tensorboard"])
+    model.set_logger(new_logger)
+
+    # Re-add tqdm progress bar integration
     from stable_baselines3.common.callbacks import ProgressBarCallback
     pbar_cb = ProgressBarCallback()
-
-    model.tensorboard_log = "./logs/tb_M1_ram/"
 
     for steps, density, traitors in curriculum:
         print(f"\nPHASE: density={density} | rammers={traitors} | steps={steps/1e6:.1f}M")

@@ -139,7 +139,16 @@ def main():
 
     out_dir = os.path.join("results", "phase_c_probe")
     os.makedirs(out_dir, exist_ok=True)
-    out = os.path.join(out_dir, f"probe_ram_f{f}.csv")
+    # tag output by model so M0/M1/M2 results don't overwrite each other
+    if "comm8_lidar" in model_path or "8_0m" in model_path:
+        mtag = "M0"
+    elif "M1_ram" in model_path:
+        mtag = "M1"
+    elif "M2" in model_path:
+        mtag = "M2"
+    else:
+        mtag = os.path.splitext(os.path.basename(model_path))[0]
+    out = os.path.join(out_dir, f"probe_ram_f{f}_{mtag}.csv")
     pd.DataFrame(results).to_csv(out, index=False)
     print(f"\n[OK] saved: {out}")
     print("=" * 64)

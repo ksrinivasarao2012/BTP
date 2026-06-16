@@ -94,7 +94,13 @@ Decision test: does the swarm learn to evade rammers just from retraining?
 
 **RESULTS (fill in):**
 ```
-M1 (retrained vs rammers, no signal): 0.20 honest_success ____%  | 0.30 ____%
+M1 (retrained vs rammers, no signal):  
+
+f = 1  d = 0.20 : honest_success 87.11%  (baseline 95.55%, drop +8.44pp)   timeout 2.56%  coll 10.33% (drone 8.39%)  | d = 0.30 : honest_success 82.44%  (baseline 91.10%, drop +8.66pp)  timeout 5.83%   coll 11.72% (drone 9.44%)
+
+f = 2  d = 0.20 : honest_success 80.44%  (baseline 95.55%, drop +15.11pp)  timeout 2.56%  coll 17.00% (drone 15.88%) | d = 0.30 : honest_success 74.38%  (baseline 91.10%, drop +16.72pp)  timeout 5.75%  coll 19.88% (drone 17.31%)
+
+
 vs M0 (18pp drop) and baseline (95.55/91.10)
 ```
 **→ Bring to Claude. DECISION (this is a likely fork — the architecture is strong):**

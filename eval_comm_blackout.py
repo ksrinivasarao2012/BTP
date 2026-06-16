@@ -44,7 +44,7 @@ class MAPPO_Policy_B5(ActorCriticPolicy):
 
 
 def main():
-    model_path = os.path.join("models", "apex_ultra_glide_v14_8_0m_final.zip")
+    model_path = os.path.join("models", "apex_ultra_glide_v14_comm8_lidar_final.zip")  # CLEAN M0
     if not os.path.exists(model_path):
         print(f"[!] Model not found: {model_path}")
         sys.exit(1)
@@ -59,7 +59,7 @@ def main():
 
     for density in DENSITIES:
         # Enforce communication_range = 0.0m
-        env = SwarmLidarEnv_StepB10_8_0m(render_mode=None, target_density=density, communication_range=0.0)
+        env = SwarmLidarEnv_StepB10_8_0m(render_mode=None, target_density=density, communication_range=0.0, congestion_mode="lidar")
         stats = {"success": 0, "timeout": 0, "wall_collision": 0, "obstacle_collision": 0,
                  "drone_collision": 0, "total_drones": 0, "total_steps_success": 0,
                  "success_count": 0, "discarded_maps": 0}
@@ -130,7 +130,7 @@ def main():
         print(f"[*] Blackout 8m->0m d={density:.2f}: success {row['success_rate']*100:.2f}% | "
               f"timeout {row['timeout_rate']*100:.2f}% | coll {row['total_collision_rate']*100:.2f}%")
 
-    out_dir = os.path.join("results", "comm_sweep")
+    out_dir = os.path.join("results", "clean", "comm_sweep")
     os.makedirs(out_dir, exist_ok=True)
     out = os.path.join(out_dir, "comm8_to_0m_blackout_metrics.csv")
     pd.DataFrame(results).to_csv(out, index=False)
