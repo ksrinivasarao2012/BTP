@@ -1,0 +1,835 @@
+import numpy as np
+import pygame
+from pettingzoo import ParallelEnv
+from gymnasium import spaces, Env as GymEnv
+from collections import deque
+import math
+import sys
+import heapq
+
+# ======================================================
+#  PHASE B10 v14_8.0m: COMMUNICATION RANGE ENFORCED
+#  Replica of B10 but with 8.0m communication range
+#  enforced in observation construction
+# ======================================================
+class SwarmLidarEnv_StepB10_8_0m(ParallelEnv):
+    metadata = {'render_modes': ['human'], "name": "swarm_lidar_stepB10_8_0m_v0"}
+
+    def __init__(self, render_mode=None, target_density=0.20, drone_radius=0.15, safety_radius=0.19, communication_range=8.0, use_congestion=True, congestion_mode="env", lidar_range=12.0):
+        super().__init__()
+        self.render_mode = render_mode
+        self.target_density = target_density
+        self.n_drones = 10
+        self.num_traitors = 0
+        self.num_honest = 10
+
+        # ===== PHASE C DECEPTION PROBE (default OFF; set traitor_indices + deception_mode to enable) =====
+        # traitor_indices: set of drone indices whose BROADCAST is falsified to honest observers.
+        # deception_mode: "none" | "false_velocity" | "false_position" | "both"
+        # Only the broadcast (obs_neighbors / sync) is corrupted; the traitor's TRUE position still
+        # appears in every drone's LiDAR (ray_cast), so physical sensing is never faked.
+        self.traitor_indices = set()
+        self.deception_mode = "none"
+        # traitor_behavior: "navigate" (use policy) | "ram" (steer at nearest honest) | "block" (future)
+        self.traitor_behavior = "navigate"
+        # ===============================================================================================
+
+        # ===== COMMUNICATION RANGE (parameterized; default 8.0 m, use float('inf') for unlimited) =====
+        self.communication_range = communication_range
+        # ===== LiDAR SENSING RANGE (parameterized; default 12.0 m). Reducing this below communication_range
+        #       creates a "comm-only" annulus (beyond sensing, within comm) -> forces comm-reliance =====
+        self.lidar_range = lidar_range
+        # ===== COLLABORATIVE PERCEPTION ORACLE (Design B; default OFF -> no impact on any script) =====
+        # When True, drone i casts LiDAR at collab_range against obstacles that ANY agent (itself OR a
+        # comm-neighbor within communication_range) can physically sense (within lidar_range). This is
+        # the perfect-sharing upper bound: comm carries OBSTACLE info, not just neighbor positions.
+        # collab_range matches M0's native LiDAR encoding (12 m) so the normalized obs is in-distribution.
+        self.collab_comm = False
+        self.collab_range = 12.0
+        # ===== DESIGN A: attributable per-neighbor SHARED-HAZARD channel =====
+        # Each of the 9 comm-neighbor slots broadcasts the nearest obstacle IT senses, in the ego
+        # frame: (sin, cos, dist/hazard_norm) -> 3 x 9 = 27 extra LOCAL dims (obs 130 -> 157).
+        # Attributable per neighbor -> a traitor's slot can be falsified -> T-Cell trust can discount it.
+        # share_hazards toggles the channel for the comm-ON / comm-OFF ablation (OFF -> block = zeros).
+        self.share_hazards = True
+        self.hazard_dim = 3 * (self.n_drones - 1)   # = 27
+        self.hazard_norm = 15.0
+        # ===== CONGESTION FEATURE TOGGLE (default ON; set False to force congestion = 0 for ablation) =
+        self.use_congestion = use_congestion
+        # ===== CONGESTION SOURCE: "env" (ground-truth, legacy) | "lidar" (sensor, CTDE-clean) |
+        #       "comm" (communicated neighbors, gated) | "both" (max of lidar & comm) =================
+        self.congestion_mode = congestion_mode
+        # ============================================================================================
+        # ===== TRAITOR & DECEPTION/ATTACK SETTINGS (PHASE C/D PROBE COMPATIBILITY) =================
+        self.traitor_indices = set()
+        self.deception_mode = "none"
+        self.traitor_behavior = "none"
+        self.lidar_dropout_prob = 0.0  # probability that onboard LiDAR fails (used during training to force comm-reliance)
+        # ============================================================================================
+
+        self.blocked_steps = {}
+        self.stagnation_position_history = {}
+
+        self.dt = 0.1
+        self.max_steps = 1200
+        self.max_velocity = 2.0
+        # Optional per-drone emergency speed multiplier (Phase C speed-asymmetry oracle).
+        # Default empty -> get(idx, 1.0) leaves all standard scripts unchanged.
+        self.speed_boost = {}
+        self.drone_radius = drone_radius
+        self.safety_radius = safety_radius
+        self.WIDTH, self.HEIGHT = 20.0, 20.0
+
+        self.obstacles = []
+        self.possible_agents = [f"drone_{i}" for i in range(self.n_drones)]
+        self.agent_name_mapping = dict(zip(self.possible_agents, list(range(self.n_drones))))
+
+        self.positions = np.zeros((self.n_drones, 2), dtype=np.float32)
+        self.velocities = np.zeros((self.n_drones, 2), dtype=np.float32)
+        self.goal = np.array([18.0, 18.0], dtype=np.float32)
+
+        self.action_spaces = {agent: spaces.Box(low=-1.0, high=1.0, shape=(2,), dtype=np.float32) for agent in self.possible_agents}
+
+        # 130-Dim Local + 27-Dim shared-hazard + 520-Dim Global = 677 Total (Design A)
+        self.obs_size = 130 + 27 + 520
+        self.observation_spaces = {agent: spaces.Box(low=-np.inf, high=np.inf, shape=(self.obs_size,), dtype=np.float32) for agent in self.possible_agents}
+
+        # SB3 Gym Compatibility
+        self.observation_space = self.observation_spaces["drone_0"]
+        self.action_space = self.action_spaces["drone_0"]
+
+        self.screen_width = 800
+        self.screen_height = 800
+        self.screen = None
+        self.clock = None
+        self.test_mode = False
+
+        # Pre-compute LiDAR ray directions
+        num_sectors = 16
+        rays_per_sector = 12
+        num_rays = num_sectors * rays_per_sector
+        sector_width = (2 * np.pi) / num_sectors
+        center_angles = np.arange(num_sectors) * sector_width
+        offsets = np.linspace(-sector_width/2, sector_width/2, rays_per_sector, endpoint=False)
+        angles = (center_angles[:, np.newaxis] + offsets).flatten()
+        self.ray_dirs = np.stack([np.cos(angles), np.sin(angles)], axis=1).astype(np.float32)
+
+    def set_target_density(self, density: float):
+        self.target_density = density
+
+    def _compute_shortest_path_distance_map(self):
+        """Dijkstra Shortest-Path Grid Solver for exact 8-way diagonal physics"""
+        grid_resolution = 0.2
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        grid = np.ones((grid_size, grid_size), dtype=bool)
+        clearance_radius = self.drone_radius + 0.05
+
+        # Mark obstacle regions as blocked
+        for ox, oy, orad in self.obstacles:
+            x_range = np.arange(max(0, int((ox - orad - clearance_radius) / grid_resolution)),
+                               min(grid_size, int((ox + orad + clearance_radius) / grid_resolution) + 1))
+            y_range = np.arange(max(0, int((oy - orad - clearance_radius) / grid_resolution)),
+                               min(grid_size, int((oy + orad + clearance_radius) / grid_resolution) + 1))
+            for gx in x_range:
+                for gy in y_range:
+                    cell_x = gx * grid_resolution + grid_resolution / 2
+                    cell_y = gy * grid_resolution + grid_resolution / 2
+                    if np.sqrt((cell_x - ox)**2 + (cell_y - oy)**2) < (orad + clearance_radius):
+                        grid[gx, gy] = False
+
+        goal_cell = (np.clip(int(self.goal[0] / grid_resolution), 0, grid_size - 1),
+                     np.clip(int(self.goal[1] / grid_resolution), 0, grid_size - 1))
+
+        self.shortest_path_map = np.full((grid_size, grid_size), 999.0, dtype=np.float32)
+        if not grid[goal_cell[0], goal_cell[1]]:
+            return
+
+        self.shortest_path_map[goal_cell[0], goal_cell[1]] = 0.0
+        pq = [(0.0, goal_cell[0], goal_cell[1])]
+
+        while pq:
+            curr_dist, cx, cy = heapq.heappop(pq)
+            if curr_dist > self.shortest_path_map[cx, cy]:
+                continue
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0: continue
+                    nx, ny = cx + dx, cy + dy
+                    if 0 <= nx < grid_size and 0 <= ny < grid_size:
+                        if grid[nx, ny]:
+                            step_dist = np.sqrt(dx**2 + dy**2) * grid_resolution
+                            new_dist = curr_dist + step_dist
+                            if new_dist < self.shortest_path_map[nx, ny]:
+                                self.shortest_path_map[nx, ny] = new_dist
+                                heapq.heappush(pq, (new_dist, nx, ny))
+
+    def get_shortest_path_distance(self, pos):
+        """O(1) topological shortest-path distance query"""
+        grid_resolution = 0.2
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        gx = np.clip(int(pos[0] / grid_resolution), 0, grid_size - 1)
+        gy = np.clip(int(pos[1] / grid_resolution), 0, grid_size - 1)
+        dist = self.shortest_path_map[gx, gy]
+        if dist >= 999.0:
+            return np.linalg.norm(self.goal - pos)
+        return dist
+
+    def get_shortest_path_direction(self, pos):
+        """Returns the unit vector pointing in the direction of shortest path descent"""
+        grid_resolution = 0.2
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        gx = np.clip(int(pos[0] / grid_resolution), 0, grid_size - 1)
+        gy = np.clip(int(pos[1] / grid_resolution), 0, grid_size - 1)
+
+        min_dist = self.shortest_path_map[gx, gy]
+        best_dir = self.goal - pos
+        best_dist = np.linalg.norm(best_dir)
+        best_dir = best_dir / (best_dist + 1e-5)
+
+        if min_dist < 999.0:
+            best_nx, best_ny = gx, gy
+            lowest_val = min_dist
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0: continue
+                    nx, ny = gx + dx, gy + dy
+                    if 0 <= nx < grid_size and 0 <= ny < grid_size:
+                        val = self.shortest_path_map[nx, ny]
+                        if val < lowest_val:
+                            lowest_val = val
+                            best_nx, best_ny = nx, ny
+            if best_nx != gx or best_ny != gy:
+                dir_vec = np.array([best_nx - gx, best_ny - gy], dtype=np.float32)
+                norm = np.linalg.norm(dir_vec)
+                if norm > 1e-5:
+                    return dir_vec / norm
+
+        return best_dir
+
+    def _is_map_solvable(self, start_pos=None, grid_resolution=0.2):
+        if start_pos is None:
+            start_pos = np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+        grid_size = int(np.ceil(self.WIDTH / grid_resolution))
+        grid = np.ones((grid_size, grid_size), dtype=bool)
+        clearance_radius = self.drone_radius + 0.05
+        for ox, oy, orad in self.obstacles:
+            x_range = np.arange(max(0, int((ox - orad - clearance_radius) / grid_resolution)),
+                               min(grid_size, int((ox + orad + clearance_radius) / grid_resolution) + 1))
+            y_range = np.arange(max(0, int((oy - orad - clearance_radius) / grid_resolution)),
+                               min(grid_size, int((oy + orad + clearance_radius) / grid_resolution) + 1))
+            for gx in x_range:
+                for gy in y_range:
+                    cell_x = gx * grid_resolution + grid_resolution / 2
+                    cell_y = gy * grid_resolution + grid_resolution / 2
+                    if np.sqrt((cell_x - ox)**2 + (cell_y - oy)**2) < (orad + clearance_radius):
+                        grid[gx, gy] = False
+        spawn_cell = (np.clip(int(start_pos[0] / grid_resolution), 0, grid_size - 1),
+                      np.clip(int(start_pos[1] / grid_resolution), 0, grid_size - 1))
+        goal_cell = (np.clip(int(self.goal[0] / grid_resolution), 0, grid_size - 1),
+                     np.clip(int(self.goal[1] / grid_resolution), 0, grid_size - 1))
+        if not grid[spawn_cell[0], spawn_cell[1]] or not grid[goal_cell[0], goal_cell[1]]:
+            return False
+        queue = deque([spawn_cell])
+        visited = set([spawn_cell])
+        while queue:
+            x, y = queue.popleft()
+            if (x, y) == goal_cell: return True
+            for dx in [-1, 0, 1]:
+                for dy in [-1, 0, 1]:
+                    if dx == 0 and dy == 0: continue
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < grid_size and 0 <= ny < grid_size:
+                        if grid[nx, ny] and (nx, ny) not in visited:
+                            visited.add((nx, ny))
+                            queue.append((nx, ny))
+        return False
+
+    def reset(self, seed=None, options=None):
+        if seed is not None:
+            np.random.seed(seed)
+        self.agents = self.possible_agents[:]
+        self.terminations = {agent: False for agent in self.agents}
+        self.truncations = {agent: False for agent in self.agents}
+        self.infos = {agent: {} for agent in self.agents}
+        self.steps = 0
+        self.obstacles = []
+        self.lidar_cache = {}
+
+        self.last_actions = {agent: np.zeros(2, dtype=np.float32) for agent in self.possible_agents}
+        self.best_dist_to_goal = {agent: 999.0 for agent in self.possible_agents}
+        self.steps_stagnant = {agent: 0 for agent in self.possible_agents}
+        self.blocked_steps = {agent: 0 for agent in self.possible_agents}
+        self.position_history = {agent: deque(maxlen=5) for agent in self.possible_agents}
+        self.stagnation_position_history = {agent: deque(maxlen=25) for agent in self.possible_agents}
+        self.dispersion_time = None
+        self.trajectory_data = []
+
+        if options and "goal" in options:
+            self.goal = np.array(options["goal"], dtype=np.float32)
+            spawn_center = np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+        else:
+            self.goal = np.array([np.random.uniform(2.0, self.WIDTH - 2.0), np.random.uniform(2.0, self.HEIGHT - 2.0)], dtype=np.float32)
+            for _ in range(200):
+                spawn_center = np.array([np.random.uniform(3.0, self.WIDTH - 3.0), np.random.uniform(3.0, self.HEIGHT - 3.0)]) if np.random.random() < 0.8 else np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+                if np.linalg.norm(spawn_center - self.goal) >= 8.0:
+                    break
+            else:
+                spawn_center = np.clip(np.array([self.WIDTH, self.HEIGHT]) - self.goal, 3.0, self.WIDTH - 3.0)
+
+        if options and "obstacles" in options:
+            self.obstacles = options["obstacles"]
+            ver_start = np.array([self.WIDTH / 2.0, self.HEIGHT / 2.0])
+            if options and "start_positions" in options:
+                ver_start = np.mean(options["start_positions"], axis=0)
+            self._cached_spawn_center = ver_start
+
+        if not (options and "obstacles" in options):
+            target_area = (self.WIDTH * self.HEIGHT) * self.target_density
+            safe_goal_radius = 2.0
+
+            for attempt in range(50):
+                self.obstacles = []
+                current_area = 0.0
+                while current_area < target_area:
+                    choice = np.random.random()
+                    r = np.random.uniform(1.5, 2.5) if choice < 0.2 else np.random.uniform(0.6, 1.4) if choice < 0.6 else np.random.uniform(0.2, 0.5)
+                    x, y = np.random.uniform(r, self.WIDTH - r), np.random.uniform(r, self.HEIGHT - r)
+                    if np.linalg.norm(np.array([x, y]) - self.goal) < (r + safe_goal_radius): continue
+                    self.obstacles.append((x, y, r))
+                    current_area += np.pi * (r ** 2)
+                if self._validate_obstacles() and self._is_map_solvable(start_pos=spawn_center):
+                    break
+            else:
+                self.obstacles = []
+            self._cached_spawn_center = spawn_center
+
+        self._compute_shortest_path_distance_map()
+
+        if options and "start_positions" in options:
+            self.positions = np.array(options["start_positions"], dtype=np.float32)
+            self.velocities = np.zeros((self.n_drones, 2), dtype=np.float32)
+        else:
+            self.velocities = np.zeros((self.n_drones, 2), dtype=np.float32)
+            cx, cy = self._cached_spawn_center if hasattr(self, "_cached_spawn_center") else (np.random.uniform(3.0, self.WIDTH - 3.0), np.random.uniform(3.0, self.HEIGHT - 3.0))
+
+            is_clustered = (options["spawn_mode"] == "clustered") if (options and "spawn_mode" in options) else (np.random.random() < 0.9)
+
+            if is_clustered:
+                half = 1.5
+                min_dist = 0.6
+                placed = []
+                for i in range(self.n_drones):
+                    found = False
+                    for _ in range(500):
+                        x, y = np.clip(np.random.uniform(cx - half, cx + half), 1.0, self.WIDTH - 1.0), np.clip(np.random.uniform(cy - half, cy + half), 1.0, self.HEIGHT - 1.0)
+                        if all(np.sqrt((x-px)**2 + (y-py)**2) >= min_dist for px, py in placed) and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles) and self._is_map_solvable(start_pos=np.array([x, y])):
+                            placed.append([x, y]); found = True; break
+                    if not found:
+                        for _ in range(100):
+                            x = np.random.uniform(cx - half - 1.5, cx + half + 1.5)
+                            y = np.random.uniform(cy - half - 1.5, cy + half + 1.5)
+                            x, y = np.clip(x, 1.0, self.WIDTH - 1.0), np.clip(y, 1.0, self.HEIGHT - 1.0)
+                            if all(np.sqrt((x-px)**2 + (y-py)**2) >= min_dist for px, py in placed) and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles) and self._is_map_solvable(start_pos=np.array([x, y])):
+                                placed.append([x, y]); break
+                        else:
+                            placed.append([np.random.uniform(1.0, self.WIDTH-1.0), np.random.uniform(1.0, self.HEIGHT-1.0)])
+                    self.positions[i] = np.array(placed[-1], dtype=np.float32)
+            else:
+                for i in range(self.n_drones):
+                    placed = False
+                    for _ in range(500):
+                        x, y = np.random.uniform(1.0, self.WIDTH - 1.0), np.random.uniform(1.0, self.HEIGHT - 1.0)
+                        if np.linalg.norm(np.array([x, y]) - self.goal) >= 8.0 and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles):
+                            if self._is_map_solvable(start_pos=np.array([x, y])):
+                                self.positions[i] = np.array([x, y], dtype=np.float32)
+                                placed = True
+                                break
+                    if not placed:
+                        for _ in range(100):
+                            x, y = np.random.uniform(cx - 2.0, cx + 2.0), np.random.uniform(cy - 2.0, cy + 2.0)
+                            x, y = np.clip(x, 1.0, self.WIDTH - 1.0), np.clip(y, 1.0, self.HEIGHT - 1.0)
+                            if np.linalg.norm(np.array([x, y]) - self.goal) >= 8.0 and all(np.sqrt((x-ox)**2 + (y-oy)**2) >= (self.drone_radius + orad) for ox, oy, orad in self.obstacles):
+                                self.positions[i] = np.array([x, y], dtype=np.float32)
+                                break
+
+        for i in range(self.n_drones):
+            for ox, oy, orad in self.obstacles:
+                dist = np.linalg.norm(self.positions[i] - np.array([ox, oy]))
+                if dist < (self.drone_radius + orad):
+                    vec = self.positions[i] - np.array([ox, oy])
+                    norm = np.linalg.norm(vec)
+                    vec = vec / norm if norm > 1e-6 else np.array([1.0, 0.0])
+                    self.positions[i] = np.array([ox, oy]) + vec * (self.drone_radius + orad + 0.1)
+                    self.positions[i] = np.clip(self.positions[i], 0.2, self.WIDTH - 0.2)
+
+        for agent in self.agents:
+            idx = self.agent_name_mapping[agent]
+            self.best_dist_to_goal[agent] = self.get_shortest_path_distance(self.positions[idx])
+            self.steps_stagnant[agent] = 0
+            self.stagnation_position_history[agent].append(self.positions[idx].copy())
+
+        observations = {agent: self._observe(agent) for agent in self.agents}
+        return observations, self.infos
+
+    def _ray_cast(self, agent_idx):
+        num_sectors = 16
+        rays_per_sector = 12
+        num_rays = num_sectors * rays_per_sector
+        collab = self.collab_comm
+        max_range = self.collab_range if collab else self.lidar_range
+        pos = self.positions[agent_idx]
+        ray_dirs = self.ray_dirs
+        min_distances = np.full(num_rays, max_range, dtype=np.float32)
+
+        for boundary, axis, direction in [(self.WIDTH, 0, 1), (0, 0, -1), (self.HEIGHT, 1, 1), (0, 1, -1)]:
+            mask = ray_dirs[:, axis] * direction > 1e-6
+            if np.any(mask):
+                d = (boundary - pos[axis]) / ray_dirs[mask, axis]
+                min_distances[mask] = np.minimum(min_distances[mask], np.where(d > 0, d, max_range).astype(np.float32))
+
+        def intersect_circles(centers, radii):
+            rel_pos = centers - pos
+            proj = rel_pos @ ray_dirs.T
+            rel_pos_sq = np.sum(rel_pos**2, axis=1, keepdims=True)
+            dist_to_ray_sq = rel_pos_sq - proj**2
+            hit_mask = (proj > 0) & (dist_to_ray_sq < radii[:, np.newaxis]**2)
+            if np.any(hit_mask):
+                sqrt_arg = radii[:, np.newaxis]**2 - dist_to_ray_sq
+                dists = proj - np.sqrt(np.maximum(sqrt_arg, 0))
+                dists[~hit_mask] = max_range
+                return np.min(dists, axis=0)
+            return np.full(num_rays, max_range, dtype=np.float32)
+
+        if self.obstacles:
+            obs_array = np.array(self.obstacles, dtype=np.float32)
+            if collab:
+                # collaborative perception: keep only obstacles SOME agent (self or a comm-neighbor)
+                # can physically sense (within lidar_range). Models comm carrying shared obstacle info.
+                sensors = [pos]
+                for j in range(self.n_drones):
+                    if j != agent_idx and self.possible_agents[j] in self.agents \
+                            and np.linalg.norm(pos - self.positions[j]) <= self.communication_range:
+                        sensors.append(self.positions[j])
+                sensors = np.array(sensors, dtype=np.float32)
+                d_so = np.linalg.norm(obs_array[:, :2][None, :, :] - sensors[:, None, :], axis=2)  # (S,O)
+                obs_array = obs_array[d_so.min(axis=0) <= self.lidar_range]
+            if len(obs_array):
+                min_distances = np.minimum(min_distances, intersect_circles(obs_array[:, :2], obs_array[:, 2] + self.drone_radius))
+
+        other_indices = [j for j in range(self.n_drones) if j != agent_idx and self.possible_agents[j] in self.agents]
+        if other_indices:
+            min_distances = np.minimum(min_distances, intersect_circles(self.positions[other_indices], np.full(len(other_indices), 2.0 * self.drone_radius, dtype=np.float32)))
+
+        sector_res = min_distances.reshape(num_sectors, rays_per_sector)
+        readings = np.zeros(num_sectors * 3, dtype=np.float32)
+        readings[:num_sectors] = np.min(sector_res, axis=1)
+        readings[num_sectors:2*num_sectors] = np.mean(sector_res, axis=1)
+        readings[2*num_sectors:] = np.std(sector_res, axis=1)
+        return readings
+
+    def _falsify_broadcast(self, j, true_pos, true_vel):
+        """Return the (false) position/velocity a traitor j BROADCASTS to honest observers.
+        Only affects the comm channel; LiDAR still sees true_pos. Deterministic per traitor."""
+        bpos = np.array(true_pos, dtype=np.float32)
+        bvel = np.array(true_vel, dtype=np.float32)
+        mode = self.deception_mode
+        if mode in ("false_velocity", "both"):
+            bvel = -bvel  # claim the opposite of true motion (poisons collision anticipation)
+        if mode in ("false_position", "both"):
+            theta = j * (2.0 * np.pi / self.n_drones)
+            offset = 2.5 * np.array([np.cos(theta), np.sin(theta)], dtype=np.float32)
+            bpos = np.clip(bpos + offset, 0.0, self.WIDTH)
+        return bpos, bvel
+
+    def _ram_action(self, idx):
+        """Hostile traitor action: full-throttle toward the nearest ACTIVE honest drone."""
+        pos = self.positions[idx]
+        best, best_d = None, 1e9
+        for j in range(self.n_drones):
+            if j == idx or j in self.traitor_indices:
+                continue
+            if self.possible_agents[j] not in self.agents:
+                continue
+            d = np.linalg.norm(pos - self.positions[j])
+            if d < best_d:
+                best_d, best = d, j
+        if best is None:
+            return np.zeros(2, dtype=np.float32)
+        direction = self.positions[best] - pos
+        n = np.linalg.norm(direction)
+        if n < 1e-6:
+            return np.zeros(2, dtype=np.float32)
+        return (direction / n).astype(np.float32)   # unit vector = max acceleration at target
+
+    def _observe(self, agent):
+        idx = self.agent_name_mapping[agent]
+        pos = self.positions[idx]
+        vel = self.velocities[idx]
+
+        dist_goal = self.get_shortest_path_distance(pos)
+        to_goal = self.get_shortest_path_direction(pos)
+
+        lidar = self.lidar_cache[agent] if hasattr(self, 'lidar_cache') and agent in self.lidar_cache else self._ray_cast(idx)
+        
+        # Apply LiDAR Dropout: if dropout triggers, set all ray casts to max range (drone is blind)
+        if self.lidar_dropout_prob > 0.0 and np.random.random() < self.lidar_dropout_prob:
+            # max_range logic matches _ray_cast
+            _max_range = self.collab_range if self.collab_comm else self.lidar_range
+            lidar = np.full(48, _max_range, dtype=np.float32)
+
+        if self.steps_stagnant[agent] > 40:
+            num_sectors = 16
+            min_sector = np.argmin(lidar[:num_sectors])
+            sector_width = (2 * np.pi) / num_sectors
+            angle = min_sector * sector_width
+
+            t_cw = np.array([-np.sin(angle), np.cos(angle)], dtype=np.float32)
+            t_ccw = np.array([np.sin(angle), -np.cos(angle)], dtype=np.float32)
+
+            if np.dot(t_cw, to_goal) >= np.dot(t_ccw, to_goal):
+                t_glide = t_cw
+            else:
+                t_glide = t_ccw
+
+            alpha = 0.55
+            to_goal = (1.0 - alpha) * to_goal + alpha * t_glide
+            to_goal_norm = np.linalg.norm(to_goal)
+            if to_goal_norm > 1e-5:
+                to_goal = to_goal / to_goal_norm
+
+        _lidar_norm = self.collab_range if self.collab_comm else self.lidar_range
+        obs_core = np.concatenate([vel / self.max_velocity, to_goal, [dist_goal / (self.WIDTH * 1.414)], [np.arctan2(vel[1], vel[0]) / np.pi], lidar / _lidar_norm])
+
+        obs_neighbors = []
+        sync_features = []
+        distances = []
+        for j in range(self.n_drones):
+            if j != idx and self.possible_agents[j] in self.agents:
+                distances.append((j, np.linalg.norm(pos - self.positions[j])))
+        distances.sort(key=lambda x: x[1])
+        closest_5 = [d[0] for d in distances[:5]]
+
+        # ===== COMMUNICATION RANGE ENFORCEMENT: 8.0 METERS =====
+        for j in range(self.n_drones):
+            if j == idx:
+                continue
+            if self.possible_agents[j] in self.agents:
+                distance_to_j = np.linalg.norm(pos - self.positions[j])
+
+                # ENFORCE 8.0m COMMUNICATION RANGE
+                if distance_to_j <= self.communication_range:
+                    # Broadcast = true state, UNLESS j is a traitor and deception is active.
+                    # (LiDAR/ray_cast still uses true positions -> physical sensing is never faked.)
+                    bpos_j = self.positions[j]
+                    bvel_j = self.velocities[j]
+                    if self.deception_mode != "none" and j in self.traitor_indices:
+                        bpos_j, bvel_j = self._falsify_broadcast(j, bpos_j, bvel_j)
+                    rel_pos = (bpos_j - pos) / self.WIDTH
+                    norm_vel = bvel_j / self.max_velocity
+                    is_active = 1.0
+                    if j in closest_5:
+                        rel_vel = (bvel_j - vel) / (2.0 * self.max_velocity)
+                        stagnation_val = min(1.0, self.steps_stagnant[self.possible_agents[j]] / 50.0)
+                        sync_features.append(np.concatenate([rel_vel, [stagnation_val, 0.0]]))
+                else:
+                    # OUT OF RANGE: Send zeros
+                    rel_pos = np.zeros(2, dtype=np.float32)
+                    norm_vel = np.zeros(2, dtype=np.float32)
+                    is_active = 0.0
+            else:
+                rel_pos = np.zeros(2, dtype=np.float32)
+                norm_vel = np.zeros(2, dtype=np.float32)
+                is_active = 0.0
+            obs_neighbors.append(np.concatenate([rel_pos, norm_vel, [is_active]]))
+
+        # ========================================================
+
+        while len(sync_features) < 5: sync_features.append(np.zeros(4, dtype=np.float32))
+
+        if not self.use_congestion:
+            congestion_factor = np.zeros(1, dtype=np.float32)  # congestion ablated -> always 0
+        elif self.congestion_mode == "lidar":
+            # CTDE-clean: crowding sensed from this drone's own LiDAR (fraction of the 16
+            # sectors whose nearest return is within 1m). Counts any close object (drone/obstacle).
+            congestion_factor = np.array([float(np.sum(lidar[:16] < 1.0)) / 16.0], dtype=np.float32)
+        elif self.congestion_mode == "comm":
+            # crowding from COMMUNICATED neighbors within 1m (gated by comm range, corruptible by adversaries)
+            cnt = sum(1 for j in range(self.n_drones)
+                      if j != idx and self.possible_agents[j] in self.agents
+                      and np.linalg.norm(pos - self.positions[j]) <= self.communication_range
+                      and np.linalg.norm(pos - self.positions[j]) < 1.0)
+            congestion_factor = np.array([cnt / self.n_drones], dtype=np.float32)
+        elif self.congestion_mode == "both":
+            lidar_c = float(np.sum(lidar[:16] < 1.0)) / 16.0
+            cnt = sum(1 for j in range(self.n_drones)
+                      if j != idx and self.possible_agents[j] in self.agents
+                      and np.linalg.norm(pos - self.positions[j]) <= self.communication_range
+                      and np.linalg.norm(pos - self.positions[j]) < 1.0)
+            congestion_factor = np.array([max(lidar_c, cnt / self.n_drones)], dtype=np.float32)
+        else:  # "env" (legacy ground-truth -- violates CTDE, kept only for backward compatibility)
+            neighbors_in_vicinity = sum(1 for j in range(self.n_drones) if j != idx and self.possible_agents[j] in self.agents and np.linalg.norm(pos - self.positions[j]) < 1.0)
+            congestion_factor = np.array([neighbors_in_vicinity / self.n_drones], dtype=np.float32)
+
+        obs_local = np.concatenate([obs_core, np.concatenate(obs_neighbors), congestion_factor, np.concatenate(sync_features)]).astype(np.float32)
+
+        self.position_history[agent].append(pos.copy())
+        hist = list(self.position_history[agent])
+        while len(hist) < 5: hist.insert(0, pos.copy())
+        rel_hist = np.concatenate([(h - pos) / self.WIDTH for h in hist])
+
+        final_local = np.zeros(130, dtype=np.float32)
+        copy_len = min(120, len(obs_local))
+        final_local[:copy_len] = obs_local[:copy_len]
+        final_local[120:130] = rel_hist
+        global_state = np.zeros(520, dtype=np.float32)
+
+        g_pos = np.zeros(self.n_drones * 2, dtype=np.float32)
+        g_vel = np.zeros(self.n_drones * 2, dtype=np.float32)
+        for j in range(self.n_drones):
+            if self.possible_agents[j] in self.agents:
+                g_pos[j*2:j*2+2] = self.positions[j] / self.WIDTH
+                g_vel[j*2:j*2+2] = self.velocities[j] / self.max_velocity
+        global_state[:40] = np.concatenate([g_pos, g_vel])
+
+        for j in range(self.n_drones):
+            if self.possible_agents[j] in self.agents:
+                agent_name = self.possible_agents[j]
+                lidar_j = self.lidar_cache[agent_name] if hasattr(self, 'lidar_cache') and agent_name in self.lidar_cache else self._ray_cast(j)
+                global_state[40 + j*48 : 40 + (j+1)*48] = lidar_j / 8.0
+
+        # ---- Design A: attributable per-neighbor shared-hazard block (27 = 3 x 9) ----
+        # Slot k aligns with the neighbor block (same drone ordering). Each active comm-neighbor j
+        # broadcasts the nearest obstacle IT can physically sense (within its lidar_range), encoded
+        # in THIS drone's (ego) frame as (sin, cos, dist/hazard_norm). Out of range / no obstacle -> 0.
+        hazard_block = np.zeros(self.hazard_dim, dtype=np.float32)
+        if self.share_hazards and self.obstacles:
+            obs_centers = np.array([[o[0], o[1]] for o in self.obstacles], dtype=np.float32)
+            slot = 0
+            for j in range(self.n_drones):
+                if j == idx:
+                    continue
+                if self.possible_agents[j] in self.agents:
+                    pj = self.positions[j]
+                    if np.linalg.norm(pos - pj) <= self.communication_range:
+                        dj = np.linalg.norm(obs_centers - pj, axis=1)
+                        k = int(np.argmin(dj))
+                        if dj[k] <= self.lidar_range:            # j physically senses this obstacle
+                            # DECENTRALIZED (no CTDE leak): neighbor j broadcasts its own global
+                            # position pj and the obstacle relative to itself (rel_j = what j senses).
+                            # The ego reconstructs the obstacle's global position, then converts to its
+                            # OWN frame using only its own position -- pure local math from received msgs.
+                            rel_j = obs_centers[k] - pj              # sensed & broadcast by neighbor j
+                            obstacle_global = pj + rel_j             # ego reconstructs global pos
+                            rel = obstacle_global - pos              # ego-frame vector (own position only)
+                            d = float(np.linalg.norm(rel))
+                            if d > 1e-6:
+                                hazard_block[slot*3:slot*3+3] = [rel[1]/d, rel[0]/d,
+                                                                 min(d, self.hazard_norm)/self.hazard_norm]
+                slot += 1
+
+        return np.concatenate([final_local, hazard_block, global_state]).astype(np.float32)
+
+    def _validate_obstacles(self):
+        safe_goal_radius = max(self.drone_radius, 0.5) + 1.5
+        for ox, oy, or_ in self.obstacles:
+            if np.linalg.norm(self.goal - np.array([ox, oy])) < (or_ + safe_goal_radius):
+                return False
+        return True
+
+    def step(self, actions):
+        if not self.agents: return {}, {}, {}, {}, {}
+        old_positions = np.copy(self.positions)
+
+        for agent in self.agents:
+            self.terminations[agent] = False
+            self.truncations[agent] = False
+
+        for agent, action in actions.items():
+            idx = self.agent_name_mapping[agent]
+            # Hostile traitors ignore the policy and steer at the nearest honest drone.
+            if self.traitor_behavior == "ram" and idx in self.traitor_indices:
+                action = self._ram_action(idx)
+            action = np.clip(action, -1.0, 1.0)
+            smoothness_penalty = -0.05 * np.linalg.norm(action - self.last_actions[agent])**2
+            self.last_actions[agent] = action.copy()
+            self.infos[agent]["smoothness_penalty"] = smoothness_penalty
+            self.velocities[idx] += action * self.dt * 10.0
+            speed = np.linalg.norm(self.velocities[idx])
+            neighbors_count = sum(1 for j in range(self.n_drones) if j != idx and self.possible_agents[j] in self.agents and np.linalg.norm(self.positions[idx] - self.positions[j]) < 1.0)
+            boost = self.speed_boost.get(idx, 1.0)
+            current_max = np.maximum(self.max_velocity * boost * np.exp(-0.15 * neighbors_count), 1.10)
+            if speed > current_max: self.velocities[idx] = (self.velocities[idx] / speed) * current_max
+            self.positions[idx] += self.velocities[idx] * self.dt
+            self.positions[idx] = np.clip(self.positions[idx], 0.0, self.WIDTH)
+
+        self.lidar_cache = {agent: self._ray_cast(self.agent_name_mapping[agent]) for agent in self.agents}
+        self.steps += 1
+        rewards = {agent: 0.0 for agent in self.agents}
+
+        for agent in self.agents:
+            idx = self.agent_name_mapping[agent]
+            self.stagnation_position_history[agent].append(self.positions[idx].copy())
+            pos = self.positions[idx]
+
+            path_dist = self.get_shortest_path_distance(pos)
+            old_path_dist = self.get_shortest_path_distance(old_positions[idx])
+            goal_progress = old_path_dist - path_dist
+            reward_goal = 100.0 * goal_progress
+
+            rewards[agent] += reward_goal - 0.25
+
+            sp_dir = self.get_shortest_path_direction(pos)
+            vel_alignment = np.dot(self.velocities[idx] / (speed + 1e-6), sp_dir) if speed > 0.3 else 0.0
+            if vel_alignment > 0.5:
+                rewards[agent] += 0.5 * vel_alignment
+
+            speed = np.linalg.norm(self.velocities[idx])
+            dist_goal = np.linalg.norm(self.goal - pos)
+            unit_to_goal = (self.goal - pos) / (dist_goal + 1e-6)
+            alignment = np.dot(self.velocities[idx] / (speed + 1e-6), unit_to_goal)
+
+            is_blocked_by_drone = False
+            px, py = pos[0], pos[1]
+            for j in range(self.n_drones):
+                if j != idx and self.possible_agents[j] in self.agents:
+                    dx_j = self.positions[j][0] - px
+                    dy_j = self.positions[j][1] - py
+                    dist_to_j = math.sqrt(dx_j**2 + dy_j**2)
+                    if dist_to_j < 1.2:
+                        dot_val = (dx_j * unit_to_goal[0] + dy_j * unit_to_goal[1]) / (dist_to_j + 1e-6)
+                        if dot_val > 0.6:
+                            is_blocked_by_drone = True
+                            break
+
+            hist_stag = list(self.stagnation_position_history[agent])
+            is_stagnant = False
+            if len(hist_stag) == 25:
+                net_disp = np.linalg.norm(pos - hist_stag[0])
+                if net_disp < 0.5:
+                    is_stagnant = True
+
+            if path_dist < self.best_dist_to_goal[agent] - 0.1 and not is_stagnant:
+                self.best_dist_to_goal[agent] = path_dist
+                self.steps_stagnant[agent] = 0
+                self.blocked_steps[agent] = 0
+            elif is_stagnant:
+                if is_blocked_by_drone:
+                    self.blocked_steps[agent] += 1
+                    blk = self.blocked_steps[agent]
+                    if blk <= 25:
+                        self.steps_stagnant[agent] = 0
+                        if speed < 0.2:
+                            rewards[agent] += 0.5
+                    else:
+                        decay = max(0.0, 1.0 - (blk - 25) / 25.0)
+                        if speed < 0.2:
+                            rewards[agent] += 0.5 * decay
+                        self.steps_stagnant[agent] += 1
+                    if blk > 50:
+                        rewards[agent] -= 0.15 * min((blk - 50) / 25.0, 1.0)
+                else:
+                    self.steps_stagnant[agent] += 1
+                    self.blocked_steps[agent] = 0
+            elif speed > 0.5 and alignment < 0.2:
+                self.steps_stagnant[agent] = max(0, self.steps_stagnant[agent] - 1)
+                self.blocked_steps[agent] = 0
+            else:
+                self.steps_stagnant[agent] += 1
+                self.blocked_steps[agent] = 0
+
+            if self.steps_stagnant[agent] > 50:
+                frustration = min((self.steps_stagnant[agent] - 50) * 0.25, 25.0)
+                rewards[agent] -= frustration
+
+            vx, vy = self.velocities[idx][0], self.velocities[idx][1]
+            for j in range(self.n_drones):
+                if j == idx or self.possible_agents[j] not in self.agents: continue
+
+                dx, dy = self.positions[j][0] - px, self.positions[j][1] - py
+                dist = math.sqrt(dx*dx + dy*dy)
+                dist_eps = dist + 1e-6
+
+                dvx, dvy = vx - self.velocities[j][0], vy - self.velocities[j][1]
+                closing_speed = (dx * dvx + dy * dvy) / dist_eps
+
+                if closing_speed > 0:
+                    ttc = dist / closing_speed
+                    if ttc < 1.0: rewards[agent] -= 10.0 * (1.0 - ttc)**2
+
+                if dist < 0.6:
+                    if closing_speed > 0.1:
+                        rewards[agent] -= 25.0 * closing_speed * (0.6 - dist)
+                    if dist < 0.4:
+                        rewards[agent] -= (0.4 - dist) * 100.0
+
+                if dist < 0.5:
+                    urgency = (0.5 - dist) / 0.5
+                    dot_vel_dir = (vx * dx + vy * dy) / (speed * dist_eps + 1e-6)
+                    if closing_speed > 0.15 and dot_vel_dir > 0.5:
+                        rewards[agent] -= 50.0 * urgency**2
+                    else:
+                        rewards[agent] -= 10.0 * urgency
+
+                if dist < 1.5:
+                    v_self_norm = speed
+                    v_neigh_norm = math.sqrt(self.velocities[j][0]**2 + self.velocities[j][1]**2)
+                    if v_self_norm > 0.1 and v_neigh_norm > 0.1:
+                        cos_sim = (vx * self.velocities[j][0] + vy * self.velocities[j][1]) / (v_self_norm * v_neigh_norm)
+                        alignment_progress = max(0.0, (vx * unit_to_goal[0] + vy * unit_to_goal[1]) / (v_self_norm + 1e-6))
+                        rewards[agent] += 0.5 * cos_sim * alignment_progress
+
+            rewards[agent] += self.infos[agent].get("smoothness_penalty", 0.0)
+
+            lidar = self.lidar_cache[agent]
+            front_indices = [15, 0, 1]
+            clarity_score = np.mean([lidar[f] for f in front_indices])
+            rewards[agent] += (clarity_score / 8.0) * 0.2
+
+            min_lidar_dist = np.min(lidar[:16])
+            if min_lidar_dist < 0.15:
+                near_miss_penalty = -1.0 * ((0.15 - min_lidar_dist) / 0.15)**2
+                rewards[agent] += near_miss_penalty
+
+            hit_wall = min(px, self.WIDTH - px, py, self.HEIGHT - py) <= 0.05
+
+            hit_obstacle = False
+            r_drone = self.drone_radius
+            for ox, oy, orad in self.obstacles:
+                if (px - ox)**2 + (py - oy)**2 < (r_drone + orad)**2:
+                    hit_obstacle = True
+                    break
+
+            hit_drone = False
+            for j in range(self.n_drones):
+                if j != idx and self.possible_agents[j] in self.agents:
+                    ox, oy = self.positions[j][0], self.positions[j][1]
+                    if (px - ox)**2 + (py - oy)**2 < (2 * r_drone)**2:
+                        hit_drone = True
+                        break
+
+            if hit_wall or hit_obstacle or hit_drone:
+                rewards[agent] = -500.0; self.terminations[agent] = True; self.infos[agent]["cause"] = "collision"
+                # record the collision subtype where it is computed correctly (post-step positions).
+                # priority drone > obstacle > wall; raw flags also stored so nothing is lost.
+                self.infos[agent]["collision_type"] = "drone" if hit_drone else ("obstacle" if hit_obstacle else "wall")
+                self.infos[agent]["hit_drone"] = bool(hit_drone)
+                self.infos[agent]["hit_obstacle"] = bool(hit_obstacle)
+                self.infos[agent]["hit_wall"] = bool(hit_wall)
+            elif dist_goal < 1.0:
+                rewards[agent] += 500.0 + (100.0 / (1.0 + speed))
+                self.terminations[agent] = True; self.infos[agent]["cause"] = "success"
+
+        if self.steps >= self.max_steps:
+            for agent in self.agents:
+                self.truncations[agent] = True
+                self.infos[agent]["cause"] = "timeout"
+                rewards[agent] -= 200.0
+
+        observations = {agent: self._observe(agent) for agent in self.agents}
+        for agent in self.possible_agents:
+            if self.terminations.get(agent, False) or self.truncations.get(agent, False):
+                idx = self.agent_name_mapping[agent]
+                self.positions[idx] = np.array([-100.0, -100.0], dtype=np.float32)
+                self.velocities[idx] = np.zeros(2, dtype=np.float32)
+        self.agents = [agent for agent in self.agents if not (self.terminations[agent] or self.truncations[agent])]
+        return observations, rewards, self.terminations, self.truncations, self.infos

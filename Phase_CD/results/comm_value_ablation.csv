@@ -1,0 +1,11 @@
+model,tag,lidar_range,comm_range,density,honest_success,timeout,collision,n_maps,collision_drone,collision_obstacle,collision_wall
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,12.0,8.0,0.2,92.33333333333331,6.0,1.6666666666666667,30,,,
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,12.0,8.0,0.3,95.0,2.333333333333333,2.6666666666666665,30,,,
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,5.0,10.0,0.2,77.0,0.0,23.0,30,,,
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,5.0,10.0,0.3,84.66666666666667,0.0,15.333333333333334,30,,,
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,5.0,10.0,0.2,77.0,0.0,23.0,30,,,
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,5.0,10.0,0.3,84.66666666666667,0.0,15.333333333333334,30,,,
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,4.0,10.0,0.2,73.66666666666667,0.6666666666666666,25.666666666666668,30,7.333333333333333,18.33333333333333,0.0
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,4.0,10.0,0.3,81.0,0.0,19.0,30,5.333333333333333,13.333333333333334,0.3333333333333333
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,3.0,10.0,0.2,68.33333333333333,0.0,31.666666666666668,30,9.333333333333334,22.333333333333332,0.0
+apex_ultra_glide_v14_comm8_lidar_final.zip,commON,3.0,10.0,0.3,71.66666666666667,0.0,28.333333333333332,30,12.0,16.333333333333332,0.0

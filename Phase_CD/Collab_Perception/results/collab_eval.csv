@@ -1,0 +1,7 @@
+model,hazard,lidar,comm,density,success,timeout,coll,coll_obstacle,coll_drone,n_maps
+collab_expanded_M0.zip,commON,12.0,10.0,0.2,92.0,5.333333333333333,2.6666666666666665,2.0,0.6666666666666666,30
+collab_expanded_M0.zip,commON,12.0,10.0,0.3,95.0,2.333333333333333,2.6666666666666665,2.6666666666666665,0.0,30
+collab_l5_c10_hazardON_final.zip,commON,5.0,10.0,0.2,90.85,0.65,8.5,5.2,3.3,200
+collab_l5_c10_hazardON_final.zip,commON,5.0,10.0,0.3,81.35,1.05,17.6,11.95,5.5,200
+collab_l5_c10_hazardOFF_final.zip,commOFF,5.0,10.0,0.2,89.45,0.45,10.1,6.2,3.9,200
+collab_l5_c10_hazardOFF_final.zip,commOFF,5.0,10.0,0.3,82.0,0.9,17.1,11.75,5.3,200

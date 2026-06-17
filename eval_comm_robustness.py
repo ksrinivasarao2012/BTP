@@ -35,7 +35,8 @@ DENSITIES = [0.20, 0.30]
 # Parameters to sweep
 noise_levels = [0.0, 0.1, 0.3]
 dropout_probs = [0.0, 0.25, 0.5]
-RNG = np.random.default_rng(12345)
+# RNG will be initialized in main() using the provided seed
+RNG = None
 
 
 class MAPPO_Extractor_B5(nn.Module):
@@ -125,6 +126,7 @@ def evaluate(model, noise_std, dropout_p, density, n_maps):
     env.close()
     tot = max(tot, 1)
     return {
+        "seed": SEED,
         "noise_std": noise_std,
         "dropout_p": dropout_p,
         "density": density,
@@ -167,5 +169,11 @@ if __name__ == "__main__":
     parser.add_argument("--start_idx", type=int, default=None, help="Start index of combo slice (inclusive)")
     parser.add_argument("--end_idx", type=int, default=None, help="End index of combo slice (exclusive)")
     parser.add_argument("--n_maps", type=int, default=200, help="Maps per combo (use 50 for a quick test)")
+    parser.add_argument("--rng_seed", type=int, default=12345, help="Random seed for RNG initialization")
     args = parser.parse_args()
+    # Initialize RNG with the provided seed
+
+    RNG = np.random.default_rng(args.rng_seed)
+    global SEED
+    SEED = args.rng_seed
     main(start_idx=args.start_idx, end_idx=args.end_idx, n_maps=args.n_maps)
