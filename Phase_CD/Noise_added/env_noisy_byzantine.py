@@ -35,9 +35,15 @@ from env_byzantine_adaptive import AdaptiveByzantineEnv
 
 
 class NoisyByzantineEnv(AdaptiveByzantineEnv):
-    def __init__(self, *args, sensor_noise=0.0, **kwargs):
+    def __init__(self, *args, sensor_noise=0.0, verify_k_sigma=0.0, **kwargs):
         super().__init__(*args, **kwargs)
         self.sensor_noise = sensor_noise        # Gaussian std (m) on sensed obstacle positions
+        # ROBUST FILTER knob: effective contradiction tolerance = verify_eps + verify_k_sigma * sensor_noise.
+        # verify_k_sigma=0 -> the naive fixed-threshold rule (noise-fragile, the strawman baseline).
+        # verify_k_sigma>0 -> noise-aware: honest noisy matches (~sqrt(2)*sigma off) pass; only WILDLY
+        # off broadcasts (open-space phantoms, meters from any real obstacle) still flag. Pair with a
+        # slower trust_alpha so a single noisy mismatch can't condemn an honest neighbor.
+        self.verify_k_sigma = verify_k_sigma
         self._sense_step = -1
         self._sensed = np.empty((self.n_drones, 0, 2), dtype=np.float32)   # per-drone noisy views
         self._sradii = np.empty((0,), dtype=np.float32)
@@ -74,13 +80,14 @@ class NoisyByzantineEnv(AdaptiveByzantineEnv):
         if self.lidar_blind[idx] or not len(cand_centers):
             return False, False
         ego_seen = self._sensed[idx][self._in_range[idx]] if self._sensed.shape[1] else np.empty((0, 2), np.float32)
+        eps = self.verify_eps + self.verify_k_sigma * self.sensor_noise   # noise-aware tolerance
         pos = self.positions[idx]
         judged = False
         for o in cand_centers:
             if np.linalg.norm(pos - o) > self.lidar_range:
                 continue
             judged = True
-            if len(ego_seen) == 0 or float(np.min(np.linalg.norm(ego_seen - o, axis=1))) > self.verify_eps:
+            if len(ego_seen) == 0 or float(np.min(np.linalg.norm(ego_seen - o, axis=1))) > eps:
                 return True, True
         return judged, False
 
