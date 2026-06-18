@@ -1,0 +1,5 @@
+density,f,lidar,honest_success,honest_timeout,honest_collision,honest_drone_coll
+0.2,0,8.0,86.67,4.67,8.67,3.33
+0.2,2,8.0,68.75,2.92,28.33,22.08
+0.3,0,8.0,90.33,1.0,8.67,2.0
+0.3,2,8.0,73.33,0.42,26.25,20.0
