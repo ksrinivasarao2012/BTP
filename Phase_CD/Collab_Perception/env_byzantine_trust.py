@@ -35,6 +35,7 @@ class ByzantineTrustEnv(CollabPerceptionEnv):
     def __init__(self, *args,
                  false_obstacle_attack=False, traitor_indices=None,
                  n_phantom=4, phantom_radius=1.0, phantom_block_dist=3.5, phantom_spacing=1.3,
+                 randomize_attack=False, n_phantom_range=(3, 6),
                  trust_defense=False, trust_alpha=0.5, tau_trust=0.5, verify_eps=0.6, **kwargs):
         super().__init__(*args, **kwargs)
         # ---- attack ----
@@ -44,6 +45,11 @@ class ByzantineTrustEnv(CollabPerceptionEnv):
         self.phantom_radius = phantom_radius
         self.phantom_block_dist = phantom_block_dist
         self.phantom_spacing = phantom_spacing
+        # ---- realistic-attack randomization (per-map n_phantom; per-phantom radius from the REAL
+        #      obstacle mixture so phantoms are size-indistinguishable). Default OFF so the bind/offset
+        #      sweep keeps a FIXED radius (only the offset must move there). ----
+        self.randomize_attack = randomize_attack
+        self.n_phantom_range = tuple(n_phantom_range)
         self._phantoms = np.empty((0, 3), dtype=np.float32)
         # ---- defense ----
         self.trust_defense = trust_defense
@@ -55,8 +61,32 @@ class ByzantineTrustEnv(CollabPerceptionEnv):
     def reset(self, *args, **kwargs):
         out = super().reset(*args, **kwargs)
         self.trust[:] = 1.0
+        # per-map n_phantom (drawn AFTER super().reset has seeded np.random + built obstacles, so it is
+        # reproducible for a given episode seed). Uniform over {lo..hi} inclusive.
+        if self.randomize_attack:
+            lo, hi = self.n_phantom_range
+            self.n_phantom = int(np.random.randint(lo, hi + 1))
         self._generate_phantoms()
         return out
+
+    # ---- per-phantom radii: from the REAL obstacle mixture (matches swarm_env_phasecd.py:289 exactly:
+    #      20% large U[1.5,2.5] / 40% medium U[0.6,1.4] / 40% small U[0.2,0.5]) when randomizing,
+    #      else a fixed phantom_radius for every phantom. ----
+    def _sample_radius(self, size):
+        out = np.empty(int(size), dtype=np.float32)
+        for i in range(int(size)):
+            c = np.random.random()
+            if c < 0.2:
+                out[i] = np.random.uniform(1.5, 2.5)
+            elif c < 0.6:
+                out[i] = np.random.uniform(0.6, 1.4)
+            else:
+                out[i] = np.random.uniform(0.2, 0.5)
+        return out
+
+    def _radii_for(self, k):
+        return (self._sample_radius(k) if self.randomize_attack
+                else np.full(int(k), self.phantom_radius, dtype=np.float32))
 
     # ---- phantom wall across the goal approach (fixed per episode) ----
     def _generate_phantoms(self):
@@ -76,7 +106,7 @@ class ByzantineTrustEnv(CollabPerceptionEnv):
         offsets = (np.arange(k) - (k - 1) / 2.0) * self.phantom_spacing
         centers = np.clip(wall_center[None, :] + offsets[:, None] * perp[None, :],
                           0.3, self.WIDTH - 0.3).astype(np.float32)
-        radii = np.full(k, self.phantom_radius, dtype=np.float32)
+        radii = self._radii_for(k)
         self._phantoms = np.concatenate([centers, radii[:, None]], axis=1).astype(np.float32)
 
     # ---- ego consistency judgement of a broadcast obstacle set ----

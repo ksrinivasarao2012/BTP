@@ -97,7 +97,7 @@ def _init(model_path, conds):
 def _build_env(cfg):
     from env_noisy_byzantine import NoisyByzantineEnv
     return NoisyByzantineEnv(
-        render_mode=None, target_density=0.20, communication_range=10.0,
+        render_mode=None, target_density=0.27, communication_range=10.0,
         congestion_mode="lidar", lidar_range=8.0,
         lidar_dropout=0.10, dropout_sustain=5, use_shared_map=True,
         false_obstacle_attack=(cfg["n_traitors"] > 0),
@@ -199,7 +199,7 @@ def main():
     tasks = [(ci, mi) for ci in range(len(conds)) for mi in range(n_maps)]
 
     print(f"\n{'='*94}")
-    print(f"NOISE SWEEP — naive vs ROBUST filter | {os.path.basename(model_path)} | k={k} | "
+    print(f"NOISE SWEEP - naive vs ROBUST filter | {os.path.basename(model_path)} | k={k} | "
           f"{n_maps} maps/cond | {len(conds)} conds | {n_workers}w")
     print(f"  robust: eps += {ROBUST_K_SIGMA}*sigma, alpha={ROBUST_ALPHA}, tau={ROBUST_TAU} | {attack_mode} attack")
     print(f"{'='*94}", flush=True)
@@ -227,7 +227,7 @@ def main():
         return p, r
 
     print(f"\n{'='*94}")
-    print(f"RESULTS — naive vs robust filter under noise (k={k}, {attack_mode} attack)")
+    print(f"RESULTS - naive vs robust filter under noise (k={k}, {attack_mode} attack)")
     print(f"{'='*94}")
     print(f"  {'noise':>5} | {'base':>6} {'attack':>6} | {'naive':>6} {'P/R':>9} | "
           f"{'robust':>6} {'P/R':>9} {'nh':>6} | {'rob.recov':>9}")

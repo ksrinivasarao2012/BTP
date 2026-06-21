@@ -11,45 +11,155 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
-## ⭐ LATEST STATUS (2026-06-16) — read this first
+## ⭐ LATEST STATUS (2026-06-19) — read this first
 
-**Decision point: choosing among 3 paper directions in `backup/`.** All reactive Phase-C/D defenses failed; a
-leakage audit forced a cleanup. Summary of what was done this session:
+**The paper is the Byzantine collaborative-perception + temporal-trust line.** Single source of truth =
+`Phase_CD/PAPER_MASTER_PLAN.md` (full results ledger §5, parameter justifications §6, limitations §7,
+pending items §8, paper structure §9, venue §10, file index §11, decision log §12). Target venue =
+**MDPI *Drones*** (SCIE, IF ≈ 4.4). This LATEST STATUS block summarizes everything needed to WRITE the
+paper; defer to PAPER_MASTER_PLAN for exact tables.
 
-### Leakage audit & cleanup (DONE)
-- **Clean headline model = `models/apex_ultra_glide_v14_comm8_lidar_final.zip` (M0)** — 8 m gated comm + LiDAR
-  congestion. Verified clean with `leak_test_local.py`: actor ignores the global/critic block (0.0%) and neighbor
-  stagnation (0.2%); it uses LiDAR + 8 m communicated neighbor pos/vel (~10–19%, a *modeled radio*, must be disclosed).
-- **Leaky artifacts quarantined → `leaky/`**: 51 models (v10–v14 lineage, v15–v20 masters, `v14_8_0m`, `comm3/5/0`
-  — ground-truth congestion / omniscient neighbors) + their leaky results + the v14_8_0m trainer. `models/` now holds
-  ONLY clean models (M0, `comm0_nocong`, `M1_ram`). See `leaky/README.md`, `MODEL_LEAK_LEDGER.md`.
-- **Phase-B analysis re-run clean** into `results/clean/` (feature ablation, comm blackout, comm range sweep). Scripts
-  `eval_ablate_feature.py` / `eval_comm_blackout.py` / `eval_comm_sweep_clean.py` / `eval_comm_robustness.py` now point
-  to M0 + `congestion="lidar"`. Blackout confirmed prior finding (−5/−7.75 pp). See `LEAK_REMEDIATION_LOG.md`.
-- **⚠ Dijkstra goal-direction crutch (key finding):** actor `obs[2:4]` is the gradient of a GLOBAL Dijkstra
-  shortest-path map (`swarm_env_step_B10_8_0m.py:435`, `:98`) — a privileged, map-aware routed heading. This is *why*
-  communication is inert (the drone already has complete nav info). Memory: `dijkstra-goal-direction-crutch`.
+### The story arc (what the paper claims, in order)
+1. **Phase-B navigator (no adversary)** — CTDE MAPPO, 10 drones, 20×20 m. Success 95.6% (d=0.20) /
+   91.1% (d=0.30). Base model **M0 = `models/apex_ultra_glide_v14_comm8_lidar_final.zip`**.
+2. **Phase-3 collaborative perception (THE ANCHOR, §5.2)** — neighbors share sensed obstacles (slot-fusion;
+   per-neighbor obstacle lists fused by a MIN into the 48-ray LiDAR channel). Under ~33% LiDAR dropout, comm
+   is load-bearing: **53% → 94%** success. This is the big clean figure.
+3. **Phase-4 Byzantine false-obstacle attack (§5.3–5.5)** — traitors broadcast PERSISTENT phantom obstacles
+   (not in ground truth, so the map stays solvable). Because fusion is a MIN, a fabricated near-obstacle
+   overrides even a fully-sighted drone's own LiDAR → attack is **dropout-independent**. Two placements:
+   **wall** (phantom barrier across the goal approach — easy to detect) and **camouflage** (phantom hugs a
+   real obstacle on the corridor, extending it into the gap — hard to detect). `camouflage_gap` tunes the
+   stealth/harm dial. k=2 traitors of 10 ≈ −12–25 pp honest-success drop.
+4. **Consistency-trust defense ("T-cell" self/non-self, §5.4–5.5)** — per (observer i, neighbor j) trust
+   t_ij∈[0,1], EWMA, reset each episode. If i is sighted and j broadcasts an obstacle i is positioned to
+   see but doesn't → contradiction → t_ij↓; t_ij<τ ⇒ j excluded from i's fusion. Reads only what i
+   physically senses (no privileged labels). Under IDEAL sensing this fully neutralizes wall + most
+   camouflage.
+5. **Noise breaks the naive filter (§5.6)** — add Gaussian σ to every drone's sensed obstacle positions
+   (`sensor_noise`). Two honest views of one obstacle differ by ~√2σ; once that exceeds the fixed
+   `verify_eps`, the verifier wrongly contradicts HONEST broadcasts → precision 1.00→0.32, defense becomes
+   *worse than no defense*. (Quotable negative result.)
+6. **ROBUST filter rescues precision (§5.7/5.8)** — noise-aware tolerance `eps = verify_eps + k_sigma·σ`
+   (k_sigma=4) + slower decay (alpha=0.25). Precision back to 0.93–1.00, no-harm ≈ base, graceful recovery.
+   BUT at **σ=0.6 + camouflage, recall collapses to 0.21** (recovery +1.4 pp) — the lie hides inside the
+   widened band. This was the open weakness.
+7. **Option C — is the high-noise base drop fixable? NO (§5.10, P1 CLOSED)** — fine-tuned the base under
+   σ∈[0,0.6] domain-randomization for 3.5M steps (`models/noise_robust_ON_stage{0,1}_final.zip`). Base
+   recovered only ~2.5 pp at σ=0.6 → the 92→70% navigation drop is a **genuine perception-information
+   limit**, not a training artifact. (This is the *navigation* limit and it STANDS.)
+8. **Temporal trust — the WIN (§5.11, P2+P4 CLOSED, done 2026-06-19)** — recovers the σ=0.6 camouflage
+   recall collapse. **Mechanism:** the per-frame OFFSET VECTOR `d = (neighbour j's reported obstacle pos) −
+   (ego's own sensed pos of the matched obstacle)` is ZERO-MEAN for honest j (`noise_j − noise_ego ~
+   N(0,√2σ)`, cancels over frames) but a PERSISTENT bias for a camouflage liar (`gap − noise_ego`, mean =
+   the gap). Filter keeps a per-(ego,neighbour,ego-track) running mean of d; once a bucket has
+   ≥`temporal_min_k=20` samples, flag j if `‖mean‖ > temporal_bias_eps=0.6 m`. Composes (logical OR) with
+   the single-frame robust check (fast path = wall; temporal slow path = camouflage). **Hand-coded; NO
+   learned trust needed.**
 
-### Phase C/D findings (all on clean M0 — valid)
-- Deception INERT (~0 pp) · ramming ~−9 pp/rammer (f=2 = 77.4/73.5) · M1 retrain barely helps · **all 3 reactive
-  defense oracles (evasion / coordination / speed-asymmetry) cap ~75–80% → fundamental-limit result.**
+### Temporal-trust numbers — CAMERA-READY (500 maps, density 0.27, base=stage2, RANDOMIZED attack)
+**Headline σ=0.6 camouflage cell, k=2** (full per-f tables + CIs in `Phase_CD/RESULTS_027_CAMERA_READY.md`):
+| metric | robust (single-frame) | **temporal (composed)** |
+|---|---|---|
+| recall | 0.13 | **0.69** |
+| recovery vs undefended | +3.4 pp | **+12.2 pp** |
+| success | 41.0% | **49.8%** (vs base 53.4) |
+| precision | 0.92 | 0.82 |
+| no-harm (k=0, defense ON) | — | **53.0% vs base 53.4% = −0.4 pp (flat, CI spans 0)** |
 
-### The 3 options (in `backup/`) — pick one, each has a self-contained new-chat prompt
-1. **`backup/OPTION_1_LIMIT_PAPER.md`** — fundamental-limit/characterization paper. Safe floor (workshop/mid-tier),
-   low effort. Must disclose the 8 m comm model + the Dijkstra heading.
-2. **`backup/OPTION_2_COMM_MATTERS.md`** — *recommended upside.* Remove the Dijkstra crutch + degrade LiDAR so comm
-   becomes load-bearing → revives deception/trust. Run the 1-day feasibility probe FIRST.
-3. **`backup/OPTION_3_OBSTACLE_AVOIDANCE.md`** — weakest; blocked by the Dijkstra crutch (must remove + retrain) and a
-   crowded SOTA field.
+**Trend across f (σ=0.6 camouflage recovery, robust→temporal):** f=1 +1.9→**+7.1** (R 0.13→0.69); f=2
++3.4→**+12.2**; f=3 +5.3→**+13.6**. Attack *saturates* (f2→f3 adds ~3 pp damage); precision *rises* with f
+(0.68→0.82→0.89) — defense most precise when threat is worst. Wall σ=0.6: robust +3.7→temporal **+9.7** (f=2).
+Temporal ≥ robust at every noise level; wall never regresses; no-harm flat throughout.
+**Adaptive attacker (filter-aware, σ=0.6 camo, 500 maps):** offset bind — as phantom centre-offset grows,
+harm AND detection-recall climb together (offset 0 = harmless+invisible R0.03; offset 2.5 = harmful+caught
+R0.70) → no free lunch. gap/jitter/duty all hold (jitter/duty *reduce the attacker's own harm* faster than
+recall sags). **Probe evidence (dev, 150 maps):** oracle assoc AUC **0.99**, realistic assoc AUC **0.85–0.90**.
 
-### Key docs from this session
-`CTDE_LEAKAGE_INVESTIGATION.md` (leak test + reviewer rebuttal) · `MODEL_LEAK_LEDGER.md` (leaky-vs-clean tables +
-results audit) · `LEAK_REMEDIATION_LOG.md` (what was removed/re-run + impact) · `CLEAN_SHEET_ACTION_PLAN.md` (runbook) ·
-`PHASE_C_FINAL_TRY_PLAN.md` (the defense oracles) · `NEW_CHAT_PROMPT_PHASE_CD.md`. Reproduce the leak test:
-`& $py leak_test_local.py models\apex_ultra_glide_v14_comm8_lidar_final.zip lidar`.
+> NOTE: dev numbers (150 maps, density 0.25, stage1, fixed attack) were recall 0.21→0.78 / recovery +1.4→+7.7;
+> superseded by the camera-ready above (harder 0.27 + size-indistinguishable phantoms → slightly lower
+> absolute, same qualitative WIN).
 
-> NOTE: sections below predate this cleanup. Where they say "Pathfinding (analysis only)" or cite leaky-model
-> numbers, defer to this LATEST STATUS block and `MODEL_LEAK_LEDGER.md`.
+### The precision caveat (write it honestly)
+Temporal detection precision is **0.80–0.82 at σ=0.6** (< a 0.9 target). But precision was only a *proxy*
+for false-gating harm, and the **no-harm column measures that harm directly and finds it ≈0** (own-LiDAR +
+the Dijkstra heading cushion any wrongly-gated broadcasts). The residual false-flags are ultra-stealthy
+camouflage buckets (phantom hugging so tightly it barely protrudes → statistically ≈ honest noise AND
+nearly harmless — the **stealth/harm bind**). `eps=0.7` raises precision to ~0.85 but sacrifices harmful-
+phantom recall, so **eps=0.6 is the operating point**.
+
+### IN PROGRESS (this session) — filter-aware ADAPTIVE attacker
+Building an attacker that KNOWS the temporal filter exists, to pre-empt the #1 reviewer objection ("the
+adversary is static/weak"). Three variants in the experimental env: (a) **jitter** — phantom + per-frame
+zero-mean noise (predict: does NOT defeat the mean test, since jitter raises variance not mean);
+(b) **intermittent lying** — broadcast the phantom only a fraction of frames (dilutes the bucket);
+(c) **offset sweep** (the clean bind demo) — `phantom_center_offset` places the phantom an exact distance
+from the hugged real obstacle's CENTRE (0 = on top → harmless+evasive; large → harmful but caught), so harm
+and recall climb together → attacker has no free lunch. (`camouflage_gap` alone can't show this: it's a
+surface gap, so the phantom centre is always ≥~1.5 m out → always caught, recall ~0.8 across the realizable
+range.) Knob in `Collab_Perception/env_byzantine_adaptive.py` (default None = unchanged). Files (new):
+adaptive hooks in `Noise_added/env_noisy_byzantine.py` + `Noise_added/eval_adaptive_attack.py` (sweeps
+`offset|gap|jitter|duty`). See PAPER_MASTER_PLAN §5.11 / §8.1.
+
+### The TWO honest limits (do not conflate — both disclosed in §7)
+- **Navigation perception limit (§5.10, STANDS):** base success 92→70% as σ→0.6; sensor info the LiDAR
+  never provided cannot be recovered. The defense never makes it worse.
+- **Security/detection limit (§5.8, RECOVERED in §5.11):** the single-frame camouflage recall collapse —
+  recovered temporally. These are independent.
+
+### Mandatory disclosures (a reviewer kills the paper without them)
+- **Dijkstra goal-direction crutch:** actor `obs[2:4]` is the gradient of a GLOBAL Dijkstra shortest-path
+  map (`swarm_env_step_B10_8_0m.py:435`, `:98`) — a privileged routed heading. It dampens attack severity
+  (reported drops are a LOWER bound) and is the **sole remaining RA-L blocker** (P3, weeks of retrain).
+  Frame as "an external mission planner provides routed waypoints; the policy does local control +
+  collision avoidance." Memory: `dijkstra-goal-direction-crutch`.
+- **8 m comm model** (perfect, zero-latency within range). · **Idealized sensing** (the noise study addresses
+  ranging noise but not occlusion). · **Hand-coded trust, not learned** (we proved the learned single-frame
+  gate is untrainable as drawn). · **Neighbor-level filtering** (excludes a whole neighbor on one
+  contradiction → information loss; obstacle-level is future work P6). · **Sim-only, 10 drones, 2-D,
+  circular obstacles.**
+
+### Models in `models/` for this line
+`apex_ultra_glide_v14_comm8_lidar_final.zip` (M0 base) · `raster_slot_fusion_{ON,OFF}_stage2_final.zip`
+(clean-trained collab-perception) · **`noise_robust_ON_stage{0,1}_final.zip`** (Option C noise-robust base;
+**stage1 was the base for the §5.7–5.11 DEV tables** @ density 0.25) · **`noise_robust_ON_stage2_final.zip`**
+(0.27 lock-in, 1.5M steps σ~U[0,0.6]; trained 2026-06-20 — **the base for ALL camera-ready f∈{1,2,3} runs at
+density 0.27**).
+
+### Reproduce the whole temporal-trust chain (run python by full path; see PhaseB2 Commands block)
+```
+$py = "C:\Users\Srinivasa\miniconda3\envs\swarm_rl\python.exe" ; cd "D:\Swarm\BTP"
+$M  = "models/noise_robust_ON_stage1_final.zip"
+& $py Phase_CD\Noise_added\probe_temporal_offset.py $M 150 2 10 camouflage 0.6                  # STEP1 oracle (AUC 0.99)
+& $py Phase_CD\Noise_added\probe_temporal_offset.py $M 150 2 10 camouflage 0.6 --assoc realistic # STEP2 (AUC 0.88)
+& $py Phase_CD\Noise_added\selftest_temporal.py $M 5 0.6 20                                      # STEP3 sanity (R 0.97)
+& $py Phase_CD\Noise_added\eval_temporal.py $M 150 2 10 wall                                     # STEP4 (WIN)
+& $py Phase_CD\Noise_added\eval_temporal.py $M 150 2 10 camouflage                               # STEP4 (WIN)
+```
+Cold-start handoff for this experiment: `Phase_CD/Noise_added/TEMPORAL_TRUST_RUNBOOK.md`.
+Memory files: `temporal-trust-result`, `option-c-perception-limit`, `dijkstra-goal-direction-crutch`.
+
+**⚠ Camera-ready setup LOCKED 2026-06-20 (`PAPER_MASTER_PLAN §8.1`):** the §5.11/CLAUDE tables above are
+**DEV numbers** (150 maps, density 0.25, base=stage1, FIXED attack, k=2). The publication runs change five
+axes: **500 maps · density 0.27 · base=`noise_robust_ON_stage2_final` · RANDOMIZED attack** (per-map
+n_phantom~U{3,4,5,6}, per-phantom radius from the real 42/40/18 obstacle mixture — verified
+`verify_randomized_attack.py`) · swept over **f = 1, 2, 3** (literature ceiling). One-command driver (train
+stage2 + the whole f-sweep eval matrix, Tee-logged to `Noise_added/results_027/`):
+```
+powershell -ExecutionPolicy Bypass -File Phase_CD\Noise_added\run_full_027_pipeline.ps1            # train+eval
+powershell -ExecutionPolicy Bypass -File Phase_CD\Noise_added\run_full_027_pipeline.ps1 -SkipTrain # eval only
+```
+Paired-bootstrap 95% CIs are **implemented** (`boot_ci.py`); `eval_temporal.py`/`eval_adaptive_attack.py`
+print a "95% CONFIDENCE INTERVALS" block (success cells, paired recovery/no-harm diffs, detection P/R; seed
+12345). The adaptive `offset/gap/jitter/duty` sweeps stay **fixed-radius** (`randomize_attack=False`, so the
+swept axis isn't confounded) and are run separately: `eval_adaptive_attack.py … 500 2 10 {offset,gap,jitter,
+duty}`. **Replace the §5.11 dev cells once `results_027/` lands.** Status 2026-06-20: stage2 trained; f-sweep
+eval running.
+
+> NOTE: The older Phase-C/D RAMMING line (M0, deception inert, ramming ~−9 pp/rammer, the 3 defense oracles
+> capped ~75–80%, and the 3 `backup/OPTION_*.md` paper options) is a **separate, shelved direction** — NOT
+> the current paper. Sections further below that say "Pathfinding (analysis only)" or cite leaky-model
+> numbers predate the cleanup; defer to this block, `PAPER_MASTER_PLAN.md`, and `MODEL_LEAK_LEDGER.md`.
 
 ---
 

@@ -22,10 +22,18 @@ from env_byzantine_trust import ByzantineTrustEnv
 
 
 class AdaptiveByzantineEnv(ByzantineTrustEnv):
-    def __init__(self, *args, attack_mode="wall", camouflage_gap=0.3, **kwargs):
+    def __init__(self, *args, attack_mode="wall", camouflage_gap=0.3,
+                 phantom_center_offset=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.attack_mode = attack_mode          # "wall" | "camouflage"
         self.camouflage_gap = camouflage_gap    # phantom surface-to-obstacle gap (m); small = stealthy
+        # STEALTH/HARM-BIND sweep knob (default None = original surface-gap geometry). When set, the
+        # camouflage phantom centre is placed EXACTLY this many metres from the hugged real obstacle's
+        # CENTRE (along the corridor-ward direction), overriding camouflage_gap. offset=0 -> phantom on
+        # top of the real obstacle (blocks no new space -> HARMLESS, and zero offset -> evades temporal);
+        # large offset -> protrudes into the open corridor (HARMFUL, but big offset -> caught). Sweeping
+        # it traces the bind: the attacker cannot get harm without detectability.
+        self.phantom_center_offset = phantom_center_offset
 
     def _generate_phantoms(self):
         if not (self.false_obstacle_attack and self.traitor_indices):
@@ -54,15 +62,20 @@ class AdaptiveByzantineEnv(ByzantineTrustEnv):
         # nearest to the corridor midline first (most in-the-way)
         chosen = cand[np.argsort(perp_dist[cand])][: self.n_phantom]
 
+        pradii = self._radii_for(len(chosen))                      # per-phantom radius (real mixture or fixed)
         phantoms = []
-        for ci in chosen:
+        for ii, ci in enumerate(chosen):
             rc, rr = real[ci, :2], float(real[ci, 2])
+            pr = float(pradii[ii])
             d = -perp_vec[ci]                                       # push from obstacle toward midline
             nd = float(np.linalg.norm(d))
             d = (d / nd) if nd > 1e-6 else np.array([-approach[1], approach[0]], np.float32)
-            center = rc + d * (rr + self.phantom_radius + self.camouflage_gap)
+            if self.phantom_center_offset is not None:                # bind-sweep: exact centre offset
+                center = rc + d * self.phantom_center_offset
+            else:                                                     # default: surface-gap geometry
+                center = rc + d * (rr + pr + self.camouflage_gap)
             center = np.clip(center, 0.3, self.WIDTH - 0.3)
-            phantoms.append([center[0], center[1], self.phantom_radius])
+            phantoms.append([center[0], center[1], pr])
 
         self._phantoms = (np.array(phantoms, dtype=np.float32)
                           if phantoms else np.empty((0, 3), dtype=np.float32))

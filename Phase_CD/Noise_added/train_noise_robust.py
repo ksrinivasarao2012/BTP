@@ -10,11 +10,13 @@ evals on the noise-robust model and update PAPER_MASTER_PLAN.md (P1).
 Curriculum (fine-tune, low LR):
   Stage 0 (1.5M): sigma ~ U[0.0, 0.3], density 0.20   (gentle adaptation)
   Stage 1 (2.0M): sigma ~ U[0.0, 0.6], density 0.25   (full noise range, lock-in robustness)
+  Stage 2 (1.5M): sigma ~ U[0.0, 0.6], density 0.27   (lock-in at the EVAL density 0.27)
 
 Usage (run python by full path; conda env swarm_rl):
   python train_noise_robust.py 0     # stage 0 (loads raster_slot_fusion_ON_stage2_final.zip)
   python train_noise_robust.py 1     # stage 1 (loads noise_robust_ON_stage0_final.zip)
-Saves: models/noise_robust_ON_stage{0,1}_final.zip
+  python train_noise_robust.py 2     # stage 2 (loads noise_robust_ON_stage1_final.zip; 0.27 lock-in)
+Saves: models/noise_robust_ON_stage{0,1,2}_final.zip
 """
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"] = "True"
@@ -47,6 +49,7 @@ GLOBAL = 520
 CURRICULUM = [
     (1_500_000, 0.0, 0.3, 0.20, "S0-LightNoise"),
     (2_000_000, 0.0, 0.6, 0.25, "S1-FullNoise"),
+    (1_500_000, 0.0, 0.6, 0.27, "S2-Density027LockIn"),   # train & evaluate both at 0.27 (eval density)
 ]
 
 

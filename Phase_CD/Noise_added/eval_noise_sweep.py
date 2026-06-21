@@ -1,5 +1,5 @@
 """
-NOISE SWEEP (parallel) — does the hardcoded consistency filter survive blurry sensing?
+NOISE SWEEP (parallel) - does the hardcoded consistency filter survive blurry sensing?
 
 For each sensor-noise level, runs 4 conditions at fixed k traitors (wall attack):
   baseline  : k=0, defense off            (nav-only degradation from noise)
@@ -89,7 +89,7 @@ def _init(model_path, conds):
 def _build_env(cfg):
     from env_noisy_byzantine import NoisyByzantineEnv
     return NoisyByzantineEnv(
-        render_mode=None, target_density=0.20, communication_range=10.0,
+        render_mode=None, target_density=0.27, communication_range=10.0,
         congestion_mode="lidar", lidar_range=8.0,
         lidar_dropout=0.10, dropout_sustain=5, use_shared_map=True,
         false_obstacle_attack=(cfg["n_traitors"] > 0),
@@ -216,7 +216,7 @@ def main():
     succ = {ci: 100.0 * float(np.mean(rates[ci])) for ci in range(len(conds))}
 
     print(f"\n{'='*86}")
-    print(f"RESULTS — filter robustness vs sensor noise (k={k}, wall attack)")
+    print(f"RESULTS - filter robustness vs sensor noise (k={k}, wall attack)")
     print(f"{'='*86}")
     print(f"  {'noise':>6}  {'base':>7}  {'noharm':>7}  {'FP-harm':>8}  {'attack':>7}  {'defense':>7}  {'recovery':>9}  {'P/R':>10}")
     for nz in NOISE_LEVELS:
@@ -245,7 +245,7 @@ def main():
               f"This JUSTIFIES building learned trust.")
     else:
         print(f"  -> Filter survives this noise range. Hardcoded defense is genuinely robust; "
-              f"learned trust is not yet justified — report this honestly.")
+              f"learned trust is not yet justified - report this honestly.")
 
 
 if __name__ == "__main__":
