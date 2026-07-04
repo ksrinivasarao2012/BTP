@@ -149,20 +149,28 @@ Phase 4d : Principled NOISE-AWARE robust filter.
 | 0.20 | 95.6% |
 | 0.30 | 91.1% |
 
-### 5.2 Phase 3 — collaborative perception under dropout (THE ANCHOR RESULT)
-Fair comparison (each model in its own trained condition):
-| Condition | drone-level |
-|---|---|
-| ON_stage2 (shared map ON) | **93.84%** |
-| OFF_stage2 (own LiDAR only) | **53.08%** |
-| **Gap** | **+40.76 pp** |
+### 5.2 Phase 3 — collaborative perception under dropout (THE ANCHOR: comm is load-bearing)
 
-Zero-shot M0 (sanity, pre-training): ON 91.6% / OFF 50.6% drone-level.
-Reproduce:
-```
-& $py Phase_CD\Collab_Perception\eval_slot_fusion_zero_shot.py models\raster_slot_fusion_ON_stage2_final.zip 500
-& $py Phase_CD\Collab_Perception\eval_slot_fusion_zero_shot.py models\raster_slot_fusion_OFF_stage2_final.zip 500
-```
+**CAMERA-READY @ density 0.27, 500 maps, zero-shot (both ON/OFF models):**
+| Condition | Drone-level | Map-level (all 10 reach) |
+|---|---|---|
+| ON (shared map + temporal trust) | **89.34%** | **67.80%** |
+| OFF (own LiDAR only) | **45.86%** | **10.40%** |
+| **Gap** | **+43.48 pp** | **+57.40 pp, CI [+52.80, +61.80]** |
+
+**Dropout curve (same ON/OFF models across three dropout levels, 500 maps):**
+| Dropout level | Blindness (est.) | ON | OFF | Gap | Significance |
+|---|---|---|---|---|---|
+| 0% | ~0% | 88.70% | 90.04% | −1.34 pp | not significant |
+| 10% | ~33% | 87.70% | 46.30% | **+41.40 pp** | **✓ huge, CI [+38.9, +43.8]** |
+| 20% | ~50% | 86.20% | 35.36% | **+50.84 pp** | **✓ huge, CI [+48.3, +53.3]** |
+
+**Story:** at 0% dropout (perfect sensing), comm is *optional* (both models succeed equally). At 10% (~33% blind,
+the operating point), OFF collapses to 46.3% while ON holds 87.7% → **+41 pp gap, maximum-contrast regime**
+where collaboration becomes *load-bearing*. At 20% (50% blind), advantage amplifies (+51 pp). *This is why
+dropout exists in the threat model: to make inter-agent sharing necessary, not peripheral.*
+
+**Full tables with 95% CIs:** `RESULTS_027_CAMERA_READY.md` §5.2.
 
 ### 5.3 Phase 4a — attack potency (clean sensing, wall, drone-level honest)
 | k | honest % | drop vs k=0 | 95% CI |
@@ -213,18 +221,23 @@ Reproduce:
 & $py Phase_CD\Collab_Perception\eval_parallel.py models\raster_slot_fusion_ON_stage2_final.zip 300 gapsweep  2 10
 ```
 
-### 5.6 Phase 4d-i — NAIVE filter CRACKS under noise (wall, 200 maps)
-| noise | base | no-harm | FP-harm | attack | defense | recovery | P/R |
-|---|---|---|---|---|---|---|---|
-| 0.0 | 92.80 | 92.80 | +0.00 | 80.56 | 92.87 | +12.31 | 1.00/0.99 |
-| 0.2 | 87.25 | 80.20 | −7.05 | 76.06 | 75.44 | −0.63 | 0.32/0.99 |
-| 0.4 | 77.95 | 47.30 | −30.65 | 67.87 | 47.06 | −20.81 | 0.23/0.97 |
-| 0.6 | 66.80 | 41.70 | −25.10 | 55.19 | 41.56 | −13.62 | 0.23/0.96 |
-→ Naive filter is **worse than no defense** under noise (false positives fragment the swarm).
-Reproduce:
-```
-& $py Phase_CD\Noise_added\eval_noise_sweep.py models\raster_slot_fusion_ON_stage2_final.zip 200 2 10
-```
+### 5.6 Phase 4d-i — NAIVE filter CRACKS under noise (wall, k=2, 500 maps, 0.27 density, camera-ready)
+
+**Why naive consistency checking (fixed tolerance) fails under sensor noise:**
+| σ (m) | base | attack | naive-defense (precision/recall) | FP-harm | recovery |
+|---|---|---|---|---|---|
+| 0.0 | 85.94 | 72.25 | 85.90 (1.00/0.98) | +0.00 | +13.65 pp |
+| 0.2 | 79.00 | 63.08 | 62.80 (0.28/0.98) | **−13.94 pp** | **−0.27 pp** |
+| 0.4 | 65.58 | 51.55 | 38.30 (0.23/0.96) | **−27.48 pp** | **−13.25 pp** |
+| 0.6 | 54.88 | 41.15 | 33.05 (0.23/0.94) | **−21.60 pp** | **−8.10 pp** |
+
+**The mechanism:** under noise σ, two honest drones perceive the same obstacle at slightly different positions
+(disagreement ~√2σ ≈ 0.85 m at σ=0.6). A fixed-tolerance filter (e.g., eps=0.6 m) expecting agreement →
+rejects *both* honest reports as potentially lying → gating out honest neighbors → swarm fragments
+(FP-harm −21.60 pp at σ=0.6). **Naive filter becomes *worse than no defense*.** This motivates the
+noise-aware robust filter (§5.7).
+
+Full tables & interpretation: `RESULTS_027_CAMERA_READY.md` §5.6.
 
 ### 5.7 Phase 4d-ii — ROBUST filter, naive vs robust (wall, 150 maps)
 **Primary table = noise-robust base (Option C, `noise_robust_ON_stage1_final.zip`):**
@@ -362,6 +375,19 @@ point. Reproduce:
 & $py Phase_CD\Noise_added\eval_temporal.py models\noise_robust_ON_stage1_final.zip 150 2 10 wall
 & $py Phase_CD\Noise_added\eval_temporal.py models\noise_robust_ON_stage1_final.zip 150 2 10 camouflage
 ```
+
+### 5.11b Filter-aware adaptive attacker + offset×noise BIND (camera-ready, 500 maps)  ✅ DONE
+The strongest reviewer rebuttal: an attacker who *knows* the temporal filter exists still cannot win.
+Four adaptive knobs swept at σ=0.6 over f=1,2,3 (`run_adaptive`), plus the **offset × noise matrix**
+(σ∈{0,0.2,0.4} × f∈{1,2,3}, 9 runs, `run_offset_noise`):
+- **offset (the stealth/harm bind):** as the phantom centre-offset grows, harm AND detection-recall climb
+  *together* — offset=0 is harmless+invisible (recall ~0), offset=2.5 is harmful (+8.5..+18.8 pp) + caught
+  (recall 0.66–0.98). **No free lunch, and the bind holds at EVERY noise level** (σ=0,0.2,0.4): the attacker
+  can never be both stealthy and harmful. Precision rises with offset (genuine phantoms dominate flags).
+- **gap / jitter / duty:** all hold across f=1,2,3 — jitter (zero-mean) doesn't beat the mean test, and
+  jitter/duty *reduce the attacker's own harm* faster than they dent recall.
+Full matrix + CIs: `RESULTS_027_CAMERA_READY.md` (offset×NOISE matrix). Raw logs:
+`results_027/adaptive_{offset,gap,jitter,duty}_f{1,2,3}_500.txt` + `adaptive_offset_noise_sigma{0,0.2,0.4}_f{1,2,3}_500.txt`.
 
 ---
 

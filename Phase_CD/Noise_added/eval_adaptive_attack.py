@@ -44,7 +44,7 @@ os.chdir(_ROOT)
 LOCAL = 130
 GLOBAL = 520
 DEFAULT_MODEL = "models/noise_robust_ON_stage1_final.zip"
-SIGMA = 0.6
+SIGMA = float(sys.argv[6]) if len(sys.argv) > 6 else 0.6  # optional 6th CLI arg = noise sigma (default 0.6)
 ROBUST_K_SIGMA = 4.0
 ROBUST_ALPHA = 0.25
 ROBUST_TAU = 0.4

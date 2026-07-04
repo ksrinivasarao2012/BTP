@@ -1,0 +1,19 @@
+# [reconstructed 2026-06-21 from verbatim console output after a file-handling error emptied the original; numbers unchanged]
+[*] Slot-fusion ON/OFF eval | M0: raster_slot_fusion_ON_stage2_final.zip | density=0.27 | regime: 8m LiDAR, dropout=0.10/sustain=5 (~33% blind)
+[*] Evaluating slot_fusion=ON: 500 maps...
+[*] Evaluating slot_fusion=OFF: 500 maps...
+
+[RESULTS]
+  -- 1. Drone-level success (per individual drone) --------------
+     ON  (slot fusion + shared):   87.70%
+     OFF (own LiDAR only):         42.90%
+     Difference (ON - OFF):       +44.80 pp
+  -- 2. Map-level success (all 10 drones reached goal) ----------
+     ON  per-map:                  65.00%
+     OFF per-map:                   7.00%
+     Difference (ON - OFF):       +58.00 pp
+     95% CI on difference:        [+53.60, +62.40] pp
+
+[INTERPRETATION]  (based on map-level CI)
+  [OK] LARGE EFFECT & statistically significant (CI > 0).
+    Slot-fusion validates. Comm is load-bearing under ~33% sensor dropout at density 0.27.

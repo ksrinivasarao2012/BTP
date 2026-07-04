@@ -1,0 +1,22 @@
+﻿[*] Slot-fusion ON/OFF eval | M0: raster_slot_fusion_OFF_stage2_final.zip | density=0.27 | 10w | regime: 8m LiDAR, dropout=0.10/sustain=5 (~33% blind)
+[*] Evaluating ON+OFF: 500 maps each, 10 workers ...
+  ... 200/1000
+  ... 400/1000
+  ... 600/1000
+  ... 800/1000
+  ... 1000/1000
+
+[RESULTS]
+  -- 1. Drone-level success (per individual drone) --------------
+     ON  (slot fusion + shared):   89.34%
+     OFF (own LiDAR only):         45.86%
+     Difference (ON - OFF):       +43.48 pp
+  -- 2. Map-level success (all 10 drones reached goal) ----------
+     ON  per-map:                  67.80%
+     OFF per-map:                  10.40%
+     Difference (ON - OFF):       +57.40 pp
+     95% CI on difference:        [+52.80, +61.80] pp
+
+[INTERPRETATION]  (based on map-level CI)
+  [OK] LARGE EFFECT & statistically significant (CI > 0).
+    Slot-fusion validates. Ready to train ON/OFF curricula.

@@ -1,0 +1,80 @@
+﻿
+====================================================================================================
+ADAPTIVE ATTACKER - sweep 'offset' (phantom_center_offset) | noise_robust_ON_stage2_final.zip | sigma=0.6 camouflage k=1 | 500 maps/cond | 10w
+  temporal: eps=0.6, min_k=20 | composed (robust OR temporal)
+====================================================================================================
+  ... 450/9000 (5%)
+  ... 900/9000 (10%)
+  ... 1350/9000 (15%)
+  ... 1800/9000 (20%)
+  ... 2250/9000 (25%)
+  ... 2700/9000 (30%)
+  ... 3150/9000 (35%)
+  ... 3600/9000 (40%)
+  ... 4050/9000 (45%)
+  ... 4500/9000 (50%)
+  ... 4950/9000 (55%)
+  ... 5400/9000 (60%)
+  ... 5850/9000 (65%)
+  ... 6300/9000 (70%)
+  ... 6750/9000 (75%)
+  ... 7200/9000 (80%)
+  ... 7650/9000 (85%)
+  ... 8100/9000 (90%)
+  ... 8550/9000 (95%)
+  ... 9000/9000 (100%)
+
+====================================================================================================
+RESULTS - adaptive 'offset' sweep (sigma=0.6, camouflage, k=1)
+====================================================================================================
+  phantom_center_offset |   base    off   harm | temporal       P/R | recovery
+             0.0 |  54.9%  55.7%  -0.8 |    55.1% 0.08/0.03 |    -0.6
+             0.5 |  54.9%  54.0%  +0.9 |    53.4% 0.18/0.07 |    -0.6
+             1.0 |  54.9%  50.2%  +4.7 |    52.2% 0.59/0.48 |    +2.0
+             1.5 |  54.9%  48.1%  +6.8 |    51.3% 0.68/0.69 |    +3.2
+             2.0 |  54.9%  46.6%  +8.3 |    50.5% 0.68/0.70 |    +3.9
+             2.5 |  54.8%  45.4%  +9.4 |    50.8% 0.69/0.70 |    +5.4
+====================================================================================================
+  harm = base-off (success the attack costs when undefended); recovery = temporal-off
+
+====================================================================================================
+95% CONFIDENCE INTERVALS - paired bootstrap over 500 maps (2000 resamples)
+====================================================================================================
+
+  phantom_center_offset=0.0
+    base      54.9% [ 51.5, 58.1]   off  55.7% [ 52.4, 59.1]
+    harm      -0.8 [ -2.3, +0.6] pp   temporal  55.1% [ 51.7, 58.3]
+    recovery  -0.6 [ -2.0, +0.8] pp   detection P 0.08 [0.07,0.10]  R 0.03 [0.03,0.04]
+
+  phantom_center_offset=0.5
+    base      54.9% [ 51.5, 58.1]   off  54.0% [ 50.7, 57.2]
+    harm      +0.9 [ -0.6, +2.4] pp   temporal  53.4% [ 50.0, 56.6]
+    recovery  -0.6 [ -1.9, +0.7] pp   detection P 0.18 [0.16,0.19]  R 0.07 [0.06,0.08]
+
+  phantom_center_offset=1.0
+    base      54.9% [ 51.5, 58.1]   off  50.2% [ 46.7, 53.4]
+    harm      +4.7 [ +3.1, +6.2] pp   temporal  52.2% [ 48.8, 55.4]
+    recovery  +2.0 [ +0.4, +3.6] pp   detection P 0.59 [0.57,0.62]  R 0.48 [0.45,0.51]
+
+  phantom_center_offset=1.5
+    base      54.9% [ 51.5, 58.1]   off  48.1% [ 44.8, 51.1]
+    harm      +6.8 [ +5.0, +8.6] pp   temporal  51.3% [ 48.0, 54.5]
+    recovery  +3.2 [ +1.6, +5.0] pp   detection P 0.68 [0.66,0.70]  R 0.69 [0.66,0.72]
+
+  phantom_center_offset=2.0
+    base      54.9% [ 51.6, 58.2]   off  46.6% [ 43.4, 49.6]
+    harm      +8.3 [ +6.5,+10.3] pp   temporal  50.5% [ 47.2, 53.7]
+    recovery  +3.9 [ +2.2, +5.7] pp   detection P 0.68 [0.66,0.71]  R 0.70 [0.66,0.73]
+
+  phantom_center_offset=2.5
+    base      54.8% [ 51.4, 58.1]   off  45.4% [ 42.2, 48.4]
+    harm      +9.4 [ +7.4,+11.4] pp   temporal  50.8% [ 47.6, 54.0]
+    recovery  +5.4 [ +3.5, +7.4] pp   detection P 0.69 [0.67,0.71]  R 0.70 [0.66,0.73]
+====================================================================================================
+
+[INTERPRETATION - offset]
+  THE STEALTH/HARM BIND (the clean demonstration). phantom_center_offset = metres from the
+  hugged real obstacle's CENTRE. offset~0 => phantom ON the real obstacle: blocks ~no new
+  space (harm~0) AND zero offset => temporal can't/needn't catch it (harmless). As offset
+  grows => harm rises (protrudes into the corridor) AND recall rises (caught). BIND holds
+  if harm and recall climb TOGETHER and temporal>=off at every offset -> no free lunch.
