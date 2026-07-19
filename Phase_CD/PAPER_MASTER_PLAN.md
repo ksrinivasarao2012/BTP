@@ -358,6 +358,24 @@ widened band.
 +3.4 vs **+12.2**; f=3 +5.3 vs **+13.6**. Attack saturates (f2→f3 adds ~3 pp damage); detection precision
 *rises* with f (0.68→0.82→0.89 at σ=0.6) — defense is most precise when threat is worst.
 
+**Majority-boundary extension f=4,5,6,7 (§5.11b, 500 maps, DONE 2026-07-19) — the "no honest majority" PROOF.**
+Each honest ego has ≤9−f honest neighbours (excluded from own set), so f≥5 ⇒ neighbourhood majority-traitor
+in expectation; f=6→4 honest, f=7→3 honest (honest minority). σ=0.6 camo temporal recovery [95% CI]:
+f=4 **+14.7 [12.0,17.6]** (R0.66,P0.93); f=5 (5:5 tie) **+15.2 [11.9,18.4]** (R0.67,P0.96); f=6 (minority)
+**+15.1 [11.6,18.6]** (R0.67,P0.97); f=7 (minority) **+10.9 [7.4,14.5]** (R0.66,P0.98). **All CIs exclude 0**
+→ majority claim proven. Robust single-frame at f=7 is **+1.9 [−1.3,5.2] (spans 0, NOT significant)** → temporal
+is load-bearing. Precision **monotone 0.68→0.98** across f=1–7; no-harm flat ≈−0.4 (CI spans 0) at every f
+(kills the 20-map f=6 −5.5pp scare = small-sample noise). **Honest caveat:** absolute success still falls with f
+(temporal 48.8→41.9); filter recovers a stable *fraction*, not traitor-count-invariance. f=8,9 untested → claim
+stated "up to seven of ten." Files `eval_f{4,5,6,7}_camouflage_500.txt`; manuscript `tab:headline` now f=1–7.
+
+**Baseline reconciliation (silly-thing #2 CLOSED, 500 maps, DONE 2026-07-19).** Single-policy dropout ablations
+(one model, `use_shared_map` toggled) unify the disagreeing baseline numbers: anchor model
+(`raster_slot_fusion_OFF_stage2`) 10%-dropout **ON 89.26 / OFF 46.14** reproduces `tab:anchor` (89.3/45.9) by
+construction; attacked model (`noise_robust_ON_stage2`, attack off, noise 0) 10%-dropout **ON 85.84 / OFF 41.80
+(+44 pp)** → the model we attack has its OWN sharing-load-bearing number ≈ the 86% base. One clean lineage; the
+89→86 gap = noise-DR tax. Files `dropout_ablation_500.txt`, `dropout_ablation_noisy_500.txt`.
+
 → **WIN (camera-ready, f=2).** At σ=0.6 camouflage, temporal lifts recall **0.13 → 0.69** and recovery
 **+3.4 → +12.2 pp**, with **no-harm essentially flat** (k=0 defense ON = 53.0 vs base 53.4, **−0.4 pp**, CI
 spans 0) at every noise level, and **wall does not regress** (temporal ≥ robust throughout; f=2 wall σ=0.6
@@ -458,6 +476,7 @@ Full matrix + CIs: `RESULTS_027_CAMERA_READY.md` (offset×NOISE matrix). Raw log
 **Recommended order:** P1 (Option C) ✅ → P4 (temporal hardcoded) ✅ → P2 (learned vs limit) ✅ **all done →
 write.** P3/P5/P6 are disclose-or-future-work unless aiming above mid-tier. The only remaining RA-L
 blocker is **P3 (Dijkstra crutch, weeks of retrain)**; for MDPI *Drones* the arc is now complete + strong.
+(Venue note: MDPI *Drones* superseded 2026-06-26 by the NO-APC constraint → current target Elsevier *RAS*, §10.)
 
 ### 8.1 Final-run checklist — **500 maps + density 0.27 + stage-2 base + RANDOMIZED attack + f∈{1,2,3}**
 **Setup locked 2026-06-20.** The camera-ready runs differ from the §5.11 dev tables on five axes:
@@ -468,7 +487,10 @@ blocker is **P3 (Dijkstra crutch, weeks of retrain)**; for MDPI *Drones* the arc
 4. **Attack:** FIXED (n_phantom=4, r=1.0) → **RANDOMIZED** — per-map n_phantom~U{3,4,5,6}, per-phantom
    radius from the real 42/40/18 mixture (`randomize_attack=True`, verified by `verify_randomized_attack.py`:
    n̄=4.54, radius bands 44/38/18 == real). Phantoms are now size-indistinguishable from real obstacles.
-5. **Traitor sweep:** k=2 only → **f = 1, 2, 3** (literature ceiling f=3 per `Literature_Review_Template`).
+5. **Traitor sweep:** k=2 only → **f = 1, 2, 3** (30% literature ceiling per `Literature_Review_Template`),
+   **EXTENDED 2026-07-19 to f = 4, 5, 6, 7** to back the "operates without an honest local majority" claim
+   empirically (§5.11b) — f=5 is a 5:5 tie, f≥6 an honest minority; temporal recovery stays CI-significant
+   throughout. The f=1–3 rows remain the literature-normal headline; f=4–7 is the majority-boundary stress test.
 
 **Bootstrap-CI computation is IMPLEMENTED** (`Phase_CD/Noise_added/boot_ci.py`): `eval_temporal.py` and
 `eval_adaptive_attack.py` print a "95% CONFIDENCE INTERVALS" block (paired bootstrap over maps, 2000
@@ -585,7 +607,8 @@ bias survives) is **elementary** — the contribution is its **application** as 
 discriminator for camouflage attacks under noise, the **demonstrated stealth/harm bind** showing an adaptive
 attacker cannot evade-and-harm, and the **"naive consistency filter is worse than no defense under noise"**
 result. This is a solid MDPI *Drones* contribution; it is deliberately **not** pitched as a top-venue
-algorithmic novelty (consistent with §10).
+algorithmic novelty (consistent with §10). (Venue note: MDPI *Drones* superseded 2026-06-26 → now Elsevier
+*RAS*, §10; the contribution-strength point is venue-agnostic.)
 
 ---
 
@@ -594,12 +617,85 @@ algorithmic novelty (consistent with §10).
 > No venue is a guarantee. Below is the honest probability ordering for *sound, complete, honestly-framed*
 > work like this.
 
-**Primary targets (high realistic acceptance, FULL journal papers):**
-| Venue | Indexing / IF | Why it fits |
+> **⚠ CONSTRAINT UPDATE 2026-06-26: NO APC (Prof's decision — no publication fees).** This rules out ALL
+> MDPI journals (mandatory APC; *Drones* = CHF 2600) and IEEE Access (~$2k). New primary = hybrid Elsevier
+> journals under the **subscription track (free to publish**; paper is paywalled, not OA — acceptable).
+
+**Primary targets under NO-APC constraint (verified 2026-06-26 via web):**
+| Venue | Indexing / IF | Cost | Why it fits |
+|---|---|---|---|
+| **Robotics and Autonomous Systems** (Elsevier) — **PRIMARY** | SCIE, **IF 5.2, Q1** | **free** (subscription track) | MARL-native audience; multi-robot autonomy + learning; sim-only routine; equal IF to Drones at zero cost. Slower review (~3–5 mo). |
+| **Aerospace Science and Technology** (Elsevier) — ambitious backup | SCIE, **IF 6.4, Q1** | **free** (subscription track) | Publishes UAV-swarm coordination & fault-tolerant cooperative navigation; risk: aerospace reviewers may demand 3-D vehicle dynamics. |
+| *Swarm Intelligence* (Springer) — niche fallback | SCIE, IF ~2–3 (unverified) | free (subscription track) | Perfect topical niche (swarm + trust); lower IF, slow. |
+
+**RAS timeline + framing (verified 2026-06-26):** desk check days–2 wks · first decision ~3–5 mo ·
+realistic submission→published **~6–9 mo** · ₹0 under subscription track. RAS scope names *multi-robot
+systems, sensor data integration, learning for autonomous systems, decision-making* — all hit. RAS does
+NOT name "security" → **frame resilience-first** ("resilient collaborative perception for multi-robot
+navigation"; Byzantine agents = hardest fault model), which is also the civilian framing we want.
+**Scoop protection: post the arXiv preprint the same day we submit** (Elsevier permits; timestamps priority
+through the long review).
+
+**Fresh novelty sweep 2026-06-26 (nothing pre-empts; three NEW must-cites):**
+1. **PRBI "All Vehicles Can Lie" (CVPR 2026, arXiv 2603.08498)** — closest: temporal frame-consistency vs
+   lying vehicles in V2X CP. Differentiate: detection-AP/feature-level/vehicles vs our closed-loop MARL
+   *navigation*, no noise-vs-lie separation (our zero-mean/persistent-bias mechanism), no camouflage-in-noise
+   attack, no adaptive attacker/bind.
+2. **TrustFlip/TrustReflect (arXiv 2605.22122)** — attacks consistency-based trust to make it *exclude honest
+   agents* (87.7%). Cite as the vulnerability class our measured **no-harm ≈ 0** directly addresses (timely!).
+3. **Local-conformity evolutionary game, UAV Byzantine (arXiv 2606.21206)** — Byzantine on consensus/strategy,
+   game-theoretic; complementary, related-work cite, zero overlap.
+Unique to us (verified again): false-obstacle Byzantine inside closed-loop MARL navigation · camouflage
+hiding inside the sensor-noise band · temporal offset-bias filter (zero-mean vs persistent) · adaptive
+attacker stealth/harm bind · measured no-harm.
+
+### 10.1 RAS submission requirements — VERIFIED from the official Guide for Authors PDF (2026-07-08,
+`Phase_CD/Papers/RAS_guide_for_authors.pdf`, 24 pp; page refs in brackets)
+- **NO "Your Paper Your Way"** — assumption was WRONG. Editable source required: “.tex for LaTeX… **A PDF is
+  not an acceptable source file**” [p10]. Double-column only permitted for LaTeX. Use Elsevier's LaTeX
+  template (elsarticle) from day one [p10]. The system builds the review PDF from our sources [p22].
+- **Highlights: REQUIRED** — 3–5 bullets, ≤85 chars incl. spaces, separate editable file with "highlights"
+  in the filename [p11–12].
+- **Abstract ≤250 words**, standalone, avoid references [p11]. **Keywords: 1–7**, avoid multi-word/"and"/"of" [p11].
+- **Title page**: title (no abbreviations), authors + affiliations (full postal addr + emails), corresponding
+  author designated [p11].
+- **Declarations (all mandatory):** competing interests via Elsevier declarations tool, uploaded as .doc/.docx
+  [pasted §]; **CRediT** author statement [p17]; funding sources.
+- **⚠ Generative-AI declaration REQUIRED [p7]:** AI use in manuscript preparation MUST be declared in a
+  section before the references, exact template: *“During the preparation of this work the author(s) used
+  [TOOL] in order to [REASON]. After using this tool/service, the author(s) reviewed and edited the content
+  as needed and take(s) full responsibility for the content of the published article.”* → We will declare
+  Claude (Anthropic) assistance in drafting/editing. Authors bear full responsibility; AI cannot be an author.
+- **Vitae REQUIRED**: ≤100-word bio + passport-type photo per author, editable format [pasted §].
+- **Research data: Option C applies [p15] — REQUIRED** to deposit research data (incl. code/models) in a
+  repository AND cite/link it in the article, or state why not. → Plan: public GitHub repo + Zenodo DOI
+  (code, eval scripts, results_027 logs, model checkpoints); cite with [dataset]/[software] format [p20].
+- **Preprints allowed** — “will not count as prior publication” [p7]; free SSRN option at submission; arXiv
+  fine under Elsevier sharing policy. (Scoop protection confirmed in their own words.)
+- **Structure**: numbered sections 1.1/1.1.1; abstract outside numbering; acknowledgements in a separate
+  section directly before references [p17]; appendices A/B with Eq. (A.1) numbering [pasted §].
+- **NO page/word limit** stated anywhere for regular papers; **NO graphical abstract** requirement (section
+  absent from the guide).
+- **No mandatory cover letter / suggested reviewers** in the guide [p22] (Editorial Manager may still offer
+  fields at submission; prepare a short cover letter anyway — good practice).
+- Checklist [p22]: corresponding author w/ full contact; ALL files uploaded incl. captions; spelling checked;
+  every reference cited both ways; copyright permission for reused material.
+
+**Superseded (APC-blocked) ranking kept for reference:**
+| Venue | Indexing / IF | Why it fit |
 |---|---|---|
-| **MDPI *Drones*** | SCIE, IF ≈ 4.4 | Exact scope: drone swarms, collaborative perception, resilience |
-| **MDPI *Sensors*** | SCIE, IF ≈ 3.4 | Collaborative sensing, sensor-dropout, fault/attack detection |
-| **IEEE Access** | SCIE, IF ≈ 3.4 | Broad; rewards *sound + complete*, tolerates disclosed limitations |
+| MDPI *Drones* | SCIE, IF 5.2 (2025), JCR Q2 (RS) / CiteScore Q1 (Aero) | Exact scope — blocked by CHF 2600 APC |
+| MDPI *Sensors* | SCIE, IF ≈ 3.4 | Blocked by APC |
+| IEEE Access | SCIE, IF ≈ 3.4 | Blocked by APC (~$2k) |
+
+**MDPI *Drones* — VERIFIED from journal site 2026-06-26 (primary source, pasted by Srinivasa):**
+- IF **5.2 (2025)**, 5-yr 5.3 · JCR **Q2** (Remote Sensing) · CiteScore **Q1** (Aerospace Eng.) · SCIE ✓
+- Median **first decision ~21.1 days**; acceptance→publication 2.9 days (H1-2026 medians). APC CHF 2600.
+- Scope fit is *explicit*: their "Development" topic list names **security systems, autonomy, navigation, AI,
+  machine learning, mission planning** (+ sensor fusion under "Design") — the paper hits all of them.
+- Special requirement: must directly address unmanned platforms (we do, trivially).
+- **Dual Use Policy**: keep the paper's framing strictly civilian (sensor faults + Byzantine faults in
+  cooperative perception) — accurate anyway, and avoids dual-use review friction.
 
 **Why the acceptance odds are genuinely high here (the "practical proof"):**
 1. **Completeness** — full arc (baseline → resilience → vulnerability → defense → realistic stress),
@@ -622,6 +718,11 @@ hand-coded temporal rule suffices.
 **Decision:** target **MDPI *Drones*** first (best scope fit + high odds). With Option C + temporal trust
 complete it is a *safe* accept there, now with a **stronger defense section** (§5.11 is the standout
 result). RA-L is viable only after the Dijkstra-free retrain (P3).
+
+> **⚠ SUPERSEDED 2026-06-26:** the MDPI *Drones* decision above was overturned by the NO-APC constraint
+> (see the §10 CONSTRAINT UPDATE). **Current primary target = Elsevier *Robotics and Autonomous Systems***
+> (free subscription track; backup = Elsevier *Aerospace Science and Technology*). The Drones decision is
+> retained here as the record of the prior choice and why it changed.
 
 ---
 
@@ -672,5 +773,6 @@ predict) — verified: parallel matrix matched serial within <0.2 pp.
 
 **Next action:** Option C (§5.10) AND temporal trust (§5.11) are DONE; the ledger is updated through §5.11
 and §6–§8/§10/§12 reflect the WIN. The results arc is complete, self-consistent, and now has a standout
-defense result. Begin **drafting the paper** (§9 structure) targeting MDPI *Drones* — §5.11 is the money
-section alongside §5.2 (comm-resilience). RA-L only after the Dijkstra-free retrain (P3).
+defense result. Begin **drafting the paper** (§9 structure) targeting Elsevier *RAS* (was MDPI *Drones* until
+the NO-APC constraint 2026-06-26, §10) — §5.11 is the money section alongside §5.2 (comm-resilience). RA-L only
+after the Dijkstra-free retrain (P3).

@@ -153,13 +153,81 @@ no-harm ≈0).
 
 ---
 
+## §5.11b Majority-boundary sweep (f=4,5,6,7) — the "no honest majority" PROOF  ✅ DONE (2026-07-19)
+
+Extends the headline sweep past the honest-majority boundary. Same setup (500 maps, density 0.27,
+base=`noise_robust_ON_stage2`, RANDOMIZED camouflage attack). Files: `eval_f{4,5,6,7}_camouflage_500.txt`.
+**Why it matters:** each honest ego is excluded from its own neighbour set, so with f traitors it has ≤9−f
+honest neighbours. At f=5 its neighbourhood is majority-traitor in expectation; f=6→4 honest, f=7→3 honest
+(honest minority). The pairwise filter never votes, so it should not care — and it doesn't.
+
+**Worst case (σ=0.6, camouflage) across f — recovery [95% CI], recall (R), precision (P), no-harm:**
+
+| f | honest:traitor | undef. | robust rec (R) | **temporal rec [CI]** (R) | P | no-harm [CI] |
+|---|---|---|---|---|---|---|
+| 1 | 9:1 | 44.4 | +1.9 (0.13) | +7.1 (0.69) | 0.68 | −0.4 |
+| 2 | 8:2 | 37.6 | +3.4 (0.13) | +12.2 (0.69) | 0.82 | −0.4 |
+| 3 | 7:3 | 35.3 | +5.3 (0.12) | +13.6 (0.68) | 0.89 | −0.3 |
+| 4 | 6:4 | 34.0 | +3.5 (0.12) | **+14.7 [12.0,17.6]** (0.66) | 0.93 | −0.3 [−1.7,1.1] |
+| **5** | **5:5 (tie)** | 32.6 | +4.0 (0.13) | **+15.2 [11.9,18.4]** (0.67) | 0.96 | −0.4 [−1.7,1.0] |
+| **6** | **4:6 (minority)** | 30.1 | +4.6 (0.13) | **+15.1 [11.6,18.6]** (0.67) | 0.97 | −0.4 [−1.7,1.0] |
+| **7** | **3:7 (minority)** | 31.1 | +1.9 [−1.3,5.2] (0.13) | **+10.9 [7.4,14.5]** (0.66) | 0.98 | −0.3 [−1.7,1.1] |
+
+**Findings:** (1) Temporal recovery CI **excludes zero at f=5,6,7** → majority claim PROVEN empirically. (2)
+Recovery **plateaus ~+15 pp** at f=4–6, dips to +10.9 at f=7 — stable, not collapsing. (3) **Precision monotone
+0.68→0.98** across f=1–7 (more liars = cleaner bias signal). (4) **Robust single-frame at f=7 is NOT significant**
+(+1.9 [−1.3,5.2] spans 0) → temporal is load-bearing, strongest contrast at the hardest cell. (5) no-harm flat
+≈−0.4, CI spans 0 at every f — **kills the earlier 20-map f=6 −5.5pp scare** (that was small-sample noise).
+**Honest caveat (written into results.tex):** absolute success still falls with f (temporal success 48.8→41.9);
+the filter recovers a stable *fraction* of the damage, it does NOT make navigation traitor-count-invariant.
+f=8,9 UNTESTED — claim is stated "up to seven of ten," not extrapolated. **Manuscript: `tab:headline` extended
+to f=1–7; §5.11 paragraph + related.tex majority claim rewritten 2026-07-19.**
+
+---
+
+## Baseline reconciliation (silly-thing #2 CLOSED) — single-policy dropout ablations  ✅ DONE (2026-07-19)
+
+Closes the "why do baseline numbers disagree across tables" objection. Both are **single-policy information
+ablations** (ONE model, `use_shared_map` toggled — same weights both arms). Files:
+`dropout_ablation_500.txt`, `dropout_ablation_noisy_500.txt`.
+
+**#2 — anchor model** (`raster_slot_fusion_OFF_stage2`, raster env), 500 maps, density 0.27:
+| dropout | blind | ON | OFF | gap [95% CI] |
+|---|---|---|---|---|
+| 0% | 0% | 90.14 | 90.04 | +0.10 [−0.28,+0.48] |
+| **10%** | **33%** | **89.26** | **46.14** | **+43.12 [+40.56,+45.60]** |
+| 20% | 50% | 87.86 | 35.44 | +52.42 [+49.82,+54.94] |
+→ 10% row **89.26/46.14 reproduces the anchor table (89.3/45.9) by construction** — the two baseline numbers now
+come from ONE policy.
+
+**#3 — attacked model** (`noise_robust_ON_stage2`, NoisyByzantineEnv, attack OFF, noise 0), 500 maps, density 0.27:
+| dropout | blind | ON | OFF | gap [95% CI] |
+|---|---|---|---|---|
+| 0% | 0% | 86.34 | 86.64 | −0.30 [−0.88,+0.28] |
+| **10%** | **33%** | **85.84** | **41.80** | **+44.04 [+41.68,+46.42]** |
+| 20% | 50% | 85.10 | 32.28 | +52.82 [+50.36,+55.26] |
+→ 10% ON **85.84 ≈ the ~86 base** used in all attack tables; the **model we attack** has its OWN sharing-is-
+load-bearing number (+44 pp). **One clean model lineage, not a patchwork.** The 89(anchor)→86(attacked) gap =
+the noise-DR training tax, not a contradiction.
+
+---
+
 ## §5.2 Collaborative-perception anchor @ 0.27, 500 maps (zero-shot)  ✅ BOTH DONE
 
-**ON model** (`raster_slot_fusion_ON_stage2`, shared map + temporal trust):
+**⚠ ATTRIBUTION CORRECTED 2026-07-10 (Srinivasa's catch #5).** Both arms below come from ONE run of
+`eval_slot_fusion_zero_shot.py` on the **OFF-trained** model (`anchor_OFF_500.txt`) — the script loads a
+SINGLE model and toggles `use_shared_map`. This is an **information ablation** (same weights, ± shared
+data), NOT an ON-model-vs-OFF-model comparison:
+
+**ON arm** (OFF-trained policy + shared data fused at test, zero-shot):
 - Drone-level success **89.34%** · Map-level (all 10 reach) **67.80%**
 
-**OFF model** (`raster_slot_fusion_OFF_stage2`, own-LiDAR only, no sharing):
+**OFF arm** (same OFF-trained policy, own-LiDAR only — its native mode):
 - Drone-level success **45.86%** · Map-level **10.40%**
+
+(The sharing-TRAINED model natively scores **87.70%** — `anchor_ON_500.txt` ON arm — confirming the gap is
+the information channel, not a training artifact. The true two-model comparison is the DROPOUT SWEEP below,
+whose script loads both models. `results.tex` anchor paragraph rewritten accordingly 2026-07-10.)
 
 **Gap (ON − OFF):**
 - Drone-level +43.48 pp · Map-level **+57.40 pp**, 95% CI [+52.80, +61.80] pp
@@ -364,3 +432,105 @@ property, and sets up the temporal filter to handle the remaining stealthy attac
 
 **Reviewer Q — "why not just tune the fixed tolerance?"** A single fixed tolerance *cannot* adapt to unknown σ.
 The noise-aware version is empirically optimal (§5.8); beyond it lies only the temporal detection layer (§5.11).
+
+---
+
+## R3 — Comm-loss robustness ✅ (k=2, camouflage, 500 maps, run 2026-07-09, 7h46m)
+Each neighbour's broadcast independently DROPPED with prob p per (receiver, sender, step) — no fusion, no
+verification that frame. Full sweep p×σ. Raw: `results_027/comm_loss_camouflage_500_k2.txt`.
+
+**σ=0.6 recovery (the stress cell) vs packet loss — paired-bootstrap 95% CIs:**
+| p | recovery | no-harm | temporal recall | precision |
+|---|---|---|---|---|
+| 0.0 | **+12.3** [ +9.8,+15.0] | −0.2 [−1.5,+1.2] | 0.68 | 0.82 |
+| 0.1 | **+12.7** [+10.1,+15.3] | +0.9 [−0.5,+2.4] | 0.67 | 0.84 |
+| 0.2 | **+11.2** [ +8.9,+13.5] | +0.9 [−0.5,+2.4] | 0.66 | 0.85 |
+| 0.3 | **+9.5** [ +7.1,+11.8] | −1.0 [−2.3,+0.3] | 0.65 | 0.88 |
+
+**Findings:** temporal SURVIVES lossy comm — graceful ~1 pp recovery decline per +10% loss; recall nearly
+flat (0.68→0.65 at 30% loss: min_k=20 evidence just takes ~1/(1−p) longer to accrue, still ≪ the 1200-step
+episode); precision *rises* with loss; no-harm ~0 at every (p,σ) cell; same pattern at all σ. Base itself is
+essentially loss-insensitive (own LiDAR + routed heading carry navigation). **The idealized-comm objection
+(REJECTION_RISKS R3) is empirically answered — realism rebuttal cell for the paper.**
+
+## R7 — Density generalization ✅ (k=2, σ=0.6, camouflage, 500 maps, same run)
+Same 10-drone stage-2 model, NO retraining, densities {0.20, 0.24, 0.27, 0.30}. Raw:
+`results_027/density_sweep_camouflage_500_k2.txt`.
+
+| density | base | off | temporal | recovery | no-harm | P/R |
+|---|---|---|---|---|---|---|
+| 0.20 | 68.2 | 51.5 | 63.8 | **+12.3** [ +9.8,+14.8] | −0.6 | 0.81/0.78 |
+| 0.24 | 59.0 | 43.1 | 55.3 | **+12.1** [ +9.4,+14.7] | −1.3 | 0.81/0.73 |
+| 0.27 | 53.5 | 37.6 | 49.9 | **+12.3** [ +9.8,+15.0] | −0.5 | 0.82/0.68 |
+| 0.30 | 45.5 | 32.7 | 41.5 | **+8.8** [ +6.4,+11.2] | −0.9 | 0.85/0.61 |
+
+**Findings:** recovery is FLAT (+12) across 0.20–0.27 and still solidly positive at 0.30 (denser fields lower
+everyone's ceiling and give camouflage more real obstacles to hide against — recall 0.78→0.61 — yet precision
+rises 0.81→0.85 and no-harm stays ~0). The headline result is NOT an artifact of density 0.27.
+(0.27 sanity cross-check vs the main f=2 table: recovery +12.3 vs +12.2, base 53.5 vs 53.4 — reproduces.)
+
+> Pending same-shaped runs: k=1 (`run_r3_r7_pipeline_k1.bat`) and k=3 (`run_r3_r7_pipeline_k3.bat`),
+> ~8 h each (measured, not estimated). Outputs: `*_k1.txt` / `*_k3.txt`.
+
+### R3/R7 at k=1 ✅ (run 2026-07-09, `*_k1.txt`)
+**Comm-loss (σ=0.6 camo):** recovery p=0 **+7.1** [5.0,9.2] · p=0.1 **+7.7** [5.7,9.7] · p=0.2 **+6.7**
+[4.5,8.9] · p=0.3 **+6.9** [4.6,8.9] — flat across loss; recall 0.68–0.69 flat; precision rises 0.68→0.76;
+no-harm ~0 all cells.
+**Density:** 0.20 **+6.8** [4.8,8.9] · 0.24 **+6.4** [4.3,8.5] · 0.27 **+7.1** [5.0,9.2] · 0.30 **+6.3**
+[4.2,8.2] — flat; recall 0.80→0.65 as clutter rises, precision 0.65→0.70; no-harm ~0.
+**Sanity reproduction:** p=0 and d=0.27 cells both = +7.1, matching the main f=1 camouflage table exactly.
+> Pending: k=3 (`run_r3_r7_pipeline_k3.bat`).
+
+### R3/R7 at k=3 ✅ (run 2026-07-10, `*_k3.txt`) — COMPLETES THE k∈{1,2,3} MATRIX
+**Comm-loss (σ=0.6 camo):** recovery p=0 **+13.6** [10.9,16.5] · p=0.1 **+14.1** [11.4,16.9] ·
+p=0.2 **+12.1** [9.4,14.8] · p=0.3 **+13.2** [10.7,15.8] — essentially FLAT out to 30% loss;
+precision rises 0.89→0.92; recall 0.68→0.64; no-harm ~0.
+**Density:** 0.20 **+15.9** [12.9,18.8] · 0.24 **+10.5** [7.7,13.2] · 0.27 **+13.5** [10.7,16.3] ·
+0.30 **+10.9** [8.5,13.4] — all CIs>0; no-harm ~0; precision 0.88–0.90.
+**Sanity reproduction:** p=0 cell +13.6 = main f=3 headline EXACTLY; d=0.27 +13.5 vs +13.6 (replicates).
+**Cross-k pattern (σ=0.6 camo, p=0.3):** recovery k=1 +6.9 · k=2 +9.5 · k=3 +13.2 — robustness to
+packet loss HOLDS at every traitor count, and the temporal advantage GROWS with the threat.
+
+### R3 comm-loss on the WALL attack ✅ (k=2, 500 maps, run 2026-07-11) — completes R3 for BOTH attacks
+Raw: `results_027/comm_loss_wall_500_k2_run2.txt`. σ=0.6 recovery vs packet loss:
+| p | recovery | no-harm | recall | precision |
+|---|---|---|---|---|
+| 0.0 | **+9.7** [+7.5,+11.9] | −0.3 [−1.6,+1.1] | 0.70 | 0.82 |
+| 0.1 | **+8.3** [+6.0,+10.7] | +0.7 [−0.6,+2.2] | 0.71 | 0.85 |
+| 0.2 | **+7.7** [+5.4, +9.8] | +0.8 [−0.6,+2.2] | 0.71 | 0.86 |
+| 0.3 | **+7.5** [+5.0, +9.9] | −1.0 [−2.3,+0.2] | 0.69 | 0.88 |
+**Findings:** temporal survives packet loss on the wall attack too — recovery stays positive with CI>0 at
+every loss level, declining gently (+9.7→+7.5); recall essentially FLAT (0.70→0.69, i.e. loss barely dents
+wall detection); precision rises 0.82→0.88; no-harm ~0 throughout. **Sanity reproduction:** the p=0 cell
+(+9.7, R 0.70) matches the main f=2 WALL table EXACTLY.
+**R3 is now complete on both attacks × k∈{1,2,3} (camouflage) + wall(k=2).**
+
+### R3 comm-loss on the WALL attack at k=1 and k=3 ✅ (500 maps, run 2026-07-12) — R3 matrix FULLY closed
+Raw: `results_027/comm_loss_wall_500_k1.txt` (finished 13:51) / `comm_loss_wall_500_k3.txt` (23:25).
+σ=0.6 recovery vs packet loss — paired-bootstrap 95% CIs:
+| p | k=1 recovery | k=1 no-harm | k=1 P/R | k=3 recovery | k=3 no-harm | k=3 P/R |
+|---|---|---|---|---|---|---|
+| 0.0 | **+5.9** [+4.2,+7.7] | −0.1 | 0.67/0.71 | **+11.5** [+9.0,+13.9] | −0.3 | 0.89/0.71 |
+| 0.1 | **+5.4** [+3.7,+7.3] | +0.8 | 0.69/0.72 | **+12.5** [+10.0,+15.1] | +0.6 | 0.90/0.71 |
+| 0.2 | **+4.5** [+2.7,+6.4] | +0.9 | 0.73/0.71 | **+12.3** [+9.8,+14.7] | +0.8 | 0.92/0.71 |
+| 0.3 | **+3.4** [+1.6,+5.4] | −1.0 | 0.76/0.68 | **+7.5** [+5.1,+9.8] | −1.0 | 0.93/0.69 |
+
+**Findings:** same qualitative picture as every other R3 cell — recovery positive with CI>0 at every
+(k, p); gentle decline with loss; recall essentially flat (~0.71); precision *rises* with loss at both k;
+no-harm ~0 (all CIs span zero) in all cells and all σ. Attack severity scales with k as expected (σ=0
+p=0 off-arm: k=1 81.4 → k=3 68.8) and the temporal defense restores ≈ base at every cell.
+**Cross-k pattern (wall, σ=0.6, p=0.3): +3.4 (k=1) · +7.5 (k=2) · +7.5 (k=3)** — as with camouflage, the
+temporal advantage holds under loss at every traitor count. Sanity: k=1/k=3 base columns match the k=2
+run's base columns to ≤0.2 pp (clean-arm wobble, consistent with the B8 note below).
+**R3 is now COMPLETE: both attacks × k∈{1,2,3} × p∈{0,0.1,0.2,0.3} × σ∈{0,0.2,0.4,0.6} — 384 cells total.**
+
+### Independent reproduction check (unplanned, 2026-07-11)
+The pipeline was re-run at k=2, producing a second copy of the camouflage comm-loss and density sweeps
+(`*_k2_run2.txt`). Comparing run 1 vs run 2:
+- **Recovery: BIT-IDENTICAL in every cell**, with identical CIs (comm-loss +12.3/+12.7/+11.2/+9.5;
+  density +12.3/+12.1/+12.3/+8.8). Detection precision identical; recall identical to ±0.01.
+- **no-harm: varies by ≤0.2 pp** between runs (e.g. −0.2 vs −0.4; −1.3 vs −1.4) — i.e. only the two
+  ATTACK-FREE arms (base, temp.nh) show run-to-run wobble; every attacked arm is deterministic.
+  All no-harm CIs still span zero in both runs, so no conclusion changes.
+- ⚠ This qualifies the audit's earlier "bit-reproducible" claim: headline numbers reproduce exactly;
+  the clean arms carry ≤0.2 pp variation whose source is not yet identified (see INTERNAL_VALIDITY_AUDIT B8).

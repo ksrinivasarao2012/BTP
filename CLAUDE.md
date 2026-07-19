@@ -16,7 +16,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **The paper is the Byzantine collaborative-perception + temporal-trust line.** Single source of truth =
 `Phase_CD/PAPER_MASTER_PLAN.md` (full results ledger §5, parameter justifications §6, limitations §7,
 pending items §8, paper structure §9, venue §10, file index §11, decision log §12). Target venue =
-**MDPI *Drones*** (SCIE, IF ≈ 4.4). This LATEST STATUS block summarizes everything needed to WRITE the
+**Elsevier *Robotics and Autonomous Systems*** (SCIE, IF 5.2, Q1, **free** subscription track — Prof ruled
+out APCs 2026-06-26, which killed MDPI *Drones*; backup = Elsevier *Aerospace Science and Technology*,
+IF 6.4, also free). This LATEST STATUS block summarizes everything needed to WRITE the
 paper; defer to PAPER_MASTER_PLAN for exact tables.
 
 ### The story arc (what the paper claims, in order)
@@ -71,6 +73,18 @@ paper; defer to PAPER_MASTER_PLAN for exact tables.
 +3.4→**+12.2**; f=3 +5.3→**+13.6**. Attack *saturates* (f2→f3 adds ~3 pp damage); precision *rises* with f
 (0.68→0.82→0.89) — defense most precise when threat is worst. Wall σ=0.6: robust +3.7→temporal **+9.7** (f=2).
 Temporal ≥ robust at every noise level; wall never regresses; no-harm flat throughout.
+**MAJORITY-BOUNDARY sweep f=4,5,6,7 (500 maps, DONE 2026-07-19) — proves "no honest majority" claim.** Each
+honest ego has ≤9−f honest neighbours, so f≥5 ⇒ neighbourhood majority-traitor in expectation (f=5 tie, f=6→4
+honest, f=7→3 honest). σ=0.6 camo temporal recovery [CI]: f=4 **+14.7 [12.0,17.6]**; f=5 **+15.2 [11.9,18.4]**;
+f=6 **+15.1 [11.6,18.6]**; f=7 **+10.9 [7.4,14.5]** — ALL CIs exclude 0. Robust single-frame at f=7 **+1.9
+[−1.3,5.2] (spans 0, NOT sig)** → temporal load-bearing. Precision monotone **0.68→0.98** (f=1–7); no-harm flat
+≈−0.4 (CI spans 0) every f (kills the 20-map f=6 −5.5pp scare). Caveat: absolute success still falls with f
+(48.8→41.9) — filter recovers a stable *fraction*, not traitor-count-invariance; f=8,9 untested ("up to 7 of 10").
+Manuscript `tab:headline` now f=1–7; §5.11 para + related.tex majority claim rewritten. Files `eval_f{4-7}_camouflage_500.txt`.
+**BASELINE RECONCILIATION (silly-thing #2 CLOSED, DONE 2026-07-19):** single-policy dropout ablations (one model,
+`use_shared_map` toggled) — anchor model 10%-dropout ON 89.26/OFF 46.14 (reproduces tab:anchor by construction);
+attacked model (`noise_robust_ON_stage2`, attack off) ON 85.84/OFF 41.80 (+44 pp) ≈ the 86% base → one clean
+lineage, 89→86 = noise-DR tax. Files `dropout_ablation_500.txt`, `dropout_ablation_noisy_500.txt`.
 **Adaptive attacker (filter-aware, σ=0.6 camo, 500 maps):** offset bind — as phantom centre-offset grows,
 harm AND detection-recall climb together (offset 0 = harmless+invisible R0.03; offset 2.5 = harmful+caught
 R0.70) → no free lunch. gap/jitter/duty all hold (jitter/duty *reduce the attacker's own harm* faster than
