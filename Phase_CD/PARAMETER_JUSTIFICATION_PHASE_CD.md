@@ -1,7 +1,8 @@
 # Parameter Justification — Phase_CD paper (Byzantine collab-perception + temporal trust)
 
 > **Created:** 2026-06-19 · **Scope:** the *actual* experiment configuration used in the temporal-trust
-> paper (Phase_CD line, MDPI *Drones*). This consolidates the three existing justification sources and —
+> paper (Phase_CD line, target = Elsevier *Robotics and Autonomous Systems*; MDPI *Drones* ruled out
+> 2026-06-26 by the NO-APC constraint). This consolidates the three existing justification sources and —
 > critically — **flags every parameter still un-justified and every value that DIFFERS from the older docs.**
 >
 > **Existing sources (reuse, don't duplicate):**

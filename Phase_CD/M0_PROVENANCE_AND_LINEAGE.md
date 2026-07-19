@@ -89,6 +89,8 @@ models — the key fact to disclose.
   the paper (Limitation 3 / §7).
 - **Why:** large jump in path quality / success, *but* it is the crutch that caps the paper at MDPI and is
   the one RA-L blocker (P3). PhaseB2 (straight-line bearing) plateaus ~80% precisely because it lacks this.
+  (Venue note: MDPI *Drones* superseded 2026-06-26 by the NO-APC constraint → current target Elsevier *RAS*;
+  the point stands that the Dijkstra crutch, not the venue, is what caps the paper below top-tier robotics.)
 - **Config:** `lr=1e-4`, `ent_coef=0.02`; curriculum **1M @ 0.30 → 2M @ 0.35** (3M steps).
 
 ### v14 — `glide` (env B10) — *"Adaptive Wall-Glide Fine-Tuning"*

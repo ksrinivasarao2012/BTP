@@ -214,8 +214,8 @@ its \emph{own} tracks $m$ is idealized (obstacles are static, so persistent
 track identity is mild), whereas the broadcast-to-track association in
 Eq.~\eqref{eq:offset} is realistic nearest-neighbour matching --- a probe of
 the offset signal alone yields ROC-AUC $0.99$ under oracle association and
-$0.85$--$0.90$ under this realistic association, quantifying the cost of the
-weaker assumption. The filter is lightweight: the running means occupy under
+$0.85$--$0.90$ under this realistic association (both over 150 maps in
+feasibility testing), quantifying the cost of the weaker assumption. The filter is lightweight: the running means occupy under
 $100$~KB for the whole swarm, and the measured overhead of the composed
 defense is ${\sim}0.15$~ms per drone per step in unoptimized Python.
 

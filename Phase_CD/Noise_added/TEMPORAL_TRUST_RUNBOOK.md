@@ -89,8 +89,13 @@ know which one bit us.
 
 **Also be honest about venue:** even a perfect temporal filter does **NOT** by itself unlock IEEE RA-L —
 the Dijkstra goal-direction crutch (PAPER_MASTER_PLAN §7.3, P3, weeks of retrain) is a separate blocker.
-Temporal trust is a **strong bonus section for MDPI Drones** and *one of two* RA-L prerequisites. Frame it
-that way; do not oversell.
+Temporal trust is a **strong bonus section** for the target journal and *one of two* RA-L prerequisites.
+Frame it that way; do not oversell.
+
+> ⚠ **VENUE SUPERSEDED (2026-06-26):** this runbook predates the venue decision. Target is now **Elsevier
+> *Robotics and Autonomous Systems*** (free subscription track); **MDPI *Drones* was ruled out by the NO-APC
+> constraint.** Wherever this file says "MDPI"/"Drones" below (decision-tree leaves included), read it as the
+> safe mid-tier target = Elsevier *RAS*. RA-L framing is unchanged.
 
 ---
 

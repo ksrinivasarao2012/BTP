@@ -1,5 +1,8 @@
 % ALL NUMBERS from RESULTS_027_CAMERA_READY.md (camera-ready: 500 maps,
 % density 0.27, stage-2 base, randomized attack, paired-bootstrap 95% CIs).
+% EXCEPTION: the probe AUC (0.99 oracle / 0.85-0.90 realistic, sec:res-temporal)
+% is a 150-map feasibility number, labelled as such in the text; replace with
+% the 500-map values if/when the probe rerun (run_rerun_verification.bat) lands.
 % Verify each figure exists in manuscript/figures/ before final compile.
 
 \subsection{Communication is load-bearing under sensor dropout}\label{sec:res-anchor}
@@ -221,7 +224,9 @@ of the aggregated offset magnitude cleanly separates honest neighbours
 fabrications (a persistent bias well above the threshold $\eta$). A probe
 of this separation, before any trust gating, reports an area under the ROC
 curve of $0.99$ under oracle association and $0.85$--$0.90$ under realistic
-nearest-obstacle association.
+nearest-obstacle association (both figures measured over 150 maps in
+feasibility testing, ahead of the 500-map camera-ready protocol used
+elsewhere in this section).
 
 \subsection{An adaptive attacker faces a stealth/harm bind}\label{sec:res-adaptive}
 A reasonable objection is that a static attacker understates the threat. We
@@ -258,12 +263,16 @@ The bind holds across the noise range: sweeping the offset at
 $\sigma\in\{0,0.2,0.4\}$ and $f\in\{1,2,3\}$ (nine configurations) yields
 the same pattern in every one --- the harmless corner is undetected, the
 harmful corner is caught, and detection recall at the harmful end stays high
-($0.66$--$0.98$). The remaining three knobs are likewise self-defeating.
+($0.79$--$0.98$); the bind moreover persists through severe noise
+($\sigma=0.6$, Table~\ref{tab:bind}), where harmful-end recall still holds at
+$0.66$--$0.70$. The remaining three knobs are likewise self-defeating.
 Per-frame jitter is zero-mean and so does not shift the temporal mean; it
-only raises variance, and in fact reduces the attacker's own harm faster
-than it dents recovery. Intermittent broadcasting (duty) dilutes the
-attacker's evidence but equally dilutes its harm: at the lowest duty the
-harm falls to $+5.0$ pp while recall falls to $0.41$. A surface gap large
+only raises variance, and is self-defeating in practice: as the jitter grows,
+the harm it inflicts falls sharply ($-6.8$ pp) while detection recall barely
+moves ($0.70\to0.61$), leaving the defended success essentially unchanged.
+Intermittent broadcasting (duty) dilutes the attacker's evidence but equally
+dilutes its harm: at the lowest duty the harm falls to $+5.3$ pp while recall
+falls to $0.41$. A surface gap large
 enough to matter pushes the phantom centre outside the tolerance band, where
 it is reliably caught. In no configuration does the adaptive attacker obtain
 both meaningful harm and evasion.
