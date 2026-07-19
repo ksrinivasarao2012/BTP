@@ -1,0 +1,212 @@
+% =====================================================================
+% References for the RAS manuscript.
+% ALL entries verified against primary sources 2026-07-08 (arXiv abstract
+% pages / publisher pages / JMLR). Notes record what was checked.
+% =====================================================================
+
+% ---------- RL / MARL foundations ----------
+@article{schulman2017ppo,
+  title   = {Proximal Policy Optimization Algorithms},
+  author  = {Schulman, John and Wolski, Filip and Dhariwal, Prafulla and
+             Radford, Alec and Klimov, Oleg},
+  journal = {arXiv preprint arXiv:1707.06347},
+  year    = {2017}
+}
+
+@inproceedings{yu2022mappo,
+  title     = {The Surprising Effectiveness of {PPO} in Cooperative
+               Multi-Agent Games},
+  author    = {Yu, Chao and Velu, Akash and Vinitsky, Eugene and Gao, Jiaxuan
+               and Wang, Yu and Bayen, Alexandre and Wu, Yi},
+  booktitle = {Advances in Neural Information Processing Systems 35 (NeurIPS
+               2022), Datasets and Benchmarks Track},
+  year      = {2022}
+}
+
+@article{raffin2021sb3,
+  title   = {Stable-Baselines3: Reliable Reinforcement Learning
+             Implementations},
+  author  = {Raffin, Antonin and Hill, Ashley and Gleave, Adam and
+             Kanervisto, Anssi and Ernestus, Maximilian and Dormann, Noah},
+  journal = {Journal of Machine Learning Research},
+  volume  = {22},
+  number  = {268},
+  pages   = {1--8},
+  year    = {2021}
+}
+
+% VERIFIED 2026-07-09: papers.nips.cc #7217, NIPS 2017 proceedings, pp. 6382-6393
+% (arXiv page has no acceptance comment; proceedings listing is the proof).
+@inproceedings{lowe2017maddpg,
+  title     = {Multi-Agent Actor-Critic for Mixed Cooperative-Competitive
+               Environments},
+  author    = {Lowe, Ryan and Wu, Yi and Tamar, Aviv and Harb, Jean and
+               Abbeel, Pieter and Mordatch, Igor},
+  booktitle = {Advances in Neural Information Processing Systems 30 (NIPS)},
+  pages     = {6382--6393},
+  year      = {2017}
+}
+
+% ---------- Byzantine fault tolerance (classic) ----------
+@article{lamport1982byzantine,
+  title   = {The {Byzantine} Generals Problem},
+  author  = {Lamport, Leslie and Shostak, Robert and Pease, Marshall},
+  journal = {ACM Transactions on Programming Languages and Systems},
+  volume  = {4},
+  number  = {3},
+  pages   = {382--401},
+  year    = {1982}
+}
+
+% ---------- Collaborative-perception attacks & defenses (group A) ----------
+% VERIFIED: title/authors/venue exact (USENIX Security 2024), arXiv 2309.12955.
+@inproceedings{zhang2024cad,
+  title     = {On Data Fabrication in Collaborative Vehicular Perception:
+               Attacks and Countermeasures},
+  author    = {Zhang, Qingzhao and Jin, Shuowei and Zhu, Ruiyang and
+               Sun, Jiachen and Zhang, Xumiao and Chen, Qi Alfred and
+               Mao, Z. Morley},
+  booktitle = {33rd USENIX Security Symposium (USENIX Security 24)},
+  year      = {2024},
+  note      = {arXiv:2309.12955}
+}
+
+% VERIFIED: authors (arXiv 2502.08169, 2025). Venue: conference, unspecified.
+@article{codyntrust2025,
+  title   = {{CoDynTrust}: Robust Asynchronous Collaborative Perception via
+             Dynamic Feature Trust Modulus},
+  author  = {Xu, Yunjiang and Li, Lingzhi and Wang, Jin and Yang, Benyuan
+             and Wu, Zhiwen and Chen, Xinhong and Wang, Jianping},
+  journal = {arXiv preprint arXiv:2502.08169},
+  year    = {2025}
+}
+
+% VERIFIED: title/authors exact; accepted CVPR 2026 (arXiv 2603.08498).
+@inproceedings{prbi2026,
+  title     = {All Vehicles Can Lie: Efficient Adversarial Defense in Fully
+               Untrusted-Vehicle Collaborative Perception via Pseudo-Random
+               Bayesian Inference},
+  author    = {Yu, Yi and Wu, Libing and Zhang, Zhuangzhuang and Qiu, Jing
+               and Huo, Lijuan and Feng, Jiaqi},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and
+               Pattern Recognition (CVPR)},
+  year      = {2026},
+  note      = {arXiv:2603.08498}
+}
+
+% VERIFIED: title/authors exact (arXiv 2605.22122, 2026).
+@article{trustflip2026,
+  title   = {Adversarial Trust Poisoning in Vehicular Collaborative
+             Perception},
+  author  = {Liu, Yutong and Wang, Chenyi and Li, Ming F. and Zhang,
+             Qingzhao},
+  journal = {arXiv preprint arXiv:2605.22122},
+  year    = {2026}
+}
+
+% VERIFIED: authors + venue (2020 IEEE IV), arXiv 1909.07867.
+@inproceedings{trupercept2020,
+  title     = {{TruPercept}: Trust Modelling for Autonomous Vehicle
+               Cooperative Perception from Synthetic Data},
+  author    = {Hurl, Braden and Cohen, Robin and Czarnecki, Krzysztof and
+               Waslander, Steven},
+  booktitle = {2020 IEEE Intelligent Vehicles Symposium (IV)},
+  pages     = {341--347},
+  year      = {2020}
+}
+
+% ADDED 2026-07-17 (was the missing must-cite, PRIOR_ART_SECOND_ORDER item 1).
+% Title/authors verified against the PDF (arXiv:2310.11901v2, 8 Jul 2024).
+% TODO-VERIFY venue before submission: IEEE-conference format, no acceptance
+% stated in the PDF — check the arXiv page Comments field (do NOT guess IROS/ICRA).
+@misc{made2024,
+  title  = {{MADE}: Malicious Agent Detection for Robust Multi-Agent
+            Collaborative Perception},
+  author = {Zhao, Yangheng and Xiang, Zhen and Yin, Sheng and Pang, Xianghe
+            and Wang, Yanfeng and Chen, Siheng},
+  year   = {2024},
+  note   = {arXiv:2310.11901}
+}
+
+% VERIFIED 2026-07-09 via arXiv 2501.02450 abstract page ("Accepted by IEEE TDSC";
+% v1 Jan 2025, v2 Apr 2026 — acceptance year not stated, journal version not yet
+% paginated, so cite as accepted/to appear with the v2 year. [Srinivasa's catch]
+@article{gcp2025,
+  title   = {{GCP}: Guarded Collaborative Perception with Spatial-Temporal
+             Aware Malicious Agent Detection},
+  author  = {Tao, Yihang and Hu, Senkang and Hu, Yue and An, Haonan and
+             Cao, Hangcheng and Fang, Yuguang},
+  journal = {IEEE Transactions on Dependable and Secure Computing},
+  year    = {2026},
+  note    = {accepted, to appear; arXiv:2501.02450}
+}
+
+% VERIFIED 2026-07-09: arXiv page (v1 Mar 2025) carries NO acceptance note;
+% CCS 2025 venue rests on the ACM DL listing (doi 10.1145/3719027.3765193,
+% "Proceedings of the 2025 ACM SIGSAC CCS"). Full-text audited 2026-07-09.
+@inproceedings{mate2025,
+  title     = {Security-Aware Sensor Fusion with {MATE}: the Multi-Agent
+               Trust Estimator},
+  author    = {Hallyburton, R. Spencer and Pajic, Miroslav},
+  booktitle = {Proceedings of the 2025 ACM SIGSAC Conference on Computer and
+               Communications Security (CCS)},
+  year      = {2025},
+  note      = {arXiv:2503.04954}
+}
+
+% VERIFIED 2026-07-09 via ACM DL (ICCPS 2025) + arXiv 2507.17875.
+@inproceedings{aerialtrust2025,
+  title     = {Trust-Based Assured Sensor Fusion in Distributed Aerial
+               Autonomy},
+  author    = {Hallyburton, R. Spencer and Pajic, Miroslav},
+  booktitle = {Proceedings of the ACM/IEEE 16th International Conference on
+               Cyber-Physical Systems (ICCPS)},
+  year      = {2025},
+  note      = {arXiv:2507.17875}
+}
+
+% ---------- Temporal spoof detection, single-vehicle (group B) ----------
+% CORRECTED 2026-07-08: previous title was WRONG. Real title below.
+% "3D-TC2" is the method name, not the paper title. Venue: MAISP 2021 wksp.
+@inproceedings{tc2_2021,
+  title     = {Temporal Consistency Checks to Detect {LiDAR} Spoofing Attacks
+               on Autonomous Vehicle Perception},
+  author    = {You, Chengzeng and Hau, Zhongyuan and Demetriou, Soteris},
+  booktitle = {Proceedings of the 1st Workshop on Security and Privacy for
+               Mobile AI (MAISP)},
+  year      = {2021},
+  note      = {arXiv:2106.07833}
+}
+
+% VERIFIED: title/authors exact; BMVC 2023 (arXiv 2310.14504).
+@inproceedings{adopt2023,
+  title     = {{ADoPT}: {LiDAR} Spoofing Attack Detection Based on
+               Point-Level Temporal Consistency},
+  author    = {Cho, Minkyoung and Cao, Yulong and Zhou, Zixiang and
+               Mao, Z. Morley},
+  booktitle = {Proceedings of the British Machine Vision Conference (BMVC)},
+  year      = {2023},
+  note      = {arXiv:2310.14504}
+}
+
+% ---------- Byzantine / adversarial multi-robot & swarm (group C) ----------
+% VERIFIED: title/authors exact (arXiv 2606.21206, 2026).
+@article{conformity2026,
+  title   = {Local Conformity-Based Evolutionary Game Modeling of {UAV}
+             Swarm Under {Byzantine} Attack},
+  author  = {Ren, Ruixing and Zhao, Junhui and Fang, He},
+  journal = {arXiv preprint arXiv:2606.21206},
+  year    = {2026}
+}
+
+% VERIFIED: title/authors exact (arXiv 2508.00622, 2025).
+% CAUTION: uses Raft (crash-fault-tolerant, NOT Byzantine). Cite as
+% consensus-based GNSS-degraded coordination; do NOT frame as Byzantine BFT.
+@article{swarmraft2025,
+  title   = {{SwarmRaft}: Leveraging Consensus for Robust Drone Swarm
+             Coordination in {GNSS}-Degraded Environments},
+  author  = {Dev, Kapel and Madhwal, Yash and Shevelo, Sofia and
+             Osinenko, Pavel and Yanovich, Yury},
+  journal = {arXiv preprint arXiv:2508.00622},
+  year    = {2025}
+}

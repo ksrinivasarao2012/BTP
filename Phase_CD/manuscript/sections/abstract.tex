@@ -1,0 +1,23 @@
+% DRAFT v0 — update from PAPER_MASTER_PLAN sec 9.1, with CAMERA-READY numbers
+% (500 maps, density 0.27, recall 0.13->0.69, recovery +3.4->+12.2 pp).
+Multi-robot teams can survive individual sensor failure by sharing perception
+over a communication channel, but that same channel is an attack surface: a
+single Byzantine teammate broadcasting fabricated obstacles can override
+honest on-board sensing through minimum-based map fusion, independently of
+the sensor-failure rate. We study this threat in a 10-drone navigation task
+learned with centralized-training/decentralized-execution multi-agent
+reinforcement learning, and show that the natural defense --- a cross-agent
+consistency check --- is brittle: under realistic ranging noise it wrongly
+condemns honest neighbours and becomes \emph{worse than no defense}, and even
+a noise-aware robust variant fails against a camouflage attack that hides the
+fabrication inside the sensor-noise band (detection recall 0.13). We
+introduce a temporal trust rule that aggregates, over time, the offset
+between a neighbour's reported obstacle and the verifier's own view of it:
+honest disagreement is zero-mean and cancels, while a persistent fabrication
+retains a bias. This recovers detection recall to 0.69 and navigation success
+by up to +12.2 percentage points at the severest noise level, at no
+measurable cost to attack-free swarms. Against an adaptive, defense-aware
+attacker we demonstrate a stealth/harm bind: evading temporal detection
+forces the phantom onto a real obstacle, where it blocks no new space.
+Results use 500-map evaluation suites with paired-bootstrap confidence
+intervals across one to three traitors. % ~226 words

@@ -1,0 +1,109 @@
+% Source: PAPER_MASTER_PLAN sec 7 (limitations) + the mandatory disclosures
+% in CLAUDE.md. Frame honestly; a reviewer must not find an undisclosed hole.
+
+\subsection{Two independent limits}
+It is important not to conflate the two limits this study exposes. The
+\emph{navigation} limit (Section~\ref{sec:res-limit}) is a property of the
+sensing task: at high ranging noise the position of an obstacle is
+uncertain to a degree comparable to its size, and no policy can recover
+information the sensor never captured; this bounds the achievable ceiling
+and is unaffected by any defense. The \emph{security} limit --- the
+single-frame camouflage recall collapse --- is a property of the
+\emph{detector}, and it is the one our temporal rule removes. The two are
+orthogonal: our contribution restores success up to the noise-limited
+ceiling, not beyond it, and never depresses it.
+
+\subsection{On the precision caveat}
+The temporal detector's precision at $\sigma=0.6$ is $0.80$--$0.82$, below a
+nominal $0.9$ target, which under a purely detection-theoretic reading would
+be a weakness. We argue precision is the wrong figure of merit here. It was
+only ever a proxy for the harm caused by false gating, and that harm is
+measured directly by the no-harm column, which is statistically
+indistinguishable from zero. The reconciliation is that the residual false
+flags fall on ultra-stealthy camouflage buckets --- phantoms hugging real
+obstacles so tightly that they barely protrude. These are simultaneously the
+hardest to distinguish from honest noise \emph{and} nearly harmless, which
+is exactly the stealth/harm bind seen from the defender's side: a
+misclassification there costs almost nothing. Own-LiDAR fusion and the
+routed heading further cushion any wrongly gated broadcast. Tightening the
+threshold to raise precision sacrifices recall on genuinely harmful
+phantoms, so we adopt the operating point that maximizes recovered success
+rather than detector precision.
+
+\subsection{The verifiability boundary}
+Two independent observations in the literature bound what any
+consistency-based defense can achieve, and both are recovered by our
+results. First, trust models are blind wherever verification is impossible:
+Hallyburton and Pajic report that fabrications injected into regions no
+other agent observes cannot be detected by existing
+methods~\cite{aerialtrust2025}. Our camouflage attack is the statistical
+analogue of that spatial blind spot --- the verifier \emph{does} observe the
+region, but ranging noise forces a tolerance wide enough to hide the lie
+inside it. Second, an attacker that mostly reports truthfully evades
+trust accumulation: TruPercept observed that unreliable agents were not
+separated from honest ones by trust scores~\cite{trupercept2020}. Our
+adaptive-attacker study makes this quantitative and then closes it: evasion
+requires collapsing the fabrication onto real geometry, at which point it
+blocks no new space. Time, rather than a stronger single-frame test, is what
+converts the unverifiable into the verifiable here --- and what remains
+unverifiable is, by the same bind, unharmful.
+
+\subsection{Robustness to trust-poisoning attacks}
+A recognized failure mode of consistency-based trust is that an adversary
+can engineer disagreements to make the defense expel \emph{honest} agents.
+Our evaluation confronts this directly by reporting no-harm under an
+adaptive, defense-aware attacker and finding it near zero: the temporal
+test does not provide a lever by which induced disagreement translates into
+honest exclusion, because it thresholds a time-averaged bias that honest
+neighbours, by construction, do not accumulate.
+
+\subsection{The warm-up window}
+By construction the temporal test issues no verdict for a
+(receiver, neighbour, track) bucket until $K_{\min}=20$ samples have
+accumulated; during those first sightings the swarm is protected only by
+the single-frame robust path. In our episodes (1200 steps) this window is
+negligible, but a short-lived encounter, a late-joining traitor, or a
+mission with brief pairwise contact would face reduced temporal protection
+--- shrinking $K_{\min}$ trades this window against verdict reliability.
+
+\subsection{Assumptions and their consequences}
+We state the modelling assumptions and their effect on the claims. (i)~The goal-direction input to the
+policy is not a straight-line bearing to the goal but the gradient of a
+\emph{global} shortest-path distance field, recomputed by Dijkstra's
+algorithm over the full obstacle layout at the start of each episode; each
+drone is thereby handed an optimal obstacle-routed heading that presupposes a
+global map it could not sense on its own. We model this as an external
+mission planner that supplies routed waypoints, leaving the learned policy
+responsible for local control and collision avoidance --- a conventional
+division of labour, but a privileged input we disclose plainly rather than
+fold into the sensing model. Its effect on our claims is conservative:
+because the routed heading already steers each drone around the true obstacle
+field, it \emph{dampens} the influence of a fabricated obstacle, so every
+attack-induced success drop we report is a lower bound on what a planner-free
+agent would suffer. Retraining the policy to navigate from a raw goal
+coordinate, without the routed heading, is the single largest avenue to a
+stronger navigation claim and the foremost limitation of the present study. (ii)~Communication is modelled as
+lossless and zero-latency within a $10$~m range; real radios drop and delay
+messages, which would reduce the evidence available to the temporal test and
+warrants study under realistic channels. (iii)~Trust is applied at the
+\emph{neighbour} level: one sustained contradiction excludes a neighbour's
+entire contribution, discarding its honest observations too. Obstacle-level
+gating would be less wasteful and is natural future work. (iv)~The trust
+rule is hand-designed, not learned; we regard this as a feature, since we
+find no learned component is necessary for this threat class, but it is
+specific to the fabricated-obstacle model studied here. (v)~The study is in
+simulation, with ten drones, in two dimensions, and with circular obstacles;
+the mechanism is geometry-agnostic in principle, but validation on hardware,
+in three dimensions, and with richer obstacle shapes remains open.
+(vi)~The temporal test assumes sensor noise is \emph{unbiased}: its
+separation of honest from fabricated relies on honest offsets being
+zero-mean, so a persistent per-agent measurement bias would not cancel and
+could cause an honest neighbour to be flagged. A bias common to all agents
+cancels harmlessly in the pairwise offset; only \emph{agent-specific}
+systematic bias is a concern, and even then the harm is bounded by the same
+own-sensing cushion that keeps no-harm near zero. Distinguishing such a bias
+from fabrication is moreover possible in principle --- a miscalibrated
+sensor shifts \emph{all} of a neighbour's reported obstacles by the same
+amount, whereas a camouflage lie displaces only the fabricated one, so
+estimating and subtracting a per-neighbour global offset before the residual
+bias test would separate the two --- which we leave to future work.

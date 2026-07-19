@@ -1,0 +1,107 @@
+% Sources: PAPER_MASTER_PLAN sec 9 (structure), RESULTS_027_CAMERA_READY.md
+% (all numbers). Camera-ready figures: 500 maps, density 0.27, stage-2 base.
+
+Teams of small autonomous robots are increasingly deployed for tasks in
+which a single vehicle is insufficient: warehouse logistics, search and
+rescue, environmental monitoring, and infrastructure inspection. In
+cluttered environments each robot perceives only a fraction of its
+surroundings --- on-board range sensors are limited in reach and are
+routinely degraded by occlusion, reflective or absorptive surfaces, dust,
+and transient hardware faults. \emph{Collaborative perception} addresses
+this by letting teammates share what they sense, so that one robot's view
+fills another's blind spot. In the navigation benchmark studied here --- ten
+drones crossing a cluttered field while suffering sustained sensing
+blackouts roughly one third of the time --- sharing is not a refinement but
+a necessity: with collaborative perception 89.3\% of drones reach the goal,
+without it only 45.9\% do, a gap of more than 43 percentage points under
+identical conditions (Section~\ref{sec:results}).
+
+The channel that carries this resilience, however, is itself an attack
+surface. Shared observations must be fused into each robot's local obstacle
+map, and safe fusion is conservative: if any teammate reports an obstacle
+nearby, the robot should respect it. We show that this conservatism ---
+implemented here by a per-direction \emph{minimum} over own and
+received range estimates, the choice that respects any teammate's evidence
+of a nearby obstacle --- hands a powerful lever to a compromised
+insider. A single \emph{Byzantine} teammate that broadcasts fabricated
+obstacles overrides even a fully-sighted receiver's own sensing, because a
+fabricated near reading always wins the minimum. The attack is therefore
+independent of the sensor-failure rate that motivates collaboration in the
+first place: it succeeds against healthy sensors as easily as against
+degraded ones. Two traitors among ten drones cut honest navigation success
+by up to 22.5 percentage points, and a \emph{camouflage} variant that
+extends a real obstacle into a free corridor is both more damaging and far
+harder to detect than a blatant phantom wall.
+
+The natural defense is cross-agent consistency checking: if a verifier is
+positioned to see a reported obstacle and does not, the reporter loses
+trust and is excluded from fusion. Under idealized sensing this neutralizes
+the attack almost completely. The difficulty of getting this right is not
+hypothetical: an early study of trust-modulated cooperative perception found
+that cooperative fusion did not meaningfully improve accuracy over local
+perception, with false detections inserted at high confidence among the
+suspected causes~\cite{trupercept2020}. Our third finding is that this defense is
+\emph{brittle in exactly the conditions that make collaboration valuable}.
+Under realistic ranging noise, two honest views of the same obstacle
+legitimately disagree by about $\sqrt{2}\sigma$; once this exceeds the
+verifier's fixed tolerance, honest neighbours are condemned as liars.
+Detection precision collapses from $1.00$ to $0.23$, and the defense
+becomes \emph{worse than no defense at all}, destroying up to 27
+percentage points of success in attack-free swarms. A noise-aware variant
+that widens the tolerance with $\sigma$ repairs the false accusations, but
+opens a blind spot: the camouflage attacker can hide its fabrication
+\emph{inside} the widened tolerance band, where no single-frame test can
+contradict it. At the severest noise level the robust filter catches only
+13\% of camouflage lies.
+
+Our central contribution closes this blind spot with time rather than with
+looser thresholds. The per-frame \emph{offset vector} between a neighbour's
+reported obstacle and the verifier's own view of that obstacle is zero-mean
+for an honest neighbour --- two independent noise draws cancel in
+expectation --- but retains a \emph{persistent bias} for a fabrication,
+whose reported position is anchored to a lie rather than to the shared
+ground truth. Aggregating this offset over a few tens of observations
+separates the two populations cleanly. This use of time differs
+fundamentally from recent temporal-consistency defenses for cooperative
+perception, which compare a scene against its own recent past and so screen
+for \emph{disruption}: once established, a persistent fabrication can
+remain temporally self-consistent --- a signature such defenses do not
+study --- whereas it leaves a persistent offset against the verifier's
+\emph{own sensing}, which is exposed through accumulation over time
+(Section~\ref{sec:related}). The resulting temporal trust rule
+lifts camouflage detection recall from $0.13$ to $0.69$ and recovers up to
+$+12.2$ percentage points of navigation success at the severest noise
+level, while leaving attack-free swarms statistically untouched (the
+measured cost is $-0.4$ percentage points with a confidence interval
+spanning zero). Anticipating the strongest objection --- that a static
+attacker is a strawman --- we also evaluate an adaptive attacker that knows
+the defense and tunes its fabrication to evade it. The attacker faces a
+\emph{stealth/harm bind}: as the phantom drifts far enough from real
+geometry to block useful space, its offset signature grows and detection
+recall rises with the harm; hiding from the filter forces the phantom onto
+a real obstacle, where it blocks nothing new. We verify this bind at every
+noise level and at one to three traitors.
+
+This paper makes five contributions. \textbf{(i)}~We quantify the
+resilience value of collaborative perception for learned multi-robot
+navigation under sustained sensor dropout at a calibrated obstacle density,
+with paired-bootstrap confidence intervals over 500-map suites.
+\textbf{(ii)}~We characterize a minimum-fusion Byzantine vulnerability of
+shared obstacle maps and show it is independent of the dropout rate.
+\textbf{(iii)}~We show that naive consistency-based trust is not merely
+weakened but \emph{destructive} under sensor noise. \textbf{(iv)}~We give a
+noise-aware robust filter that restores safe operation and characterize its
+single-frame camouflage limit. \textbf{(v)}~We introduce a temporal
+offset-bias trust rule that recovers this limit at no measured cost to
+honest swarms, and validate it against an adaptive, defense-aware attacker
+across one to three traitors, demonstrating a stealth/harm bind that makes
+the recovery difficult to game.
+
+The remainder of the paper is organized as follows.
+Section~\ref{sec:related} positions the work against collaborative
+perception security, temporal spoof detection, and Byzantine multi-robot
+systems. Section~\ref{sec:methods} details the environment, the learned
+navigation policy, the threat model, and the three defenses.
+Section~\ref{sec:setup} defines metrics and the statistical protocol.
+Section~\ref{sec:results} reports results, Section~\ref{sec:discussion}
+discusses limitations honestly, and Section~\ref{sec:conclusion} concludes.

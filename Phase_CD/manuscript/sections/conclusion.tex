@@ -1,0 +1,33 @@
+We studied Byzantine false-obstacle attacks on collaborative perception
+inside a closed-loop, learned multi-robot navigation task, and traced a
+complete arc from vulnerability to defense. Collaborative perception is
+load-bearing under sustained sensor dropout, raising navigation success by
+more than forty percentage points, but its minimum-based fusion lets a
+single Byzantine teammate override honest sensing independently of the
+dropout rate. The obvious countermeasure --- cross-agent consistency
+checking --- is not merely weakened but \emph{destructive} under realistic
+ranging noise, since honest disagreement is mistaken for lying; a
+noise-aware robust variant restores safe operation but cannot detect a
+camouflage fabrication hidden inside the noise band on any single frame.
+
+Our central result is that this single-frame limit is removed in time. A
+per-neighbour running mean of the offset between a reported obstacle and the
+verifier's own view of it is zero-mean for honest noise and biased for a
+persistent lie; thresholding this mean recovers camouflage detection recall
+from $0.13$ to $0.69$ and navigation success by up to $+12.2$ percentage
+points at the severest noise level, with no measurable cost to attack-free
+swarms, and with an advantage that grows as the number of traitors grows. A
+defense-aware adaptive attacker cannot escape the mechanism: evading the
+temporal test forces its phantom onto real geometry, where it blocks no new
+space --- a stealth/harm bind we verify across noise levels and traitor
+counts. Notably, no learned trust component is required.
+
+Several directions follow. Removing the routed-heading dependency would let
+the policy own global planning and sharpen the security claim. Applying
+trust at the obstacle level rather than the neighbour level would preserve a
+suspected neighbour's honest observations. Multi-frame position denoising,
+which exploits the same per-frame noise independence and static-obstacle
+structure that our detector relies on, is a promising route to lift the
+navigation perception limit itself. Finally, validation under lossy,
+delayed communication, in three dimensions, and on physical robots would
+test the mechanism's assumptions in the field.

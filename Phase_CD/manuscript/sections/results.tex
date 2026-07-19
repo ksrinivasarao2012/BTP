@@ -1,0 +1,281 @@
+% ALL NUMBERS from RESULTS_027_CAMERA_READY.md (camera-ready: 500 maps,
+% density 0.27, stage-2 base, randomized attack, paired-bootstrap 95% CIs).
+% Verify each figure exists in manuscript/figures/ before final compile.
+
+\subsection{Communication is load-bearing under sensor dropout}\label{sec:res-anchor}
+We first establish that collaborative perception is not a refinement but a
+requirement in this regime. Table~\ref{tab:anchor} is an
+\emph{information ablation}: a single policy is evaluated on the same maps
+with shared observations fused into its range channel (ON) and with its own
+LiDAR only (OFF), under $\sim\!33\%$ sustained blindness at density $0.27$.
+Because the weights are identical across the two arms, the gap is
+attributable to the shared information alone. Sharing raises honest-drone
+success from $45.9\%$ to $89.3\%$ and all-reach map success from $10.4\%$
+to $67.8\%$ --- a $+57.4$ percentage-point map-level gap
+(CI $[+52.8,+61.8]$). A policy \emph{trained} with sharing reaches a
+similar $87.7\%$ in its native mode; we do not interpret the small
+difference between the two, as it conflates two independently trained
+policies. The consistent picture is that the benefit resides in the shared
+information itself, which even a policy never trained with it exploits
+zero-shot. A dropout sweep (Table~\ref{tab:dropout}) shows this
+gap is an operating-point phenomenon: at $0\%$ dropout sharing confers no
+advantage --- the gap is in fact slightly negative ($-1.3$ pp,
+CI $[-2.3,-0.4]$), consistent with the early observation that cooperative
+perception did not meaningfully improve over local
+perception~\cite{trupercept2020} --- at $\sim\!33\%$ the gap opens to
+$+41.4$ pp, and at $\sim\!50\%$ it widens further to $+50.8$ pp. We evaluate the attack and its defenses at the
+$\sim\!33\%$ operating point, where collaboration is decisively valuable yet
+the map remains solvable.
+
+\begin{table}[t]\centering
+\caption{Collaborative-perception anchor at density $0.27$, 500 maps.
+Sharing (ON) versus own-LiDAR only (OFF) under $\sim\!33\%$ dropout.}
+\label{tab:anchor}
+\begin{tabular}{lccc}
+\toprule
+ & Drone-level & Map-level & Gap (map, 95\% CI) \\
+\midrule
+ON (shared)   & $89.3\%$ & $67.8\%$ & \multirow{2}{*}{$+57.4$ $[+52.8,+61.8]$} \\
+OFF (own only)& $45.9\%$ & $10.4\%$ & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]\centering
+\caption{Dropout sweep, drone-level success, 500 maps. The comm advantage
+appears only once sensing degrades.}
+\label{tab:dropout}
+\begin{tabular}{lcccc}
+\toprule
+Dropout & Blind (est.) & ON & OFF & Gap (95\% CI) \\
+\midrule
+$0\%$  & ${\sim}0\%$  & $88.7$ & $90.0$ & $-1.3$ $[-2.3,-0.4]$ \\
+$10\%$ & ${\sim}33\%$ & $87.7$ & $46.3$ & $+41.4$ $[+38.9,+43.8]$ \\
+$20\%$ & ${\sim}50\%$ & $86.2$ & $35.4$ & $+50.8$ $[+48.3,+53.3]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Reading the baselines.}
+Absolute success levels throughout this section should be read against the
+deliberately stacked stresses. Every condition carries $\sim$33\% sustained
+sensing blackout (the premise of collaboration), a calibrated obstacle
+density chosen so the task is demanding but solvable, and --- as noise grows
+--- position uncertainty approaching obstacle scale. The attack-free
+ceiling therefore runs from $\sim$86\% at $\sigma=0$ down to $53.4\%$ at
+$\sigma=0.6$; the latter is a navigation-information limit, not a defense
+artifact (Section~\ref{sec:res-limit}). Crucially, the \emph{same} ceiling
+underlies every arm of every comparison, so recovery and no-harm --- which
+are paired differences against that common base --- remain fair measures of
+the defense regardless of the absolute level.
+
+\subsection{The minimum-fusion Byzantine vulnerability}\label{sec:res-vuln}
+Because a fabricated near obstacle wins the per-ray minimum, even a small
+number of traitors is damaging, and the camouflage placement is markedly
+worse than the wall. Under attack with no defense, two traitors reduce
+honest success from the $\sim\!86\%$ noiseless ceiling to $71.8\%$ (wall)
+and $63.5\%$ (camouflage); three traitors reach $68.8\%$ and $60.9\%$
+respectively. The damage \emph{saturates} between two and three traitors
+(an added $\sim\!3$ pp), consistent with overlapping phantoms occupying the
+same corridor. As anticipated by the fusion mechanism, the attack is
+essentially independent of the dropout rate --- it overrides healthy and
+degraded sensors alike --- so we hold dropout fixed and vary sensor noise
+in what follows.
+
+\subsection{Naive consistency trust is destructive under noise}\label{sec:res-naive}
+Table~\ref{tab:naive} reports the naive single-frame filter against a
+two-traitor wall attack as sensor noise increases. At $\sigma=0$ it is
+excellent: precision $1.00$, and it recovers $+13.7$ pp. As soon as noise
+appears it inverts. Detection precision collapses to $0.23$ --- more than
+three quarters of its accusations are of honest neighbours --- and the
+no-harm column goes deeply negative ($-27.5$ pp at $\sigma=0.4$), meaning
+that \emph{with no attacker present at all}, merely enabling the filter
+destroys a quarter of the swarm's success by gating out honest teammates.
+Recovery under attack turns negative: the ``defense'' leaves the swarm worse
+off than no defense. This is the direct empirical signature of the
+$\sqrt{2}\sigma$ honest-disagreement problem of
+Section~\ref{sec:methods-defense}.
+
+\begin{table}[t]\centering
+\caption{Naive single-frame trust, wall attack, $f=2$, 500 maps.
+FP-harm $=$ no-harm cost; negative recovery means worse than no defense.}
+\label{tab:naive}
+\begin{tabular}{lccccc}
+\toprule
+$\sigma$ & Base & No-harm & Attack & Defense & Recovery (P/R)\\
+\midrule
+$0.0$ & $85.9$ & $85.9$ & $72.3$ & $85.9$ & $+13.7$ ($1.00/0.98$)\\
+$0.2$ & $79.0$ & $65.1$ & $63.1$ & $62.8$ & $-0.3$ ($0.28/0.98$)\\
+$0.4$ & $65.6$ & $38.1$ & $51.6$ & $38.3$ & $-13.3$ ($0.23/0.96$)\\
+$0.6$ & $54.9$ & $33.3$ & $41.2$ & $33.1$ & $-8.1$ ($0.23/0.94$)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The robust filter restores safety but hits a camouflage limit}\label{sec:res-robust}
+Widening the tolerance to $\varepsilon_0+4\sigma$ repairs the false
+accusations: across the noise range the robust filter holds precision
+$0.92$--$1.00$ and no-harm within $\pm0.3$ pp of base (the no-harm
+confidence intervals span zero at every level). Against the conspicuous
+wall attack it recovers gracefully. Against camouflage, however, it retains
+a blind spot exactly where the paper's threat is sharpest: at $\sigma=0.6$,
+$f=2$, its detection recall is only $0.13$ and its recovery is $+3.4$ pp
+(CI $[+0.9,+5.8]$). The lie hidden inside the widened tolerance band cannot
+be contradicted on any single frame. This is the limitation the temporal
+test removes.
+
+\subsection{Temporal offset-bias trust: the main result}\label{sec:res-temporal}
+Table~\ref{tab:temporal} gives the full two-traitor results for both attack
+placements across noise, comparing the single-frame robust filter with the
+composed temporal filter. Three properties hold throughout. First, the
+temporal filter never regresses: on the wall attack it matches or exceeds
+the robust filter at every noise level. Second, its advantage opens exactly
+where the robust filter fails --- at high noise under camouflage. At
+$\sigma=0.6$, $f=2$, camouflage, temporal detection recall rises from
+$0.13$ to $0.69$ and recovery from $+3.4$ to $+12.2$ pp
+(CI $[+9.8,+14.9]$), restoring success from the attacked $37.6\%$ to
+$49.8\%$ against a base of $53.4\%$. Third, this comes at no measurable cost
+to honest swarms: the no-harm figure is $-0.4$ pp with a confidence
+interval spanning zero.
+
+\begin{table}[t]\centering
+\caption{Temporal versus robust trust, $f=2$, 500 maps, with $95\%$ CIs on
+recovery. ``nh'' is temporal no-harm. Recall shown in parentheses.}
+\label{tab:temporal}
+\begin{tabular}{llccccc}
+\toprule
+Attack & $\sigma$ & Base & Attack & Robust rec.\,(R) & Temporal rec.\,(R) & nh\\
+\midrule
+\multirow{4}{*}{Wall}
+ & $0.0$ & $86.0$ & $71.8$ & $+13.9$ ($0.98$) & $+13.9$ ($0.98$) & $86.1$\\
+ & $0.2$ & $79.1$ & $64.5$ & $+13.1$ ($0.90$) & $+14.1$ ($0.92$) & $78.8$\\
+ & $0.4$ & $65.0$ & $54.8$ & $+7.8$ ($0.57$)  & $+9.2$ ($0.82$)  & $65.1$\\
+ & $0.6$ & $53.4$ & $43.5$ & $+3.7$ ($0.26$)  & $+9.7$ ($0.70$)  & $53.1$\\
+\midrule
+\multirow{4}{*}{Camo.}
+ & $0.0$ & $86.0$ & $63.5$ & $+20.3$ ($0.97$) & $+20.3$ ($0.97$) & $86.1$\\
+ & $0.2$ & $79.1$ & $58.3$ & $+17.8$ ($0.86$) & $+18.6$ ($0.94$) & $78.8$\\
+ & $0.4$ & $64.9$ & $47.7$ & $+11.1$ ($0.45$) & $+16.4$ ($0.81$) & $65.1$\\
+ & $0.6$ & $53.4$ & $37.6$ & $+3.4$ ($0.13$)  & $\mathbf{+12.2}$ ($0.69$) & $53.0$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The effect not only survives but strengthens as traitors are added, and it
+does so well past the point where honest robots lose their local majority.
+Table~\ref{tab:headline} isolates the worst case --- $\sigma=0.6$,
+camouflage --- across traitor counts from one to seven of ten robots.
+Because each honest robot is excluded from its own neighbour set, $f$
+traitors leave it with at most $9-f$ honest neighbours: at $f=5$ an honest
+robot's neighbourhood is already, in expectation, majority traitor, and by
+$f=7$ only two of its nine potential neighbours are honest. The temporal
+filter's recovery nonetheless climbs to a plateau of roughly $+15$ pp at
+$f=4$--$6$ --- $+15.2$ pp (CI $[+11.9,+18.4]$) at $f=5$ and $+15.1$ pp
+(CI $[+11.6,+18.6]$) at $f=6$ --- and remains $+10.9$ pp
+(CI $[+7.4,+14.5]$) at $f=7$; every one of these intervals excludes zero.
+The single-frame robust filter, by contrast, stays pinned near its floor and
+is no longer statistically distinguishable from no defense at $f=7$
+($+1.9$ pp, CI $[-1.3,+5.2]$). Temporal detection precision \emph{improves}
+monotonically with the threat ($0.68\to0.82\to0.89\to0.93\to0.96\to0.97
+\to0.98$): more traitors mean more genuine phantoms among the flagged links,
+so the defense is most precise exactly when it matters most, while no-harm
+stays flat at $\approx\!-0.4$ pp throughout.
+
+This is the empirical content of operating without an honest local majority.
+The verdict is pairwise --- each robot tests each neighbour against its own
+sensing and never counts votes --- so the mechanism is structurally
+independent of how many neighbours lie, and the data bear this out: the
+defense's contribution is stable and significant whether honest robots are a
+majority, a tie, or a minority. We are careful about what this does
+\emph{not} claim. Absolute navigation success still falls as traitors are
+added (undefended success drops from $44.4\%$ at $f=1$ to $\sim\!31\%$ at
+$f=7$), because more liars do more damage; the temporal filter recovers a
+stable, significant \emph{fraction} of that damage, it does not render
+navigation traitor-count-invariant.
+
+\begin{table}[t]\centering
+\caption{Worst case ($\sigma=0.6$, camouflage) across traitor counts,
+spanning the honest-majority boundary. Because each honest robot is excluded
+from its own neighbour set, its neighbourhood is majority-traitor in
+expectation once $f\ge5$. Recovery in pp; detection recall in parentheses;
+temporal precision and no-harm in the last columns. 500 maps.}
+\label{tab:headline}
+\begin{tabular}{lccccc}
+\toprule
+$f$ & Undefended & Robust rec.\,(R) & Temporal rec.\,(R) & Prec. & No-harm\\
+\midrule
+$1$ & $44.4$ & $+1.9$ ($0.13$) & $+7.1$ ($0.69$)  & $0.68$ & $-0.4$\\
+$2$ & $37.6$ & $+3.4$ ($0.13$) & $+12.2$ ($0.69$) & $0.82$ & $-0.4$\\
+$3$ & $35.3$ & $+5.3$ ($0.12$) & $+13.6$ ($0.68$) & $0.89$ & $-0.3$\\
+$4$ & $34.0$ & $+3.5$ ($0.12$) & $+14.7$ ($0.66$) & $0.93$ & $-0.3$\\
+$5$ & $32.6$ & $+4.0$ ($0.13$) & $+15.2$ ($0.67$) & $0.96$ & $-0.4$\\
+$6$ & $30.1$ & $+4.6$ ($0.13$) & $+15.1$ ($0.67$) & $0.97$ & $-0.4$\\
+$7$ & $31.1$ & $+1.9$ ($0.13$) & $\mathbf{+10.9}$ ($0.66$) & $0.98$ & $-0.3$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Figure~\ref{fig:offsethist} shows why the mechanism works: the distribution
+of the aggregated offset magnitude cleanly separates honest neighbours
+(concentrated near zero, as $\sqrt{2}\sigma$ noise averages out) from
+fabrications (a persistent bias well above the threshold $\eta$). A probe
+of this separation, before any trust gating, reports an area under the ROC
+curve of $0.99$ under oracle association and $0.85$--$0.90$ under realistic
+nearest-obstacle association.
+
+\subsection{An adaptive attacker faces a stealth/harm bind}\label{sec:res-adaptive}
+A reasonable objection is that a static attacker understates the threat. We
+therefore evaluate an attacker that knows the temporal filter and tunes its
+fabrication to evade it, via four knobs. The clearest is the phantom
+centre-offset: how far the fabricated obstacle is displaced from the real
+one it hugs. Table~\ref{tab:bind} ($f=2$, $\sigma=0.6$) shows the resulting
+bind. When the phantom sits on the real obstacle (offset $0$) it is
+invisible to the filter (recall $0.03$) but also harmless (it blocks no new
+space; harm $-0.8$ pp). As the offset grows, harm rises --- but so does
+detection recall, in lockstep. The attacker cannot be both stealthy and
+harmful: evading the temporal test requires collapsing the phantom onto real
+geometry, which defeats the purpose of the attack.
+
+\begin{table}[t]\centering
+\caption{Stealth/harm bind: adaptive phantom centre-offset, $f=2$,
+$\sigma=0.6$, 500 maps. Harm and detection recall rise together.}
+\label{tab:bind}
+\begin{tabular}{lcccc}
+\toprule
+Offset (m) & Undefended & Harm & Temporal rec. & Recall\\
+\midrule
+$0.0$ & $55.7$ & $-0.8$ & $+0.6$ & $0.03$\\
+$0.5$ & $53.7$ & $+1.2$ & $+2.1$ & $0.07$\\
+$1.0$ & $49.9$ & $+5.0$ & $+1.6$ & $0.48$\\
+$1.5$ & $44.9$ & $+10.0$& $+5.6$ & $0.69$\\
+$2.0$ & $42.1$ & $+12.8$& $+9.1$ & $0.70$\\
+$2.5$ & $40.6$ & $+14.3$& $+8.5$ & $0.70$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The bind holds across the noise range: sweeping the offset at
+$\sigma\in\{0,0.2,0.4\}$ and $f\in\{1,2,3\}$ (nine configurations) yields
+the same pattern in every one --- the harmless corner is undetected, the
+harmful corner is caught, and detection recall at the harmful end stays high
+($0.66$--$0.98$). The remaining three knobs are likewise self-defeating.
+Per-frame jitter is zero-mean and so does not shift the temporal mean; it
+only raises variance, and in fact reduces the attacker's own harm faster
+than it dents recovery. Intermittent broadcasting (duty) dilutes the
+attacker's evidence but equally dilutes its harm: at the lowest duty the
+harm falls to $+5.0$ pp while recall falls to $0.41$. A surface gap large
+enough to matter pushes the phantom centre outside the tolerance band, where
+it is reliably caught. In no configuration does the adaptive attacker obtain
+both meaningful harm and evasion.
+
+\subsection{The navigation perception limit}\label{sec:res-limit}
+Finally we distinguish the security result from an orthogonal limit. As
+noise grows the attack-free base success itself falls, from $\sim\!86\%$ at
+$\sigma=0$ to $53.4\%$ at $\sigma=0.6$. This is not a defense failure but a
+navigation one: fine-tuning the base navigator under sensor-noise domain
+randomization recovers only $\sim\!2.5$ pp at $\sigma=0.6$, indicating a
+genuine perception-information limit --- position uncertainty comparable to
+obstacle size cannot be undone by the policy. Crucially, the defense never
+makes this worse (no-harm $\approx0$ at every level), and the two limits are
+independent: the navigation limit bounds the ceiling, while the temporal
+defense recovers the security gap up to that ceiling.

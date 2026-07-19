@@ -1,0 +1,53 @@
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+
+========================================================================
+DROPOUT SWEEP (SINGLE-POLICY ABLATION)  |  500 maps  |  density=0.27  |  10w
+  model : raster_slot_fusion_OFF_stage2_final.zip  (use_shared_map toggled; same weights both arms)
+  10% row should reproduce the anchor (tab:anchor) cell by construction.
+========================================================================
+
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+  ... 500/3000
+  ... 1000/3000
+  ... 1500/3000
+  ... 2000/3000
+  ... 2500/3000
+  ... 3000/3000
+  dropout=  0% blind~0%  ON 90.14%  OFF 90.04%  gap +0.10 pp  CI [-0.28, +0.48]
+  dropout= 10% blind~33%  ON 89.26%  OFF 46.14%  gap +43.12 pp  CI [+40.56, +45.60]
+  dropout= 20% blind~50%  ON 87.86%  OFF 35.44%  gap +52.42 pp  CI [+49.82, +54.94]
+
+
+========================================================================
+RESULTS -- drone-level success (single-policy ablation)
+========================================================================
+  Dropout  Blind       ON      OFF       Gap          95% CI (gap)
+  -------  -----  -------  -------  --------  --------------------
+       0%     0%   90.14%   90.04%    +0.10pp  [ -0.28,  +0.48] pp
+      10%    33%   89.26%   46.14%   +43.12pp  [+40.56, +45.60] pp
+      20%    50%   87.86%   35.44%   +52.42pp  [+49.82, +54.94] pp
+========================================================================
+
+[INTERPRETATION]
+  [i] 10% row ON/OFF should match tab:anchor (89.3/45.9); if so, tables now reconcile.
+  [OK] Gap significant at 10% and 20% (CIs > 0): +43.12 -> +52.42 pp

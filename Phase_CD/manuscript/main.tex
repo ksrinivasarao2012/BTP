@@ -1,0 +1,105 @@
+% =====================================================================
+%  Resilient Collaborative Perception for Multi-Robot Navigation under
+%  Sensor Noise and Byzantine False-Obstacle Attacks
+%  Target: Robotics and Autonomous Systems (Elsevier) - elsarticle class
+%  Build: upload this folder to Overleaf (template: "Elsevier article")
+% =====================================================================
+\documentclass[preprint,12pt]{elsarticle}
+% For final double-column proof view use: \documentclass[final,5p,times,twocolumn]{elsarticle}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}      % clean tables (no vertical rules, per Elsevier)
+\usepackage{multirow}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+\graphicspath{{figures/}}
+
+\journal{Robotics and Autonomous Systems}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Resilient Collaborative Perception for Multi-Robot Navigation under
+Sensor Noise and Byzantine False-Obstacle Attacks}
+
+%% Authors — fill affiliations/emails before submission
+\author[inst1]{K.~Srinivasa~Rao\corref{cor1}}
+\ead{raokommanasrinivasa@gmail.com}
+\author[inst1]{\todo{Professor name}}
+\cortext[cor1]{Corresponding author.}
+\affiliation[inst1]{organization={\todo{Institute name, department}},
+            city={\todo{city}},
+            country={India}}
+
+\begin{abstract}
+% <= 250 words, standalone, no references, no undefined abbreviations.
+\input{sections/abstract}
+\end{abstract}
+
+%% 1-7 keywords, single words preferred
+\begin{keyword}
+multi-robot systems \sep collaborative perception \sep Byzantine resilience
+\sep trust \sep reinforcement learning \sep swarm navigation
+\end{keyword}
+
+\end{frontmatter}
+
+% ---------------------------------------------------------------------
+\section{Introduction}\label{sec:intro}
+\input{sections/introduction}
+
+\section{Related work}\label{sec:related}
+\input{sections/related}
+
+\section{System model and methods}\label{sec:methods}
+\input{sections/methods}
+
+\section{Experimental setup}\label{sec:setup}
+\input{sections/setup}
+
+\section{Results}\label{sec:results}
+\input{sections/results}
+
+\section{Discussion and limitations}\label{sec:discussion}
+\input{sections/discussion}
+
+\section{Conclusion and future work}\label{sec:conclusion}
+\input{sections/conclusion}
+
+% ---------------------------------------------------------------------
+\section*{CRediT authorship contribution statement}
+\todo{K. Srinivasa Rao: Conceptualization, Methodology, Software,
+Investigation, Formal analysis, Writing -- original draft.
+[Professor]: Supervision, Writing -- review \& editing, Project
+administration.}
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests or
+personal relationships that could have appeared to influence the work
+reported in this paper.
+
+\section*{Data availability}
+The simulation environment, trained models, evaluation scripts, and raw
+result logs that reproduce every table and figure in this article are
+publicly available at \todo{GitHub URL} (archived at \todo{Zenodo DOI}).
+
+\section*{Declaration of generative AI and AI-assisted technologies in the
+manuscript preparation process}
+During the preparation of this work the authors used Claude (Anthropic) in
+order to assist with drafting and editing the manuscript text. After using
+this tool, the authors reviewed and edited the content as needed and take
+full responsibility for the content of the published article.
+
+\section*{Acknowledgements}
+\todo{Optional: institute compute resources, colleagues, etc.}
+
+% ---------------------------------------------------------------------
+\bibliographystyle{elsarticle-num}
+\bibliography{refs}
+
+\end{document}

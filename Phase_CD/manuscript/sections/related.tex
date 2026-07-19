@@ -1,0 +1,188 @@
+% Sources: PAPER_MASTER_PLAN sec 9.2 (audit 2026-06-19) + sec 10.1 re-sweep
+% (2026-06-26). Verify TODO-VERIFY bib entries before submission.
+
+\paragraph{Security of collaborative perception.}
+Attacks on, and defenses of, shared perception have been studied intensively
+for connected autonomous vehicles. Zhang et al.~\cite{zhang2024cad}
+demonstrate practical data-fabrication attacks on vehicular collaborative
+perception and propose CAD, a detector in which benign vehicles jointly
+reveal malicious fabrication through cross-vehicle occupancy-consistency
+checks; the
+approach therefore relies on benign vehicles positioned to observe the
+attacked region. Two aspects of our setting go beyond this. First, we do not
+assume such a benign observer of the attacked region: our test is pairwise
+and remains effective with up to three traitors among ten robots. Second, we
+specifically target \emph{camouflaged} fabrications --- phantoms blended into
+real geometry --- which are the hardest to separate from honest observation
+error and which a single-frame cross-agent check cannot contradict under
+sensor noise. In feature-fusion collaborative perception,
+GCP~\cite{gcp2025} defends against malicious agents by augmenting
+single-shot spatial-consistency checks with temporal motion-flow
+reconstruction to expose blind-area attacks; MADE~\cite{made2024} detects
+and removes malicious agents through hypothesis tests on the consistency
+between each inspected agent and the ego agent, with statistical
+false-positive control; and CoDynTrust~\cite{codyntrust2025} addresses the
+benign counterpart by weighting intermediate feature contributions
+according to their estimated uncertainty, thereby mitigating temporal
+asynchrony rather than adversarial behaviour; all three are evaluated
+using Average Precision (AP) on vehicular benchmarks.
+
+A second, closer line verifies \emph{object-level claims against the
+verifier's own observations}. TruPercept~\cite{trupercept2020} evaluates reported
+object detections as verified locally, weighting each evaluation by the
+visibility of the claimed object from the verifier's viewpoint before
+computing peer trust; MATE~\cite{mate2025} formalizes this as Bayesian trust
+estimation over geometric observation consistency with explicit
+field-of-view reasoning, against false-positive, false-negative, and
+translation attacks on multi-target tracking; and the same authors' aerial
+framework~\cite{aerialtrust2025} carries that hidden-Markov trust estimation
+to ad hoc UAV networks on intelligence, surveillance, and reconnaissance
+(ISR) missions --- the setting nearest to ours in the literature. Our single-frame filters (Section~\ref{sec:methods-defense})
+belong to precisely this family, and inherit its central assumption: that a
+verifier positioned to observe a claimed object either corroborates or
+contradicts it.
+
+That assumption is what a camouflaged fabrication attacks. It is instructive
+that TruPercept additionally rejects \emph{open-space} phantoms with a
+plausibility check that culls the sensor frustum toward a claimed object: an
+object with no returns in front of it, but returns behind it, is deemed
+absent with high confidence~\cite{trupercept2020}. Operationally, such a
+test derives its evidence from rays passing through empty space at the
+claimed location, which is exactly what a phantom placed in free space provides ---
+and, in our own experiments, one reason the conspicuous wall attack proves
+comparatively easy to detect (Section~\ref{sec:res-temporal}). A camouflaged
+phantom is designed to avoid supplying that evidence: placed flush against a
+real obstacle, its claimed volume coincides with returns the verifier
+genuinely receives from nearby structure, so a free-space plausibility test
+has little to discriminate on. We note that TruPercept does not evaluate
+camouflaged fabrications, and we make no claim about the behaviour of its
+checker in our setting; the point is that geometric plausibility tests
+derive their power from rays traversing empty space, and camouflage attacks
+intentionally deny them that. Under ranging noise the residual discrepancy
+further shrinks below the tolerance a verifier must grant honest neighbours
+(Section~\ref{sec:res-robust}). Our temporal test therefore does not seek a
+stronger \emph{spatial} contradiction; it accumulates a \emph{statistical}
+one over time.
+
+This line accommodates natural sensor error through longitudinal filtering,
+and observes that an attacker must remain dynamics-consistent to evade local
+filtering; TruPercept further reports that unreliable agents which mostly
+report truthfully are not separated from honest ones by its trust
+model~\cite{trupercept2020} --- an early indication of the evasion regime we
+formalize. Where our setting departs further:
+TruPercept~\cite{trupercept2020} aggregates trust at a central server and
+MATE~\cite{mate2025} at a central computing centre (the aerial
+framework~\cite{aerialtrust2025} does distribute the estimation), whereas
+our verdicts are pairwise and local, as a swarm without infrastructure
+requires. None of this line
+characterizes the regime in which the consistency check \emph{itself} turns
+harmful under ranging noise (our destructive-filter result), considers
+fabrications geometrically camouflaged within the noise tolerance of real
+objects, or measures impact on a closed-loop learned \emph{navigation} task
+--- their trust protects a shared perception picture, whether for driving, a
+smart city, or aerial surveillance, whereas ours protects the obstacle map a
+policy steers by. Our contribution begins where this family breaks. Closest to our mechanism,
+the recent PRBI defense~\cite{prbi2026} exploits frame-to-frame perceptual
+consistency to identify lying vehicles in fully untrusted cooperative
+detection. It differs from our setting in three ways that matter: it is
+evaluated by detection accuracy on feature-level fusion rather than by a
+closed-loop navigation objective; it does not model ranging noise, and so
+does not confront the honest-disagreement regime in which we show
+consistency checking becomes destructive; and while it evaluates
+intermittent injection schedules, it does not consider a defense-aware
+attacker that optimizes its fabrication against the deployed detector, as
+our stealth/harm-bind analysis does. More fundamentally, PRBI's alarm is
+raised when the Jaccard similarity between the current and preceding
+detection sets falls below a threshold~\cite{prbi2026}: it screens for a
+\emph{drop} in inter-frame agreement. Such a criterion responds to
+perturbations of the scene relative to its recent past. A
+persistent fabrication is temporally self-consistent once established;
+PRBI does not evaluate this attack class, and we make no claim about how
+its detector would behave against it. The
+distinction we draw is one of reference signal: PRBI compares the scene to
+its own past, whereas our test compares a neighbour's claim to the
+verifier's independent sensing of the same object, accumulated over time.
+
+Complementing the defense literature, the TrustFlip
+attack~\cite{trustflip2026} shows that consistency-based trust can itself be
+weaponized: physically induced disagreements cause defenses to expel
+\emph{honest} vehicles. Our evaluation addresses the same failure class
+by measuring \emph{no-harm} --- the success cost of running the defense in
+attack-free swarms --- directly, and finding it statistically
+indistinguishable from zero even under an adaptive attacker.
+
+\paragraph{Temporal detection of sensor spoofing.}
+A separate line detects LiDAR spoofing against a \emph{single} vehicle by
+exploiting temporal structure in its own sensor stream, e.g.\ motion-induced
+consistency in 3D-TC2~\cite{tc2_2021} and point-level temporal consistency
+in ADoPT~\cite{adopt2023}. These methods test whether observations from a
+single sensor remain temporally self-consistent. Ours instead aggregates a \emph{cross-agent
+disagreement} --- the offset between a neighbour's claim and the verifier's
+own view --- whose statistics under honest noise (zero-mean, variance
+$2\sigma^2$) versus fabrication (persistent bias) we can characterize and
+threshold explicitly. The statistic itself is elementary; the contribution
+is its use as a communication-trust discriminator that survives sensor
+noise and camouflage, conditions under which we show single-frame
+cross-agent checks fail.
+
+\paragraph{Byzantine resilience in multi-robot systems.}
+Byzantine fault tolerance originates in distributed
+computing~\cite{lamport1982byzantine} and, in robot swarms, is typically
+addressed at the \emph{consensus} layer. Consensus-based coordination such
+as SwarmRaft~\cite{swarmraft2025} fuses peer measurements to maintain
+agreement on state (e.g.\ position and heading) under degraded conditions,
+and evolutionary-game analyses~\cite{conformity2026} model how deceptive
+strategies propagate through conformity dynamics under Byzantine influence.
+These works protect state agreement or model attacks on collective
+decision-making; our
+threat lives one layer below, in the \emph{perception content} that robots
+exchange, and our defense verifies that content against the verifier's own
+sensing rather than against majority agreement. Because each verdict is
+pairwise, the mechanism is structurally independent of the number of liars;
+we confirm this empirically (Section~\ref{sec:res-temporal}), where its
+recovery remains significant even when traitors form a local majority among
+an honest robot's neighbours --- up to seven of ten robots.
+
+\paragraph{Learned multi-robot navigation and robust communication.}
+Our navigator is trained with centralized-training/decentralized-execution
+multi-agent reinforcement learning, following the MAPPO
+recipe~\cite{yu2022mappo} built on PPO~\cite{schulman2017ppo} and, in
+implementation, on Stable-Baselines3~\cite{raffin2021sb3}; CTDE itself
+traces to multi-agent actor-critic formulations such as
+MADDPG~\cite{lowe2017maddpg}. Our attack surface is deliberately
+interpretable: the messages are geometric obstacle claims rather than
+learned latent vectors, the fusion rule is explicit, and the defense is a
+hand-designed statistical test --- one of our findings is that no learned
+trust component is required to counter this threat class.
+
+In combination, to our knowledge no prior work evaluates
+fabricated-obstacle attacks on collaborative perception \emph{inside a
+closed-loop learned navigation task} (success, not detection accuracy, as
+the end metric), analyzes the interaction of consistency-based trust with
+sensor noise to the point of demonstrating harmfulness, closes the
+resulting camouflage blind spot with a cross-agent temporal bias test, and
+stress-tests the closure against an adaptive attacker across noise levels
+and traitor counts.
+
+\paragraph{On baseline comparison.}
+The defenses above cannot be transplanted onto our benchmark without
+distortion: CAD, PRBI, GCP, and MADE defend the fused perception pipelines
+of vehicular detection stacks and are evaluated by detection-level metrics
+(anomaly-detection rates or average precision), while TruPercept, MATE, and
+the same authors' aerial framework operate at the object and track level;
+none is designed to operate directly on the geometric obstacle claims
+exchanged by our agents, and none produces the navigation-success outcome
+we measure --- a reimplementation would test our translation of each method
+rather than the method itself. We
+instead compare against the \emph{primitive that the object-level family
+shares}: verifying a peer's claims against what the verifier itself was
+positioned to observe, accumulating trust, and excluding on contradiction.
+That primitive is implemented natively in our setting in two strengths ---
+the fixed-tolerance (naive) variant and the noise-aware robust variant
+(Section~\ref{sec:methods-defense}) --- and it is the same
+visibility-and-consistency recipe underlying
+TruPercept~\cite{trupercept2020} and the MATE
+line~\cite{mate2025,aerialtrust2025}. Our evaluation therefore reports how
+the family's core mechanism behaves in this regime --- including its
+noise-induced failure --- before showing what the temporal test adds on top
+of it.

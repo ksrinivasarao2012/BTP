@@ -1,0 +1,62 @@
+% Sources: RESULTS_027_CAMERA_READY.md (setup block), boot_ci.py,
+% measure_env_stats.py, PARAMETER_JUSTIFICATION_PHASE_CD.md. Verified.
+
+\subsection{Metrics}\label{sec:setup-metrics}
+Our primary metric is \emph{honest-drone success}: the fraction of
+non-Byzantine drones that reach the goal within the episode horizon,
+averaged over a map suite. We report it as a percentage. We also track
+\emph{map-level success} (all ten drones reach the goal) for the
+collaborative-perception anchor, where it is the more demanding and more
+intuitive figure. For the defenses we additionally report, for each
+condition:
+\begin{itemize}
+\item \textbf{Recovery} $=$ (success with the defense on, under attack) $-$
+(success with no defense, under attack), in percentage points; positive
+means the defense helps.
+\item \textbf{No-harm} $=$ (success with the defense on, \emph{no} attacker)
+$-$ (attack-free base success). This isolates the cost of running the
+defense itself; a value near zero means the defense does not wrongly gate
+honest neighbours. It is the direct measure of the failure mode that
+consistency defenses are known to suffer, and we treat it as a
+first-class result rather than a proxy.
+\item \textbf{Detection precision and recall} of the trust test, where a
+true positive is a correctly contradicted traitor link and a false positive
+is a wrongly contradicted honest link.
+\end{itemize}
+
+\subsection{Evaluation protocol}\label{sec:setup-protocol}
+Each condition is evaluated on \textbf{500 maps}. Obstacles are circular,
+placed at a target density of $0.27$; at this density a
+solvability-verified map contains on average $29.7$ obstacles (range
+$15$--$56$) with a probability-weighted mean radius of $0.91$~m, and
+$96.8\%$ of sampled maps are solvable. Maps are generated from
+deterministic seeds so that every arm of a comparison --- base, attack,
+robust, temporal, no-harm --- is evaluated on the \emph{identical} suite of
+maps. This paired design lets us report \textbf{paired-bootstrap $95\%$
+confidence intervals}: we resample map indices with replacement (2000
+resamples, fixed seed) and recompute each quantity, taking the $2.5$th and
+$97.5$th percentiles; for a difference such as recovery or no-harm we
+resample the per-map \emph{difference}, which cancels shared map-difficulty
+variance and yields tight intervals. An interval that excludes zero
+indicates a statistically reliable effect.
+
+\subsection{Conditions}\label{sec:setup-conditions}
+The main defense study sweeps noise $\sigma\in\{0,0.2,0.4,0.6\}$~m, attack
+placement $\in\{\text{wall},\text{camouflage}\}$, and traitor count
+$f\in\{1,2,3\}$ (a bare minority, the literature-standard ceiling), each
+under five arms (base, attack, robust, temporal, no-harm). The adaptive
+attacker is studied with four independent evasion knobs --- phantom
+centre-offset, surface gap, per-frame jitter, and broadcast duty --- swept
+at $\sigma=0.6$; because these sweeps isolate a single attacker capability,
+they hold the phantom radius fixed rather than randomizing it, so the swept
+axis is not confounded. The offset knob, which cleanly exhibits the
+stealth/harm bind, is additionally swept across all three noise levels and
+all three traitor counts.
+
+\subsection{Reproducibility}\label{sec:setup-repro}
+The simulation environment, the trained navigation and collaborative-
+perception models, all evaluation scripts, and the raw per-condition result
+logs (including the confidence-interval outputs) are released publicly so
+that every number in Section~\ref{sec:results} can be regenerated with a
+single driver script. The release and its archival identifier are given in
+the data-availability statement.

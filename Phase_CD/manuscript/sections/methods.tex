@@ -1,0 +1,253 @@
+% Verified against code 2026-07-08:
+%   env_noisy_byzantine.py (_sample_sensing l.144, _ego_judgement l.170,
+%   _temporal_update l.110, _broadcast_phantoms l.87, _fused_lidar l.186).
+% Numbers/params: CLAUDE.md, PARAMETER_JUSTIFICATION_PHASE_CD.md, M0_PROVENANCE.
+% NOTE: verify_eps=0.6, k_sigma=4, alpha=0.25, tau=0.4, min_k=20, bias_eps=0.6.
+
+\subsection{Task and environment}\label{sec:methods-env}
+We consider $N=10$ holonomic drones navigating a shared $20\times20$~m
+planar field to a common goal. The field is populated with static circular
+obstacles at a calibrated density (Section~\ref{sec:setup}) chosen so that
+the task is neither trivial nor infeasible; every evaluated map is verified
+solvable. Each drone observes its surroundings through a 48-ray planar
+LiDAR of range $R=8$~m and selects a continuous velocity action; episodes
+run for up to 1200 steps. Drones that reach the goal are removed from the
+scene so that they neither obstruct nor collide with the remainder.
+
+Perception is deliberately \emph{partial}: with an $8$~m range on a $20$~m
+field, no drone observes the whole environment, which is the precondition
+for collaboration to be meaningful. Drones may exchange messages within a
+communication range of $10$~m, strictly larger than the sensing range so
+that a neighbour's message can describe regions the receiver cannot yet
+sense itself; were communication no farther than sensing, sharing could
+only ever duplicate what the receiver already sees. An external mission
+planner supplies each drone with a routed goal-direction heading, computed
+as the gradient of a global shortest-path field; the learned policy performs
+local control and collision avoidance given this heading. We treat the
+routed heading as a disclosed input rather than a learned capability
+(Section~\ref{sec:discussion}).
+
+\paragraph{Scope of the abstraction.}
+We deliberately model perception at the \emph{object level}: agents
+exchange geometric obstacle claims (centre, radius) rather than raw point
+clouds or learned feature maps. This abstraction is chosen, not incidental.
+The questions this paper asks --- when does a fabricated claim override
+honest sensing, when does consistency checking turn harmful under noise,
+and what evidence separates a persistent lie from honest error --- concern
+the \emph{fusion and trust layer}, and posing them at the object level
+isolates that layer from the particulars of any perception stack, in the
+same way that classical multi-target-tracking analyses reason over
+detections rather than pixels. The price is that phenomena living below
+this level --- occlusion patterns, detector biases, feature-space attacks
+--- are out of scope here (Section~\ref{sec:discussion}); the benefit is
+that the trust mechanisms and their failure modes are characterized
+independently of a specific sensor pipeline, and the offset-bias statistic
+we exploit is defined for any system that can associate a neighbour's
+claimed object with its own view of that object.
+
+\subsection{Learned navigation policy}\label{sec:methods-policy}
+The navigation policy is trained with multi-agent proximal policy
+optimization under the centralized-training/decentralized-execution
+paradigm~\cite{yu2022mappo,schulman2017ppo}. During training a centralized
+critic observes a $520$-dimensional global state, while each actor observes
+only a $130$-dimensional local vector --- its own LiDAR, kinematic state,
+routed heading, and gated neighbour summaries. At execution only the
+decentralized actor runs; the critic is discarded. The policy is obtained by
+curriculum transfer over increasing obstacle density and, for the
+experiments reported here, a final fine-tuning stage under sensor-noise
+domain randomization ($\sigma\sim\mathcal{U}[0,0.6]$~m) so that the base
+navigator is not disadvantaged at test time by noise it never saw in
+training. Full hyperparameters and the training lineage are provided in the
+supplementary material; they are not central to the defense contribution.
+
+\subsection{Collaborative perception and fusion}\label{sec:methods-fusion}
+Each sighted drone $j$ senses the set of obstacles within its range and
+broadcasts their estimated centres and radii to neighbours in
+communication range. A receiver $i$ fuses received obstacles with its own by
+rendering all of them into its 48-ray LiDAR channel and taking, per ray,
+the \emph{minimum} distance over own and received returns. Minimum-fusion
+is one point in a design space: averaging or confidence-weighted
+combination would dilute both fabricated and genuine individual returns,
+potentially weakening the property that a single teammate's warning is
+sufficient to trigger avoidance. We adopt the conservative rule and defend
+it, rather than trading safety for attack resistance; the vulnerability
+studied below is the price of that safety property, not an artifact of an
+eccentric choice.
+
+We model such blackouts explicitly. At each step a drone independently
+enters a sustained blind burst with probability $p=0.10$ lasting $s=5$
+steps, giving a stationary blind fraction of $ps/(1+ps)\approx 0.33$; a
+blind drone senses nothing and, crucially, \emph{broadcasts nothing}
+(sender gating), so comm cannot trivially substitute for a drone's own
+missing sensor. This regime is where sharing is load-bearing: it is the
+operating point at which the gap between sharing and not sharing is largest
+while the map remains solvable (Section~\ref{sec:results}).
+
+\subsection{Threat model: Byzantine false-obstacle attacks}\label{sec:methods-threat}
+Among the $N$ drones, $f\in\{1,2,3\}$ are Byzantine insiders. They obey the
+communication protocol but broadcast \emph{fabricated} obstacles that do not
+exist in the ground truth. Because fabricated obstacles are not physically
+present, the map remains solvable --- the attack denies passage by deception
+rather than by blocking it, so any lost success is attributable to the lie,
+not to an impossible task. A fabricated near obstacle always wins the
+per-ray minimum in fusion, so a single traitor overrides even a
+fully-sighted receiver's own correct sensing; the attack is consequently
+\emph{independent of the dropout rate} that motivates collaboration.
+
+We study two placements. In the \emph{wall} attack the traitors broadcast a
+line of phantom obstacles across the goal approach --- damaging but
+conspicuous, since a sighted honest drone is positioned to notice that the
+claimed barrier is not there. In the \emph{camouflage} attack each phantom
+is placed hugging a real obstacle bordering a free corridor, extending it
+into the gap; this is both more harmful (it closes the route a drone would
+actually take) and far stealthier (the phantom sits where obstacles
+plausibly are). To avoid tuning the attack to a single easy configuration,
+the fabrication is \emph{randomized} per map: the number of phantoms is
+drawn as $n\sim\mathcal{U}\{3,4,5,6\}$ and each phantom radius is drawn
+from a three-class sampler ($40/40/20\%$ small/medium/large over the same
+radius ranges as the map generator), matched to the measured size
+distribution of the real obstacles ($42/40/18\%$), so phantoms are
+size-indistinguishable from genuine obstacles and cannot be filtered on
+size alone.
+
+We deliberately grant the attacker more than is physically realizable: it
+places phantoms using the \emph{true} obstacle map and broadcasts their
+positions noise-free, while honest drones sense and report under noise.
+Reported damage is therefore measured against a best-case adversary. The
+adaptive attacker of Section~\ref{sec:res-adaptive} is
+\emph{design-aware but not state-aware}: it knows how the deployed defense
+works and tunes its fabrication geometry against it, but it cannot observe
+its own runtime trust scores or other drones' private observations, and so
+cannot adapt within an episode.
+
+\subsection{Sensor-noise model}\label{sec:methods-noise}
+Real range sensing is imperfect. We add independent zero-mean Gaussian noise
+of standard deviation $\sigma$ to every drone's estimate of every sensed
+obstacle position, resampled each step:
+$\hat{c}_{j,m}(t) = c_m + \varepsilon_{j,m}(t)$, with
+$\varepsilon_{j,m}(t)\sim\mathcal{N}(0,\sigma^2 I_2)$, independent across
+drones $j$, obstacles $m$, and time $t$. We sweep
+$\sigma\in\{0,0.2,0.4,0.6\}$~m. At $\sigma=0.6$ the positional error is on
+the order of the obstacle radius itself (mean $0.91$~m), several times the
+drone clearance, and --- the key consequence for defense --- large enough
+that two honest drones sensing the same obstacle disagree by
+$\lVert\varepsilon_{i,m}-\varepsilon_{j,m}\rVert$ with expected magnitude on
+the order of $\sqrt{2}\,\sigma\approx0.85$~m.
+
+\subsection{Defenses}\label{sec:methods-defense}
+Every defense maintains a per-pair trust scalar $t_{ij}\in[0,1]$, reset to
+$1$ each episode. When receiver $i$ forms a judgement about neighbour $j$ on
+a given step it updates trust by exponential moving average,
+\begin{equation}
+t_{ij}\leftarrow(1-\alpha)\,t_{ij}+\alpha\,\mathbb{1}[\text{$j$ not
+contradicted}],\qquad \alpha=0.25,
+\label{eq:ewma}
+\end{equation}
+and excludes $j$ from fusion whenever $t_{ij}<\tau$ ($\tau=0.4$). With
+$\alpha=0.25$, trust builds gradually under consistent behaviour but
+collapses within a few contradictions; the same qualitative requirement ---
+gradual accrual, rapid degradation --- has been articulated independently,
+within a different (Bayesian) trust formalism, by Hallyburton and
+Pajic~\cite{aerialtrust2025}. The three
+defenses differ only in how a contradiction is decided.
+
+\paragraph{(a) Naive single-frame trust.}
+If $i$ is sighted and positioned to see a broadcast obstacle $o$ (i.e.\
+$\lVert p_i-o\rVert\le R$) but its own nearest sensed obstacle lies farther
+than a fixed tolerance $\varepsilon_0=0.6$~m from $o$, then $j$ is
+contradicted on that frame. Under noiseless sensing this excludes traitors
+almost perfectly. Under noise it is fragile: two honest views of one
+obstacle differ by $\sim\sqrt{2}\sigma$, which for $\sigma\ge0.4$~m exceeds
+$\varepsilon_0$, so honest neighbours are contradicted and gated out
+(Section~\ref{sec:results}).
+
+\paragraph{(b) Noise-aware robust trust.}
+The robust filter widens the tolerance in proportion to the known noise
+level,
+\begin{equation}
+\varepsilon(\sigma)=\varepsilon_0+k_\sigma\,\sigma,\qquad k_\sigma=4,
+\label{eq:robusteps}
+\end{equation}
+which restores $\approx2\sqrt{2}\sigma$ coverage of honest disagreement with
+margin, so genuine noisy matches pass while phantoms in open space (metres
+from any real obstacle) still fail. This repairs the false-accusation
+problem, but a camouflage phantom placed within $\varepsilon(\sigma)$ of the
+real obstacle it hugs cannot be contradicted on any single frame: the lie
+hides inside the widened band.
+
+\paragraph{(c) Temporal offset-bias trust.}
+Our contribution attacks the camouflage phantom over time rather than with a
+looser threshold. For each broadcast obstacle $o$, receiver $i$ associates
+it with its own nearest sensed obstacle --- call the matched track $m$ and
+$i$'s current noisy view of it $\hat{c}_{i,m}$ --- and records the
+\emph{offset vector}
+\begin{equation}
+d = o - \hat{c}_{i,m}.
+\label{eq:offset}
+\end{equation}
+For an honest neighbour reporting the true obstacle,
+$o=\hat{c}_{j,m}=c_m+\varepsilon_{j,m}$, so
+$d=\varepsilon_{j,m}-\varepsilon_{i,m}$ is zero-mean with variance
+$2\sigma^2$: averaged over frames it \emph{cancels}. For a fabrication,
+$o$ is anchored to the lie rather than to $c_m$, so $d$ carries a
+\emph{persistent bias} equal to the phantom's displacement from the matched
+real obstacle, which does \emph{not} cancel. The receiver keeps a running
+mean of $d$ in a bucket indexed by $(i,j,m)$; once a bucket has accumulated
+at least $K_{\min}=20$ samples it yields a verdict, contradicting $j$ if the
+mean offset magnitude exceeds a threshold,
+\begin{equation}
+\Big\lVert\tfrac{1}{n}\textstyle\sum_{t} d_t\Big\rVert > \eta,
+\qquad \eta=0.6~\text{m},\; n\ge K_{\min}.
+\label{eq:temporal}
+\end{equation}
+Because $\eta$ is applied to a \emph{mean} rather than a single frame, it can
+stay tight while honest noise (which shrinks as $1/\sqrt{n}$) falls below it.
+The temporal test composes with the single-frame robust test by logical OR:
+$j$ is contradicted if either fires, so the fast path catches conspicuous
+wall phantoms immediately while the slow path catches camouflage phantoms
+once enough evidence accrues. Algorithm~\ref{alg:temporal} summarizes one
+step of the composed defense. All thresholds
+($\varepsilon_0,k_\sigma,\alpha,\tau,K_{\min},\eta$) are justified
+individually in Section~\ref{sec:setup} and the supplementary material; none
+is tuned per condition. Two implementation notes: the receiver's identity of
+its \emph{own} tracks $m$ is idealized (obstacles are static, so persistent
+track identity is mild), whereas the broadcast-to-track association in
+Eq.~\eqref{eq:offset} is realistic nearest-neighbour matching --- a probe of
+the offset signal alone yields ROC-AUC $0.99$ under oracle association and
+$0.85$--$0.90$ under this realistic association, quantifying the cost of the
+weaker assumption. The filter is lightweight: the running means occupy under
+$100$~KB for the whole swarm, and the measured overhead of the composed
+defense is ${\sim}0.15$~ms per drone per step in unoptimized Python.
+
+\begin{algorithm}[t]
+\DontPrintSemicolon
+\caption{Composed trust defense, one step at receiver $i$.}
+\label{alg:temporal}
+\KwIn{own noisy obstacle views $\hat{c}_{i,\cdot}$; for each in-range
+neighbour $j$: broadcast obstacles $O_j$; trust $t_{ij}$; noise $\sigma$}
+\KwParam{$\varepsilon_0{=}0.6$, $k_\sigma{=}4$, $\alpha{=}0.25$,
+$\tau{=}0.4$, $K_{\min}{=}20$, $\eta{=}0.6$}
+$\varepsilon \leftarrow \varepsilon_0 + k_\sigma\,\sigma$\;
+\ForEach{in-range neighbour $j$}{
+  $\mathit{judged}\leftarrow\mathbf{false}$;\quad
+  $\mathit{bad}\leftarrow\mathbf{false}$\;
+  \ForEach{$o \in O_j$ with $\lVert p_i-o\rVert \le R$}{
+    $m \leftarrow \arg\min_{m'} \lVert \hat{c}_{i,m'} - o\rVert$\quad
+      \tcp*{match to own nearest obstacle}
+    $\mathit{judged}\leftarrow\mathbf{true}$\;
+    \lIf{$\lVert \hat{c}_{i,m} - o\rVert > \varepsilon$}{
+      $\mathit{bad}\leftarrow\mathbf{true}$ \tcp*[f]{single-frame robust test}}
+    $S_{ijm}\mathrel{+}= (o-\hat{c}_{i,m})$;\quad $n_{ijm}\mathrel{+}=1$\;
+    \If{$n_{ijm}\ge K_{\min}$ \textbf{and}
+        $\lVert S_{ijm}/n_{ijm}\rVert > \eta$}{
+      $\mathit{judged},\mathit{bad}\leftarrow\mathbf{true},\mathbf{true}$
+        \tcp*{temporal offset-bias test}
+    }
+  }
+  \If{$\mathit{judged}$}{
+    $t_{ij}\leftarrow (1-\alpha)\,t_{ij}
+      + \alpha\,(0 \text{ if } \mathit{bad} \text{ else } 1)$\;
+  }
+  \lIf{$t_{ij} < \tau$}{exclude $O_j$ from fusion}
+}
+\end{algorithm}
