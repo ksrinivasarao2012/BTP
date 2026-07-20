@@ -1,8 +1,8 @@
 % ALL NUMBERS from RESULTS_027_CAMERA_READY.md (camera-ready: 500 maps,
 % density 0.27, stage-2 base, randomized attack, paired-bootstrap 95% CIs).
-% EXCEPTION: the probe AUC (0.99 oracle / 0.85-0.90 realistic, sec:res-temporal)
-% is a 150-map feasibility number, labelled as such in the text; replace with
-% the 500-map values if/when the probe rerun (run_rerun_verification.bat) lands.
+% Probe AUC now 500-map (0.99 oracle / 0.85-0.88 realistic, 0.88 at K_min=20)
+% -- rerun done 2026-07-20, rerun/probe_{oracle,realistic}_500.txt; confirms
+% the earlier 150-map feasibility figures. No dev-scale numbers remain.
 % Verify each figure exists in manuscript/figures/ before final compile.
 
 \subsection{Communication is load-bearing under sensor dropout}\label{sec:res-anchor}
@@ -223,10 +223,10 @@ of the aggregated offset magnitude cleanly separates honest neighbours
 (concentrated near zero, as $\sqrt{2}\sigma$ noise averages out) from
 fabrications (a persistent bias well above the threshold $\eta$). A probe
 of this separation, before any trust gating, reports an area under the ROC
-curve of $0.99$ under oracle association and $0.85$--$0.90$ under realistic
-nearest-obstacle association (both figures measured over 150 maps in
-feasibility testing, ahead of the 500-map camera-ready protocol used
-elsewhere in this section).
+curve of $0.99$ under oracle association and $0.85$--$0.88$ under realistic
+nearest-obstacle association (the latter rising with the accumulation window
+to $0.88$ at the $K_{\min}=20$ operating point), both over the full 500-map
+suite.
 
 \subsection{An adaptive attacker faces a stealth/harm bind}\label{sec:res-adaptive}
 A reasonable objection is that a static attacker understates the threat. We
