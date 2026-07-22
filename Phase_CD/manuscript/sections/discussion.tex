@@ -100,8 +100,17 @@ separation of honest from fabricated relies on honest offsets being
 zero-mean, so a persistent per-agent measurement bias would not cancel and
 could cause an honest neighbour to be flagged. A bias common to all agents
 cancels harmlessly in the pairwise offset; only \emph{agent-specific}
-systematic bias is a concern, and even then the harm is bounded by the same
-own-sensing cushion that keeps no-harm near zero. Distinguishing such a bias
+systematic bias is a concern, and we quantify it directly by sweeping a
+synthetic per-agent bias against the same noise range ($f{=}2$, camouflage,
+500 maps). No-harm stays statistically indistinguishable from zero for a
+miscalibration up to $0.2$~m at every noise level tested; beyond that the
+own-sensing cushion is no longer sufficient, detection precision falls from
+$0.9$--$1.0$ to $0.3$--$0.4$, and no-harm reaches $-11.4$ pp at bias $0.4$~m
+and $-18.2$~pp at bias $0.6$~m (both at $\sigma{=}0$, the noise level at
+which the fixed component of the tolerance offers the least cover). The
+effect is partly self-masking at high noise --- the noise-adaptive tolerance
+$\varepsilon_0+k_\sigma\sigma$ widens with $\sigma$ and incidentally absorbs
+part of the bias too --- but does not vanish. Distinguishing such a bias
 from fabrication is moreover possible in principle --- a miscalibrated
 sensor shifts \emph{all} of a neighbour's reported obstacles by the same
 amount, whereas a camouflage lie displaces only the fabricated one, so
