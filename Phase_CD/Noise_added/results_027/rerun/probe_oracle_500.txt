@@ -1,0 +1,50 @@
+
+============================================================================================
+TEMPORAL-TRUST PROBE A (oracle assoc) | noise_robust_ON_stage2_final.zip | sigma=0.6 | k=2 | camouflage | 500 maps | 6w
+  measuring ||mean offset vector|| : honest (zero-mean) vs phantom (biased)
+============================================================================================
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+  ... 50/500 maps (10%) | 51467 buckets
+  ... 100/500 maps (20%) | 104000 buckets
+  ... 150/500 maps (30%) | 160065 buckets
+  ... 200/500 maps (40%) | 217631 buckets
+  ... 250/500 maps (50%) | 272692 buckets
+  ... 300/500 maps (60%) | 328042 buckets
+  ... 350/500 maps (70%) | 382577 buckets
+  ... 400/500 maps (80%) | 438763 buckets
+  ... 450/500 maps (90%) | 492639 buckets
+  ... 500/500 maps (100%) | 554387 buckets
+
+============================================================================================
+RESULTS — ||mean offset|| separation by usable-K (Kmin), sigma=0.6 camouflage
+  total buckets: 554387  (honest 524910, phantom 29477)
+============================================================================================
+
+[oracle  ||mean(d)||]  (separability of vector mean)
+  Kmin |  #hon  #pha |        hon p50/p75/p90/p95 |       pha p5/p10/p25/p50 |   AUC | clean-gap
+  ----------------------------------------------------------------------------------------------
+     1 | 524910 29477 |  0.25/0.46/0.78/1.05      | 0.54/0.77/1.23/1.65    |  0.96 |    -0.02
+     5 | 410296 25624 |  0.21/0.33/0.48/0.59      | 0.54/0.77/1.24/1.65    |  0.98 |    +0.29
+    10 | 330209 23014 |  0.18/0.28/0.39/0.46      | 0.53/0.77/1.24/1.65    |  0.99 |    +0.38
+    20 | 222512 20133 |  0.15/0.23/0.31/0.36      | 0.52/0.76/1.23/1.65    |  0.99 |    +0.45
+============================================================================================
+
+Usable-K (frames per bucket) distribution:
+  honest : median 15  p10 2  p90 63  max 580
+  phantom: median 38  p10 4  p90 118  max 832
+
+[DECISION GATE — STEP 1]
+  GREEN if: AUC>=0.85 AND honest_p90<phantom_p10 at some Kmin<=10 AND median usable-K>=that Kmin
+  AMBER if: AUC>=0.85 only at Kmin=20 but median usable-K<10
+  RED   if: AUC<0.75 even with oracle assoc at Kmin=20  -> STOP, fundamental limit stands

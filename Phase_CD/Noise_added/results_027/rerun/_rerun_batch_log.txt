@@ -1,0 +1,21 @@
+[19-07-2026 23:29:49.54] ============================================================ 
+[19-07-2026 23:29:49.54]  RERUN / VERIFICATION BATCH START 
+[19-07-2026 23:29:49.55]  output to results_027\rerun\  (originals untouched) 
+[19-07-2026 23:29:49.56] ============================================================ 
+[19-07-2026 23:29:49.58] E  env stats @ density 0.27, 500 maps (instant)  file env_stats_027.txt 
+[19-07-2026 23:39:11.39] E  env stats done  (expect count ~29.7, range 15-56, mean r ~0.91 m) 
+[19-07-2026 23:39:11.40] A  f=2 camouflage  (~2.0h)  file eval_f2_camouflage_500.txt 
+[20-07-2026  2:54:00.59] A  f=2 camouflage done 
+[20-07-2026  2:54:00.61] A  f=2 wall  (~1.6h)  file eval_f2_wall_500.txt 
+[20-07-2026  4:59:41.11] A  f=2 wall done 
+[20-07-2026  4:59:41.12] A  f=1 camouflage  (~1.8h)  file eval_f1_camouflage_500.txt 
+[20-07-2026  6:57:59.62] A  f=1 camouflage done 
+[20-07-2026  6:57:59.65] A  f=3 camouflage  (~2.2h)  file eval_f3_camouflage_500.txt 
+[20-07-2026  9:04:40.04] A  f=3 camouflage done 
+[20-07-2026  9:04:40.06] A  f=1 wall  (~1.5h)  file eval_f1_wall_500.txt 
+[20-07-2026 11:02:11.70] A  f=1 wall done 
+[20-07-2026 15:10:14.72] D  bias sweep done 
+[20-07-2026 15:10:14.73] ============================================================ 
+[20-07-2026 15:10:14.78]  RERUN BATCH COMPLETE.  Diff rerun\ against results_027\ to 
+[20-07-2026 15:10:14.82]  confirm 'numbers unchanged' on the 7 reconstructed files. 
+[20-07-2026 15:10:14.86] ============================================================ 

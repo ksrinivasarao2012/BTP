@@ -1,0 +1,13 @@
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+
+=== Phase_CD env real-obstacle stats | density=0.27 | 500 maps ===
+obstacle COUNT  : mean=29.9  median=29  min=13  max=56
+radius (m)      : mean=0.905  median=0.763  min=0.20  max=2.50
+radius bands (expect ~40/40/20):
+   small  [0.2,0.5] :   42%
+   medium [0.6,1.4] :   40%
+   large  [1.5,2.5] :   18%
+mean obstacle AREA = 3.77 m^2   (area-based count check: 28.6)
+phantom as % of real obstacles:  3 -> 10%   4 -> 13%   6 -> 20%
+============================================================

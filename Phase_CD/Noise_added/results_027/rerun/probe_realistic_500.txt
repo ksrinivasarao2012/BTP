@@ -1,0 +1,60 @@
+
+============================================================================================
+TEMPORAL-TRUST PROBE B (REALISTIC assoc) | noise_robust_ON_stage2_final.zip | sigma=0.6 | k=2 | camouflage | 500 maps | 6w
+  measuring ||mean offset vector|| : honest (zero-mean) vs phantom (biased)
+============================================================================================
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+  ... 50/500 maps (10%) | 48929 buckets
+  ... 100/500 maps (20%) | 98385 buckets
+  ... 150/500 maps (30%) | 151879 buckets
+  ... 200/500 maps (40%) | 206734 buckets
+  ... 250/500 maps (50%) | 259247 buckets
+  ... 300/500 maps (60%) | 311896 buckets
+  ... 350/500 maps (70%) | 363503 buckets
+  ... 400/500 maps (80%) | 417024 buckets
+  ... 450/500 maps (90%) | 468423 buckets
+  ... 500/500 maps (100%) | 527313 buckets
+
+============================================================================================
+RESULTS — REALISTIC association, sigma=0.6 camouflage
+  total buckets: 527313  (honest-only 481366, phantom-containing 45947)
+  NOTE: realistic buckets MIX honest+phantom reports of the same obstacle, so a
+        phantom-containing bucket's plain mean is DILUTED -> cluster stat is the rescue.
+============================================================================================
+
+[mean-bias  ||mean(d)||]  (separability of plain vector mean)
+  Kmin |  #hon  #pha |        hon p50/p75/p90/p95 |       pha p5/p10/p25/p50 |   AUC | clean-gap
+  ----------------------------------------------------------------------------------------------
+     1 | 481366 45947 |  0.25/0.45/0.76/1.01      | 0.11/0.17/0.32/0.60    |  0.75 |    -0.59
+     5 | 367525 42454 |  0.20/0.32/0.47/0.58      | 0.11/0.17/0.31/0.57    |  0.82 |    -0.31
+    10 | 290570 38465 |  0.17/0.27/0.39/0.47      | 0.10/0.16/0.30/0.56    |  0.85 |    -0.23
+    20 | 192335 32777 |  0.15/0.23/0.31/0.38      | 0.10/0.15/0.30/0.57    |  0.88 |    -0.16
+
+[cluster    max||centroid||]  (separability of 2-mode cluster centroid)
+  Kmin |  #hon  #pha |        hon p50/p75/p90/p95 |       pha p5/p10/p25/p50 |   AUC | clean-gap
+  ----------------------------------------------------------------------------------------------
+     1 | 481366 45947 |  0.83/1.06/1.34/1.56      | 0.42/0.67/0.95/1.35    |  0.77 |    -0.67
+     5 | 367525 42454 |  0.85/1.07/1.34/1.55      | 0.46/0.70/0.97/1.36    |  0.77 |    -0.64
+    10 | 290570 38465 |  0.84/1.03/1.29/1.50      | 0.45/0.69/0.96/1.36    |  0.78 |    -0.59
+    20 | 192335 32777 |  0.80/0.96/1.17/1.35      | 0.44/0.68/0.95/1.35    |  0.80 |    -0.49
+============================================================================================
+
+Usable-K (frames per bucket) distribution:
+  honest : median 14  p10 2  p90 60  max 637
+  phantom: median 43  p10 6  p90 171  max 2302
+
+[DECISION GATE — STEP 2]
+  GREEN if: realistic AUC>=0.80 (mean-bias OR cluster) -> build the filter (STEP 3)
+  AMBER if: only the cluster statistic separates       -> build with cluster stat
+  RED   if: AUC<0.75 with realistic assoc (STEP1 was GREEN) -> association is the wall

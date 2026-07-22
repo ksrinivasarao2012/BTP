@@ -1,0 +1,94 @@
+
+====================================================================================================
+TEMPORAL EVAL | noise_robust_ON_stage2_final.zip | k=1 | 500 maps/cond | 20 conds | 10w
+  robust: eps+=4.0*sigma, alpha=0.25, tau=0.4 | temporal: bias_eps=0.6, min_k=20 | wall attack | randomize=ON (n~U{3..6}, r~real-mix)
+====================================================================================================
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+C:\Users\Srinivasa\miniconda3\envs\swarm_rl\lib\site-packages\pygame\pkgdata.py:25: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import resource_stream, resource_exists
+  ... 500/10000 (5%)
+  ... 1000/10000 (10%)
+  ... 1500/10000 (15%)
+  ... 2000/10000 (20%)
+  ... 2500/10000 (25%)
+  ... 3000/10000 (30%)
+  ... 3500/10000 (35%)
+  ... 4000/10000 (40%)
+  ... 4500/10000 (45%)
+  ... 5000/10000 (50%)
+  ... 5500/10000 (55%)
+  ... 6000/10000 (60%)
+  ... 6500/10000 (65%)
+  ... 7000/10000 (70%)
+  ... 7500/10000 (75%)
+  ... 8000/10000 (80%)
+  ... 8500/10000 (85%)
+  ... 9000/10000 (90%)
+  ... 9500/10000 (95%)
+  ... 10000/10000 (100%)
+
+====================================================================================================
+RESULTS - temporal vs robust under noise (k=1, wall attack)
+====================================================================================================
+  noise |   base attack | robust       P/R | temporal       P/R temp.nh |  rob.rec  tmp.rec
+   0.00 |  86.0%  81.4% |  85.8% 1.00/0.98 |    86.0% 1.00/0.98   86.1% |    +4.4    +4.5
+   0.20 |  79.1%  73.8% |  78.8% 0.98/0.90 |    78.7% 0.93/0.93   78.8% |    +5.0    +4.9
+   0.40 |  64.9%  61.3% |  64.6% 0.92/0.57 |    64.2% 0.80/0.83   65.1% |    +3.2    +2.9
+   0.60 |  53.2%  47.6% |  50.4% 0.88/0.27 |    53.6% 0.67/0.71   53.1% |    +2.8    +6.0
+====================================================================================================
+  temp.nh = temporal no-harm (k=0, defense ON): should stay ~= base if no false-gating harm
+  rec columns = success recovery vs the undefended 'attack' (off) column, in pp
+
+====================================================================================================
+95% CONFIDENCE INTERVALS - paired bootstrap over 500 maps (2000 resamples)
+====================================================================================================
+
+  sigma=0.00
+    base      86.0% [ 83.8, 88.2]   off  81.4% [ 79.0, 83.7]
+    robust    85.8% [ 83.6, 88.1]   recovery  +4.4 [ +3.0, +5.8] pp
+    temporal  86.0% [ 83.8, 88.2]   recovery  +4.5 [ +3.1, +5.9] pp
+    temp.nh   86.1% [ 83.8, 88.2]   no-harm   +0.0 [ +0.0, +0.1] pp
+    temporal detection  precision 1.00 [1.00,1.00]   recall 0.98 [0.97,0.99]
+
+  sigma=0.20
+    base      79.1% [ 76.3, 81.8]   off  73.8% [ 70.9, 76.7]
+    robust    78.8% [ 76.0, 81.5]   recovery  +5.0 [ +3.4, +6.6] pp
+    temporal  78.7% [ 75.8, 81.5]   recovery  +4.9 [ +3.3, +6.4] pp
+    temp.nh   78.8% [ 76.0, 81.6]   no-harm   -0.2 [ -1.2, +0.7] pp
+    temporal detection  precision 0.93 [0.92,0.94]   recall 0.93 [0.90,0.95]
+
+  sigma=0.40
+    base      64.9% [ 61.6, 68.2]   off  61.3% [ 58.1, 64.4]
+    robust    64.6% [ 61.2, 67.7]   recovery  +3.2 [ +1.6, +4.9] pp
+    temporal  64.2% [ 60.9, 67.4]   recovery  +2.9 [ +1.1, +4.7] pp
+    temp.nh   65.1% [ 62.0, 68.1]   no-harm   +0.2 [ -1.0, +1.5] pp
+    temporal detection  precision 0.80 [0.78,0.82]   recall 0.83 [0.80,0.85]
+
+  sigma=0.60
+    base      53.2% [ 49.6, 56.5]   off  47.6% [ 44.5, 50.7]
+    robust    50.4% [ 47.1, 53.5]   recovery  +2.8 [ +1.1, +4.6] pp
+    temporal  53.6% [ 50.2, 56.8]   recovery  +6.0 [ +4.2, +7.8] pp
+    temp.nh   53.1% [ 49.8, 56.2]   no-harm   -0.1 [ -1.4, +1.3] pp
+    temporal detection  precision 0.67 [0.65,0.69]   recall 0.71 [0.68,0.74]
+====================================================================================================
+
+[VERDICT - STEP 4 gate, focus on the wall sigma=0.6 cell]
+  sigma=0.6: temporal recall 0.71 (robust 0.27), recovery +6.0 pp (robust +2.8 pp), no-harm -0.1 pp, precision 0.67
+  -> WIN-ish on recovery/recall but check no-harm/precision (may be NO-HARM-FAILS -> tune).
