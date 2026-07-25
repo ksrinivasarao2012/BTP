@@ -24,8 +24,11 @@ between each inspected agent and the ego agent, with statistical
 false-positive control; and CoDynTrust~\cite{codyntrust2025} addresses the
 benign counterpart by weighting intermediate feature contributions
 according to their estimated uncertainty, thereby mitigating temporal
-asynchrony rather than adversarial behaviour; all three are evaluated
-using Average Precision (AP) on vehicular benchmarks.
+asynchrony rather than adversarial behaviour; and ROBOSAC~\cite{robosac2023}
+rejects adversarial feature-map perturbations by sampling subsets of teammates
+until the collaborative output reaches consensus with the ego's own perception,
+falling back to ego-only perception when no consensus is found. All four are
+evaluated using Average Precision (AP) on vehicular benchmarks.
 
 A second, closer line verifies \emph{object-level claims against the
 verifier's own observations}. TruPercept~\cite{trupercept2020} evaluates reported
@@ -141,7 +144,12 @@ sensing rather than against majority agreement. Because each verdict is
 pairwise, the mechanism is structurally independent of the number of liars;
 we confirm this empirically (Section~\ref{sec:res-temporal}), where its
 recovery remains significant even when traitors form a local majority among
-an honest robot's neighbours --- up to seven of ten robots.
+an honest robot's neighbours --- up to seven of ten robots. Sampling-based
+consensus defenses such as ROBOSAC~\cite{robosac2023}, by contrast, must draw
+an attacker-free subset of teammates and know or estimate the attacker ratio,
+with a sampling budget that grows sharply as benign agents become scarce; our
+pairwise test needs neither a clean subset, a known ratio, nor a consensus
+vote.
 
 \paragraph{Learned multi-robot navigation and robust communication.}
 Our navigator is trained with centralized-training/decentralized-execution
@@ -154,6 +162,21 @@ interpretable: the messages are geometric obstacle claims rather than
 learned latent vectors, the fusion rule is explicit, and the defense is a
 hand-designed statistical test --- one of our findings is that no learned
 trust component is required to counter this threat class.
+
+The closed-loop learned cooperative-perception paradigm we build on --- a
+policy that consumes shared perception and is scored by end-task success ---
+was established for benign networked driving by
+Coopernaut~\cite{coopernaut2022}; our contribution is not that paradigm but
+the adversarial layer within it. Closest in driving-level outcome, the recent
+PosePert attack~\cite{stealthyfab2026} propagates small, stealthy pose
+perturbations of \emph{existing} objects through a modular tracking-and-
+prediction stack to induce unsafe behaviour on a single vehicle, measured by
+trajectory-prediction error and a scripted braking-risk rate. Our setting
+differs in the attack (fabricated obstacles, not pose shifts of real objects),
+the control layer (a learned navigation policy executing in closed loop, rather
+than a tracker-plus-predictor pipeline), the end metric (task success, not
+prediction error or a safety flag), and the multi-robot rather than
+single-vehicle scope.
 
 In combination, to our knowledge no prior work evaluates
 fabricated-obstacle attacks on collaborative perception \emph{inside a
