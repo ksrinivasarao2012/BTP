@@ -1,6 +1,6 @@
 # 3D-TC2 — paired claim/evidence sheet (full read, 2026-07-17)
 
-## STATUS: ⏳ CLAUDE'S AUDIT DONE — **AWAITING SRINIVASA'S INDEPENDENT REVIEW**
+## STATUS: ✅ CLOSED (2026-07-26) — verified independently by Srinivasa
 Full 6-page read (arXiv:2106.07833v1 = MAISP '21 workshop paper). **No catches — our single
 sentence verifies phrase by phrase.** One optional wording polish offered (not required).
 Their §4.4 limitation is a strong corroboration of our persistent-fabrication argument.
@@ -73,9 +73,9 @@ temporally self-consistent."
   whole check class (like PRBI's Jaccard drop) keys on the wrong reference signal. Our
   related.tex already draws exactly this distinction WITHOUT claiming 3D-TC2 fails on our
   attack — correct posture, keep it.
-- Their detection degrades on small objects (pedestrian DSR 47–57%) purely from the
-  prediction model's limits — supports our "hand-designed statistical test needs no learned
-  component" framing but we don't cite it for that; noted only.
+- Their detection degrades on small objects (pedestrian DSR 47–57%), which the authors
+  attribute to the prediction model's limitations — supports our "hand-designed statistical
+  test needs no learned component" framing but we don't cite it for that; noted only.
 
 ## Second-order sweep (standing rule) — FULL 14-ref bibliography title scan done 2026-07-17
 **Zero new candidates.** The refs are: LiDAR spoofing attacks (Petit '15 relay, Shin '17

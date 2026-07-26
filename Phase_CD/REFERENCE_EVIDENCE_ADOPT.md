@@ -1,6 +1,6 @@
 # ADoPT — paired claim/evidence sheet (full read, 2026-07-17)
 
-## STATUS: ⏳ CLAUDE'S AUDIT DONE — **AWAITING SRINIVASA'S INDEPENDENT REVIEW**
+## STATUS: ✅ CLOSED (2026-07-26) — verified independently by Srinivasa
 Full 17-page read (arXiv:2310.14504v1; BMVC 2023). **No catches — our phrase appears
 literally in the paper title.** Two strong corroborations found: (1) their failure mode IS the camouflage
 placement; (2) single-frame injection only, like 3D-TC2. Closed only after Srinivasa's own

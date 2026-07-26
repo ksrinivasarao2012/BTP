@@ -1,6 +1,6 @@
 # TrustFlip — paired claim/evidence sheet (full read, 2026-07-17)
 
-## STATUS: ⏳ CLAUDE'S AUDIT DONE — **AWAITING SRINIVASA'S INDEPENDENT REVIEW**
+## STATUS: ✅ CLOSED (2026-07-26) — verified independently by Srinivasa
 Full 16-page read (arXiv:2605.22122v1). **No catches — every phrase in our single use is
 near-verbatim to their abstract ("weaponize" is their own verb).** One nuance documented on
 our follow-on sentence; three second-order candidates found in their bibliography (LUCIA —
@@ -32,16 +32,25 @@ physical prototypes. TrustReflect (self-reflection masking) cuts attack success 
 ## USE 1 (the ONLY use) — related.tex ~lines 103–109
 **WE WRITE (verbatim):** "Complementing the defense literature, the TrustFlip
 attack~\cite{trustflip2026} shows that consistency-based trust can itself be weaponized:
-physically induced disagreements cause defenses to expel \emph{honest} vehicles. Our
-evaluation addresses the same failure class by measuring \emph{no-harm} --- the success
-cost of running the defense in attack-free swarms --- directly, and finding it statistically
-indistinguishable from zero even under an adaptive attacker."
+physically induced disagreements cause defenses to downweight or exclude \emph{honest}
+vehicles. Our evaluation addresses the same failure class by measuring \emph{no-harm} ---
+the success cost of running the defense in attack-free swarms --- directly, and finding it
+statistically indistinguishable from zero even under an adaptive attacker."
 
 **⚠ Wording polish (Srinivasa, 2026-07-19):** "addresses \emph{exactly this} failure class"
 → "addresses \emph{the same} failure class". We measure the *same downstream failure*
 (erroneous exclusion of honest agents), not TrustFlip's *attack mechanism* (physical
 adversarial objects). "the same" removes any reading that we evaluate the TrustFlip attack
 itself — consistent with the NUANCE block below.
+
+**✎ Wording edit (Srinivasa, 2026-07-26):** "cause defenses to \emph{expel} honest vehicles"
+→ "cause defenses to \emph{downweight or exclude} honest vehicles". Their abstract frames the
+harm as a spectrum ("downweighting \emph{or} exclusion from collaboration"); "expel" captured
+only the severe endpoint (defensible via their 87.7% removal headline, but it silently dropped
+the downweighting half). "downweight or exclude" is near-verbatim to their abstract AND better
+aligned with our follow-on clause — no-harm is a \emph{graded} success cost that also captures
+mild downweighting harm, not just binary expulsion. Supersedes the "no change needed" verdict
+below.
 
 **THEY WROTE, phrase by phrase:**
 - "consistency-based trust can itself be weaponized" ✓ — *"weaponizes consistency-based
@@ -50,9 +59,10 @@ itself — consistent with the NUANCE block below.
 - "physically induced disagreements" ✓ — *"deploys physical adversarial objects that are
   genuine but induce inconsistent observations among benign vehicles"* (Abstract); *"an
   externally induced physical effect"* (§I).
-- "cause defenses to expel honest vehicles" ✓ — *"leading to its downweighting or exclusion
-  from collaboration"* (Abstract); *"removes the targeted benign vehicle from collaboration
-  in up to 87.7% of scenarios"* (Abstract).
+- "cause defenses to downweight or exclude honest vehicles" ✓ — near-verbatim: *"leading to
+  its downweighting or exclusion from collaboration"* (Abstract); *"removes the targeted benign
+  vehicle from collaboration in up to 87.7% of scenarios"* (Abstract). (Was "expel"; tightened
+  2026-07-26 — see edit note above.)
 - Root cause, in their words (useful if a reviewer probes): *"these defenses cannot
   distinguish whether a cross-view inconsistency originates from a malicious vehicle or from
   an externally induced physical effect"* (§I).
@@ -68,7 +78,8 @@ TrustFlip-style framing. If a reviewer pushes, the one-line answer: "physical-sc
 manipulation is outside our threat model; the failure mode it triggers (honest exclusion) is
 the quantity our no-harm column measures."
 
-**VERDICT: ✅ VERIFIED — no change needed.**
+**VERDICT: ✅ VERIFIED — one wording tightening applied 2026-07-26 ("expel" →
+"downweight or exclude"; see ✎ edit note above). Every phrase now near-verbatim to the abstract.**
 
 ---
 

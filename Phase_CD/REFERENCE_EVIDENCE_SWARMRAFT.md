@@ -1,6 +1,6 @@
 # SwarmRaft — paired claim/evidence sheet (full read, 2026-07-17)
 
-## STATUS: ⏳ CLAUDE'S AUDIT DONE — **AWAITING SRINIVASA'S INDEPENDENT REVIEW**
+## STATUS: ✅ CLOSED (2026-07-26) — verified independently by Srinivasa
 Full 10-page read (arXiv:2508.00622v2). **No catches — our single descriptive sentence is
 near-verbatim to their abstract.** One nuance documented (crash-fault consensus + Byzantine
 sensor model) that a picky reviewer could raise; our wording already avoids it. Closed only

@@ -19,7 +19,7 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☐ **MADE** — `REFERENCE_EVIDENCE_MADE.md` (hypothesis-test malicious-agent detection)
 - ☐ **GCP** — `REFERENCE_EVIDENCE_GCP.md` (spatial-temporal malicious-agent detection; TDSC accept year)
 - ☐ **PRBI** — `REFERENCE_EVIDENCE_PRBI.md` (⭐ MOST IMPORTANT — the 3 "does not" novelty claims must be bulletproof)
-- ☐ **TrustFlip** — `REFERENCE_EVIDENCE_TRUSTFLIP.md` (trust-poisoning, expels honest agents)
+- ☑ **TrustFlip** — `REFERENCE_EVIDENCE_TRUSTFLIP.md` (trust-poisoning, expels honest agents) — **Srinivasa audited & approved 2026-07-26; incl. the "expel"→"downweight or exclude" wording tightening**
 - ☐ **TruPercept** — `REFERENCE_EVIDENCE_TRUPERCEPT.md` (trust modelling; detection-vs-feature wording)
 - ☐ **MATE** — `REFERENCE_EVIDENCE_MATE.md` (Hallyburton & Pajic; Bayesian FoV trust — task #5)
 - ☐ **AerialTrust** — `REFERENCE_EVIDENCE_AERIALTRUST.md` (same authors; UAV distributed trust — task #5)
@@ -27,11 +27,11 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☐ **Stealthy-Fab / PosePert** — `REFERENCE_EVIDENCE_STEALTHY_FAB.md` (full read; novelty survives 4 axes — task #2)
 
 **Group B — temporal spoof detection, single-vehicle [2]**
-- ☐ **3D-TC2** — `REFERENCE_EVIDENCE_TC2.md` (⚠ title was wrong once; single-vehicle, motion consistency)
-- ☐ **ADoPT** — `REFERENCE_EVIDENCE_ADOPT.md` (point-level temporal consistency, single-vehicle)
+- ☑ **3D-TC2** — `REFERENCE_EVIDENCE_TC2.md` (⚠ title was wrong once; single-vehicle, motion consistency) — **Srinivasa audited & approved 2026-07-26; incl. the "purely"→"authors attribute to" note softening**
+- ☑ **ADoPT** — `REFERENCE_EVIDENCE_ADOPT.md` (point-level temporal consistency, single-vehicle) — **Srinivasa audited & approved 2026-07-26**
 
 **Group C — Byzantine multi-robot / swarm [2]**
-- ☐ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` (⚠ Raft, NOT Byzantine — verify our caution holds)
+- ☑ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` (⚠ Raft, NOT Byzantine — verify our caution holds) — **Srinivasa audited & approved 2026-07-26; note left as-is by his call**
 - ☐ **Conformity** — `REFERENCE_EVIDENCE_CONFORMITY.md` (evolutionary game, decision layer not perception)
 
 **Group E — benign CP precedents (new category from this session) [2]**
@@ -42,10 +42,20 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☐ **`REFERENCE_VERIFICATION_GUIDE.md`** — the grouped per-reference checklist (dated 2026-07-09; does NOT yet
   include ROBOSAC/Stealthy-Fab/Coopernaut/Vadivelu — fold them in during/after audit).
 
-**Triaged but NOT in dossier form (task #4 — flag for Srinivasa):**
-- ☐ **Tu et al. 2021** + **Pretend-Benign (PB)** — marked triaged (task #4) but there is **no
-  `REFERENCE_EVIDENCE_*` file** for either. Confirm whether they were handled inline (abstract pass) or still
-  owe a dossier.
+**Triaged INLINE in `PRIOR_ART_SECOND_ORDER.md` (task #4) — no standalone dossier; audit the verdict there:**
+- ☐ **Tu et al. 2021** — "Adversarial Attacks on Multi-Agent Communication" (ICCV 2021, arXiv 2101.06560).
+  Verdict: **cite one-line, no dossier** (seminal feature-level CP attack; named by CAD+GCP+MADE; AP-scored,
+  no navigation → no pre-emption). Metadata in hand → the A4 Tu one-liner is APPLY-READY (related.tex attack
+  sentence + refs.bib). Audit: PRIOR_ART_SECOND_ORDER items F / 5.
+- ☐ **Pretend-Benign** (Lin et al., ICCV'25) — **ABSTRACT-LEVEL triage ONLY; body-grep OWED (PDF 403
+  bot-blocked).** Verdict: cite-optional near TrustFlip, no pre-emption *expected* (feature-level defense-aware
+  attack, no navigation/noise regime). NOT fully closed — needs a manual PDF pull to confirm the body. Audit:
+  PRIOR_ART_SECOND_ORDER items G / 10.
+
+**Also surfaced by the full-bibliography scan (PRIOR_ART_SECOND_ORDER items 6–9) — decide at related-work polish:**
+- ☐ **Cavorsi et al. (T-RO 2024)** — Gil-group multi-robot trust (physical-channel); nearest RAS community; likely add 1–2 lines.
+- ☐ **Obst 2014 / Allig 2019 / Tsukada 2022** — earliest peer-claim-vs-own-sensing + CPM-misbehavior cluster; survey-line or one representative.
+- ☐ **LUCIA** (Wang et al.) — attention-level feature trust; same family as ROBOSAC/MADE (part of task #3 cluster; bot-blocked PDF).
 
 ## B. The abstract-level second-order pass (the honesty correction to the "zero new" claim)
 - ☐ **`SECOND_ORDER_ABSTRACT_PASS.md`** — abstract reads over the ROBOSAC+Stealthy-Fab bibliographies (112 refs).
@@ -73,8 +83,19 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☐ Vadivelu: don't claim novelty on message-reweighting/exclusion itself (their attention module does it, benign).
 
 ## E. Still OPEN (not done, tracked so the audit list stays honest about coverage)
-- ☐ **LUCIA / CP-Guard / CP-Guard+ triage** (task #3) — named CP-security defenses, NOT yet triaged (PDFs were
-  bot-blocked; may need Srinivasa to download).
+- ◑ **LUCIA / CP-Guard / CP-Guard+ triage** (task #3) — **ABSTRACT-triaged 2026-07-26** via PRBI's bibliography
+  (`SECOND_ORDER_FULL_ABSTRACT_SWEEP.md` §3e). None pre-empts us (all AP/feature-level CP defenses/attacks; no
+  navigation/noise/temporal/adaptive). **Srinivasa's decision 2026-07-26: CP-Guard is a PLANNED cite** →
+  owed: (1) full-read + `REFERENCE_EVIDENCE_CP_GUARD.md` dossier (PDF may be bot-blocked → manual pull),
+  (2) `related.tex` defense-family sentence + differentiator clause, (3) `cpguard2025` in refs.bib (AAAI 2025).
+  CP-Guard+ / LUCIA remain optional. Still ☐ until the dossier is built and Srinivasa audits it.
+- ◑ **Second-order FULL abstract sweep** (`SECOND_ORDER_FULL_ABSTRACT_SWEEP.md`) — mandate-B abstract read of
+  EVERY reference in ALL 13 dossiered papers' bibliographies. **✅ ALL 13 COMPLETE 2026-07-26** (CAD 91, MADE 44,
+  PRBI 37, GCP 35, MATE 47, AerialTrust 37, TruPercept 36, CoDynTrust 35, SwarmRaft 43, TrustFlip 41, 3D-TC2 14,
+  ADoPT 37, Conformity 15 = ≈460 slots, ≈300 distinct abstracts). **ZERO pre-emptions.** Only actionable find =
+  **CP-Guard planned cite**; optional = Cavorsi + classical VANET-trust reps. CAD's security subset already
+  audited by Srinivasa. **Remaining audit = Srinivasa's skim of each other bibliography's security-relevant rows
+  (the ~49 total, per the SECOND_ORDER file's ⭐/verdict tables).** Not closed until he signs off.
 - ☐ **Forward citation sweep** on the ~6 anchor papers (who cites CAD/MADE/MATE/PRBI/ROBOSAC/TruPercept).
 - ☐ **Wan et al. T-ITS 2025 CP survey** — one scan (it indexes "adversarial attacks on CP").
 - ☐ **Other ~500 title-rejections** from the 6-core + SwarmRaft/TrustFlip/3D-TC2/ADoPT/Conformity/MADE
