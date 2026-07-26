@@ -115,4 +115,8 @@ from fabrication is moreover possible in principle --- a miscalibrated
 sensor shifts \emph{all} of a neighbour's reported obstacles by the same
 amount, whereas a camouflage lie displaces only the fabricated one, so
 estimating and subtracting a per-neighbour global offset before the residual
-bias test would separate the two --- which we leave to future work.
+bias test would separate the two --- which we leave to future work. Learned
+per-agent pose-offset correction of exactly this kind has been shown effective
+against systematic bias in benign collaborative
+perception~\cite{vadivelu2020}, so the residual concern is a matter of
+composing that correction with our test, not an unaddressed vulnerability.

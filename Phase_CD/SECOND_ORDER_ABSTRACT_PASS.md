@@ -28,11 +28,16 @@ success as the end metric" claim must **credit Coopernaut for the paradigm** and
 (A* oracle) — structurally like our Dijkstra crutch — so do NOT use "they use a privileged planner" as a
 differentiator. Exact safeguard clause is in the dossier. (This is the catch the title scan missed.)
 
-**2. Vadivelu et al. "Learning to Communicate and Correct Pose Errors" (CoRL 2020) — LOW–MEDIUM.**
-Abstract: multi-agent CP where *"learned communication… exposes agents to the threat of erroneous messages…
-reach a consensus about those errors… robustness under… localization noise."* → Robust multi-agent CP against
-**message/pose NOISE** (benign faults) via learned consensus. Adjacent to our noise+robustness theme;
-benign, not adversarial; learned correction ≠ our geometric trust test. Related-work line, no pre-emption.
+**2. Vadivelu et al. "Learning to Communicate and Correct Pose Errors" (CoRL 2020) — LOW–MEDIUM. [FULL-PDF
+READ 2026-07-26 → dossier `REFERENCE_EVIDENCE_VADIVELU.md`]**
+Confirmed on full read: benign robust multi-agent CP (V2VNet feature-map sharing) against **localization/pose
+NOISE** via three learned modules (pose-regression + student-t MRF consistency + attention message-reweighting);
+metric AP@IoU + L2 forecasting on a static dataset (no policy/navigation/attacker). Does **NOT** pre-empt us on
+any axis. Temporal consistency is explicitly their **future work** (Conclusion). **Useful catch:** they evaluate
+**biased** noise (§4.2/Fig 4) and their pose-regression **corrects per-agent systematic offset** — exactly the
+"estimate-and-subtract a per-neighbour offset" fix our discussion.tex assumption (vi) punts to future work → cite
+Vadivelu there to back the punt. Guardrail: their attention module already down-weights inconsistent messages
+(benign), so don't claim novelty on message-reweighting itself (our related.tex doesn't — safe).
 
 **Resource (not a competitor):** **Wan et al., "Systematic Literature Review on Vehicular Collaborative
 Perception" (T-ITS 2025)** — a PRISMA review of 106 CP papers that *explicitly* covers "adversarial attacks."
