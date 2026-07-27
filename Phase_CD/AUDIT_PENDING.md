@@ -53,9 +53,22 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   PRIOR_ART_SECOND_ORDER items G / 10.
 
 **Also surfaced by the full-bibliography scan (PRIOR_ART_SECOND_ORDER items 6–9) — decide at related-work polish:**
-- ☐ **Cavorsi et al. (T-RO 2024)** — Gil-group multi-robot trust (physical-channel); nearest RAS community; likely add 1–2 lines.
-- ☐ **Obst 2014 / Allig 2019 / Tsukada 2022** — earliest peer-claim-vs-own-sensing + CPM-misbehavior cluster; survey-line or one representative.
-- ☐ **LUCIA** (Wang et al.) — attention-level feature trust; same family as ROBOSAC/MADE (part of task #3 cluster; bot-blocked PDF).
+- ◑ **Cavorsi et al. (ICRA'23 / T-RO 2024, arXiv 2303.04075)** — **TIER-1 DEEP CHECK DONE 2026-07-27, no pre-empt.**
+  Binary hypothesis testing at a central fusion centre, **one-shot** noisy measurements → fails Q1 (no navigation)
+  and Q3 (no temporal accumulation). ⭐ **Reframe: cite as SUPPORT, not a rival** — it tolerates *"potentially more
+  malicious than legitimate robots"*, an independent precedent for our no-honest-majority claim. Nearest
+  RAS-community work → still likely add 1–2 lines. ☐ until Srinivasa signs off on the verdict + the reframing.
+- ◑ **Obst 2014 / Allig 2019 / Tsukada 2022** — earliest peer-claim-vs-own-sensing + CPM-misbehavior cluster.
+  **Obst + Allig 3-question-checked 2026-07-27 (Srinivasa ran it himself) — both safe, but PDFs OWED**
+  (IEEE-paywalled → `INSTITUTE_WIFI_TODO.md` Priority 1) before the differentiator wording is finalized.
+  ⚠ **Srinivasa's finding: Allig DOES handle sensor noise** → see new precision trap in §D.
+- ◑ **LUCIA / SOMBRA** (Wang et al., USENIX Sec'25) — **TIER-1 DEEP CHECK DONE 2026-07-27, no pre-empt.**
+  SOMBRA = object-**removal** attack (opposite direction to our fabrication); LUCIA = trustworthiness-aware
+  attention **within a single fusion step**, detection-scored. Fails Q1/Q2/Q3. Optional cite. Free PDF on
+  usenix.org (no longer bot-blocked). ☐ until Srinivasa signs off.
+- ◑ **Hallyburton & Pajic (CDC'24, arXiv 2403.16956)** — **TIER-1 DEEP CHECK DONE 2026-07-27, no pre-empt**
+  (detection/estimation only, adversarial-compromise not honest-noise). ⚠ **BUT its hierarchical Bayesian trust
+  DOES accumulate over time** → new precision trap in §D. Cite-optional as the MATE lineage anchor.
 
 ## B. The abstract-level second-order pass (the honesty correction to the "zero new" claim)
 - ☐ **`SECOND_ORDER_ABSTRACT_PASS.md`** — abstract reads over the ROBOSAC+Stealthy-Fab bibliographies (112 refs).
@@ -81,6 +94,41 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   a privileged planner" as a differentiator (we have the Dijkstra crutch).
 - ☐ Stealthy-Fab: don't present the stealth/harm bind as ours-first (theirs is via perturbation magnitude).
 - ☐ Vadivelu: don't claim novelty on message-reweighting/exclusion itself (their attention module does it, benign).
+- ☐ **Allig (NEW 2026-07-27 — Srinivasa's own finding):** do NOT write "Allig ignores sensor noise". Allig
+  **does** handle measurement uncertainty in fusion. Our differentiator vs Allig = **navigation (Q1) +
+  cross-agent temporal accumulation (Q3)**, NOT noise. (Claude's abstract-level read had this wrong.)
+- ☐ **NAVIGATION-METRIC CLAIM (NEW 2026-07-28, forward sweep):** do NOT write "first to evaluate a CP defense
+  by navigation/driving success". **SafeCoop** (2025) reports the CARLA **Driving Score** under attack, and the
+  **LiDAR-spoofing safe-control paper** (arXiv 2302.07341, 2023) proposes a control law that provably avoids the
+  estimated obstacle, validated in CARLA. Safe wording: "first **under ranging noise, with a learned multi-agent
+  policy, at a Byzantine fraction up to 7/10**."
+- 🚨 **GCP TEMPORAL — THE BIGGEST TRAP (NEW 2026-07-28, from the CP-Guard forward sweep).** **GCP is already
+  cross-agent temporal WITH per-neighbour state**: full text (2501.02450v2) shows it reconstructs motion
+  trajectories of *"specific neighbor agents across frames"*, matching low-confidence boxes *"from a particular
+  collaborator across historical frames"*, **K=5** frames, caching per-neighbour detection history + matching
+  chains, with an **LSTM-autoencoder**. So **"first cross-agent temporal" is FALSE in every form — delete it.**
+  Surviving differentiators vs GCP, and these must be the wording: (i) **navigation-success metric** (GCP =
+  AP@0.5 only); (ii) **ranging-noise honest-disagreement regime** — GCP *"does not explicitly model"* it and
+  calibrates thresholds by conformal p-values + Benjamini–Hochberg on clean data; (iii) **mechanism** — GCP
+  learns an LSTM-AE reconstruction error over motion-flow sequences, ours is a **closed-form zero-mean test on
+  a geometric offset vector** (that is what survives √2σ); (iv) **Byzantine fraction 7/10, no honest majority**.
+  ⚠ Cross-check this against `REFERENCE_EVIDENCE_GCP.md` — the dossier must state the per-neighbour caching and
+  K=5 explicitly, or it understates the rival.
+- ☐ **PRBI is SAFE on the temporal axis (NEW 2026-07-28):** its "temporal perceptual discrepancy" uses the
+  **ego's own preceding frame** as reference — one frame, per-frame operation, no per-neighbour accumulation.
+  Safe to contrast, but do not overstate it as "non-temporal".
+- ☐ **CROSS-AGENT-TEMPORAL CLAIM (NEW 2026-07-28):** do NOT write "first/only cross-agent temporal trust".
+  **CONClave** (DAC'24) keeps per-participant std-dev-score buffers over consensus rounds; **CATS** (TVT'25)
+  keeps long-term per-vehicle reputation; **MVIG** (CVPR'26) uses k=5-frame temporal graph learning. The novelty
+  is **WHAT** accumulates: a **geometric offset-vector mean** that is zero-mean under honest noise and
+  persistently biased for a camouflage liar. (Compose with the Hallyburton trap below — same failure mode.)
+- ☐ **ADAPTIVE-ATTACKER CLAIM (NEW 2026-07-28):** do NOT write "first adaptive/defense-aware attacker" —
+  **MVIG** (CVPR'26) and **Stealthy-Fab** both are. Reframe as "consistent with recent adaptive attacks".
+- ☐ **Hallyburton (NEW 2026-07-27):** do NOT write "we are temporal, the trust literature is not". Hallyburton's
+  hierarchical Bayesian trust **does** accumulate per-agent belief over frames. The true differentiator is **WHAT
+  is accumulated**: they accumulate a trust score from **track existence/assignment**; we accumulate a
+  **geometric offset vector** (neighbour's reported obstacle position − ego's own sensed position) whose *mean*
+  separates zero-mean honest noise from a persistent camouflage bias.
 
 ## E. Still OPEN (not done, tracked so the audit list stays honest about coverage)
 - ◑ **LUCIA / CP-Guard / CP-Guard+ triage** (task #3) — **ABSTRACT-triaged 2026-07-26** via PRBI's bibliography
@@ -96,7 +144,26 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   **CP-Guard planned cite**; optional = Cavorsi + classical VANET-trust reps. CAD's security subset already
   audited by Srinivasa. **Remaining audit = Srinivasa's skim of each other bibliography's security-relevant rows
   (the ~49 total, per the SECOND_ORDER file's ⭐/verdict tables).** Not closed until he signs off.
-- ☐ **Forward citation sweep** on the ~6 anchor papers (who cites CAD/MADE/MATE/PRBI/ROBOSAC/TruPercept).
+  **PROGRESS 2026-07-27:** the ~46 pending rows were split into **Tier 1 (6 rows that could actually hurt us)**
+  and Tier 2 (40 out-by-category). All 6 Tier-1 rows deep-checked with the 3-question test
+  (`SECOND_ORDER_FULL_ABSTRACT_SWEEP.md` §"TIER-1 DEEP CHECK"): **LUCIA, Cavorsi, Hallyburton closed clean**;
+  **Obst + Allig safe but PDFs owed** (→ `INSTITUTE_WIFI_TODO.md`); **CP-Guard dossier still owed**.
+  **2 precision traps found** (Allig-noise, Hallyburton-temporal) → recorded in §D. Tier 2 still awaits
+  Srinivasa's by-category accept/reject.
+- ◑ **Forward citation sweep** (`FORWARD_CITATION_SWEEP.md`) — **7 of 19 anchors done 2026-07-28** (CAD,
+  ROBOSAC, TruPercept, Coopernaut, **ADoPT, 3D-TC2, CP-Guard**). **~220 citing papers examined; ~50 new papers
+  the backward sweep could not reach.** Verdicts: **6 must-cite** (LiDAR-Spoofing-Safe-Control, SafeCoop,
+  CONClave, CATS, MVIG, RLCVP) · 20 group-cite · ~75 no-cite · **4 unknown (not locatable — NO verdict)**.
+  **Standing rule now in force: ZERO title-grade** — every verdict rests on ≥ abstract; unreachable papers are
+  logged unknown, never "safe" (memory: `paper-reading-depth-standard`).
+  **Compound novelty SURVIVES (0 pre-emptions), but 4 individual claims overstated → §D**, the worst being
+  🚨 **GCP is already cross-agent temporal with per-neighbour K=5 state**.
+  ✅ **Strengthened:** the temporal-detection lineage (ADoPT + 3D-TC2, 41 descendants individually read) is
+  **entirely single-vehicle** — nobody there took the cross-agent step.
+  ❌ **STILL TO DO — 12 anchors:** MADE, MATE, PRBI, GCP, CoDynTrust, TrustFlip, AerialTrust, Stealthy-Fab,
+  SwarmRaft, Conformity, Vadivelu, Tu. Plus Srinivasa's Google-Scholar "Cited by → Since 2025" pass (Scholar
+  blocks the fetcher — steps in Part 6 of that file), and the 2 PDFs he is downloading
+  (Fake-Objects-CPM, ST-GNN).
 - ☐ **Wan et al. T-ITS 2025 CP survey** — one scan (it indexes "adversarial attacks on CP").
 - ☐ **Other ~500 title-rejections** from the 6-core + SwarmRaft/TrustFlip/3D-TC2/ADoPT/Conformity/MADE
   bibliographies — NOT abstract-passed yet.

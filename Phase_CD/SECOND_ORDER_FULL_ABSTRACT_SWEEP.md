@@ -49,6 +49,65 @@ ranging-noise honest-disagreement + cross-agent temporal offset test + adaptive 
 
 ---
 
+## ⭐ TIER-1 DEEP CHECK — the 6 rows that could actually hurt us (2026-07-27)
+
+During Srinivasa's audit of the ~49 security-relevant rows, the ~46 pending rows were triaged into
+**Tier 1** (verdicts that would damage the paper if wrong) and **Tier 2** (out by category). Tier 1 = 6 papers.
+Each was re-checked against the **3-question test** that operationalizes our compound novelty claim:
+
+| # | Question | Our paper |
+|---|---|---|
+| Q1 | Closed-loop control of a robot to a goal, scored by task success? | ✅ yes |
+| Q2 | Models sensor NOISE making **honest** agents disagree, and handles that false-positive regime? | ✅ yes |
+| Q3 | Accumulates a per-neighbour statistic **across many frames**? | ✅ yes |
+
+A paper answering **no** to any one of these cannot pre-empt the compound claim.
+
+### Results
+
+| Paper | Q1 nav | Q2 noise | Q3 temporal | Verdict |
+|---|---|---|---|---|
+| **Obst** (VNC'14) | ❌ | ❌ | ⚠ partial (tracks its OWN objects; no per-neighbour statistic) | safe — PDF owed for final wording |
+| **Allig** (VNC'19) | ❌ | ⚠ **YES** (Srinivasa's finding) | ❌ | safe — PDF owed; **wording must change** |
+| **LUCIA / SOMBRA** (USENIX Sec'25) | ❌ | ❌ | ❌ (attention = within-frame) | ✅ **CLEAN — closed 2026-07-27** |
+| **Cavorsi** (ICRA'23 / T-RO'24) | ❌ | ⚠ some (noisy one-shot measurements) | ❌ (**explicitly "one-shot"**) | ✅ **CLEAN — closed 2026-07-27** |
+| **Hallyburton Bayesian-trust** (CDC'24, arXiv 2403.16956) | ❌ | ❌ | ⚠ **YES** (hierarchical Bayesian updating over prior trust beliefs) | ✅ **safe — but wording must change** |
+| **CP-Guard** (AAAI'25) | ❌ (BEV-seg AP) | ❌ | ❌ (PASAC = per-frame consensus sampling) | ⏳ abstract-level only; **dossier owed** |
+
+### The 3 closed this session (evidence)
+- **LUCIA / SOMBRA** — *"From Threat to Trust: Exploiting Attention Mechanisms for Attacks and Defenses in
+  Cooperative Perception"* (Wang et al., USENIX Sec'25). SOMBRA = stealthy **object-REMOVAL** attack on attentive
+  fusion (99% success, <1% perturbation). LUCIA = *trustworthiness-aware attention* defense (94.93% vs targeted,
+  300× lower overhead). → **Opposite attack direction to ours** (removal vs fabrication); trust lives **inside the
+  attention weights of a single fusion step**, not across frames; scored by detection metrics, no navigation, no
+  honest-noise regime. **No pre-empt. Optional cite.** Free PDF: usenix.org/system/files/usenixsecurity25-wang-chenyi.pdf
+- **Cavorsi et al.** — *"Exploiting Trust for Resilient Hypothesis Testing with Malicious Robots"* (arXiv
+  2209.12285 → 2303.04075; ICRA'23, T-RO line). Binary hypothesis testing at a **centralized Fusion Center** in
+  multi-robot **crowdsensing**, using stochastic inter-robot trust observations and **one-shot noisy measurements**.
+  → **"One-shot" is decisive on Q3**; no perception fusion of obstacles, no navigation. **No pre-empt.**
+  ⭐ **It HELPS us:** it tolerates *"potentially more malicious than legitimate robots"* — independent
+  precedent for our no-honest-majority framing. **Cite as SUPPORT, not as a rival.** (RAS-community goodwill.)
+- **Hallyburton & Pajic** — *"Bayesian Methods for Trust in Collaborative Multi-Agent Autonomy"* (CDC'24,
+  arXiv 2403.16956). Proves the MTT **track-score** test is vulnerable to few adversaries; builds trust beliefs on
+  tracks/agents by mapping measurements to **trust pseudomeasurements (PSMs)** with **hierarchical Bayesian
+  updating**. → Detection/estimation only (no navigation); adversarial compromise, **not** an honest-noise
+  disagreement regime. **No pre-empt** — but see the precision trap below.
+
+### ⚠ TWO PRECISION TRAPS discovered here (both would be false claims if written)
+1. **Do NOT write "Allig ignores sensor noise."** Srinivasa's own 3-question check found Allig **does** handle
+   measurement uncertainty in fusion. Our differentiator vs Allig is **Q1 (navigation) + Q3 (cross-agent temporal
+   accumulation)** — NOT noise. (Claude's abstract-level read had this wrong; corrected by Srinivasa 2026-07-27.)
+2. **Do NOT write "we are temporal, the trust literature is not"** — Hallyburton's hierarchical Bayesian trust
+   **does** accumulate per-agent belief over time. The true differentiator is **WHAT is accumulated**: they
+   accumulate a **trust score derived from track existence/assignment**; we accumulate a **geometric offset
+   vector** (`neighbour's reported obstacle position − ego's own sensed position`) whose *mean* separates honest
+   noise (zero-mean) from a camouflage liar (persistent bias) — which is precisely what survives ranging noise.
+
+**Net:** all 6 Tier-1 rows hold. 3 closed outright; 2 (Obst, Allig) need the paywalled PDFs to finalize wording
+(→ `INSTITUTE_WIFI_TODO.md`); 1 (CP-Guard) still owes a dossier. **Zero pre-emptions; two wording corrections.**
+
+---
+
 ## BIBLIOGRAPHY 10 — TrustFlip (Liu et al., "Adversarial Trust Poisoning in Vehicular CP", arXiv 2605.22122) — 41 refs
 **Dossiered. CP-security paper → bibliography is ~30 already-dossiered/read CP-security + CP-arch + adversarial-LiDAR. Only ~9 net-new.**
 
