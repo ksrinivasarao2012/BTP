@@ -25,6 +25,75 @@ in principle, surface a 2025–26 paper that beats us. This sweep goes **forward
 | 5 | **ADoPT** (BMVC'23) | 2310.14504 | 21 | ✅ DONE 2026-07-28 |
 | 6 | **3D-TC2** (MAISP'21) | S2 `114a30a0…` | 33 | ✅ DONE 2026-07-28 |
 | 7 | **CP-Guard** (AAAI'25) | 2412.12000 | 15 | ✅ DONE 2026-07-28 |
+| 8 | **MADE** (IROS'24) | 2310.11901 | 12 | ✅ DONE 2026-07-28 — **0 new competitors** |
+| 9 | **GCP** (TDSC'25) | 2501.02450 | 11 | ✅ DONE 2026-07-28 — **0 new competitors** |
+
+### GCP sweep result — clean (2026-07-28)
+11 citers. **9 already read** via other anchors (Multi-Agent-Embodied-AD, Security-in-Collaborative-Driving,
+V2XCrafter, PRBI, RecoverMark, MVIG, Decoder-Gradient-Shields, Task-Aware-PEFT, CP-Guard). Only **2 new**, both
+read to abstract + conclusion, both benign:
+
+| Paper | Verified reason it is out |
+|---|---|
+| **FRUC** (2605.29997) | Feedforward **3D Gaussian-splatting scene reconstruction** from uncalibrated collaborative driving views; targeted blind-spot recovery. Scored by **rendering quality/efficiency** on V2XReal + UrbanIng-V2X. No adversary |
+| **Birdcast** (2604.00701) | **BEV multicasting** for V2I collaborative perception — a communication-efficiency framework using "maps of interest". Metrics = system utility + mAP. No adversary |
+
+**Notable:** GCP — our closest temporal rival — has attracted **no follower that closes our gap**. The only
+adversarial paper citing it is **MVIG** (already a must-cite).
+
+### ⚠ CP-uniGuard precision point (from its body, 2506.22890)
+Do **not** write "CP-uniGuard does not model sensor noise." Its observation model **explicitly includes
+per-agent Gaussian noise**: `x_{i,t} = h_i(s_t) + η_{i,t}, η_{i,t} ~ N(0, σ_i² I)`. What it does **not** do is
+use that noise model to **distinguish honest inter-agent disagreement from malicious perturbation** during
+verification. Its *"online adaptive threshold via dual sliding windows"* is **per-frame threshold adaptation**
+(the (1−α)-quantile of a benign window at each frame) — **not** a per-neighbour accumulated statistic.
+Same trap-shape as the Allig correction.
+
+### MADE sweep result — clean (2026-07-28)
+12 citers, **all individually read, zero title-grade**. **No new must-cite, no new group-cite.** Half were
+already read via other anchors (HyDRA, Adversarial-CP-in-AD, CP-uniGuard, GCP, CP-Guard, Survey-Intermediate-
+Fusion). The 6 genuinely new ones are all **benign or out-of-domain**:
+
+| Paper | Verified reason it is out |
+|---|---|
+| **V2X-INCOP** (2304.11821, T-IV'24) | Recovers information lost to **communication interruption** (packet drop) via multi-scale spatial-temporal prediction + knowledge distillation. **No adversary at all** — temporal is used for *recovery*, not detection. AP metrics |
+| **NegoCollab** (NeurIPS'25, 2510.27647) | Negotiated common representation to close **domain gaps between heterogeneous agent models**. Benign |
+| **mmCooper** (ICCV'25, 2501.12263) | Multi-stage intermediate/late fusion balance for **bandwidth + calibration error**. Benign |
+| **Heterogeneous Swarms** (NeurIPS'25, 2502.04510) | **Multi-LLM system design** via particle-swarm optimisation of DAG roles/weights. Entirely out of domain |
+| **Survey: Intermediate Fusion Methods** (2404.16139) | Survey of intermediate-fusion CP by real-world challenge; has an adversarial-defense subsection. *Optional* field-survey cite at most |
+| **Collaborative Perception for CAD: Challenges** (2401.01544) | 🚨 **VERDICT CORRECTED after reading the body.** The abstract-only read said *"no adversarial content, does not name security as an open problem"* — **that was WRONG.** Full text: **§IV-A discusses detecting evasion attacks** where *"malicious vehicles can alter feature maps"*, describes malicious-vehicle detection via **consistency testing and match-loss statistics**, and **§IV-B names "Collaborative Perception with Security Consideration" as a future opportunity**, calling for a *"shift in focus towards enhancing trust among collaborating agents."* Still **no pre-emption** (benign channel-aware method, no navigation metric, no per-neighbour temporal), but it is now a **useful supporting cite** — a 2024 survey naming inter-agent trust as an open problem |
+| **HyDRA** (2603.23975, KAIST) | ✅ **Re-read properly.** Heterogeneity from *"differences in model architecture or training data distributions"*; domain classifier routes heterogeneous agents to a late-fusion branch + anchor-guided pose-graph optimisation. **Benign — no adversary.** Conclusion: comparable to SOTA heterogeneity-aware CP *"despite requiring no additional training"* |
+| **V2X Cooperative Perception for AD** (2310.03525) | ✅ **Re-read properly.** Survey of benign CP developments. **No adversarial/malicious/trust coverage**; future directions are privacy-preserving AI, collaborative intelligence, integrated sensing — security is **not** named as an open challenge |
+
+> ⚠ **Process note (2026-07-28, Srinivasa's catch — TWO rounds):**
+> **Round 1:** the first MADE pass glossed three papers — `2401.01544` and `2310.03525` were accepted on
+> *topic-adjacent* search text rather than the papers' own abstracts, and **HyDRA** rested on a one-line gist
+> from the citation API.
+> **Round 2:** Srinivasa then asked whether *abstract **+ conclusion*** had really been read for all 12. It had
+> not — only **6 of 12**. Chasing the missing conclusions **overturned a verdict**: `2401.01544`'s abstract
+> shows no security content, but its **body has a whole adversarial-defense section and names inter-agent
+> trust as a future opportunity**.
+> **Lesson, now load-bearing: an abstract-only verdict is not reliable for "does this paper cover X?"** — an
+> abstract can omit an entire section. Conclusions/bodies are required wherever the verdict is "it does NOT
+> do X". Also note WebFetch truncates quoted text to ~125 chars, so "verbatim abstract" quotes in this file
+> are fragments; the analysis under them derives from the full page the fetcher read.
+
+### Conclusions retrieved on the second pass
+- **CP-Guard** (2412.12000v1) — *"CP-Guard … consists of two parts, the first is PASAC which can effectively
+  sample the collaborators without the prior probabilities of malicious agents. The second is collaborative
+  consistency loss verification which calculates the discrepancy between the ego CAV and the collaborators…"*
+  Body confirms: **verification is per-iteration/per-frame, no temporal accumulation**; metrics = **mIoU +
+  verification count**; **honest sensor noise causing inter-agent disagreement is NOT modelled** — the threat
+  model *"assumes adversarial perturbations only."* → our Level-1 differentiators vs CP-Guard hold.
+- **Survey: Intermediate Fusion Methods** (2404.16139) — conclusion flags scalability/real-world gaps
+  (simulations *"rarely capture the complexities of real-world scenarios"*, datasets use *"only a small number
+  of collaborative agents"*). Its adversarial section lists only **AdvAttack / ROBOSAC / CAD / MADE** and is
+  explicitly brief; it does **not** identify temporal-defense, noise-aware-threshold, or driving-outcome gaps.
+  Useful evidence that the adversarial-CP literature was still thin as of 2024.
+
+**Side finding:** MADE's citation record confirms **GCP's attack is "blind area confusion (BAC)" — a
+defense-aware attack**. That is a third independent datapoint for claim-rewording #3 (adaptive attacker),
+alongside MVIG and Stealthy-Fab.
 
 ### 🚨 CRITICAL FINDING FROM THE CP-GUARD SWEEP — **GCP IS CROSS-AGENT TEMPORAL WITH PER-NEIGHBOUR STATE**
 
@@ -141,12 +210,11 @@ crossed into multi-agent. Combined with §Part 4 item 2 (CONClave/CATS/MVIG accu
 the precise defensible claim is: **first to accumulate a cross-agent geometric OFFSET statistic under ranging
 noise.** Both halves now have evidence.
 
-## 1.2 Anchors REMAINING: **12**
+## 1.2 Anchors REMAINING: **11**
 
 | Priority | Anchor | ID / where | Why this priority |
 |---|---|---|---|
-| 🔴 **HIGH** | **MADE** (IROS'24) | 2310.11901 | Core CP-security anchor |
-| 🟠 MED | **GCP** (TDSC'25) | 2501.02450 | Core CP-security anchor |
+| 🔴 **HIGH** | **GCP** (TDSC'25) | 2501.02450 | Core CP-security anchor — **and now our closest temporal rival**, so its citers matter most |
 | 🟠 MED | **PRBI** (2026) | 2603.08498 | Newest defense; few citers expected but cheap |
 | 🟠 MED | **MATE** (CCS'25) | 2503.04954 | Trust-estimation line |
 | 🟠 MED | **AerialTrust** (ICCPS'25) | — | UAV trust — closest to our platform |
