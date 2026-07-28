@@ -359,6 +359,84 @@ sometimes just means the wrong search string.
 
 ---
 
+# PART 0e — ⭐ GLST (2026): NEW MUST-CITE, read in full (2026-07-28)
+
+**"GLST: Defending Confidence-Driven V2X Collaborative Perception Against Stealthy Multi-Attacker Feature
+Injection"** — Ji He, Ying Wang, Lijie Zheng, Xinghui Zhu, Yulong Shen, Xiaohong Jiang.
+**arXiv 2607.23059, cs.CR, submitted 2026-07-25 — THREE DAYS before we found it.**
+PDF saved: `Phase_CD/Research paper/GLST.pdf`. **Depth: whole paper (13 pages, 84,585 chars).**
+
+## Why it is a must-cite
+It independently identifies **the multi-attacker collusion problem** — the same territory as our f=5,6,7 sweep:
+> *"we identify a broader weakness of existing trust-based defenses: their reliance primarily on a **single
+> consistency signal** leaves them vulnerable when **multiple attackers form a pseudo-consensus that biases
+> trust estimation**"*
+
+## ⭐ THEIR TABLE II IS QUOTABLE EVIDENCE FOR OUR COLLUSION RESULT
+AP@0.5 under Pretend-Benign attack as attacker count rises (OPV2V, 5 agents):
+
+| Defense | 1 attacker | 2 | 3 | 4 |
+|---|---|---|---|---|
+| No defense | 0.37 | 0.22 | 0.17 | 0.09 |
+| ROBOSAC | 0.49 | 0.75 | 0.66 | 0.50 |
+| **LUCIA** | **0.85** | **0.25** | **0.13** | **0.11** |
+| GLST (theirs) | 0.82 | 0.79 | 0.67 | — |
+
+Their own explanation, verbatim:
+> *"LUCIA performs well in the single-attacker setting… However, its performance **rapidly collapses** when
+> multiple attackers are present… This confirms that **pairwise distance-based trust estimation is vulnerable
+> to the pseudo-consensus** formed by multiple malicious agents."*
+
+**A 2026 third party demonstrates single-signal trust defenses collapsing under collusion — and their headline
+failure case is LUCIA, which we already cite.** Direct support for why our multi-traitor sweep matters.
+
+## Full-text word counts — the differentiators are hard, not inferred
+| Term | Hits in the 13-page PDF |
+|---|---|
+| `sensor noise` | **0** |
+| `localization error` | **0** |
+| `navigation` / `driving score` / `collision rate` | **0** |
+| `temporal` | **1** — and only inside a *reference title*, not their method |
+
+Their threat model, verbatim: *"The ego vehicle is assumed to be benign, while one or more collaborators may be
+compromised… A compromised agent a ∈ A can manipulate the intermediate feature… by replacing the legitimate
+aligned feature F_a with an adversarial feature F̃_a."* → **clean sensing assumed throughout.**
+
+## Differentiator paragraph (use this framing)
+| | GLST | Ours |
+|---|---|---|
+| Beats collusion via | **three spatial signals within ONE frame** (global feature consistency, multi-scale local residual, ego-referenced structural topology) | **one geometric offset signal ACROSS frames** |
+| Level | feature | object |
+| Attackers | **up to 4 of 5** | **up to 7 of 10** |
+| Honest sensor noise | **not modelled** | the central problem |
+| Metric | AP@0.3/0.5/0.7 | navigation success |
+
+Neither approach is a subset of the other — they are orthogonal answers to the same collusion problem.
+⭐ **Extra angle:** GLST's trust separation is **0.0232 (attackers) vs 0.3165 (benign)** — a wide margin achieved
+on **clean features**. Under σ = 0.6 ranging noise that margin is precisely what would close, which is the gap
+our filter is built for. Worth one sentence.
+
+## Also caught by the same sweep (9 anchors, 204 citers)
+| Anchor | Citers | Note |
+|---|---|---|
+| Tu et al. (ICCV'21) | **96** | seminal; source of GLST |
+| Vadivelu (CoRL'20) | **88** | benign pose-error line |
+| MATE 9 · CoDynTrust 6 · SwarmRaft 4 · Stealthy-Fab 1 | | small |
+| **PRBI · TrustFlip · Conformity** | **0 each** | too new to have been cited — nothing can hide there |
+
+**18 of 204 were adversarial-multi-agent; 16 already known.** The two new ones: **GLST** (above) and
+**"Dynamic Trust Modeling In SIoV… Fuzzy Logic, Temporal Dynamics, and Shapley-Based Cooperative Game Theory"**
+(2024, DOI 10.63278/mme.v30i4.1878) — fuzzy/temporal trust for vehicle *social* networks, dimensions *"honesty,
+sincerity, privacy, and connectivity"*, Veins simulator → **message-layer, not perception → group cite only**;
+obscure journal, no preprint, not worth chasing.
+Three others were adversarial-multi-agent but out of family: **AMI** (attacks c-MARL policies), **AdverSAR**
+(search-and-rescue MARL under adversarial comms), **Resilient Consensus under Mobile Malicious Faults** (MSR
+consensus). None touches perception fusion.
+
+⚠️ **AerialTrust still un-swept** — its arXiv ID was not resolved in this batch.
+
+---
+
 # PART 1 — PROGRESS TRACKER
 
 ## 1.1 Anchors swept: **4 of 19 (21%)**
