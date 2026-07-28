@@ -1,8 +1,20 @@
 # SwarmRaft — paired claim/evidence sheet
 
-## STATUS: ☑ AUDITED & APPROVED (Srinivasa, 2026-07-26) — re-verified 2026-07-28
-Full 10-page re-read 2026-07-28 under the verbatim-only standard. **Substance fully intact; one
-verb form corrected inside quotation marks (M-1), zero manuscript impact.** Sign-off stands.
+## STATUS: ☑☑ FULLY AUDITED — Srinivasa 2026-07-26, **re-audit reviewed & approved 2026-07-28**
+
+**This is the first dossier closed under the full standard.** Two independent sign-offs:
+1. **2026-07-26** — original audit of the manuscript claim and the crash-fault/Byzantine nuance.
+2. **2026-07-28** — Srinivasa reviewed the complete re-verification: the Part A/B/C/D
+   restructure, the M-1 correction, the rewritten **C-3** (after he rejected the first draft as
+   overclaiming), the **C-4** do-not-raise ruling, and the re-measured **D-1**. **Approved.**
+
+Full 10-page re-read under the verbatim-only standard. **Substance fully intact; one verb form
+corrected inside quotation marks (M-1), zero manuscript impact.**
+
+> ✅ **Nothing in this file is pending.** Quotes verified against the PDF, our own text verified
+> against live `related.tex`, citation sites verified by key *and* by name, line references
+> re-anchored on the `\cite` key, and every C-item split into paper-fact vs our-interpretation.
+> **Use this file as the template for the remaining dossiers.**
 
 **Result of the re-audit:**
 - ✅ `related.tex` sentence verified clause by clause; **"agree on state updates such as location
@@ -136,11 +148,37 @@ asserts neither BFT nor crash-only, so it inherits no error either way.
 
 # PART C — OUR INFERENCE (our words, NOT theirs)
 
-- **C-1 — the layer argument** ("our threat lives one layer below"). Ours. Defensible from
-  **Q1** (they agree on *position*, we defend *perception content*), but our framing.
-- **C-2 — noise-threshold parallel.** Their `T = µ_e + 3σ_e` calibrated under honest operation is
-  the same design instinct as our robust filter (`eps = verify_eps + k_sigma·σ`, k_sigma=4).
-  Independent support that noise-aware tolerances are the standard remedy. Ours to observe.
+> 📏 **All C-items follow the standard set by Srinivasa 2026-07-28:** paper facts and our
+> interpretation under separate headings, with an explicit disclaimer wherever we go beyond what
+> the authors state. See `AUDIT_PENDING.md` § DOSSIER WRITING STANDARD.
+
+## C-1 — the layer argument ("our threat lives one layer below")
+
+**C-1.1 — PAPER FACTS.** The quantity SwarmRaft agrees on is *state*: "agree on **state updates
+such as location and heading**" (**Q1**). What agents exchange is GNSS position, INS increments
+and inter-node ranges (§III.B–D). The threat model covers GNSS spoofing, range tampering and
+collusion (**Q11**).
+
+**C-1.2 — OUR TECHNICAL INTERPRETATION.** We describe our threat as living "one layer below" this
+— in the perception content robots exchange rather than in their agreed positions. **The paper
+does not describe itself in layer terms, and makes no claim about perception-content attacks
+either way.** The distinction is our framing, though it follows directly from what their agents
+transmit (**D-1**).
+
+## C-2 — the noise-threshold parallel
+
+**C-2.1 — PAPER FACTS.** SwarmRaft detects faults with a residual threshold `T = µ_e + 3σ_e`,
+where "µ_e and σ_e are obtained via offline calibration under honest sensor operation", justified
+by a Gaussian tail bound giving an honest-exceedance probability below 0.01 (§III.E).
+
+**C-2.2 — OUR TECHNICAL INTERPRETATION.** This is the same design instinct as our robust filter's
+noise-aware tolerance (`eps = verify_eps + k_sigma·σ`, k_sigma = 4): both size a tolerance from
+the honest noise distribution rather than fixing it a priori. **The authors do not compare their
+threshold to any collaborative-perception trust filter, and make no claim of generality for the
+construction.** We read it as independent evidence that noise-calibrated tolerances are the
+conventional remedy — a similarity we observe, not a relationship they assert. Note also what
+differs: theirs guards *position reports* with an honest majority and an elected leader; ours
+guards *obstacle claims* pairwise.
 - **C-3 — the recovery-stage anchor requirement.** ⚠️ **REWRITTEN 2026-07-28 after Srinivasa
   rejected the first draft as overclaiming.** The insight survives; the causal language does not.
   Split into paper-fact and interpretation below, per his standard.
@@ -184,22 +222,62 @@ otherwise the protocol falls back to INS propagation."* · *"The paper reports t
 accuracy improves with swarm size."* · *"One plausible explanation, consistent with the recovery
 algorithm, is that larger swarms provide more verified neighbours for multilateration."*
 
-**Use:** this is the answer if a reviewer asks why a
-  consensus scheme could not simply be dropped into our setting.
-- **C-4 — a small internal tension in their paper** (noted for completeness, not used against
-  them): **Q7** says compute and communication modules are honest, yet Attack Scenario 3 allows
-  compromised nodes to coordinate *"both their reported measurements and their votes"* — while
-  Algorithm 1 has the **leader** compute all votes. Not our concern; do not raise it.
+**Use:** this is our answer if a reviewer asks why an existing consensus scheme could not simply
+be dropped into our setting — stated as an application of their assumptions, never as a reported
+failure of their protocol.
+
+## C-4 — an apparent internal tension in their paper
+
+**C-4.1 — PAPER FACTS.** Three statements, quoted as written:
+- **Assumption 1** (**Q7**): "Nodes' compute and communication modules are honest, authorized, and
+  synchronous."
+- **Attack Scenario 3** (§III.B): compromised nodes "coordinate **both their reported measurements
+  and their votes** in the SwarmRaft protocol in an attempt to sway the swarm's decision".
+- **Algorithm 1** and §III.E.1: the **leader** computes the binary decision for each node
+  ("the leader assigns a binary decision for each node i").
+
+**C-4.2 — OUR TECHNICAL INTERPRETATION.** Read together, these appear to sit in tension: if compute
+modules are honest and the leader computes all votes, it is unclear how a compromised node would
+manipulate "their votes". **The authors do not acknowledge any tension, and we may simply be
+missing a distributed-voting variant they intend but do not spell out.** We record this only so
+that a future reader who notices it knows it was seen and considered.
+
+🚫 **Do not raise this anywhere.** It is not load-bearing for any claim of ours, it is plausibly
+our misreading rather than their error, and criticising a rival's internal consistency on a point
+we have not established would be exactly the overreach this standard exists to prevent.
 
 ---
 
 # PART D — VERIFIED BY ABSENCE
 
-**D-1 — SwarmRaft defends *position/state*, never *perception content*.** No shared obstacle
-maps, no object claims, no sensed-environment exchange anywhere in the paper. What agents
-exchange is: GNSS position, INS increments, and inter-node **ranges** (§III.B–D). Its threat
-model is GNSS spoofing, range tampering and collusion (**Q11**) — all about *where the drones
-are*, never *what they see*. Our layer distinction is therefore structural, not rhetorical.
+**D-1 — SwarmRaft contains no environmental perception of any kind.**
+
+**D-1.1 — MEASURED FACTS.** Term frequency over the full extracted text (case-insensitive),
+reproducible by anyone:
+
+| Term | Hits | | Term | Hits |
+|---|---|---|---|---|
+| `perception` | **0** | | `obstacle` | **0** |
+| `lidar` | **0** | | `occupancy` | **0** |
+| `camera` | **0** | | `object detect` | **0** |
+| `point cloud` | **0** | | `bounding box` | **0** |
+| `shared map` | **0** | | `collaborative perception` | **0** |
+
+**Zero across the board.** Positively, what their agents carry and exchange is stated in §III.B:
+a GNSS receiver, an INS, and "a ranging sensor, for example, ultra-wideband or Received Signal
+Strength Indicator (RSSI)-based". Their threat model is GNSS spoofing, range tampering and
+collusion (**Q11**).
+
+⚠️ **Stronger than the previous draft claimed.** It formerly read "no shared obstacle maps… no
+sensed-environment exchange", which implied SwarmRaft *has* perception but does not share it.
+The measurement shows something cleaner: **SwarmRaft carries no perception sensor at all** — no
+LiDAR, no camera. It is a pure localisation protocol.
+
+**D-1.2 — OUR TECHNICAL INTERPRETATION.** We use this to place our contribution at a different
+layer: their agents agree on *where they are*, ours must agree on *what they see*. **The paper
+does not describe itself as operating at a "layer", and makes no claim about perception-content
+attacks in either direction** — the absence above is simply outside its scope, not a gap the
+authors acknowledge. The distinction is ours; its factual basis (D-1.1) is not.
 
 ---
 
@@ -219,7 +297,9 @@ blockchain whitepapers, flocking. Our consensus-paragraph boundary sentence cove
   with no acceptance stated. ⚠ Re-check the arXiv Comments field before submission.
 - No manuscript edits arise from this audit.
 
-## Re-audit changelog (2026-07-28)
+## Re-audit changelog (2026-07-28) — **all items below reviewed and approved by Srinivasa**
+0. ✅ **Srinivasa reviewed the full re-audit on 2026-07-28 and approved it**, including the C-3
+   rewrite he had ordered, the C-4 do-not-raise ruling, and the re-measured D-1. **File closed.**
 1. **M-1 corrected** — *"combines"* → their actual *"combine"* (**Q6**).
 2. Restructured into **Parts A–D**; quotes, inference and absence claims now separated.
 3. Every fragment executed first; **four** line-break/spacing traps documented — this PDF is the

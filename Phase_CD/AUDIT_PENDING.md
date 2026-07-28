@@ -86,7 +86,19 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☑ **ADoPT** — `REFERENCE_EVIDENCE_ADOPT.md` (point-level temporal consistency, single-vehicle) — **Srinivasa audited & approved 2026-07-26**
 
 **Group C — Byzantine multi-robot / swarm [2]**
-- ☑ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` (⚠ Raft, NOT Byzantine — verify our caution holds) — **Srinivasa audited & approved 2026-07-26; note left as-is by his call**
+- ☑☑ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` — **FULLY CLOSED. Two sign-offs.**
+  **(1) 2026-07-26** original audit; the ⚠ "Raft, NOT Byzantine" caution was checked and holds —
+  the paper is layered (crash-fault Raft consensus + Byzantine *sensor* model), so our
+  "Byzantine resilience" placement is fair and our sentence asserts neither.
+  **(2) 2026-07-28** — Srinivasa reviewed & approved the full re-verification: 10-page re-read,
+  11/12 quotes exact + **M-1** ("combines"→"combine") corrected, 43-ref count confirmed, Parts
+  A–D restructure, **C-3 rewritten** after he rejected the first draft as overclaiming, **C-4**
+  marked do-not-raise, **D-1 re-measured** (perception/lidar/camera/obstacle = **0 hits** — the
+  protocol carries no perception sensor at all). Our own text re-verified against live
+  `related.tex` (zero drift); citation sites verified by key **and** by name; line refs
+  re-anchored on the `\cite` key.
+  ⭐ **This file is now the TEMPLATE for the remaining dossiers.**
+  ⬜ Only open item: pre-submission venue re-check (IoT-J `VOL. NN` unfilled → arXiv Comments).
 - ☐ **Conformity** — `REFERENCE_EVIDENCE_CONFORMITY.md` (evolutionary game, decision layer not perception)
 
 **Group E — benign CP precedents (new category from this session) [2]**
