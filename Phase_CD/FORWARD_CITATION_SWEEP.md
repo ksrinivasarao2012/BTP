@@ -12,6 +12,169 @@ in principle, surface a 2025–26 paper that beats us. This sweep goes **forward
 
 ---
 
+# PART 0 — 🚨 METHOD DEFECT FOUND AND VERIFIED (2026-07-28, Srinivasa's catch)
+
+**All citer counts recorded before this date are UNRELIABLE. The fetch summariser silently drops rows.**
+
+### How it was proven
+| Test | Call | Result |
+|---|---|---|
+| **Boundary** | `offset=200, limit=5` | `{"offset":200,"data":[]}`, **no `next` field** → list ends before 200 |
+| **True end** | `offset=180, limit=10` | **9 entries** → Coopernaut's real count is **189** |
+| **The defect** | same offset, earlier call at `limit=20` | reported only **7** — **2 rows silently dropped** |
+| **Faithfulness** | `offset=0, limit=5` | exactly **5**, matching the earlier first-5 → **limit=5 is faithful** |
+
+### Why it matters — the dropped rows were not random
+The two rows dropped at `limit=20` were **both UAV/drone collaborative-perception papers** — the closest
+platform match to this entire project:
+- **C2F-Net** (IEEE'25) — coarse-to-fine **multi-drone** collaborative perception for object trajectory
+  prediction; mIoU/VPQ metrics; introduces the **CoD-Pred** simulation dataset. ✅ read — **benign, no
+  adversary, no trust** → NO CITE (but note it as evidence that multi-drone CP is an established setting).
+- **AVCPNet** (IEEE TGRS'25) — **AAV–vehicle (aerial-ground)** collaborative 3-D detection; cross-domain
+  cross-adaptation module; **V2U-COO** dataset. ✅ read — **benign, no adversary** → NO CITE (same note).
+
+### Consequences
+1. **Coopernaut = 189**, not 187 and certainly not the 43 the first pass claimed.
+2. Every other anchor count in Part 1.1 (CAD 31 · ROBOSAC 45 · TruPercept 32 · ADoPT 21 · 3D-TC2 33 ·
+   CP-Guard 15 · MADE 12 · GCP 11) is **suspect and probably an undercount** — each was gathered with a
+   single large-limit call or 15–20-sized batches.
+3. **Standing method rule from now on: paginate citation lists at `limit=5`** (the only size verified
+   faithful), and **always probe the boundary** with a high offset to confirm the true end.
+4. The "~240 citing papers examined" figure previously reported is **wrong**; the real total is higher and
+   currently unknown.
+
+**Nothing in the verdicts below is invalidated** — every paper that *was* read was read properly. The defect
+is one of **coverage**, not of judgement: papers were missed, not misjudged.
+
+---
+
+# PART 0b — FULL-ABSTRACT PASS OVER THE HIGH-RISK SUBSET (2026-07-28, in progress)
+
+Srinivasa's instruction: the 4-field rows are a summariser's output, not the abstracts themselves. So the
+papers where a hidden security/temporal contribution is *plausible* — anything whose row flagged noise,
+uncertainty, robustness, anomaly, consistency or a safety metric — are being re-read **one call per paper,
+full abstract**. ~30 identified; **12 done**.
+
+| Paper | Venue/Yr | What the full abstract actually says | Verdict |
+|---|---|---|---|
+| **UNCAP** | AAMAS'26 | CAVs transmit NL messages that *"quantitatively express their perception uncertainty"*; two-stage protocol; +31% driving-safety score | benign — uncertainty for **planning**, no adversary |
+| **COOPERTRIM** | 2602.13287 | *"Conformal temporal uncertainty metric"* to gauge **feature relevance**; 80% bandwidth cut | benign — uncertainty for **transmission selection** |
+| **UniSense** | MobiSys'25 | Uncertainty-driven sensor-data exchange; range 80→140 m, 1.33× accuracy | benign — uncertainty for **data exchange** |
+| **A2MAML** | 2602.04763 | Per-modality stochastic estimates + **Bayesian inverse-variance weighting** to *"suppress corrupted or noisy modalities"*; +18.7% accident detection | benign — weighting for **sensor corruption**, not deception |
+| **CAML** | NeurIPS'25 | Cross-modal distillation, infer with fewer modalities; +58.13% accident detection | benign — **missing modalities** |
+| **DRCP** | 2509.24903 | Cross-modal fusion + diffusion refinement; "noise accumulation" = detection noise | benign |
+| **SEAL** | 2506.21041 | VLM cooperative driving under **long-tail weather**; recalibrates *"ambiguous or corrupted features"* | benign — weather degradation |
+| **MMCD** | IROS'25 | Teacher-student distillation for **missing modalities / missing vehicles**; +20.7% driving safety; aerial-ground | benign — **sensor failure** |
+| **RCDN** | NeurIPS'24 | Neural rendering field to *"recover failed perceptual messages"* under **camera failure**; OPV2V-N dataset | benign — **recovery**, not detection |
+| **RAO** | MobiCom'23 | Motion-compensated occupancy-flow fusion of **asynchronous** sensor data; +34% coverage. *(Authors incl. Q. Zhang & Z.M. Mao — the CAD group, writing benignly)* | benign — **asynchrony** |
+| **Communication-Critical Planning** | Glaser & Kira'23 | Distributed, **uncertainty-aware**, bandwidth-efficient costmap planning; hard-collision rate −57% with 8 agents | benign — multi-agent + uncertainty + collision metric, **no adversary** |
+| **GP3Net** | AAAI'24 | Spatiotemporal graph + PPO, CARLA route completion/infractions | benign — **single-vehicle** planning |
+| **ER-CoPe** | IEEE T-ITS'25 | ✅ **FOUND** — full title is *"Efficient Collaborative Perception With Integrated Uncertainty Estimation via **Evidence Regression**"*. Evidential deep learning; Normal-Inverse-Gamma over **bounding-box parameters**; aleatoric + epistemic; OPV2V/V2X-Set | benign — uncertainty on **box regression**, no adversary. *(Earlier "not locatable" was my error: I searched the acronym, not the title.)* |
+| **CoPeD** | RA-L'24 | Real-world **air-ground multi-robot** CP **dataset**; explicitly names *"sensor noise, occlusions, and sensor failures"* as challenges | benign — a dataset, no adversary. ⭐ platform-relevant (air-ground robots, RA-L) |
+| **CoBEVFlow** | NeurIPS'23 | Compensates **temporal asynchrony** (delays, interruptions, clock misalignment) by reassigning features along BEV motion vectors; IRV2V dataset | benign — temporal used for **alignment**, not detection |
+| **V2X-Boosted Federated Learning** | 2305.11654 | FL **client selection** by predicted communication latency | benign — not perception security |
+| **Toward Ensuring Safety for AD Perception** | T-ITS'24 | **Standardisation + safety survey** (standards progress, research advances) | benign survey ⚠ *own abstract not fully retrieved — IEEE-walled* |
+| **End-to-End Urban AD With Safety Constraints** | — | ⚠ **Not cleanly resolved** — searches returned adjacent single-vehicle RL-driving papers, not this one's own abstract. Clearly single-vehicle end-to-end RL with safety constraints, **no CP, no adversary**, but its own text was not obtained | **incomplete — treat as unverified** |
+
+| **Towards V2X AD: Survey on CP** | 2308.16714 | ⭐ Surveys CP from many angles **including "attack/defense"**, AND separately benchmarks *"various simulated real-world noises… communication latency, lossy communication, localization errors, and mixed noises"*; names security as an open challenge | ⭐ **UPGRADE TO GROUP CITE** — the one survey covering **both** our axes, and it treats them in **separate sections**, which is citable evidence for the disjointness argument below |
+| **AFFormer** | 2605.01888 | ⭐ Closest on *mechanism*: **"Multi-Agent and Temporal Aggregation… across agents and over time"** + **"Uncertainty-Guided Fusion"** (entropy-driven) + handles **"corrupted features"** | **No adversary** — corruption is **channel impairment** (noise, fading, interference), metrics = detection on V2XSet/DAIR-V2X. ⭐ **GROUP CITE as a boundary contrast**: cross-agent temporal + uncertainty already exists — *for channel noise, never for deception* |
+| **CMiMC / What Makes Good Collaborative Views** | AAAI'24 | Contrastive mutual-information maximisation between pre- and post-collaboration features | benign — **fusion quality** |
+| **Learning for V2V CP under Lossy Communication** | T-IV'22 | LC-aware Repair Network + **"uncertainty-aware inter-vehicle attention"** | benign — per-neighbour uncertainty weighting, but for **lossy comms**, not malice |
+| **SiCP** | 2312.04822 | Dual-Perception Net supporting standalone **and** cooperative detection | benign |
+| **Enhanced CP Using Imperfect Communication** | 2404.08013 | Selects the best **helper** by visual range + motion blur; radio-block optimisation | benign — helper selection |
+
+## 🔑 THE FINDING THIS PASS PRODUCED — two disjoint literatures
+
+Across every uncertainty-aware collaborative-perception paper read at full-abstract depth, **uncertainty is
+used for fusion quality, bandwidth, sensor failure, weather, asynchrony or missing modalities. Not once is it
+used to decide whether a neighbour is LYING.**
+
+Conversely, every adversarial-CP paper (CAD, MADE, GCP, CP-Guard, ROBOSAC, CP-uniGuard, PRBI…) **assumes clean
+sensing** and treats disagreement as evidence of attack — CP-Guard's threat model *"assumes adversarial
+perturbations only"*; GCP *"does not explicitly model"* honest noise.
+
+**The uncertainty-aware CP community and the adversarial CP community have not met.** Our contribution sits
+precisely in that gap: the false-positive regime that appears only when honest ranging noise and a lying agent
+are present *at the same time*.
+
+**Use this framing in the paper** — it is stronger and safer than any "first to do X" claim, because it
+describes a structural gap in the literature rather than asserting priority, and every claim-rewording in
+Part 4 remains intact underneath it.
+
+---
+
+# PART 0c — ✅ VERBATIM VERIFICATION OF THE LOAD-BEARING QUOTES (2026-07-28)
+
+**Method breakthrough.** Both WebFetch and WebSearch pass everything through a summarising model — WebFetch
+truncates quotes to ~125 chars, WebSearch rewrites into an "Abstract Summary". So no claim sourced through them
+could be certified verbatim. **Fix: `curl` the paper to disk, then `Read` the file — Read returns raw bytes with
+no model in between.** Network from Bash works. Procedure now used:
+1. `curl "http://export.arxiv.org/api/query?id_list=<ids>"` → Atom XML with **verbatim abstracts**
+2. `curl "https://arxiv.org/pdf/<id>"` → PDF; extract with **pypdf**; regex the Conclusion section
+3. `Read` the resulting file directly
+
+Applied to the **8 papers our manuscript actually QUOTES** (the only ones where exact wording is checkable by a
+reviewer). Files in the session scratchpad: `abs7.xml`, `conclusions.txt`, `extract.py`.
+
+## 🚨 CORRECTION — CATS: my differentiator was WRONG (and the real one is better)
+
+**What I claimed:** *"CATS requires an honest majority"* — planned as the foil for our no-honest-majority result.
+**What CATS actually says (abstract, verbatim):** it *"blends together the best traits of reputation-based **and**
+majority-based detection mechanisms"* — it combines them precisely to escape each one's weakness. **My claim was
+an overstatement and must not be written.**
+
+**The REAL differentiators vs CATS, all quoted from its own text:**
+- ⭐ *"**Sensor attacks: Sensor-based attacks (e.g., fooling LiDARs with lasers) are considered out of scope**"* —
+  CATS explicitly excludes the perception-level attack class that **is** our entire threat model. Cleanest
+  possible differentiator, in their words.
+- Threat model is *"bad data … of misbehaving vehicles"* covering *"malfunctioning vehicles"* and *"malicious
+  vehicles"* — **message-layer**, not fabricated obstacles in the LiDAR field.
+- Heavy infrastructure assumptions we do not make: *"the centralized Security Authority (SA) is trusted"*,
+  private keys *"securely stored in tamper-proof hardware"*, plus an **out-of-band internet channel** for voting.
+- Metric = message filtering, **not** driving success: *"an average 230x reduction of bad messages, while making
+  a small (**4.2x on average**) tradeoff for **blocking good messages**"* → ⭐ **they DO block honest traffic; our
+  no-harm column is flat.** This is a strong, quotable contrast.
+
+## ⭐ MAJOR FIND — the V2X survey independently validates our σ = 0.6 m
+
+`2308.16714` §5.5, verbatim: *"cooperative perception models are trained in the environment of perfect
+localization while tested in an environment with simulated localization noises… The noises are sampled from
+Gauss Distribution, with a mean of 0 and a changeable standard deviation."* And: *"early fusion is much more
+sensitive to localization error, whose **AP@0.5 drops 70.5% when position error std is 0.6m**."*
+
+**A 2023 survey shows collaborative perception collapsing at exactly σ = 0.6 m — benignly, with no attacker.**
+Third-party support for both our noise regime and our specific σ. **Cite this in the setup/parameter
+justification**, not just related work.
+
+## Verbatim conclusions obtained
+
+| Paper | Verbatim conclusion evidence | Effect on our claims |
+|---|---|---|
+| **SafeCoop** | *"Closed-loop evaluations on 32 CARLA scenarios show that SafeCoop substantially mitigates adversarial impact and can succesfully detect corrputed channels with up to 67.32% F1 score"* | ✅ confirms the driving-score claim-rewording #1 |
+| **CONClave** | *"CONClave was able to detect more categories of faults and errors, **including both malicious and unintentional errors**, while being faster than … TruPercept"* | ✅ confirms fault+malice scope; **no driving metric** |
+| **MVIG** | *"MVIG identifies vulnerable regions and optimal attack timing through spectral graph analysis and **temporal modeling**"*; future work: *"finding effective **defense strategies against such attacks**"* | ✅ confirms adaptive+temporal attack. ⭐ They explicitly call for the defense — **we are it** |
+| **AFFormer** | *"jointly modeling **inter-agent, temporal, and spatial** correlations"*; limitation: *"The current framework **does not explicitly account for communication delays or packet loss**"* | ✅ confirms cross-agent temporal exists for channel noise; and its scope is narrower than the abstract implies |
+| **LiDAR-Spoofing** (2302.07341) | ⚠️ **No conclusion section exists** — 9-page conference paper ending at references. Abstract verified verbatim | abstract-level claims stand |
+| **Towards V2X Survey** | see σ=0.6 m find above | ⭐ upgraded from group-cite to a **setup-section cite** |
+
+## Verified-verbatim quote bank (safe to put in the manuscript)
+- LiDAR-Spoofing: *"spoofing attacks can typically only be mounted on **one vehicle at a time**"* · *"a control
+  algorithm that **guarantees** that these estimated object locations are avoided"*
+- SafeCoop: *"**69.15% driving score improvement** under malicious attacks"*
+- CATS: *"Sensor-based attacks … are considered **out of scope**"* · *"**4.2x** … tradeoff for blocking good messages"*
+- AFFormer: *"Multi-Agent and Temporal Aggregation for context-aware fusion **across agents and over time**"*
+- MVIG: *"**temporal graph learning** to generate evolving fabrication risk maps"*
+- Survey: *"AP@0.5 drops 70.5% when position error std is **0.6m**"*
+
+## ⚠️ Still unverified
+**RLCVP** (IEEE TMC 11006384) — not on arXiv, paywalled. It is a **Level-1 must-cite**, so its differentiator
+sentence rests on abstract-level evidence only → `INSTITUTE_WIFI_TODO.md`.
+
+**Standing rule added:** any paper we **quote** must be verified via the curl→Read path (or from a PDF on disk)
+before its sentence goes into the manuscript. Papers we merely **list** in a grouped citation do not need this.
+
+---
+
 # PART 1 — PROGRESS TRACKER
 
 ## 1.1 Anchors swept: **4 of 19 (21%)**
@@ -21,7 +184,41 @@ in principle, surface a 2025–26 paper that beats us. This sweep goes **forward
 | 1 | **CAD** (USENIX Sec'24) | 2309.12955 | 31 | ✅ DONE |
 | 2 | **ROBOSAC** (ICCV'23) | 2303.09495 | 45 | ✅ DONE |
 | 3 | **TruPercept** (IEEE IV'20) | 1909.07867 | 32 | ✅ DONE |
-| 4 | **Coopernaut** (CVPR'22) | 2205.02222 | 43 | ✅ DONE |
+| 4 | **Coopernaut** (CVPR'22) | 2205.02222 | **187** | ✅ **RE-DONE PROPERLY 2026-07-28** — 180 individually assessed, 7 no-abstract |
+
+### ⭐ COOPERNAUT RE-SWEEP (2026-07-28) — the first pass was bulk-screened; this one is per-paper
+The original Coopernaut pass (and CAD / ROBOSAC / TruPercept) predates Srinivasa's zero-title-grade rule and
+was **bulk-screened**. Re-done properly: the citation list was pulled in batches and **every paper got its own
+row** derived from **its own abstract** — adversary? metric? cross-agent temporal? honest-noise modelled?
+The API reported **187 citers** (far more than the 43 the first pass saw). **180 assessed · 7 have no abstract
+published anywhere → logged UNKNOWN, no verdict** (incl. `Sense2Com`, `Talking Vehicles`, `Plug and Play`).
+
+**Result: ZERO new competitors across all 187.**
+
+**Every adversarial paper in the list was already known or is out-of-family:**
+| Paper | Status |
+|---|---|
+| RCDM · TrustFlip · SafeCoop · CP-FREEZER · CATS · BadMDA · CAD | already read/categorised |
+| **V2XP-ASG** (2022) | adversarial *scene generation* (perturbs agent poses), AP-scored — out |
+| **Edge-Assisted CP Against Jamming & Interference** (TWC'25) | **jamming/interference = availability**, RL chooses regions/channel/power. Not fabrication — out |
+| **RCP-Bench** (CVPR'25) | "corruptions" = **weather / sensor failure / temporal misalignment**, *not* malicious agents. Benign robustness benchmark — out |
+| **Robust & transferable end-to-end navigation** (2024) | adversarial training on **one vehicle's** sensor input; no collaborative perception — out |
+
+### 🔑 THE MOST USEFUL PATTERN THIS RE-SWEEP REVEALED
+**Driving-success metrics are completely standard in the benign learned-CP-driving family.** At least 15 of
+Coopernaut's descendants score exactly the way we do — and **none of them has an adversary**:
+*Defer-to-Plan* (driving score 79.72) · *CooperDrive* (TTC, stopping margin) · *E2E-V2X-CP* (driving score) ·
+*CoopReflect* (collision avoidance) · *UNCAP* (+31% driving-safety score) · *MMCD* (+20.7% driving safety) ·
+*SafeEdge* (96% success rate) · *GP3Net* (route completion, infractions) · *ReasonNet* (CARLA) ·
+*Toward Collaborative Autonomous Driving* (driving score + collision rate) · *Select2Drive* (route completion) ·
+*V2V-LLM* (collision rate) · *ICOP* · *VI-Planning* · *Communication-Critical Planning* (collision rate).
+
+**Only SafeCoop combines a driving-success metric WITH an adversary — and it is language-layer, not geometric.**
+
+**Why this helps us:** it reframes claim-rewording #1 from a weakness into a strength. Our metric is not exotic
+— it is the *native* metric of the learned-CP-driving family. What is unoccupied is the **intersection**:
+driving-success metric **+** a fabricating adversary **+** ranging noise **+** cross-agent temporal offset.
+Say it that way, citing the benign family for the metric and SafeCoop for the adversarial precedent.
 | 5 | **ADoPT** (BMVC'23) | 2310.14504 | 21 | ✅ DONE 2026-07-28 |
 | 6 | **3D-TC2** (MAISP'21) | S2 `114a30a0…` | 33 | ✅ DONE 2026-07-28 |
 | 7 | **CP-Guard** (AAAI'25) | 2412.12000 | 15 | ✅ DONE 2026-07-28 |

@@ -102,6 +102,21 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   **LiDAR-spoofing safe-control paper** (arXiv 2302.07341, 2023) proposes a control law that provably avoids the
   estimated obstacle, validated in CARLA. Safe wording: "first **under ranging noise, with a learned multi-agent
   policy, at a Byzantine fraction up to 7/10**."
+- 🚨 **CATS "honest majority" — CLAIM RETRACTED (NEW 2026-07-28, caught by verbatim verification).** Do NOT
+  write "CATS requires an honest majority". Its abstract says it *"blends together the best traits of
+  reputation-based **and** majority-based detection mechanisms"* — combining them to escape each one's weakness.
+  **Use these instead, all quoted from CATS itself:** (i) ⭐ *"Sensor-based attacks (e.g., fooling LiDARs with
+  lasers) are considered **out of scope**"* — it explicitly excludes our entire threat class; (ii) it assumes a
+  *"trusted"* centralized Security Authority, tamper-proof key storage, and an out-of-band internet channel;
+  (iii) metric is message filtering with a **4.2× rate of blocking GOOD messages** — versus our flat no-harm.
+- ⭐ **σ = 0.6 m IS INDEPENDENTLY VALIDATED (NEW 2026-07-28).** The V2X CP survey (arXiv 2308.16714 §5.5) injects
+  zero-mean Gaussian localization noise and reports *"AP@0.5 drops 70.5% when position error std is **0.6m**"* —
+  benign, no attacker. **Cite in setup/parameter-justification**, not just related work: a third party shows CP
+  collapsing at exactly our σ.
+- ☐ **VERBATIM-QUOTE RULE (NEW 2026-07-28):** any paper the manuscript **quotes** must first be verified through
+  the `curl` → `Read` path (raw text, no summarising model) or from a PDF on disk. WebFetch truncates quotes to
+  ~125 chars and WebSearch paraphrases, so neither can certify wording. Verified so far: LiDAR-Spoofing,
+  SafeCoop, CONClave, CATS, MVIG, AFFormer, V2X-Survey. **NOT verified: RLCVP** (IEEE-walled, Level-1 must-cite).
 - 🚨 **GCP TEMPORAL — THE BIGGEST TRAP (NEW 2026-07-28, from the CP-Guard forward sweep).** **GCP is already
   cross-agent temporal WITH per-neighbour state**: full text (2501.02450v2) shows it reconstructs motion
   trajectories of *"specific neighbor agents across frames"*, matching low-confidence boxes *"from a particular
