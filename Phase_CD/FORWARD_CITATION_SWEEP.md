@@ -202,29 +202,37 @@ These appear only as entries in other papers' reference lists. Repeated searches
 
 ## B. PAYWALLED — abstract obtained, **conclusion blocked** (9)
 Verdict assigned on abstract only. Listed in `INSTITUTE_WIFI_TODO.md`.
+**FULL TITLES given — the short labels used elsewhere in this file are our shorthand and are NOT searchable.**
 
-| # | Paper | Wall | Priority |
-|---|---|---|---|
-| 12 | 🚨 **RLCVP** (IEEE TMC 11006384) | IEEE | **PRIORITY 0 — Level-1 must-cite, differentiator unverified** |
-| 13 | **Fake-Objects-CPM Trust** (Springer LNCS) | Springer login | HIGH — fabricated objects + per-neighbour trust |
-| 14 | **FNO-Guard** | ScienceDirect | group-cite |
-| 15 | **Robust-CP: Adv. Training + Consensus** | IEEE (HTTP 418) | group-cite |
-| 16 | **Adversarial CP in Autonomous Driving** | IEEE (HTTP 418) | group-cite |
-| 17 | **Trust-Mgmt Framework for MDS in CP Services** (ICARCV'22) | IEEE + HAL Anubis | group-cite |
-| 18 | **Yuce survey — MDS with CP in V2X** | Wiley | group-cite |
-| 19 | **UniSense** (MobiSys'25) | ACM DL | no-cite |
-| 20 | **Toward Ensuring Safety for AD Perception** (T-ITS'24) | IEEE | no-cite |
+| # | FULL TITLE (search this) | Authors / venue | Wall | Priority |
+|---|---|---|---|---|
+| 12 | 🚨 **"Collaborative Perception Against Data Fabrication Attacks in Vehicular Networks"** ⚠ *we call this "RLCVP" — that name is OUR INVENTION and appears nowhere in the paper; searching "RLCVP" finds nothing* | Lin, Xiao, Chen, Lv — **IEEE Trans. Mobile Computing**, Oct 2025, doc **11006384** | IEEE | **PRIORITY 0 — Level-1 must-cite, differentiator unverified** |
+| 13 | **"Cooperative Trust Based Detection Mechanism for Fake Objects in Collective Perception Messages"** | Springer LNCS 2025, **DOI 10.1007/978-3-031-87775-9_17** *(chapter _16 in the series index)* | Springer login wall | **HIGH** — fabricated objects + per-neighbour trust |
+| 14 | **"FNO-Guard: Efficient and generalizable adversarial defense for collaborative perception via function-space adjudication"** | ScienceDirect, 2026, PII **S2542660526001630** | ScienceDirect | group-cite |
+| 15 | **"Robust Collaborative Perception: Combining Adversarial Training with Consensus Mechanism for Enhanced V2X Security"** | Poibrenski et al., IEEE 2025, doc **11097632** | IEEE (HTTP 418) | group-cite |
+| 16 | **"Adversarial Collaborative Perception in Autonomous Driving"** | IEEE 2025, doc **11185995** | IEEE (HTTP 418) | group-cite |
+| 17 | **"Trust Management Framework for Misbehavior Detection in Collective Perception Services"** | Zhang, Ben-Jemaa, Nashashibi — **ICARCV 2022**, IEEE doc **10004259**; HAL **hal-03792577** | IEEE + HAL Anubis | group-cite |
+| 18 | **"Misbehavior Detection With Collective Perception in V2X Networks: A Survey"** | Yuce, Ertürk, Aydın — Wiley **Trans. Emerging Telecom. Tech.**, Oct 2025, **DOI 10.1002/ett.70267** | Wiley | group-cite |
+| 19 | **"UniSense: Spatial-Uncertainty-Aware Collaborative Sensing for Autonomous Driving"** | Ren, Zhang, Shi, Zhang, Zhang, Zhang — **MobiSys 2025**, pp. 459–472, **DOI 10.1145/3711875.3729130** | ACM DL | no-cite |
+| 20 | **"Toward Ensuring Safety for Autonomous Driving Perception: Standardization Progress, Research Advances, and Perspectives"** | Sun, Zhang, Lu, Cui, Deng, Cao, Khajepour — **IEEE T-ITS** 25 (2024) 3286–3304 | IEEE | no-cite |
 
 ## C. WALL-BLOCKED — **title + venue only**, no abstract retrieved (6)
+**FULL TITLES given for the same reason.**
 
-| # | Paper | Wall |
-|---|---|---|
-| 21 | **Sieve** (2026) | not indexed |
-| 22 | **ALADCP** (2026) | ⚠ **late-fusion = object-level, like ours** — no text anywhere |
-| 23 | **CIAK-CP** (ACM SAC'26) | ACM DL (try Zenodo 17804455) |
-| 24 | **HA-GAN** (2026) | not indexed |
-| 25 | **Point Cloud Object Tampering Attacks** (2025) | not indexed |
-| 26 | **Zhang 2024 PhD thesis — Misbehavior Detection for CP** | HAL Anubis bot-block |
+| # | FULL TITLE (search this) | Authors / venue | Wall |
+|---|---|---|---|
+| 21 | **"Sieve: Computationally Efficient Hierarchical Adversarial Feature Detection in Multi-Agent Perception"** | 2026 — venue unknown | not indexed anywhere |
+| 22 | ⚠ **"ALADCP: Attention-Based Late-Fusion Anomaly Detection for V2V Collaborative Perception"** | Guoxi Liu, Chang Liu, Zheng Xue, Guojun Han — April 2026 | not indexed — **late-fusion = object-level, like ours** |
+| 23 | **"CIAK-CP: Camera feed Injection AttacK in Collaborative Perception"** | Calipari, Schmidt, Hamad, Steinhorst (TU Munich) — **ACM SAC 2026**, **DOI 10.1145/3748522.3779847** | ACM DL — **try Zenodo record 17804455 first (may be open)** |
+| 24 | **"HA-GAN: A Hybrid Attention Adversarial Watermark Network for Autonomous Driving Data Authentication"** | 2026 | not indexed |
+| 25 | **"Research on Point Cloud Object Tampering Attacks for Cooperative Perception Systems"** | 2025 | not indexed |
+| 26 | **"Misbehavior Detection for Collective Perception in [C-]V2X Networks"** (PhD thesis) | Jiahao Zhang, 2024 — IRT SystemX / Inria; HAL **tel-05113104** | HAL Anubis bot-block |
+
+> ⚠ **Naming defect fixed 2026-07-28.** These rows previously carried our internal shorthand (`RLCVP`,
+> `Fake-Objects-CPM`, `Sieve`, `HA-GAN`, `Yuce survey`…) instead of real titles. Several of those labels are
+> unsearchable — **`RLCVP` in particular is a name we invented; it is not in the paper.** Anyone taking that
+> list to a library terminal would have found nothing. Full titles + identifiers are now given so every row is
+> directly searchable. **When these papers are cited, use the full titles above, never the shorthand.**
 
 ## Summary
 

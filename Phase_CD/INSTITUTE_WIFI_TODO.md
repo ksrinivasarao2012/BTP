@@ -109,13 +109,28 @@ protection, or no full text online. Claude has title + venue + (sometimes) a par
 2026-07-28 through every free route: IEEE returned HTTP 418, ScienceDirect/Springer subscription-walled, HAL
 Anubis-blocked, Semantic Scholar 429). Abstracts are rich enough to classify all as **group-cite except RLCVP**,
 but the conclusions must be read before the related-work paragraph is final:
-FNO-Guard (ScienceDirect) · "Robust Collaborative Perception: Adversarial Training + Consensus" (IEEE 11097632) ·
-"Adversarial Collaborative Perception in Autonomous Driving" (IEEE 11185995) · **RLCVP / "Collaborative
-Perception Against Data Fabrication Attacks in Vehicular Networks"** (IEEE TMC 11006384 — confirm its RL selects
-*collaborators*, not a driving policy) · "Trust Management Framework for Misbehavior Detection in Collective
-Perception Services" (ICARCV'22, IEEE 10004259) · US Patent **US20240323657A1** *"Misbehavior detection using
-data consistency checks for collective perception messages"* (Google Patents — free, but read it: a patent in
-our exact space is worth knowing about).
+> ⚠ **Search by the FULL TITLE below, never by our shorthand.** Labels like `RLCVP`, `Fake-Objects-CPM` and
+> `Sieve` are internal abbreviations — **`RLCVP` in particular is a name we invented; it does not appear in the
+> paper and will return nothing in any search engine.**
+
+- [ ] **"FNO-Guard: Efficient and generalizable adversarial defense for collaborative perception via
+      function-space adjudication"** — ScienceDirect 2026, PII **S2542660526001630** → `FNO_Guard.pdf`
+- [ ] **"Robust Collaborative Perception: Combining Adversarial Training with Consensus Mechanism for Enhanced
+      V2X Security"** — Poibrenski et al., IEEE 2025, doc **11097632** → `RobustCP_AdvTrain.pdf`
+- [ ] **"Adversarial Collaborative Perception in Autonomous Driving"** — IEEE 2025, doc **11185995**
+      → `AdversarialCP_AD.pdf`
+- [ ] 🚨 **"Collaborative Perception Against Data Fabrication Attacks in Vehicular Networks"** — Lin, Xiao, Chen,
+      Lv, **IEEE Trans. Mobile Computing**, Oct 2025, doc **11006384** → `RLCVP.pdf`
+      *(this is the PRIORITY 0 paper above — confirm its RL selects **collaborators**, not a driving policy)*
+- [ ] **"Trust Management Framework for Misbehavior Detection in Collective Perception Services"** — Zhang,
+      Ben-Jemaa, Nashashibi, **ICARCV 2022**, IEEE doc **10004259** (also HAL `hal-03792577`)
+      → `TrustMgmt_CPS.pdf`
+- [ ] **"Misbehavior Detection With Collective Perception in V2X Networks: A Survey"** — Yuce, Ertürk, Aydın,
+      Wiley *Trans. Emerging Telecommunications Technologies*, Oct 2025, **DOI 10.1002/ett.70267**
+      → `Yuce_MDS_CP_Survey.pdf`
+- [ ] **US Patent US20240323657A1 — "Misbehavior detection using data consistency checks for collective
+      perception messages"** — Google Patents, **free**, no wifi needed. Worth reading: a patent in our exact
+      space. → `Patent_US20240323657A1.pdf`
 
 ---
 
