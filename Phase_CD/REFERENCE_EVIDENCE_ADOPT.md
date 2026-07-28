@@ -1,6 +1,6 @@
 # ADoPT — paired claim/evidence sheet
 
-## STATUS: ☐ **AWAITING SRINIVASA'S REVIEW** of the 2026-07-29 fact/interpretation split
+## STATUS: ☑☑☑ CLOSED — verification by **Claude**, reviewed & approved by **Srinivasa** 2026-07-29
 
 > ⚠️ **Attribution.** All verification here — paper reading, quote checking, counts, searches,
 > drafting — is **CLAUDE'S WORK**. Srinivasa's role is **review and approval**.
@@ -9,7 +9,17 @@
 |---|---|---|---|
 | 2026-07-26 | Original dossier | **Claude** | **Srinivasa** ✅ |
 | 2026-07-28 | Quote re-verification, M-1, Parts A–D | **Claude** | **Srinivasa** ✅ |
-| 2026-07-29 | Fact/interpretation split + **scope check on §6.2** | **Claude** | ☐ **PENDING** |
+| 2026-07-29 | Fact/interpretation split + scope check on §6.2 | **Claude** | **Srinivasa** ✅ |
+
+**Srinivasa's two corrections on review (2026-07-29), both applied — see C-2.2:**
+1. *"the authors evaluate **free-standing road scenes**"* → deleted. That phrase appears **0
+   times** in the paper; replaced with a statement of what they **do not** evaluate, which is
+   provable by count (`corridor` 0, `gap` 0, `passage` 0).
+2. *"the passage **closes**"* → *"**can effectively close** the passage"* — an unevaluated
+   consequence must not be stated as definite.
+
+Both were promoted to a standing rule (`AUDIT_PENDING.md` § DOSSIER WRITING STANDARD):
+**prefer the absence claim, because "they do not evaluate X" needs only a reproducible search.**
 
 **2026-07-29 closure checks — all pass:**
 

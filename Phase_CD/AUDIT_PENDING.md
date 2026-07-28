@@ -124,7 +124,18 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   evidence (collaborative/cooperative/V2V/neighbour/multi-agent = **0 hits**); all numbers checked
   against Tables 2–4. **No finding, no `related.tex` word and no `refs.bib` field changed → Srinivasa
   ruled his sign-off STANDS (2026-07-28); not re-opened.**
-- ☑ **ADoPT** — `REFERENCE_EVIDENCE_ADOPT.md` (point-level temporal consistency, single-vehicle) — **Srinivasa audited & approved 2026-07-26**
+- ☑☑☑ **ADoPT — CLOSED 2026-07-29.** Verification by **Claude**, reviewed & approved by
+  **Srinivasa** three times (2026-07-26 original · 2026-07-28 quote re-verification + M-1 ·
+  2026-07-29 fact/interpretation split).
+  **Closure checks all pass:** `WE WRITE` ↔ live `related.tex` **exact match**; citation sites
+  **1× by key, 1× by name**, same line — the only use; paragraph 150–162.
+  🔍 **Scope check on the §6.2 corroboration PASSES** — it concerns *spoofed/fabricated* objects
+  (§4 point injection; Fig. 13 *"a fake object created through a sparse injection attack"*),
+  matching our attack class. **This is the check 3D-TC2 failed (M-2)** — same structure, opposite
+  result, so the check discriminates rather than merely flagging.
+  ✎ **Srinivasa's two review corrections applied:** *"free-standing road scenes"* (0 hits) deleted
+  in favour of a provable absence claim; *"the passage closes"* → *"can effectively close the
+  passage"*. Both promoted to the standing DOSSIER WRITING STANDARD above.
 
 **Group C — Byzantine multi-robot / swarm [2]**
 - ☑☑ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` — **CLOSED. Verification by Claude,
