@@ -1,12 +1,20 @@
 # SwarmRaft — paired claim/evidence sheet
 
-## STATUS: ☑☑ FULLY AUDITED — Srinivasa 2026-07-26, **re-audit reviewed & approved 2026-07-28**
+## STATUS: ☑☑ CLOSED — verification by **Claude**, reviewed & approved by **Srinivasa**
 
-**This is the first dossier closed under the full standard.** Two independent sign-offs:
-1. **2026-07-26** — original audit of the manuscript claim and the crash-fault/Byzantine nuance.
-2. **2026-07-28** — Srinivasa reviewed the complete re-verification: the Part A/B/C/D
-   restructure, the M-1 correction, the rewritten **C-3** (after he rejected the first draft as
-   overclaiming), the **C-4** do-not-raise ruling, and the re-measured **D-1**. **Approved.**
+> ⚠️ **Attribution, stated explicitly.** Everything in this file — the paper reading, the quote
+> checking, the counts, the searches, the drafting — is **Claude's work**. Srinivasa's role is
+> **review and approval**, not authorship of the verification. A tick mark below means *"Srinivasa
+> reviewed Claude's work and approved it"*, never *"Srinivasa performed the check"*.
+
+| Date | Work | Done by | Reviewed & approved by |
+|---|---|---|---|
+| 2026-07-26 | Original dossier + manuscript-claim check + the crash-fault/Byzantine nuance | **Claude** | **Srinivasa** ✅ |
+| 2026-07-28 | Full re-verification: 10-page re-read, quote-by-quote check, M-1, ref count, Parts A–D restructure, C-3 rewrite, C-4 ruling, D-1 re-measurement | **Claude** | **Srinivasa** ✅ |
+
+**This is the first dossier closed under the full standard.** On 2026-07-28 Srinivasa reviewed the
+complete re-verification — including the rewritten **C-3** (after he rejected Claude's first draft
+as overclaiming), the **C-4** do-not-raise ruling, and the re-measured **D-1** — and approved it.
 
 Full 10-page re-read under the verbatim-only standard. **Substance fully intact; one verb form
 corrected inside quotation marks (M-1), zero manuscript impact.**
@@ -297,9 +305,10 @@ blockchain whitepapers, flocking. Our consensus-paragraph boundary sentence cove
   with no acceptance stated. ⚠ Re-check the arXiv Comments field before submission.
 - No manuscript edits arise from this audit.
 
-## Re-audit changelog (2026-07-28) — **all items below reviewed and approved by Srinivasa**
-0. ✅ **Srinivasa reviewed the full re-audit on 2026-07-28 and approved it**, including the C-3
-   rewrite he had ordered, the C-4 do-not-raise ruling, and the re-measured D-1. **File closed.**
+## Re-audit changelog (2026-07-28) — work by **Claude**, reviewed & approved by **Srinivasa**
+0. ✅ **Claude performed all verification below; Srinivasa reviewed it on 2026-07-28 and approved**,
+   including the C-3 rewrite he ordered, the C-4 do-not-raise ruling, and the re-measured D-1.
+   **File closed.**
 1. **M-1 corrected** — *"combines"* → their actual *"combine"* (**Q6**).
 2. Restructured into **Parts A–D**; quotes, inference and absence claims now separated.
 3. Every fragment executed first; **four** line-break/spacing traps documented — this PDF is the

@@ -4,7 +4,15 @@
 **NOT final** until Srinivasa personally audits it. Claude must keep adding to this list and must not treat any
 item as settled. Committed to git ≠ audited — commits are checkpoints, the audit is the gate.
 
-Legend: ☐ = awaiting Srinivasa's audit · ☑ = Srinivasa audited & approved · ✎ = Srinivasa found an issue (see note)
+**Who does what — stated explicitly (2026-07-28).** All verification work in these dossiers —
+reading the papers, checking quotes against PDFs, counting references, running searches, drafting
+the analysis — is **CLAUDE'S WORK**. **SRINIVASA'S ROLE IS REVIEW AND APPROVAL.** A ☑ therefore
+means *"Claude did the work; Srinivasa reviewed it and approved"* — it never means Srinivasa
+performed the check himself.
+
+Legend: ☐ = Claude's work, **awaiting Srinivasa's review** · ☑ = Claude's work, **reviewed &
+approved by Srinivasa** · ☑☑ = reviewed & approved **twice** (original + re-verification) ·
+✎ = Srinivasa found an issue on review (see note)
 
 ---
 
@@ -86,11 +94,14 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☑ **ADoPT** — `REFERENCE_EVIDENCE_ADOPT.md` (point-level temporal consistency, single-vehicle) — **Srinivasa audited & approved 2026-07-26**
 
 **Group C — Byzantine multi-robot / swarm [2]**
-- ☑☑ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` — **FULLY CLOSED. Two sign-offs.**
-  **(1) 2026-07-26** original audit; the ⚠ "Raft, NOT Byzantine" caution was checked and holds —
+- ☑☑ **SwarmRaft** — `REFERENCE_EVIDENCE_SWARMRAFT.md` — **CLOSED. Verification by Claude,
+  reviewed & approved by Srinivasa twice.**
+  **(1) 2026-07-26** Claude's original dossier, reviewed & approved; the ⚠ "Raft, NOT Byzantine"
+  caution Srinivasa raised was checked by Claude and holds —
   the paper is layered (crash-fault Raft consensus + Byzantine *sensor* model), so our
   "Byzantine resilience" placement is fair and our sentence asserts neither.
-  **(2) 2026-07-28** — Srinivasa reviewed & approved the full re-verification: 10-page re-read,
+  **(2) 2026-07-28** — Claude performed the full re-verification; **Srinivasa reviewed & approved
+  it**: 10-page re-read,
   11/12 quotes exact + **M-1** ("combines"→"combine") corrected, 43-ref count confirmed, Parts
   A–D restructure, **C-3 rewritten** after he rejected the first draft as overclaiming, **C-4**
   marked do-not-raise, **D-1 re-measured** (perception/lidar/camera/obstacle = **0 hits** — the
