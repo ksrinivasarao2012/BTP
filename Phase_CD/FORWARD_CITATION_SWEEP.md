@@ -485,7 +485,7 @@ GCP temporal-priority claim — the last still pending raw-text re-verification,
 
 # PART 1 — PROGRESS TRACKER
 
-## 1.1 Anchors swept: **4 of 19 (21%)**
+## 1.1 Anchors swept: **19 of 19 (100%)** ✅ COMPLETE 2026-07-28
 
 | # | Anchor | arXiv ID | Citations pulled | Status |
 |---|---|---|---|---|
@@ -715,21 +715,22 @@ crossed into multi-agent. Combined with §Part 4 item 2 (CONClave/CATS/MVIG accu
 the precise defensible claim is: **first to accumulate a cross-agent geometric OFFSET statistic under ranging
 noise.** Both halves now have evidence.
 
-## 1.2 Anchors REMAINING: **11**
+## 1.2 Anchors REMAINING: **0** ✅ — all swept 2026-07-28
 
-| Priority | Anchor | ID / where | Why this priority |
-|---|---|---|---|
-| 🔴 **HIGH** | **GCP** (TDSC'25) | 2501.02450 | Core CP-security anchor — **and now our closest temporal rival**, so its citers matter most |
-| 🟠 MED | **PRBI** (2026) | 2603.08498 | Newest defense; few citers expected but cheap |
-| 🟠 MED | **MATE** (CCS'25) | 2503.04954 | Trust-estimation line |
-| 🟠 MED | **AerialTrust** (ICCPS'25) | — | UAV trust — closest to our platform |
-| 🟠 MED | **Stealthy-Fab** (2026) | 2605.01301 | Attack-side anchor |
-| 🟠 MED | **TrustFlip** (2026) | 2605.22122 | Trust-poisoning line |
-| 🟡 LOW | **CoDynTrust** | 2502.08169 | Benign paper → citers likely benign |
-| 🟡 LOW | **Tu et al.** (ICCV'21) | 2101.06560 | Seminal but old; citers already caught via CAD/ROBOSAC |
-| 🟡 LOW | **Vadivelu** (CoRL'20) | 2011.05289 | Benign precedent |
-| 🟡 LOW | **SwarmRaft** | 2508.00622 | Consensus layer, out of family |
-| 🟡 LOW | **Conformity** | 2606.21206 | Decision layer, out of family |
+| # | Anchor | ID | Citers | Result |
+|---|---|---|---|---|
+| 10 | **PRBI** (2026) | 2603.08498 | **0** | too new to be cited |
+| 11 | **MATE** (CCS'25) | 2503.04954 | 9 | 0 new (TrustFlip/Stealthy-Fab/PRBI already known + Dynamic-Trust-SIoV) |
+| 12 | **TrustFlip** (2026) | 2605.22122 | **0** | too new |
+| 13 | **Stealthy-Fab** (2026) | 2605.01301 | 1 | 0 new |
+| 14 | **CoDynTrust** | 2502.08169 | 6 | 0 new |
+| 15 | **Tu et al.** (ICCV'21) | 2101.06560 | **96** | ⭐ **source of GLST** — the one new must-cite |
+| 16 | **Vadivelu** (CoRL'20) | 2011.05289 | **88** | 0 new — benign pose-error line |
+| 17 | **SwarmRaft** | 2508.00622 | 4 | 0 new |
+| 18 | **Conformity** | 2606.21206 | **0** | too new |
+| 19 | **AerialTrust** (ICCPS'25) | DOI 10.1145/3716550.3722038 | 7 | 0 new — see Part 0e |
+
+**Of ~460 citers across all 19 anchors, exactly ONE new must-cite emerged: GLST (arXiv 2607.23059).**
 
 ## 1.3 Other sweep tasks
 
@@ -871,19 +872,24 @@ Run for: **CAD · ROBOSAC · MADE · MATE · PRBI · TruPercept · CP-Guard · C
 
 # PART 7 — RUNNING TOTALS
 
-| Metric | Value |
+| Metric | **FINAL (2026-07-28)** |
 |---|---|
-| Anchors swept | **7 / 19 (37%)** |
-| Citing papers examined | **~220** |
-| New papers surfaced | **~50** |
-| Must cite (Level 1) | **6** |
-| Group cite (Level 2) | **20** |
-| No cite (Level 3) | **~75** |
-| Pending category | **2** (Srinivasa downloading) |
-| **Unknown — not locatable, NO verdict given** | **4** |
+| Anchors swept | **19 / 19 (100%)** ✅ |
+| Citing papers examined | **~460** |
+| Must cite (Level 1) | **7** — LiDAR-Spoofing-Safe-Control · SafeCoop · CONClave · CATS · MVIG · RLCVP · **GLST** |
+| Group cite (Level 2) | **~22** |
+| No cite (Level 3) | **~150** |
+| **Unknown — NO verdict given** | **16** (Part 0d) |
 | **Title-grade verdicts** | **0** ✅ (standing rule) |
-| Claims requiring rewording | **4** (🚨 #4 = GCP, the most serious) |
-| Pre-emptions of the compound claim | **0** |
+| Claims requiring rewording | **4** (🚨 #4 = GCP — evidence still summariser-grade, must be re-verified first) |
+| Independent validations of σ = 0.6 | **2** (V2X survey; OptiMatch) |
+| **Pre-emptions of the compound claim** | **0** ✅ |
+| PDFs archived in `Research paper/` | **27** — all cited papers except RLCVP (IEEE-walled) |
+
+> ⚠️ **File-hygiene note (2026-07-28, Srinivasa's catch):** this document carried **three contradictory
+> progress figures at once** — "4 of 19" in §1.1, "11 remaining" in §1.2, and "7 of 19" here — because new
+> sections were appended at the top without updating the older trackers. All three are now corrected. **When
+> updating this file, update §1.1, §1.2 and Part 7 together, or they will drift again.**
 
 **Standing rule in force:** zero title-grade. Every verdict rests on at least an abstract; unreachable papers
 are logged as **unknown**, never as "safe". Saved to memory as `paper-reading-depth-standard`.
