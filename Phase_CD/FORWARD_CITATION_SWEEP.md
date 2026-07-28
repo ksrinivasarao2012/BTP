@@ -183,7 +183,66 @@ that never received a verdict is now listed **by name**, with the anchor it came
 
 **Rule: nothing here is "safe". These are UNKNOWN.** They are excluded from every "0 pre-emptions" statement.
 
-## A. NOT LOCATABLE — no abstract exists anywhere online (11)
+## ⭐ RESOLVED FROM THIS LIST — OptiMatch (read in FULL, 2026-07-28)
+
+**Was:** entry A-9, *"An Efficient and Robust Object-Level Cooperative Perception Framework for Connected and
+Automated Driving"* — logged unreachable under a partial title.
+**Is:** **"A Cooperative Perception System Robust to Localization Errors"** — Zhiying Song, Fuxi Wen, Hailiang
+Zhang, Jun Li (Tsinghua), **IEEE IV 2023**, arXiv **2210.06289v2**. System name: **OptiMatch**.
+*(The two titles share authors and subject; Semantic Scholar lists them separately. Treated as the same
+research line, not asserted to be the same paper.)*
+**Depth: ENTIRE PAPER read (6 pages, 32,006 chars) — abstract, method, experiments, conclusion.**
+
+### Not a competitor — verified by word count over the full text
+`malicious` = **0** · `adversarial` = **0** · `attack` = **0**. Every error is honest: GPS/RTK/IMU noise.
+
+### But it shares our mechanism almost exactly
+| Step | OptiMatch | Ours |
+|---|---|---|
+| Shares | *"3D bounding boxes, location, and pose"* — **object level** | obstacle positions, object level |
+| Matches | Optimal transport, cost `C_ij = ‖x̂_i − ŷ_j‖²`, Sinkhorn + dustbin | nearest match inside a noise-scaled band |
+| Computes | **Correction transform from matched object pairs** (SVD/Procrustes) | **mean offset vector** per (ego, neighbour, track) |
+| Purpose | **CORRECT** pose error | **DETECT** a liar |
+| Assumes | all agents honest | one may lie |
+
+### ⭐ TWO NUMBERS TO USE IN THE PAPER (both verbatim from the full text)
+
+**1. Their threshold justification independently validates our σ regime** (§IV-C):
+> *"threshold τ = 0.25m is set empirically because we find that a vanilla late fusion system without transform
+> correction **can handle the location error whose Gaussian standard deviation σp ≤ 0.2m**"*
+
+Object-level CP degrades above **σ ≈ 0.2 m**. We operate at **σ = 0.6 m** — 3× past where the field says
+uncorrected object-level fusion stops working.
+
+**2. Their Table I is a benign baseline-collapse curve at exactly our σ** (OPV2V-Test, AP@IoU 0.7):
+
+| σp (m) | 0 | 0.2 | 0.4 | **0.6** | 0.8 | 1.0 |
+|---|---|---|---|---|---|---|
+| Early fusion | 0.85 | 0.72 | 0.40 | **0.25** | 0.19 | 0.17 |
+| Late fusion | 0.80 | 0.60 | 0.34 | **0.24** | 0.23 | 0.25 |
+| F-Cooper | 0.82 | 0.74 | 0.49 | **0.32** | 0.23 | 0.19 |
+| OPV2V | 0.82 | 0.74 | 0.58 | **0.49** | 0.44 | 0.42 |
+| OptiMatch | 0.76 | 0.74 | 0.72 | **0.71** | 0.69 | 0.68 |
+
+At **σ = 0.6 m — our exact operating point — standard CP fusion falls from 0.85 to ~0.25, with NO attacker.**
+Third independent confirmation of our noise level (with the V2X survey's 70.5% AP drop at 0.6 m, and our own
+Option-C result). **Cite in setup/parameter justification.**
+
+### ⚠️ REVIEWER TRAP — and our answer
+OptiMatch's optimal-transport matching **assumes every shared box is honest**. A liar's fabricated boxes would
+enter the OT cost matrix and **corrupt the correction transform itself** — the robustness mechanism becomes an
+attack surface. Worth one sentence: benign pose-correction is not a defence, and the better a system is at
+absorbing positional discrepancy, the more a persistent fabricated offset looks like something to absorb.
+
+### Citation role
+**Cite it** — not as a competitor, but as (i) the benign precedent for **cross-agent object-level association
+under positional noise** (the machinery our filter's association step sits on, exactly as Coopernaut is the
+precedent for the CP-navigation paradigm), and (ii) a source of two hard numbers supporting σ = 0.6.
+→ Moves from "no verdict" to **GROUP CITE (+ setup-section cite)**.
+
+---
+
+## A. NOT LOCATABLE — no abstract exists anywhere online (10)
 These appear only as entries in other papers' reference lists. Repeated searches returned nothing.
 
 | # | Paper | From anchor | Note |
@@ -196,7 +255,7 @@ These appear only as entries in other papers' reference lists. Repeated searches
 | 6 | **Sense2Com** (2026) | Coopernaut | sensing/comm/compute coordination per title |
 | 7 | **Talking Vehicles: Cooperative Driving via Natural Language** | Coopernaut | no year listed in the record either |
 | 8 | **QUEST: Query Stream for Vehicle-Infrastructure CP** | Coopernaut | (a different QUEST was read via CoDynTrust; this V2I variant had no abstract) |
-| 9 | **An Efficient and Robust Object-Level Cooperative Perception Framework** (2022) | Coopernaut | ⚠ **object-level**, like ours — worth a look if ever reachable |
+| ~~9~~ | ~~An Efficient and Robust Object-Level Cooperative Perception Framework (2022)~~ | Coopernaut | ✅ **RESOLVED — see the OptiMatch block above.** Read in full; now a GROUP CITE + setup cite |
 | 10 | **Co-driver: VLM-based Autonomous Driving Assistant** | Coopernaut | — |
 | 11 | **A Survey on Autonomous Driving Datasets** (2024) | Coopernaut | survey |
 

@@ -109,6 +109,16 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   lasers) are considered **out of scope**"* — it explicitly excludes our entire threat class; (ii) it assumes a
   *"trusted"* centralized Security Authority, tamper-proof key storage, and an out-of-band internet channel;
   (iii) metric is message filtering with a **4.2× rate of blocking GOOD messages** — versus our flat no-harm.
+- ⭐⭐ **σ = 0.6 m — SECOND INDEPENDENT VALIDATION (NEW 2026-07-28, from OptiMatch read in FULL).**
+  *"A Cooperative Perception System Robust to Localization Errors"* (Song, Wen, Zhang, Li — Tsinghua, IEEE IV
+  2023, arXiv 2210.06289) gives two usable numbers: (i) *"threshold τ = 0.25m is set empirically because we find
+  that a vanilla late fusion system without transform correction **can handle the location error whose Gaussian
+  standard deviation σp ≤ 0.2m**"* → object-level CP breaks above σ≈0.2 m, and we run at **3× that**;
+  (ii) their Table I at **σp = 0.6 m** (our exact value, **no attacker**): early fusion **0.85→0.25**, late
+  fusion 0.80→0.24, F-Cooper 0.82→0.32. **Cite in setup/parameter justification alongside the V2X survey.**
+  ⚠️ Also a reviewer trap worth one sentence: OptiMatch's optimal-transport matching assumes every shared box is
+  honest, so a liar's fabricated boxes would corrupt the correction transform itself — benign pose-correction is
+  not a defence. Full-text verified: `malicious`/`adversarial`/`attack` all appear **0** times.
 - ⭐ **σ = 0.6 m IS INDEPENDENTLY VALIDATED (NEW 2026-07-28).** The V2X CP survey (arXiv 2308.16714 §5.5) injects
   zero-mean Gaussian localization noise and reports *"AP@0.5 drops 70.5% when position error std is **0.6m**"* —
   benign, no attacker. **Cite in setup/parameter-justification**, not just related work: a third party shows CP
