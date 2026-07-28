@@ -30,6 +30,39 @@ until the collaborative output reaches consensus with the ego's own perception,
 falling back to ego-only perception when no consensus is found. All four are
 evaluated using Average Precision (AP) on vehicular benchmarks.
 
+Earlier than these, and the first work to carry a cross-agent fabrication
+check through to a control guarantee, is the cooperative fault-detection
+framework of Zhang, Li, Cheng, and Clark~\cite{lidarspoof2023}. A victim
+vehicle requests point clouds from its neighbours and tests whether the
+projection of an obstacle it has detected is contained in the \emph{occupied
+area} --- a convex hull of projected and obliquely projected returns ---
+computed from a neighbour's scan; a containment failure identifies a
+non-existing, i.e.\ fabricated, obstacle, and the reconstructed unsafe region
+is then enforced by a model-predictive controller with discrete-time
+control-barrier constraints that guarantees the estimated object locations
+are avoided. We do not claim the pairing of a cross-agent consistency check
+with a control layer as novel. Three assumptions nevertheless separate that
+work from ours. Its threat model assumes that at most one attack occurs and
+that a relay adversary can spoof only one LiDAR sensor, on the stated grounds
+that spoofing several vehicles believably would demand burdensome
+coordination among distributed spoofers; the detector inherits this
+assumption, since a phantom is exposed precisely by its absence from an
+uncompromised neighbour's scan. Ours is the complementary threat: the liars
+are the neighbours themselves, they may number up to seven of ten, and the
+phantom is broadcast as a claim rather than injected into a victim's raw
+scan. Second, observation noise enters as a fixed deterministic margin, the
+occupied-area boundaries being inflated by an observation-noise bound plus a
+LiDAR-resolution bound. Such inflation is conservative by construction and
+cannot by itself accuse an honest neighbour, but neither does it produce the
+honest-disagreement regime we study, in which a tolerance wide enough to
+accommodate noisy honest neighbours is also wide enough to conceal a
+camouflaged phantom. Third, the test is per-frame and stateless --- neighbour
+scans are collected afresh at each time step and no per-neighbour quantity
+persists across frames --- whereas our discriminator is a statistic
+accumulated per neighbour over time. Their validation is a two-vehicle CARLA
+study reported qualitatively, giving detection outcomes per attack type and a
+single reach-and-avoid trajectory rather than a success rate over trials.
+
 A second, closer line verifies \emph{object-level claims against the
 verifier's own observations}. TruPercept~\cite{trupercept2020} evaluates reported
 object detections as verified locally, weighting each evaluation by the
@@ -196,7 +229,13 @@ the same authors' aerial framework operate at the object and track level;
 none is designed to operate directly on the geometric obstacle claims
 exchanged by our agents, and none produces the navigation-success outcome
 we measure --- a reimplementation would test our translation of each method
-rather than the method itself. We
+rather than the method itself. The cooperative fault-detection
+framework~\cite{lidarspoof2023} is closer in spirit but likewise not
+transplantable: its detector consumes raw point clouds and per-agent
+occupied areas rather than the object-level claims our agents exchange, and
+its safety argument is discharged by a model-predictive controller on a
+kinematic vehicle model rather than by a learned policy, so porting it would
+replace both our message format and our control layer. We
 instead compare against the \emph{primitive that the object-level family
 shares}: verifying a peer's claims against what the verifier itself was
 positioned to observe, accumulating trust, and excluding on contradiction.

@@ -8,6 +8,44 @@ Legend: ☐ = awaiting Srinivasa's audit · ☑ = Srinivasa audited & approved �
 
 ---
 
+## 📏 DOSSIER WRITING STANDARD (set by Srinivasa 2026-07-28 — applies to ALL evidence dossiers)
+
+Every analytical point in a `REFERENCE_EVIDENCE_*.md` file must be split under **two headings**:
+
+| Heading | Contains |
+|---|---|
+| **Paper facts** | **only** what the authors explicitly state |
+| **Our technical interpretation** | our reasoning, marked as **derived, not reported** |
+
+> *"That makes it impossible for you — or a future reviewer — to confuse the authors' claims with
+> your reasoning."* — Srinivasa, 2026-07-28
+
+**The trigger.** A first draft of SwarmRaft **C-3** was rejected for three overclaims in one
+paragraph. All three are now banned patterns:
+
+| ❌ Banned | Why |
+|---|---|
+| *"the 19 m → 0.28 m curve **proves** this"* | the paper never says that |
+| *"the majority rule was satisfied and the method **still couldn't recover**"* | never demonstrated |
+| *"recovery improves **because** there are more anchors"* | plausible, but **our** inference |
+
+**Required phrasings instead:**
+- state the authors' claim verbatim first;
+- then, separately: *"The paper does not explicitly attribute X to Y; however, this
+  interpretation is consistent with \<the algorithm / their stated method\>."*
+- for anything about **our** setting: *"This is our application of the paper's assumptions to our
+  setting, not a result reported by the authors."*
+- prefer *"One plausible explanation, consistent with …"* over **any causal verb**.
+
+**Key principle: a correlation a paper reports is not a causal claim the paper makes.**
+Complements the Part A/B/C/D layout (verbatim / mapping / inference / verified-by-absence) and the
+zero-title-grade rule. Memory: `paper-fact-vs-inference-separation`.
+
+⬜ **Owed:** apply this split retroactively to the C-sections of the other dossiers
+(ADoPT C-2, TrustFlip C-3, LiDAR-Spoofing C-2/C-5, and the 13 unaudited ones).
+
+---
+
 ## A. Prior-art triage dossiers — ALL 17 need auditing (each has its own page-pointer checklist inside)
 Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against the claim it backs in
 `related.tex`/`methods.tex`/`discussion.tex`. The per-reference "what to verify" prompts also live in
@@ -25,9 +63,26 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☐ **AerialTrust** — `REFERENCE_EVIDENCE_AERIALTRUST.md` (same authors; UAV distributed trust — task #5)
 - ☐ **ROBOSAC** — `REFERENCE_EVIDENCE_ROBOSAC.md` (full read; 5-axis table; 3 precision traps — task #1)
 - ☐ **Stealthy-Fab / PosePert** — `REFERENCE_EVIDENCE_STEALTHY_FAB.md` (full read; novelty survives 4 axes — task #2)
+- ☐ 🆕 **LiDAR-Spoofing Safe Control** — `REFERENCE_EVIDENCE_LIDAR_SPOOFING_SAFECONTROL.md`
+  (**ADDED 2026-07-28**, forward-sweep must-cite #1 of 7; full 9-page read; VehicleSec 2023).
+  **Three things need your eye:**
+  (i) 🚨 we assert a **priority claim on their behalf** — *"the first work to carry a cross-agent
+  fabrication check through to a control guarantee."* Their own text claims only the weaker
+  *"this information sharing has not been used to detect and mitigate spoofing attacks."*
+  **Recommendation: soften it** — we gain nothing from asserting a third party's priority;
+  (ii) our earlier note *"no conclusion section exists"* was **WRONG** (§VI is on pp. 8–9) —
+  an abstract-grade error caught only by the full read, now corrected in the sweep file;
+  (iii) 🚨 **its forward-citation tree has never been swept** — Feb 2023, 3.5 years of citers,
+  and it is by our own ledger the closest paper to this project. Highest-value prior-art task left.
 
 **Group B — temporal spoof detection, single-vehicle [2]**
-- ☑ **3D-TC2** — `REFERENCE_EVIDENCE_TC2.md` (⚠ title was wrong once; single-vehicle, motion consistency) — **Srinivasa audited & approved 2026-07-26; incl. the "purely"→"authors attribute to" note softening**
+- ☑ **3D-TC2** — `REFERENCE_EVIDENCE_TC2.md` (⚠ title was wrong once; single-vehicle, motion consistency) — **Srinivasa audited & approved 2026-07-26; incl. the "purely"→"authors attribute to" note softening.**
+  **RE-VERIFIED 2026-07-28** under the verbatim-only standard (full 6-page re-read): 9 of 10 quotes
+  exact; **1 paraphrase-in-quotes corrected (M-1, "no 'history'" → "does not have 'history'")** which
+  had **zero manuscript impact**; single-vehicle absence claim upgraded from assertion to counted
+  evidence (collaborative/cooperative/V2V/neighbour/multi-agent = **0 hits**); all numbers checked
+  against Tables 2–4. **No finding, no `related.tex` word and no `refs.bib` field changed → Srinivasa
+  ruled his sign-off STANDS (2026-07-28); not re-opened.**
 - ☑ **ADoPT** — `REFERENCE_EVIDENCE_ADOPT.md` (point-level temporal consistency, single-vehicle) — **Srinivasa audited & approved 2026-07-26**
 
 **Group C — Byzantine multi-robot / swarm [2]**

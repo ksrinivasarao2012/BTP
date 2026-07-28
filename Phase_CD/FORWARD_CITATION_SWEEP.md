@@ -181,7 +181,7 @@ justification**, not just related work.
 | **CONClave** | *"CONClave was able to detect more categories of faults and errors, **including both malicious and unintentional errors**, while being faster than … TruPercept"* | ✅ confirms fault+malice scope; **no driving metric** |
 | **MVIG** | *"MVIG identifies vulnerable regions and optimal attack timing through spectral graph analysis and **temporal modeling**"*; future work: *"finding effective **defense strategies against such attacks**"* | ✅ confirms adaptive+temporal attack. ⭐ They explicitly call for the defense — **we are it** |
 | **AFFormer** | *"jointly modeling **inter-agent, temporal, and spatial** correlations"*; limitation: *"The current framework **does not explicitly account for communication delays or packet loss**"* | ✅ confirms cross-agent temporal exists for channel noise; and its scope is narrower than the abstract implies |
-| **LiDAR-Spoofing** (2302.07341) | ⚠️ **No conclusion section exists** — 9-page conference paper ending at references. Abstract verified verbatim | abstract-level claims stand |
+| **LiDAR-Spoofing** (2302.07341) | 🚨 **THIS ROW WAS WRONG — corrected 2026-07-28.** It read *"No conclusion section exists — 9-page conference paper ending at references."* **Section VI CONCLUSION is present on pp. 8–9.** The error came from an abstract-level pass; caught only on the full read. Now read in full, all 9 pages | ✅ **Dossier built:** `REFERENCE_EVIDENCE_LIDAR_SPOOFING_SAFECONTROL.md`. Venue is **VehicleSec 2023** (not a bare preprint) per the paper's own p.1 footer |
 | **Towards V2X Survey** | see σ=0.6 m find above | ⭐ upgraded from group-cite to a **setup-section cite** |
 
 ## 🔒 VERIFIED-VERBATIM QUOTE BANK — the gate for the manuscript
