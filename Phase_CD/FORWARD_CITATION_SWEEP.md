@@ -433,7 +433,53 @@ Three others were adversarial-multi-agent but out of family: **AMI** (attacks c-
 (search-and-rescue MARL under adversarial comms), **Resilient Consensus under Mobile Malicious Faults** (MSR
 consensus). None touches perception fusion.
 
-⚠️ **AerialTrust still un-swept** — its arXiv ID was not resolved in this batch.
+## ✅ AerialTrust — FINAL ANCHOR, swept 2026-07-28 (7 citers, 0 new competitors)
+No arXiv preprint (ACM DL only) → swept via **DOI:10.1145/3716550.3722038**.
+
+| Citer | Verdict |
+|---|---|
+| **Trusted Data Fusion, Multi-Agent Autonomy** (2507.17875) | Same authors' follow-up — **HMM-based trust** for UAV ISR ad-hoc networks, Unreal-engine aerial dataset. Trust-informed fusion prioritising reliable sources. **No honest-noise regime, no navigation metric** → group cite with the MATE line |
+| **MATE** (2503.04954) | ✅ already dossiered |
+| **Anywhere, Any-Stymie** (2606.17562) | Dormant **Trojan malware embedded in LiDAR firmware**, remotely triggered by a modulated optical signal — single-sensor supply-chain attack |
+| **Scaling Datasets for Multi-Sensor/Agent/Domain Learning** (2606.04444) | AVstack + CARLA dataset-generation pipeline — benign |
+| **SoK: How Sensor Attacks Disrupt AVs** (2509.11120) | ✅ already read — survey |
+| **UAVs Meet Agentic AI** (2506.08045) | Agentic-UAV survey across 7 application domains — benign |
+| **ATLASky-AI** (Expert Syst. Appl. 2026) | LLM spatiotemporal-knowledge verification — out of domain (abstract NULL in S2) |
+
+---
+
+# 🏁 FORWARD SWEEP COMPLETE — 19 of 19 ANCHORS (2026-07-28)
+
+| Metric | Final |
+|---|---|
+| **Anchors swept** | **19 / 19** ✅ |
+| Citing papers examined | **~460** |
+| **Pre-emptions of the compound claim** | **0** ✅ |
+| Must-cite (own differentiator paragraph) | **7** |
+| Group-cite | **~22** |
+| No verdict (unreachable) | **16** |
+| Claims requiring rewording | **4** |
+| Independent validations of σ = 0.6 | **2** |
+
+**The 7 must-cites:** LiDAR-Spoofing-Safe-Control · SafeCoop · CONClave · CATS · MVIG · RLCVP · **GLST**.
+
+**What survived:** the compound claim — fabricated-obstacle attack **+** learned-navigation-success metric **+**
+ranging-noise honest-disagreement regime **+** cross-agent temporal offset. **Nothing found does all four.**
+
+**What it cost:** four reworded claims (navigation metric; cross-agent temporal; adaptive attacker; and the
+GCP temporal-priority claim — the last still pending raw-text re-verification, `POST_SWEEP_TODO.md` §1b).
+
+**What it gained:**
+1. **Two independent σ = 0.6 validations** — the V2X survey's *"AP@0.5 drops 70.5% when position error std is
+   0.6m"*, and OptiMatch's τ=0.25 m justification plus its Table I collapse curve.
+2. **GLST's Table II** — a 2026 third party showing single-signal trust defenses collapse under collusion
+   (LUCIA: 0.85 → 0.11 as attackers go 1 → 4), supporting our multi-traitor result.
+3. **The two-disjoint-literatures framing** — uncertainty-aware CP never meets an adversary; adversarial CP
+   never meets honest noise — backed by ~24 papers read at full-abstract depth plus the V2X survey's own
+   section structure.
+
+**PDF archive:** `Phase_CD/Research paper/` now holds **27 PDFs** — every cited paper except **RLCVP**
+(IEEE-walled, PRIORITY 0 on `INSTITUTE_WIFI_TODO.md`).
 
 ---
 

@@ -11,17 +11,19 @@ missing dossiers → ④ Srinivasa's audit → ⑤ manuscript mechanics.
 
 ---
 
-## ⓪ FINISH THE FORWARD SWEEP FIRST (blocking everything below)
+## ⓪ ✅ FORWARD SWEEP COMPLETE — 19 / 19 ANCHORS (2026-07-28)
 
-| # | Anchor | Status |
-|---|---|---|
-| 1–9 | CAD · ROBOSAC · TruPercept · Coopernaut · ADoPT · 3D-TC2 · CP-Guard · MADE · GCP | ✅ done |
-| 10 | **ROBOSAC gap** — true count is **56**, not 45; **7 new papers** found at offset 45–55 still unread | ❌ **do first, it is a known hole** |
-| 11–20 | PRBI · MATE · AerialTrust · TrustFlip · Stealthy-Fab · CoDynTrust · Tu et al. · Vadivelu · SwarmRaft · Conformity | ❌ not started |
+All anchors swept: CAD · ROBOSAC · TruPercept · Coopernaut · ADoPT · 3D-TC2 · CP-Guard · MADE · GCP · PRBI ·
+MATE · **AerialTrust** · TrustFlip · Stealthy-Fab · CoDynTrust · Tu et al. · Vadivelu · SwarmRaft · Conformity.
+**~460 citing papers examined · 0 pre-emptions · 7 must-cites · 16 with no verdict.**
+ROBOSAC's 7-paper hole closed. Details in `FORWARD_CITATION_SWEEP.md`.
 
-⚠️ **Use the verified pagination method** (`limit=10`, titles-only, plus a boundary probe at a high offset).
+**Method note for any future sweep:** paginate at `limit=10` and always probe the boundary at a high offset.
 The old single-`limit=100` call silently truncated — that is how Coopernaut appeared to have 43 citers when it
-actually has **189**.
+actually has **189**. And resolve papers by **external ID**, never by title: title-searching produced five
+false "unreachable" verdicts in one day.
+
+**The queue below is now unblocked and is the active work.**
 
 ---
 
