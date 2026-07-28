@@ -1,6 +1,19 @@
 # 3D-TC2 — paired claim/evidence sheet
 
-## STATUS: ☐ **AWAITING SRINIVASA'S REVIEW** — a second defect (M-2) was found 2026-07-28
+## STATUS: ☑☑ CLOSED — verification by **Claude**, reviewed & approved by **Srinivasa** 2026-07-29
+
+**Srinivasa reviewed the M-2 correction and the rebuilt C-3 on 2026-07-29 and approved.**
+Re-verified at closure — all three checks pass:
+
+| Check | Result |
+|---|---|
+| `WE WRITE` block ↔ live `related.tex` | ✅ **exact match, character for character** |
+| Citation sites (by key **and** by name) | ✅ `tc2_2021` **1×**, `3D-TC2` **1×**, same line 153 — the only use |
+| Paragraph line range | ✅ lines **150–162** (re-derived; anchor on the `\cite` key, not the number) |
+
+---
+
+### (history) ☐ AWAITING SRINIVASA'S REVIEW — a second defect (M-2) was found 2026-07-28
 
 > ⚠️ **Attribution, stated explicitly.** All verification in this file — the paper reading, the
 > quote checking, the counts, the searches, the drafting — is **CLAUDE'S WORK**. Srinivasa's role

@@ -84,7 +84,13 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   and it is by our own ledger the closest paper to this project. Highest-value prior-art task left.
 
 **Group B — temporal spoof detection, single-vehicle [2]**
-- ☐ 🚨 **3D-TC2 — RE-OPENED 2026-07-28** (`REFERENCE_EVIDENCE_TC2.md`). Approved 2026-07-26 and
+- ☑☑ **3D-TC2 — CLOSED 2026-07-29.** Verification by **Claude**, reviewed & approved by
+  **Srinivasa** — he reviewed the M-2 correction and the rebuilt C-3 and approved. Re-verified at
+  closure: `WE WRITE` block is an **exact character-for-character match** to live `related.tex`;
+  citation sites confirmed **1× by key and 1× by name**, same line — the only use; paragraph
+  range re-derived (lines 150–162).
+  _(History below — kept because M-2 is the most instructive error found so far.)_
+  ~~☐ RE-OPENED 2026-07-28~~ (`REFERENCE_EVIDENCE_TC2.md`). Approved 2026-07-26 and
   again after the quote-verification pass; **the fact/interpretation split then found a SECOND
   defect (M-2) that quote-checking could not catch.**
   **M-2:** the corroboration section claimed their §4.4 limitation was *"exactly the case their own
