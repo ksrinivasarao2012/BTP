@@ -175,6 +175,77 @@ before its sentence goes into the manuscript. Papers we merely **list** in a gro
 
 ---
 
+# PART 0d — 📋 PAPERS WITH **NO VERDICT** (the auditable unreachable list)
+
+**Why this exists.** Unreachable papers were previously recorded as *counts* ("7 have no abstract") scattered
+across three files. A count cannot be audited — you cannot check whether any of the 7 mattered. Every paper
+that never received a verdict is now listed **by name**, with the anchor it came from and the wall it hit.
+
+**Rule: nothing here is "safe". These are UNKNOWN.** They are excluded from every "0 pre-emptions" statement.
+
+## A. NOT LOCATABLE — no abstract exists anywhere online (11)
+These appear only as entries in other papers' reference lists. Repeated searches returned nothing.
+
+| # | Paper | From anchor | Note |
+|---|---|---|---|
+| 1 | **An Attack Detection Method Based on Spatiotemporal Correlation** (2022) | 3D-TC2 | ⚠ "spatiotemporal" in the title — would want this one if it were reachable |
+| 2 | **A Novel Multi-layer Task-centric Framework** (2025) | 3D-TC2 | title gives nothing away |
+| 3 | **Stealth in Sight: Model-Free Assessment** (2026) | 3D-TC2 | — |
+| 4 | **Secure3D-CV** (2026) | ADoPT | — |
+| 5 | **End-to-End Urban Autonomous Driving With Safety Constraints** | ROBOSAC | ❗ **3 separate search attempts failed.** Appears single-vehicle RL driving with safety constraints — but never confirmed from its own text |
+| 6 | **Sense2Com** (2026) | Coopernaut | sensing/comm/compute coordination per title |
+| 7 | **Talking Vehicles: Cooperative Driving via Natural Language** | Coopernaut | no year listed in the record either |
+| 8 | **QUEST: Query Stream for Vehicle-Infrastructure CP** | Coopernaut | (a different QUEST was read via CoDynTrust; this V2I variant had no abstract) |
+| 9 | **An Efficient and Robust Object-Level Cooperative Perception Framework** (2022) | Coopernaut | ⚠ **object-level**, like ours — worth a look if ever reachable |
+| 10 | **Co-driver: VLM-based Autonomous Driving Assistant** | Coopernaut | — |
+| 11 | **A Survey on Autonomous Driving Datasets** (2024) | Coopernaut | survey |
+
+## B. PAYWALLED — abstract obtained, **conclusion blocked** (9)
+Verdict assigned on abstract only. Listed in `INSTITUTE_WIFI_TODO.md`.
+
+| # | Paper | Wall | Priority |
+|---|---|---|---|
+| 12 | 🚨 **RLCVP** (IEEE TMC 11006384) | IEEE | **PRIORITY 0 — Level-1 must-cite, differentiator unverified** |
+| 13 | **Fake-Objects-CPM Trust** (Springer LNCS) | Springer login | HIGH — fabricated objects + per-neighbour trust |
+| 14 | **FNO-Guard** | ScienceDirect | group-cite |
+| 15 | **Robust-CP: Adv. Training + Consensus** | IEEE (HTTP 418) | group-cite |
+| 16 | **Adversarial CP in Autonomous Driving** | IEEE (HTTP 418) | group-cite |
+| 17 | **Trust-Mgmt Framework for MDS in CP Services** (ICARCV'22) | IEEE + HAL Anubis | group-cite |
+| 18 | **Yuce survey — MDS with CP in V2X** | Wiley | group-cite |
+| 19 | **UniSense** (MobiSys'25) | ACM DL | no-cite |
+| 20 | **Toward Ensuring Safety for AD Perception** (T-ITS'24) | IEEE | no-cite |
+
+## C. WALL-BLOCKED — **title + venue only**, no abstract retrieved (6)
+
+| # | Paper | Wall |
+|---|---|---|
+| 21 | **Sieve** (2026) | not indexed |
+| 22 | **ALADCP** (2026) | ⚠ **late-fusion = object-level, like ours** — no text anywhere |
+| 23 | **CIAK-CP** (ACM SAC'26) | ACM DL (try Zenodo 17804455) |
+| 24 | **HA-GAN** (2026) | not indexed |
+| 25 | **Point Cloud Object Tampering Attacks** (2025) | not indexed |
+| 26 | **Zhang 2024 PhD thesis — Misbehavior Detection for CP** | HAL Anubis bot-block |
+
+## Summary
+
+| Category | Count |
+|---|---|
+| A. Not locatable | **11** |
+| B. Abstract only, conclusion walled | **9** |
+| C. Title only | **6** |
+| **TOTAL WITH NO / PARTIAL VERDICT** | **26** |
+
+**Of these, 4 would matter most if they turned out to be competitors:**
+`RLCVP` (Level-1 must-cite) · `Fake-Objects-CPM` (fabricated objects + trust) · `ALADCP` (object-level like ours)
+· `Attack Detection via Spatiotemporal Correlation` (temporal in the title).
+
+**Resolved after initially being logged unreachable:** ER-CoPe (found — full title is *"Efficient Collaborative
+Perception With Integrated Uncertainty Estimation via Evidence Regression"*, T-ITS'25) · Plug-and-Play/PnPDA
+(ECCV'24) · Vehicle-road CP Technology (Acta Automatica Sinica). Kept here as a reminder that "not locatable"
+sometimes just means the wrong search string.
+
+---
+
 # PART 1 — PROGRESS TRACKER
 
 ## 1.1 Anchors swept: **4 of 19 (21%)**
