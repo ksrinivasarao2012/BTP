@@ -27,11 +27,33 @@ those two sentences is verified below as its own paired block.
 
 # USE 1 — Related Work, defenses-for-feature-fusion sentence
 
-**WE WRITE (`sections/related.tex`) — CURRENT (fix 15a APPLIED 2026-07-11):**
-> Other defenses for feature-fusion collaborative perception include CoDynTrust~\cite{codyntrust2025},
-> which weights intermediate feature contributions under asynchrony, and GCP~\cite{gcp2025}, which
-> augments single-shot spatial-consistency checks with temporal motion-flow reconstruction to
-> expose blind-area attacks; both are evaluated using Average Precision (AP) on vehicular benchmarks.
+**WE WRITE (`sections/related.tex` lines 18–31) — 🔄 RESYNCED 2026-07-28, re-copied from the
+live file:**
+> In feature-fusion collaborative perception, GCP~\cite{gcp2025} defends against malicious agents
+> by augmenting single-shot spatial-consistency checks with temporal motion-flow reconstruction
+> to expose blind-area attacks; MADE~\cite{made2024} detects and removes malicious agents through
+> hypothesis tests on the consistency between each inspected agent and the ego agent, with
+> statistical false-positive control; and CoDynTrust~\cite{codyntrust2025} addresses the benign
+> counterpart by weighting intermediate feature contributions according to their estimated
+> uncertainty, thereby mitigating temporal asynchrony rather than adversarial behaviour; and
+> ROBOSAC~\cite{robosac2023} rejects adversarial feature-map perturbations by sampling subsets of
+> teammates until the collaborative output reaches consensus with the ego's own perception,
+> falling back to ego-only perception when no consensus is found. **All four** are evaluated
+> using Average Precision (AP) on vehicular benchmarks.
+
+> ⚠️ **DRIFT NOTE (2026-07-28) — the worst of the six.** This block previously quoted a sentence
+> that **no longer exists in any form**: *"Other defenses for feature-fusion collaborative
+> perception include CoDynTrust…, and GCP…; **both** are evaluated using Average Precision."*
+> The sentence has since been **restructured from two papers to four** (MADE and ROBOSAC added,
+> "both" → "All four", opening clause rewritten).
+>
+> ✅ **Every GCP-specific phrase survived the rewrite unchanged** — *"augmenting single-shot
+> spatial-consistency checks with temporal motion-flow reconstruction to expose blind-area
+> attacks"* and the AP-metric clause are word-for-word intact. **The four phrase-level
+> verifications below therefore still hold**; only the surrounding sentence changed.
+>
+> 🔑 **Lesson:** a `WE WRITE` block that quotes a *shared* sentence goes stale whenever **any**
+> co-cited paper is added or removed — even when nothing about *this* paper changed.
 
 The four descriptive phrases about GCP, each paired with its source:
 

@@ -130,8 +130,9 @@ the per-vehicle alternative exists).
 
 ## USE 6 — Related Work: baseline paragraph (why not run it as a baseline)
 
-**WE WRITE (`sections/related.tex`):**
-> ...while TruPercept, MATE, and its aerial extension score object detections and tracks; none is
+**WE WRITE (`sections/related.tex` lines 223–250) — 🔄 RESYNCED 2026-07-28:**
+> ...while TruPercept, MATE, and **the same authors' aerial framework operate at the object and
+> track level**; none is
 > designed to operate directly on the geometric obstacle claims exchanged by our agents, and none
 > produces the navigation-success outcome we measure --- a reimplementation would test our
 > translation of each method rather than the method itself. ... That primitive ... is the same

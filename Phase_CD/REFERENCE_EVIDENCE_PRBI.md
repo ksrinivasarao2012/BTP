@@ -90,13 +90,28 @@ accumulated over time."
 
 **VERDICT: ✅ VERIFIED.**
 
-## USE 3 — related.tex lines 158–162 (baseline-comparison clause, shared with CAD/GCP)
-**WE WRITE (verbatim, post-15b):** "CAD, PRBI, and GCP defend the fused perception pipelines of
-vehicular detection stacks and are evaluated by detection-level metrics (anomaly-detection
-rates or average precision)…"
+## USE 3 — `related.tex` lines **223–250** (the shared "On baseline comparison" paragraph)
+_🔄 **RESYNCED 2026-07-28** — the quote below had gone stale; see the drift note._
+
+**WE WRITE (verbatim, re-copied from live `related.tex` 2026-07-28):** "…**CAD, PRBI, GCP, and
+MADE** defend the fused perception pipelines of vehicular detection stacks and are evaluated by
+detection-level metrics (anomaly-detection rates or average precision)…"
+
 **THEY WROTE:** *"exchange of feature-level sensory data"* (Abstract); attackers *"inject
 adversarial perturbations into shared feature maps"* (§1); metrics AP@0.5/0.7 (§6.1). ✓
-(Full clause evidence for all three papers: `REFERENCE_EVIDENCE_CAD.md` USE 2.)
+(Full clause evidence for all four papers: `REFERENCE_EVIDENCE_CAD.md` USE 2.)
+
+> ⚠️ **DRIFT NOTE (2026-07-28).** This block previously quoted *"CAD, PRBI, **and GCP** defend…"*
+> — a version that no longer exists. **MADE was added to the list after this dossier was
+> written**, and on 2026-07-28 a LiDAR-Spoofing clause was inserted into the same paragraph.
+> Neither change touched the PRBI clause itself, so **the verdict is unaffected** — but the
+> quoted text was no longer what the manuscript said.
+>
+> 🔑 **Root cause, and it affects five dossiers.** This paragraph is quoted by **PRBI, CAD, GCP,
+> MATE and AerialTrust**. Editing it silently invalidates the `WE WRITE` block in *every one of
+> them at once*. **Whoever edits the "On baseline comparison" paragraph must resync all five.**
+
+**VERDICT: ✅ VERIFIED against the current text.**
 
 **VERDICT: ✅ VERIFIED.**
 

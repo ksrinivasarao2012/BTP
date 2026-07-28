@@ -81,9 +81,16 @@ in two strengths --- the fixed-tolerance (naive) variant and the noise-aware rob
 (Section~\ref{sec:methods-defense}) --- and it is the same visibility-and-consistency recipe
 underlying TruPercept~\cite{trupercept2020} and the MATE line~\cite{mate2025,aerialtrust2025}."
 
-**WE WRITE (verbatim, lines 158–161, after the 2026-07-16 fixes):** "CAD, PRBI, and GCP operate
-on the deep feature maps of vehicular detection stacks and score detection accuracy, while
-TruPercept, MATE, and the same authors' aerial framework operate at the object and track level;"
+**WE WRITE — 🔄 RESYNCED 2026-07-28 from live `related.tex` lines 224–228:** "**CAD, PRBI, GCP,
+and MADE defend the fused perception pipelines of vehicular detection stacks and are evaluated by
+detection-level metrics (anomaly-detection rates or average precision)**, while TruPercept, MATE,
+and the same authors' aerial framework operate at the object and track level;"
+
+> ⚠️ **DRIFT NOTE (2026-07-28).** The first half of this sentence changed twice since 2026-07-16:
+> **MADE was added**, and *"operate on the deep feature maps … and score detection accuracy"*
+> became *"defend the fused perception pipelines … evaluated by detection-level metrics"*.
+> **The AerialTrust half — "operate at the object and track level" — is unchanged**, so the
+> verdict and Srinivasa's 2026-07-16 polish both stand.
 (⚠ two fixes landed here 2026-07-16: (1) this sentence still said "its aerial extension" after
 the first catch-#21 pass — it carries no `\cite`, so the citation sweep missed it; (2) Srinivasa's
 polish: "score object detections and tracks" → "operate at the object and track level" — the

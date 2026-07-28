@@ -71,14 +71,18 @@ MATE is cited in **three places** (USE 1-3), plus it is covered by the family-li
 Both MATE mentions live in this ONE paragraph, so it is reproduced here IN FULL (verbatim,
 `related.tex` lines 155-175). MATE's two claims are marked [USE 2] and [USE 3].
 
-**WE WRITE (`sections/related.tex`) — FULL PARAGRAPH:**
+**WE WRITE (`sections/related.tex` lines 223–250) — FULL PARAGRAPH, 🔄 RESYNCED 2026-07-28:**
 > \paragraph{On baseline comparison.}
-> The defenses above cannot be transplanted onto our benchmark without distortion: CAD, PRBI, and
-> GCP operate on the deep feature maps of vehicular detection stacks and score detection accuracy,
-> **while TruPercept, MATE, and its aerial extension score object detections and tracks;** [USE 2]
+> The defenses above cannot be transplanted onto our benchmark without distortion: **CAD, PRBI,
+> GCP, and MADE defend the fused perception pipelines of vehicular detection stacks and are
+> evaluated by detection-level metrics (anomaly-detection rates or average precision)**,
+> **while TruPercept, MATE, and the same authors' aerial framework operate at the object and
+> track level;** [USE 2]
 > none is designed to operate directly on the geometric obstacle claims exchanged by our agents, and
 > none produces the navigation-success outcome we measure --- a reimplementation would test our
-> translation of each method rather than the method itself. We instead compare against the
+> translation of each method rather than the method itself. **The cooperative fault-detection
+> framework~\cite{lidarspoof2023} is closer in spirit but likewise not transplantable: … so
+> porting it would replace both our message format and our control layer.** We instead compare against the
 > \emph{primitive that the object-level family shares}: verifying a peer's claims against what the
 > verifier itself was positioned to observe, accumulating trust, and excluding on contradiction.
 > That primitive is implemented natively in our setting in two strengths --- the fixed-tolerance

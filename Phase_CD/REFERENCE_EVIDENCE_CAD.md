@@ -89,13 +89,26 @@ anomaly-detection **TPR/FPR/ROC** (§6.4.1), not object-detection accuracy. The 
 already found the same clause imprecise for GCP (detector reads decoded detections) and PRBI
 (Jaccard over detection sets) — the fusion/attack is feature-level, the defenses are not.
 
-**WE WRITE (verbatim, after fix, applied 2026-07-17):** "The defenses above cannot be
-transplanted onto our benchmark without distortion: CAD, PRBI, and GCP defend the fused
-perception pipelines of vehicular detection stacks and are evaluated by detection-level metrics
-(anomaly-detection rates or average precision), while TruPercept, MATE, and the same authors'
-aerial framework operate at the object and track level;"
+**WE WRITE — 🔄 RESYNCED 2026-07-28, re-copied verbatim from live `related.tex` lines 223–238:**
+"The defenses above cannot be transplanted onto our benchmark without distortion: **CAD, PRBI,
+GCP, and MADE** defend the fused perception pipelines of vehicular detection stacks and are
+evaluated by detection-level metrics (anomaly-detection rates or average precision), while
+TruPercept, MATE, and the same authors' aerial framework operate at the object and track level;
+none is designed to operate directly on the geometric obstacle claims exchanged by our agents,
+and none produces the navigation-success outcome we measure --- a reimplementation would test our
+translation of each method rather than the method itself. The cooperative fault-detection
+framework~\cite{lidarspoof2023} is closer in spirit but likewise not transplantable: …"
 
-**WHY the new wording is safe for all three:**
+> ⚠️ **DRIFT NOTE (2026-07-28).** Two changes since this block was written on 2026-07-17:
+> **(a) MADE was added** to the fused-pipeline list ("CAD, PRBI, and GCP" → "CAD, PRBI, GCP, and
+> MADE"); **(b)** a **LiDAR-Spoofing clause was appended to the same paragraph on 2026-07-28**.
+> Neither alters anything asserted about **CAD**, so the verdict stands — but the quote was stale.
+> ⬜ **Owed:** the "WHY the new wording is safe" list below covers CAD/GCP/PRBI (three papers).
+> **It does not yet cover MADE.** MADE's own dossier verifies its clause independently
+> (`REFERENCE_EVIDENCE_MADE.md`, both blocks ✅ match), so nothing is unsupported — but this list
+> should be extended to four for completeness.
+
+**WHY the wording is safe for all three papers it covers:**
 - "defend the fused perception pipelines of vehicular detection stacks" — CAD: attacks/defense
   are on early/intermediate-fusion CAV perception (§3–5) ✓; GCP: protects V2VNet feature-level
   fusion ✓ (GCP dossier); PRBI: re-verified from PRBI.pdf 2026-07-17 — *"exchange of
