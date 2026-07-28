@@ -129,6 +129,14 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   a geometric offset vector** (that is what survives √2σ); (iv) **Byzantine fraction 7/10, no honest majority**.
   ⚠ Cross-check this against `REFERENCE_EVIDENCE_GCP.md` — the dossier must state the per-neighbour caching and
   K=5 explicitly, or it understates the rival.
+  🚨 **EVIDENCE CAVEAT (added 2026-07-28) — DO NOT ACT ON THIS ROW UNTIL IT IS RE-VERIFIED.** The K=5 /
+  per-neighbour-cache / LSTM-AE findings came from a **WebFetch of GCP's HTML, i.e. through a summarising
+  model** — *not* from raw text. This is precisely the footing on which the **CATS** differentiator turned out
+  to be **wrong** on the same day. Since this row drives the most destructive rewording we have (deleting the
+  temporal-priority claim outright), it must be confirmed by the `curl` → `pypdf` → `Read` path before any
+  manuscript text changes. GCP is on arXiv (2501.02450) so this is cheap — queued as item 4 in
+  `POST_SWEEP_TODO.md` §1b. **If GCP's real mechanism turns out to be scene-level rather than per-neighbour,
+  rewording #4 is wrong and the temporal claim partially survives.**
 - ☐ **PRBI is SAFE on the temporal axis (NEW 2026-07-28):** its "temporal perceptual discrepancy" uses the
   **ego's own preceding frame** as reference — one frame, per-frame operation, no per-neighbour accumulation.
   Safe to contrast, but do not overstate it as "non-temporal".
