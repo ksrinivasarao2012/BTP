@@ -1,23 +1,46 @@
 # 3D-TC2 — paired claim/evidence sheet
 
-## STATUS: ☑ AUDITED & APPROVED (Srinivasa, 2026-07-26) — sign-off STANDS after 2026-07-28 re-verification
-**Srinivasa's ruling 2026-07-28:** the re-verification changed **no finding, no `related.tex`
-word, and no `refs.bib` field**. The single defect (**M-1**) was a paraphrase inside this file's
-own notes that never reached the manuscript. His original audit therefore stands; this file is
-**not** re-opened, and the re-audit is recorded as a rigour upgrade only.
+## STATUS: ☐ **AWAITING SRINIVASA'S REVIEW** — a second defect (M-2) was found 2026-07-28
 
-Originally closed 2026-07-26 after Srinivasa's audit. **Re-verified 2026-07-28**
-under the verbatim-only standard (Srinivasa: *"in the THEY WROTE place it should exactly match
-the paper writing; create a separate place for your inference"*). Full 6-page re-read, every
-line including all four tables.
+> ⚠️ **Attribution, stated explicitly.** All verification in this file — the paper reading, the
+> quote checking, the counts, the searches, the drafting — is **CLAUDE'S WORK**. Srinivasa's role
+> is **review and approval**. A ☑ means *"Srinivasa reviewed Claude's work and approved it"*,
+> never *"Srinivasa performed the check"*.
+
+| Date | Work | Done by | Reviewed & approved by |
+|---|---|---|---|
+| 2026-07-26 | Original dossier | **Claude** | **Srinivasa** ✅ |
+| 2026-07-28 (first pass) | Quote re-verification, M-1, absence measurement | **Claude** | **Srinivasa** ✅ — ruled his sign-off stands |
+| 2026-07-28 (second pass) | Fact/interpretation split — **found M-2** | **Claude** | ☐ **PENDING** |
+
+🚨 **This file is re-opened.** The first re-verification pass checked quotes and missed a
+**scope error in the corroboration section (M-2)** — the same overclaim class as the SwarmRaft
+C-3 draft. It surfaced only when the fact/interpretation split forced each claim to name the
+paper text supporting it. **Srinivasa's earlier approvals remain valid for what they covered;
+the corrected C-3 section has not yet been reviewed.**
+
+Full 6-page re-read, every line including all four tables, under the verbatim-only standard
+(Srinivasa: *"in the THEY WROTE place it should exactly match the paper writing; create a separate
+place for your inference"*).
 
 **Result of the re-audit:**
-- ✅ **Substance is correct.** The single `related.tex` sentence is accurate in every respect.
-- ✅ **9 of 10 quotes are exact.**
-- ❌ **1 real misquote found** — see **M-1** below. Small, meaning preserved, but words were
-  changed *inside quotation marks*.
+- ✅ **The manuscript sentence is accurate in every respect** — unchanged, and unaffected by M-2.
+- ✅ **9 of 10 quotes are exact**; **M-1** (paraphrase inside quotes) corrected.
+- ❌ 🚨 **M-2 — the corroboration section attributed to the authors a claim about a different
+  attack class.** Their §4.4 limitation concerns **object *hiding*** (Object Removal Attacks,
+  MSF-ADV); our attack is **fabrication**. Corrected in **C-3** below.
 - ✅ **The absence claim is now proved with numbers** (it was previously asserted).
 - ✅ All numeric claims verified against the tables.
+- ⭐ **Two new quotes found on the line-by-line pass (Q13, Q14)** which support the same point
+  **more safely than Q10 did**: **Q13** is the authors' own hypothesis that the detection signal is
+  *"any abrupt introduction of objects into a frame"* — about **fabrication**, their actual target,
+  so no scope-stretching is needed. C-3 is now built on Q13 instead of the hiding paragraph.
+- 📊 **"single frame" occurs 7 times** in this 6-page paper — the single-frame scope is explicit
+  and repeated, not an inference of ours.
+
+**Lesson:** M-2 is *not* a quoting error — the quote itself (**Q10**) was reproduced correctly,
+including the word *"hidden"*. The error was in **what we concluded from it**. Verbatim accuracy
+does not protect against scope errors; only the fact/interpretation split caught this.
 
 **The paper:** Chengzeng You\*, Zhongyuan Hau\*, Soteris Demetriou (\*equal contribution),
 Imperial College London, *"Temporal Consistency Checks to Detect LiDAR Spoofing Attacks on
@@ -77,7 +100,9 @@ down.** Searching the full phrase will fail; search the tested fragment.
 | **Q7** | "MotionNet takes a sequence of consecutive scenes (3D point-clouds) as input…" | p.3, §3.3 | `sequence of consecutive` ⚠break |
 | **Q8** | "MotionNet uses K = 20 by default." | p.4, footnote 1 | `MotionNet uses` |
 | **Q9** ✅corrected | "Under a single frame LiDAR spoofing attack, when an object is successfully injected, it does not have "history" from the previous frames and hence there is no equivalent motion prediction of such category for the current frame." | p.3, §3.3 | `does not have` |
-| **Q10** | "However, if the hidden object is temporally consistent (i.e. an adversarial object is placed on the road as the ego-vehicle approaches it), the approach will fail to detect such object." | p.5, §4.4 | `will fail to detect` ⚠break |
+| **Q10** ⚠️**SCOPE** | "However, if the **hidden** object is temporally consistent (i.e. an adversarial object is placed on the road as the ego-vehicle approaches it), the approach will fail to detect such object." | p.5, §4.4 — **under the subsection heading "Object hiding attacks"**, following "*other classes of attacks such as Object Removal Attacks and MSF-ADV that aims to hide objects from detection*" | `will fail to detect` ⚠break |
+| **Q13** ⭐ **NEW 2026-07-28** | "As such, **we hypothesize that any abrupt introduction of objects into a frame**, which is a characteristic of LiDAR-based front-near object spoofing attack, **can be detected as an anomaly**." | p.2, §3.2 | `abrupt introduction of objects` |
+| **Q14** ⭐ **NEW 2026-07-28** | "We evaluate the effectiveness of CMCS in detecting **single frame** object spoofing attacks in Section 4.2." | p.4, §3.3 | `detecting single frame object spoofing` |
 | **Q11** | "We also intend to consider a stronger adversary that is able to perform injection into continuous frames (temporal attacks) and study the robustness of the 3D-TC2 approach to such attacks." | p.6, §5 | `injection into continuous frames` |
 | **Q12** | "Current defences have been shown to be effective on static 3D object detection using only information from the individual target scene… missing rich spatio-temporal information from previous frames." | p.2, §2 | `individual target scene` |
 
@@ -128,14 +153,32 @@ quote or a proved absence.
 
 # PART C — OUR INFERENCE (our words, NOT theirs)
 
-- **C-1 — "motion-induced consistency"** is *our* compression of **Q1**+**Q2**+**Q3**. They never
-  use the phrase "motion-induced". The compression is faithful (genuine motion produces
-  cross-frame consistency; an injected object has none — **Q9**), but it is our wording.
-  _Optional polish, Srinivasa's call:_ "motion-prediction consistency" names their mechanism
-  more literally. Not required.
-- **C-2 — the reference-signal argument.** Our reading: this check class keys on **the scene's own
-  past**, whereas ours keys on **a neighbour's claim vs the verifier's own sensing**. Analytic
-  contrast, not a claim about their text.
+> 📏 Split into paper-fact vs interpretation per the standard set by Srinivasa 2026-07-28
+> (`AUDIT_PENDING.md` § DOSSIER WRITING STANDARD).
+
+## C-1 — the phrase "motion-induced consistency"
+
+**C-1.1 — PAPER FACTS.** They write *"motion as a physical invariant of genuine objects"*
+(**Q1**), *"objects (and their motion trajectory) should be consistent across consecutive 3D
+LiDAR scenes"* (**Q2**), and claim to be *"the first to propose motion as a physical invariant
+for 3D objects"* (**Q3**).
+
+**C-1.2 — OUR TECHNICAL INTERPRETATION.** *"Motion-induced consistency"* is **our compression** of
+those three. **The authors never use the phrase "motion-induced".** The compression is faithful —
+genuine motion produces cross-frame consistency, and an injected object has no history (**Q9**) —
+but the wording is ours. _Optional polish, Srinivasa's call:_ "motion-prediction consistency"
+names their mechanism more literally. Not required.
+
+## C-2 — the reference-signal argument
+
+**C-2.1 — PAPER FACTS.** Their check compares the current frame's detections against a prediction
+built by MotionNet from the ego sensor's own previous frames (**Q7**, **Q8**); the flag is raised
+when an object lacks history in those frames (**Q9**).
+
+**C-2.2 — OUR TECHNICAL INTERPRETATION.** We characterise this as keying on **the scene's own
+past**, whereas our test keys on **a neighbour's claim versus the verifier's own sensing**.
+**The authors do not frame their work in terms of a "reference signal", and make no comparison to
+cross-agent verification.** This is our analytic contrast, not a claim about their text.
 
 ---
 
@@ -156,28 +199,96 @@ quote or a proved absence.
 | `other vehicles` | **0** |
 | `communicat` | **1** — and it is *"ACM SIGSAC Conference on Computer and **Communications** Security"*, a **venue name in reference [6]**, not inter-vehicle communication |
 
-**Conclusion: zero cross-agent mechanism of any kind.** The "single vehicle" clause in our
-`related.tex` is not merely defensible — it is airtight.
+**D-1.1 — MEASURED FACT.** Zero occurrences of any cross-agent term. Positively, their threat
+model is spoofing of **the ego vehicle's own** LiDAR returns (**Q5**), and MotionNet consumes a
+sequence of frames from **that same sensor** (**Q7**, **Q8**).
+
+**D-1.2 — OUR TECHNICAL INTERPRETATION.** We read this as establishing that 3D-TC2 has no
+cross-agent mechanism, which is what our "single vehicle" clause asserts. **The authors do not
+describe their work as "single-vehicle" in contrast to anything; the scope is simply what they
+built.** The measurement is fact; calling it "airtight" support for our clause is our judgement.
 
 ---
 
-# ⭐ CORROBORATION — their own limitation supports our argument
+# 🚨 C-3 — CORROBORATION, **CORRECTED 2026-07-28: the previous version overclaimed**
 
-This paper's §4.4 and §5 are unusually favourable to us, and they are the authors' own words:
+## ❌ M-2 — THE OVERCLAIM (found on re-audit, same class as SwarmRaft C-3)
 
-- **Q10** — a **temporally consistent** adversarial object *"will fail to detect"*.
-- **Q11** — continuous-frame injection is listed as **future work**, i.e. **they evaluated
-  single-frame injection only**.
-- **Q9** — the detection signal is explicitly *abrupt appearance*: a spoofed box *"does not have
-  'history' from the previous frames"*.
+The previous version of this section read:
 
-Our camouflage phantom is broadcast **persistently from episode start**, so it is temporally
-self-consistent — exactly the case their own paper says this check misses.
+> *"Our camouflage phantom is broadcast persistently from episode start, so it is temporally
+> self-consistent — **exactly the case their own paper says this check misses.**"*
 
-⚠ **Posture to keep:** `related.tex` draws the reference-signal distinction **without** claiming
-3D-TC2 fails on our attack. That is the correct and fair posture — their paper concerns a
-different threat on a different platform. Keep it as is; deploy **Q10/Q11** only if a reviewer
-pushes.
+**That is wrong.** The §4.4 sentence it leans on (**Q10**) appears under the subsection heading
+**"Object hiding attacks"**, and its full context is:
+
+> *"3D-TC2 was designed to detect spoofed objects that are elicited with LiDAR spoofing attacks.
+> Recently, there have been other classes of attacks such as **Object Removal Attacks** and
+> **MSF-ADV** that aims to **hide objects** from detection… However, if the **hidden** object is
+> temporally consistent…, the approach will fail to detect such object."*
+
+**Their statement is about HIDING a real object. Our attack FABRICATES a phantom.** Different
+attack class. The authors say nothing about persistent fabrications, and attributing that claim
+to them would be the CATS error again — asserting a rival fails at something they never addressed.
+
+## C-3.1 — PAPER FACTS (what the authors actually state)
+
+⭐ **The best evidence is Q13, found on the 2026-07-28 line-by-line re-read** — it concerns their
+*fabrication* detection directly, so it needs none of the scope-stretching that broke M-2.
+
+1. ⭐ **Q13** (§3.2) — their stated detection hypothesis: *"we hypothesize that **any abrupt
+   introduction of objects into a frame**, which is a characteristic of LiDAR-based front-near
+   object spoofing attack, can be detected as an anomaly."* **The signal is abruptness.**
+2. **Q9** (§3.3) — the mechanism, explicitly scoped: *"**Under a single frame** LiDAR spoofing
+   attack, when an object is successfully injected, it does not have "history" from the previous
+   frames…"*
+3. **Q14** (§3.3) — *"We evaluate the effectiveness of CMCS in detecting **single frame** object
+   spoofing attacks in Section 4.2."*
+4. **Q11** (§5, future work) — *"We also intend to consider a stronger adversary that is able to
+   perform injection into **continuous frames** (temporal attacks)…"* → **continuous-frame
+   injection is work they have not done.**
+5. **Q10** (§4.4) — a temporally consistent **hidden** object will not be detected. ⚠️ **Scope:
+   object *hiding* attacks (Object Removal / MSF-ADV), NOT fabrication.** This is the quote that
+   caused M-2.
+
+> **The scoping is not incidental.** The phrase **"single frame"** appears **7 times** in this
+> 6-page paper. The authors are consistent and explicit that single-frame injection is what they
+> address.
+
+## C-3.2 — OUR TECHNICAL INTERPRETATION
+
+By the authors' own hypothesis (**Q13**), the anomaly signal is the **abrupt introduction** of an
+object. Our camouflage phantom is broadcast persistently from episode start, so it would not
+present that abruptness. **The authors do not evaluate persistent fabrication and make no claim
+about how 3D-TC2 would behave against it** — **Q11** lists continuous-frame injection as work they
+have not yet done. This is our reasoning from their stated hypothesis, **not a result they report,
+and not something we have tested against their system.**
+
+**Two levels of safety, use the lower one first:**
+
+| Strength | Claim | Needs |
+|---|---|---|
+| ✅ **Safest** | *"The authors state that continuous-frame (temporal) injection is future work; their evaluation covers single-frame injection."* | **Q11**/**Q14** verbatim — **no inference** |
+| ⚠️ Stronger | *"Their stated signal is abrupt introduction (Q13), so a persistent fabrication would not present it."* | our inference from **Q13** — label it as such |
+
+**Never** the third level — *"therefore 3D-TC2 fails on our attack"*. We have not run it.
+
+## 🚫 SENTENCES THAT MUST NOT BE WRITTEN
+
+| ❌ Do not write | Why |
+|---|---|
+| *"their own paper says this check misses our attack"* | **Q10 is about object *hiding*, not fabrication** |
+| *"3D-TC2 fails against persistent fabrications"* | never evaluated by them; we have not tested it either |
+| *"exactly the case their paper concedes"* | conflates two different attack classes |
+
+✅ **Say instead:** *"The authors state that continuous-frame (temporal) injection attacks are
+future work, i.e. their evaluation covers single-frame injection."* — that is **Q11** verbatim in
+substance, and it needs no interpretation.
+
+## ⚠ Posture to keep
+`related.tex` draws the reference-signal distinction **without** claiming 3D-TC2 fails on our
+attack. That remains the correct posture — different threat, different platform. **No manuscript
+change.** Deploy **Q11** only if a reviewer pushes, and **never Q10 in that role.**
 
 ---
 

@@ -84,7 +84,20 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   and it is by our own ledger the closest paper to this project. Highest-value prior-art task left.
 
 **Group B — temporal spoof detection, single-vehicle [2]**
-- ☑ **3D-TC2** — `REFERENCE_EVIDENCE_TC2.md` (⚠ title was wrong once; single-vehicle, motion consistency) — **Srinivasa audited & approved 2026-07-26; incl. the "purely"→"authors attribute to" note softening.**
+- ☐ 🚨 **3D-TC2 — RE-OPENED 2026-07-28** (`REFERENCE_EVIDENCE_TC2.md`). Approved 2026-07-26 and
+  again after the quote-verification pass; **the fact/interpretation split then found a SECOND
+  defect (M-2) that quote-checking could not catch.**
+  **M-2:** the corroboration section claimed their §4.4 limitation was *"exactly the case their own
+  paper says this check misses"* for our camouflage phantom. **Their sentence sits under the
+  heading "Object hiding attacks"** and concerns hiding a *real* object (Object Removal Attacks,
+  MSF-ADV). **Our attack is fabrication — a different attack class.** The quote itself was
+  reproduced correctly, including the word *"hidden"*; the error was in what we concluded from it.
+  Corrected: C-3 now cites only **Q11** (*"injection into continuous frames"* is their stated
+  future work), which needs no inference. Three sentences banned in-file.
+  ✅ **No manuscript impact** — `related.tex` never made this claim.
+  ⬜ **Needs Srinivasa's review of the corrected C-3.**
+  _(Earlier approvals stand for what they covered: the "purely"→"authors attribute to" softening,
+  M-1, and the measured single-vehicle absence claim.)_
   **RE-VERIFIED 2026-07-28** under the verbatim-only standard (full 6-page re-read): 9 of 10 quotes
   exact; **1 paraphrase-in-quotes corrected (M-1, "no 'history'" → "does not have 'history'")** which
   had **zero manuscript impact**; single-vehicle absence claim upgraded from assertion to counted
