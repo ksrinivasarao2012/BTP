@@ -183,10 +183,11 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
   **Obst + Allig safe but PDFs owed** (→ `INSTITUTE_WIFI_TODO.md`); **CP-Guard dossier still owed**.
   **2 precision traps found** (Allig-noise, Hallyburton-temporal) → recorded in §D. Tier 2 still awaits
   Srinivasa's by-category accept/reject.
-- ◑ **Forward citation sweep** (`FORWARD_CITATION_SWEEP.md`) — **7 of 19 anchors done 2026-07-28** (CAD,
-  ROBOSAC, TruPercept, Coopernaut, **ADoPT, 3D-TC2, CP-Guard**). **~220 citing papers examined; ~50 new papers
-  the backward sweep could not reach.** Verdicts: **6 must-cite** (LiDAR-Spoofing-Safe-Control, SafeCoop,
-  CONClave, CATS, MVIG, RLCVP) · 20 group-cite · ~75 no-cite · **4 unknown (not locatable — NO verdict)**.
+- ◑ **Forward citation sweep** (`FORWARD_CITATION_SWEEP.md`) — ✅ **COMPLETE, all anchors swept 2026-07-28.**
+  🔢 _Counts live in that file's STATUS block — do not restate them here, that is how six files came to
+  disagree._ Verdicts: **7 must-cite** (LiDAR-Spoofing-Safe-Control, SafeCoop, CONClave, CATS, MVIG, RLCVP,
+  **GLST**) · group-cites · no-cites · **unreachable papers each named individually in Part 0d, never counted
+  in aggregate**.
   **Standing rule now in force: ZERO title-grade** — every verdict rests on ≥ abstract; unreachable papers are
   logged unknown, never "safe" (memory: `paper-reading-depth-standard`).
   **Compound novelty SURVIVES (0 pre-emptions), but 4 individual claims overstated → §D**, the worst being

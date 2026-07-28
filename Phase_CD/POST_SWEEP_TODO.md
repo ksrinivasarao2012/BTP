@@ -57,9 +57,19 @@ LiDAR-Spoofing-Safe-Control · SafeCoop · CONClave · CATS · MVIG · AFFormer 
 | 4 | **GCP body** (2501.02450) | The K=5 / per-neighbour-cache / LSTM-AE findings — our single most important differentiator — came through a **summarising fetch**, not raw text | ✅ arXiv — curl→Read. **High priority: claim-rewording #4 depends on it** |
 | 5 | **The 17 dossiers** | Built by pypdf over real PDFs, so on **solid ground** — but never re-checked since, and the CATS lesson (abstract vs body nuance) may apply to any of them | ⚠️ Spot-check the load-bearing quote in each during Srinivasa's audit |
 
-### 1c. ⚠️ EXPECT MORE — the sweep is not finished
-Ten anchors remain (§⓪). Each may surface a **new Level-1 paper**, and every new Level-1 paper lands here
-needing verbatim verification. **This list will grow. Do not treat it as final until the sweep is closed.**
+### 1c. ✅ THE LIST IS NOW CLOSED
+The sweep is finished (§⓪ — **19 / 19**), so no new Level-1 paper can arrive from it. The four items in §1b
+are the complete set. _(This section previously read "Ten anchors remain" — stale text left over from mid-sweep.
+Corrected 2026-07-28.)_
+
+### 1d. 🔒 THE GATE — where verified quotes live
+Verified quotes live in **one place**: the quote bank in `FORWARD_CITATION_SWEEP.md` Part 0c. The rule there:
+
+> A quote may enter the manuscript **only if it is in the bank**, and a bank entry requires **the raw source
+> it was read from** plus **the date read**. No source path → no quote. `WebFetch`/`WebSearch` do not count.
+
+That turns this section from "remember to verify things" into a mechanical check: **anything not in the bank
+cannot be written.** The four papers in §1b either get a raw source or their sentences are deleted.
 
 ---
 

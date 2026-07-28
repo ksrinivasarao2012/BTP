@@ -5,8 +5,35 @@ _Started 2026-07-28. Single source of truth for "who cited our anchors AFTER pub
 bibliography can only contain papers **older** than the citing paper — so ~300 backward abstracts could not, even
 in principle, surface a 2025–26 paper that beats us. This sweep goes **forward**: who *cites* our anchors.
 
-**Headline.** Backward sweep found **0** new competitors. This forward sweep has already found **~35 new papers**,
-**6 must-cites**, and **3 overstated claims**. It is **only 21% complete**.
+---
+
+## 📌 STATUS BLOCK — THE ONLY PLACE COUNTS LIVE (update here, nowhere else)
+
+> **Rule (added 2026-07-28 after this file contradicted itself in five places).** Every number describing
+> *how much of the sweep is done* lives in this block and **nowhere else**. Other sections describe **what
+> was found**, never **how many**. If a section needs a count, it says "see the STATUS block". A number
+> written anywhere else in this file is a bug.
+
+| Metric | Value | As of |
+|---|---|---|
+| **Anchors swept** | **19 / 19 (100%) ✅ COMPLETE** | 2026-07-28 |
+| Citing papers examined | ~460 | 2026-07-28 |
+| **Pre-emptions of the compound claim** | **0** ✅ | 2026-07-28 |
+| Must-cite (Level 1) | 7 | 2026-07-28 |
+| Group-cite (Level 2) | ~22 | 2026-07-28 |
+| No verdict (unreachable) | 16 | 2026-07-28 |
+| Claims needing rewording | 4 | 2026-07-28 |
+| Title-grade verdicts | **0** ✅ | standing |
+
+**Consistency check — run before any commit that touches a tracker:**
+```powershell
+Select-String -Path "D:\Swarm\BTP\Phase_CD\*.md" -Pattern '\d+\s*(of|/)\s*19' |
+  Select-Object Filename,LineNumber,Line
+```
+If every line does not agree with the STATUS block above, **the commit is wrong** — fix the file, not the check.
+
+**Context.** The backward sweep found **0** new competitors; so did this forward one. What the forward sweep
+*did* produce is new must-cites, a set of overstated claims to reword, and two independent σ=0.6 validations.
 
 ⏳ **Nothing here is closed until Srinivasa audits it** (standing rule). None of it is in `related.tex` yet.
 
@@ -157,21 +184,43 @@ justification**, not just related work.
 | **LiDAR-Spoofing** (2302.07341) | ⚠️ **No conclusion section exists** — 9-page conference paper ending at references. Abstract verified verbatim | abstract-level claims stand |
 | **Towards V2X Survey** | see σ=0.6 m find above | ⭐ upgraded from group-cite to a **setup-section cite** |
 
-## Verified-verbatim quote bank (safe to put in the manuscript)
-- LiDAR-Spoofing: *"spoofing attacks can typically only be mounted on **one vehicle at a time**"* · *"a control
-  algorithm that **guarantees** that these estimated object locations are avoided"*
-- SafeCoop: *"**69.15% driving score improvement** under malicious attacks"*
-- CATS: *"Sensor-based attacks … are considered **out of scope**"* · *"**4.2x** … tradeoff for blocking good messages"*
-- AFFormer: *"Multi-Agent and Temporal Aggregation for context-aware fusion **across agents and over time**"*
-- MVIG: *"**temporal graph learning** to generate evolving fabrication risk maps"*
-- Survey: *"AP@0.5 drops 70.5% when position error std is **0.6m**"*
+## 🔒 VERIFIED-VERBATIM QUOTE BANK — the gate for the manuscript
 
-## ⚠️ Still unverified
-**RLCVP** (IEEE TMC 11006384) — not on arXiv, paywalled. It is a **Level-1 must-cite**, so its differentiator
-sentence rests on abstract-level evidence only → `INSTITUTE_WIFI_TODO.md`.
+> **THE RULE (added 2026-07-28, after the CATS differentiator turned out to be wrong).**
+> A quote or paraphrase of another paper may enter the manuscript **only if it appears in this bank**, and an
+> entry may only exist here if it carries **the raw source it was read from** and **the date it was read**.
+> **No source path → no quote.** This is what makes the CATS class of error structurally impossible instead of
+> something anyone has to remember.
+>
+> "Raw source" means a file on disk read with `Read`, or a `curl`-downloaded arXiv abstract/PDF.
+> **`WebFetch` and `WebSearch` do not count** — both put a summarising model between us and the paper, which is
+> exactly how CATS ("requires an honest majority") and the Coopernaut count (43 vs the real 189) went wrong.
 
-**Standing rule added:** any paper we **quote** must be verified via the curl→Read path (or from a PDF on disk)
-before its sentence goes into the manuscript. Papers we merely **list** in a grouped citation do not need this.
+| Paper | Verbatim quote | Raw source read | Date |
+|---|---|---|---|
+| LiDAR-Spoofing (2302.07341) | *"spoofing attacks can typically only be mounted on **one vehicle at a time**"* · *"a control algorithm that **guarantees** that these estimated object locations are avoided"* | arXiv Atom `id_list=2302.07341` → `Read` | 2026-07-28 |
+| SafeCoop | *"**69.15% driving score improvement** under malicious attacks"* | arXiv Atom → `Read` | 2026-07-28 |
+| CATS (2503.00659) | *"Sensor-based attacks … are considered **out of scope**"* · *"**4.2x** … tradeoff for blocking good messages"* | arXiv Atom → `Read` (**abstract only** — body still unverified) | 2026-07-28 |
+| AFFormer | *"Multi-Agent and Temporal Aggregation for context-aware fusion **across agents and over time**"* | arXiv Atom → `Read` | 2026-07-28 |
+| MVIG | *"**temporal graph learning** to generate evolving fabrication risk maps"* | arXiv Atom → `Read` | 2026-07-28 |
+| Towards-V2X Survey | *"AP@0.5 drops 70.5% when position error std is **0.6m**"* | arXiv Atom → `Read` | 2026-07-28 |
+| OptiMatch | *"vanilla late fusion … can handle the location error whose Gaussian standard deviation σp ≤ 0.2m"* + Table I (early fusion 0.85→0.25 at σ=0.6, **no attacker**) | full PDF on disk → pypdf → `Read` | 2026-07-28 |
+| GLST (2607.23059) | *"pairwise distance-based trust estimation is vulnerable to the **pseudo-consensus** formed by multiple malicious agents"* + Table II (LUCIA AP@0.5 0.85→0.25→0.13→0.11 as attackers 1→4) | full PDF on disk → pypdf → `Read` | 2026-07-28 |
+
+## ⚠️ NOT IN THE BANK — may not be quoted until verified
+
+Each of these is currently **blocked from the manuscript** by the rule above. Either it gets a raw source, or
+its sentence is deleted.
+
+| Paper | Why blocked | Route to clear it |
+|---|---|---|
+| 🚨 **RLCVP** (IEEE TMC 11006384) | **Level-1 must-cite** resting on an abstract only. Not on arXiv, paywalled — the exact CATS failure mode | `INSTITUTE_WIFI_TODO.md` **PRIORITY 0** (campus session) |
+| ⚠️ **CATS — BODY** | Abstract is banked; *"phantom red-light violator"* and the *"majority view"* mechanism are **body** claims read through a summariser | PDF is already on disk → pypdf → `Read` |
+| ⚠️ **GCP — BODY** (2501.02450) | The K=5 / per-neighbour-cache / LSTM-AE finding — **claim-rewording #4 depends on it** — came through a summarising fetch | arXiv → curl → `Read`. Srinivasa has flagged doubt; **his Ctrl+F check governs** |
+| **CP-Guard** (2412.12000) | Planned cite, no dossier; conclusion read once via WebFetch | arXiv → curl → `Read` |
+
+**Scope of the rule:** applies to anything we **quote or paraphrase**. Papers we merely **list** inside a
+grouped citation ("[12]–[19] all assume clean sensing") do not need a bank entry.
 
 ---
 
@@ -448,18 +497,10 @@ No arXiv preprint (ACM DL only) → swept via **DOI:10.1145/3716550.3722038**.
 
 ---
 
-# 🏁 FORWARD SWEEP COMPLETE — 19 of 19 ANCHORS (2026-07-28)
+# 🏁 FORWARD SWEEP COMPLETE (2026-07-28)
 
-| Metric | Final |
-|---|---|
-| **Anchors swept** | **19 / 19** ✅ |
-| Citing papers examined | **~460** |
-| **Pre-emptions of the compound claim** | **0** ✅ |
-| Must-cite (own differentiator paragraph) | **7** |
-| Group-cite | **~22** |
-| No verdict (unreachable) | **16** |
-| Claims requiring rewording | **4** |
-| Independent validations of σ = 0.6 | **2** |
+🔢 **Counts: see the STATUS block at the top of this file.** _(This section used to repeat the whole totals
+table. That duplication is precisely what drifted — removed 2026-07-28.)_
 
 **The 7 must-cites:** LiDAR-Spoofing-Safe-Control · SafeCoop · CONClave · CATS · MVIG · RLCVP · **GLST**.
 
@@ -485,7 +526,9 @@ GCP temporal-priority claim — the last still pending raw-text re-verification,
 
 # PART 1 — PROGRESS TRACKER
 
-## 1.1 Anchors swept: **19 of 19 (100%)** ✅ COMPLETE 2026-07-28
+## 1.1 Per-anchor sweep log — anchors 1–9
+_🔢 Progress figure: **see the STATUS block at the top of this file.** The per-anchor citer counts below are
+per-anchor data, not a progress figure, so they belong here._
 
 | # | Anchor | arXiv ID | Citations pulled | Status |
 |---|---|---|---|---|
@@ -715,7 +758,9 @@ crossed into multi-agent. Combined with §Part 4 item 2 (CONClave/CATS/MVIG accu
 the precise defensible claim is: **first to accumulate a cross-agent geometric OFFSET statistic under ranging
 noise.** Both halves now have evidence.
 
-## 1.2 Anchors REMAINING: **0** ✅ — all swept 2026-07-28
+## 1.2 Per-anchor sweep log — anchors 10–19 (the final batch)
+_🔢 Progress figure: **see the STATUS block at the top of this file.** This section was formerly a to-do list
+("anchors remaining"); it is now a results log, so it can no longer drift out of date._
 
 | # | Anchor | ID | Citers | Result |
 |---|---|---|---|---|
@@ -758,20 +803,34 @@ Level 2 = same field, clearly different → one shared sentence. Level 3 = diffe
 
 # PART 3 — CITATION LEDGER (every paper, its category, and the reason)
 
-## 3.1 🔴 MUST CITE — own differentiator paragraph (6)
+## 3.1 🔴 MUST CITE — own differentiator paragraph
+_🔢 How many: **see the STATUS block.** The heading used to carry a count of its own ("(6)") and had already
+fallen out of step with both the STATUS block and this table's own row count — corrected 2026-07-28._
 
 | Paper | Yr | Depth | **Reason it is Level 1** | **Our stated difference** |
 |---|---|---|---|---|
 | **CP for Safe Control under LiDAR Spoofing** (2302.07341) | 2023 | full | ⭐ **Closest paper in the entire project.** Fabricated ("non-existing") obstacle + **ego-vs-neighbour LiDAR comparison** + **control that avoids the object**, in CARLA. Even carries noise bounds ζₙ, ζᵣ | Threat model is *"spoofing … can typically only be mounted on **one vehicle at a time**"* — we handle **up to 7 of 10**. Their noise handling is a **fixed geometric margin**, not a statistical honest-disagreement regime. **No temporal accumulation.** Hand-designed controller vs our learned MAPPO policy. Control reported **qualitatively**, no success rate |
 | **SafeCoop** (2510.18123) | 2025 | full | Reports the **CARLA Driving Score under attack**, closed-loop, 32 scenarios → **breaks our metric-novelty claim** | Agents exchange **natural-language text**, not geometry. Attacks = loss / replay / **semantic** spoof / Sybil — *"none explicitly fabricate a physically non-existent obstacle."* Sensor noise: *"not modeled."* Detection is *"per-message, single-frame"* (τ=2.5) |
 | **CONClave** (2409.02863, DAC) | 2024 | full | Detects **fabricated objects**, keeps **per-agent trust over time**, AND models honest sensor disagreement → hits **Q2 and Q3** | **No driving metric** — scored by *mean time to detection*. Needs **authentication + a consensus round** (infrastructure we don't assume). Trust = **std-dev-score buffers**, not a geometric offset mean. Its *"rule of three"* needs **three sensors agreeing** — redundancy we deliberately break |
-| **CATS** (2503.00659, TVT) | 2025 | full | **"Phantom red-light violator"** = fabricated non-existent vehicle; **long-term per-vehicle reputation** | ⭐ **Requires an honest majority** (*"majority view"* across peer reports) — a **perfect foil** for our no-honest-majority result. Metric = message FP/FN, **no driving outcome**. Noise modelled *"minimally"* |
+| **CATS** (2503.00659, TVT) | 2025 | abstract ✅ / **body ⚠ unverified** | **Long-term per-vehicle reputation.** ⚠ The *"phantom red-light violator"* example is a **body** claim, not yet verified from raw text | 🚨 **DO NOT WRITE "CATS requires an honest majority" — RETRACTED 2026-07-28 as FACTUALLY WRONG.** Its verbatim abstract says it *"blends together the best traits of reputation-based **and** majority-based detection mechanisms"* — it does not require a majority. **Use these instead (all verbatim, banked in Part 0c):** *"Sensor-based attacks (e.g., fooling LiDARs with lasers) are considered **out of scope**"* — i.e. our exact threat model is outside theirs; it assumes a **trusted centralized Security Authority** we do not; and it pays a **4.2× rate of blocking good messages**. Metric = message FP/FN, **no driving outcome** |
 | **MVIG** (2602.19596, CVPR) | 2026 | full | Adaptive, **defense-aware** attacker using **temporal graph learning (k=5 frames + GRU)**; explicitly defeats threshold-based consensus → **breaks our adaptive-attacker claim** | It is the **attack**, we are the **defense**. **Feature-level** perturbation vs our object-level. Metrics ASR/DSR/ΔAP@50 — **no navigation**. No honest-noise regime |
-| **RLCVP** (IEEE TMC 11006384) | 2025 | abstract ⚠ | Title reads exactly like ours: **RL + data-fabrication defense** | Its **RL selects which CAV to collaborate with** (inconsistency degree, confidence score, channel gain) — **not a driving policy**. Check is **spatial consistency + hypothesis-test threshold**, per-frame. ⚠ conclusion owed |
+| **RLCVP** (IEEE TMC 11006384) | 2025 | abstract ⚠ | Title reads exactly like ours: **RL + data-fabrication defense** | Its **RL selects which CAV to collaborate with** (inconsistency degree, confidence score, channel gain) — **not a driving policy**. Check is **spatial consistency + hypothesis-test threshold**, per-frame. 🚨 **Body unverified and BLOCKED from the manuscript** (Part 0c blocked list) — this is a Level-1 differentiator resting on an abstract, the exact shape of the CATS error |
+| ⭐ **GLST** (2607.23059) | 2026 | full ✅ | **Newest and closest defense-side paper.** Multi-attacker **pseudo-consensus** collapse of trust-based CP defenses — its Table II is direct third-party support for our multi-traitor result (LUCIA AP@0.5 **0.85 → 0.25 → 0.13 → 0.11** as attackers go 1 → 4) | **Feature-level** V2X trust (global feature + multi-scale residual + semantic-topology consistency) vs our **object-level geometric offset**. Scored by **AP@0.3/0.5 — no navigation outcome**. Trust is computed **per-frame from structural signals**; **no temporal accumulation across frames**. **No honest-ranging-noise regime** — attackers are feature injectors, not noisy honest agents. Its own words: *"pairwise distance-based trust estimation is vulnerable to the **pseudo-consensus** formed by multiple malicious agents"* |
 
-## 3.2 🟡 GROUP CITE — one shared sentence (19)
+## 3.2 🟡 GROUP CITE — one shared sentence
+
+_🔢 How many: **see the STATUS block.** The heading formerly said "(19)" while the table held 20 rows and the
+STATUS block said ~22 — three different answers to one question. Count removed 2026-07-28._
 
 All fail **Q1 and Q3**; none is a novelty threat. Reason = why it is in the field but not a rival.
+
+> 🚨 **TWO ROWS BELOW VIOLATE THE ZERO-TITLE-GRADE RULE — found 2026-07-28.** `ALADCP` and `Sieve` are marked
+> depth **"title ⚠"** yet carry a Level-2 verdict. The standing rule (memory `paper-reading-depth-standard`) is
+> that **no verdict may rest on a title**, and their reasons below are therefore **guesses, not findings**.
+> **Resolution is forced:** Part 5 records both as *"title + venue only — no text online anywhere"*, i.e. they
+> **cannot** be read up to abstract depth, so they must be **moved to Part 0d as "no verdict"** rather than
+> carrying a Level-2 label. `ALADCP` is the riskier of the two, because late-fusion at object level is *our own
+> architecture* — an unread paper is exactly where a pre-emption would hide. → owed in `POST_SWEEP_TODO.md` ②.
 
 | Paper | Yr | Depth | Reason it is only Level 2 |
 |---|---|---|---|
@@ -842,9 +901,10 @@ caching and K=5; if it does not, the dossier understates the rival.
 
 | Depth achieved | Count | Which |
 |---|---|---|
-| **Abstract + conclusion / body from full text** | **19** | SafeCoop · MVIG · RCDM · CP-uniGuard · CONClave · CATS · MAST · CP-FREEZER · TUQCP · CPAD · Coop-WD · AdapAM · LiDAR-Spoofing-Safe-Control · Misbehavior-Privacy · Physics-Aware · Confidence-V2X · ZKP-Traffic · Security-in-Collab-Driving · PIMRC-dataset |
-| **Abstract only — conclusion paywalled** | **6** | RLCVP (IEEE) · FNO-Guard (ScienceDirect) · Robust-CP (IEEE) · Adversarial-CP-in-AD (IEEE) · Trust-Mgmt-CPM (IEEE/HAL) · Fake-Objects-CPM (Springer) · *(+ Yuce survey, Wiley)* |
-| **Title + venue only — no text online anywhere** | **4** | Sieve · ALADCP · HA-GAN · Point-Cloud-Tampering |
+| **Abstract + conclusion / body from full text** | **21** | SafeCoop · MVIG · RCDM · CP-uniGuard · CONClave · MAST · CP-FREEZER · TUQCP · CPAD · Coop-WD · AdapAM · LiDAR-Spoofing-Safe-Control · Misbehavior-Privacy · Physics-Aware · Confidence-V2X · ZKP-Traffic · Security-in-Collab-Driving · PIMRC-dataset · **GLST** · **OptiMatch** · Towards-V2X-Survey |
+| ⚠️ **Abstract verbatim, BODY still unverified** | **2** | **CATS** (moved out of the full-text row 2026-07-28 — its body claims are what went wrong) · **GCP** (claim-rewording #4 depends on it) |
+| **Abstract only — conclusion paywalled** | **7** | RLCVP (IEEE) · FNO-Guard (ScienceDirect) · Robust-CP (IEEE) · Adversarial-CP-in-AD (IEEE) · Trust-Mgmt-CPM (IEEE/HAL) · Fake-Objects-CPM (Springer) · Yuce survey (Wiley) |
+| **Title + venue only — NO VERDICT PERMITTED** | **4** | Sieve · ALADCP · HA-GAN · Point-Cloud-Tampering — 🚨 zero-title-grade rule: these get **no** citation level. Sieve and ALADCP are currently mislabelled Level-2 in §3.2 and must move to Part 0d |
 
 **The four walls** (why the last two rows exist):
 1. **Paywall** — IEEE / Springer / Elsevier / Wiley subscription. → opens on campus wifi.
@@ -870,26 +930,25 @@ Run for: **CAD · ROBOSAC · MADE · MATE · PRBI · TruPercept · CP-Guard · C
 
 ---
 
-# PART 7 — RUNNING TOTALS
+# PART 7 — WHAT THE SWEEP PRODUCED
 
-| Metric | **FINAL (2026-07-28)** |
-|---|---|
-| Anchors swept | **19 / 19 (100%)** ✅ |
-| Citing papers examined | **~460** |
-| Must cite (Level 1) | **7** — LiDAR-Spoofing-Safe-Control · SafeCoop · CONClave · CATS · MVIG · RLCVP · **GLST** |
-| Group cite (Level 2) | **~22** |
-| No cite (Level 3) | **~150** |
-| **Unknown — NO verdict given** | **16** (Part 0d) |
-| **Title-grade verdicts** | **0** ✅ (standing rule) |
-| Claims requiring rewording | **4** (🚨 #4 = GCP — evidence still summariser-grade, must be re-verified first) |
-| Independent validations of σ = 0.6 | **2** (V2X survey; OptiMatch) |
-| **Pre-emptions of the compound claim** | **0** ✅ |
-| PDFs archived in `Research paper/` | **27** — all cited papers except RLCVP (IEEE-walled) |
+> 🔢 **Counts are NOT repeated here.** They live in the **STATUS block at the top of this file** — that is the
+> single source of truth. This section records *what was found*, not *how much*.
 
-> ⚠️ **File-hygiene note (2026-07-28, Srinivasa's catch):** this document carried **three contradictory
-> progress figures at once** — "4 of 19" in §1.1, "11 remaining" in §1.2, and "7 of 19" here — because new
-> sections were appended at the top without updating the older trackers. All three are now corrected. **When
-> updating this file, update §1.1, §1.2 and Part 7 together, or they will drift again.**
+**Named results of the sweep:**
+- **Must-cite (Level 1):** LiDAR-Spoofing-Safe-Control · SafeCoop · CONClave · CATS · MVIG · RLCVP · **GLST**
+- **Independent validations of σ = 0.6 m:** the V2X survey and OptiMatch — two separate literatures, neither
+  ours, both landing on the same noise level as the point where fusion breaks
+- **No verdict (unreachable):** enumerated by full title + venue + identifier in **Part 0d** — never counted
+  in aggregate, always named
+- **PDFs archived** in `Research paper/`: every cited paper except **RLCVP** (IEEE-walled)
+- **Pre-emptions of the compound claim: none** — across the whole forward sweep
+
+> ⚠️ **File-hygiene note (2026-07-28, Srinivasa's catch).** This document once carried **five contradictory
+> progress figures at once** — the headline said "21% complete", §1.1 said "4 of 19", §1.2 said "11 remaining",
+> and this section said "7 of 19", while Part 0 correctly said 19 of 19. Cause: new sections were appended at
+> the top and the older trackers were never updated. **The structural fix is the STATUS block** — counts now
+> exist in exactly one place, so they can no longer disagree with each other. Do not reintroduce a count here.
 
 **Standing rule in force:** zero title-grade. Every verdict rests on at least an abstract; unreachable papers
 are logged as **unknown**, never as "safe". Saved to memory as `paper-reading-depth-standard`.
