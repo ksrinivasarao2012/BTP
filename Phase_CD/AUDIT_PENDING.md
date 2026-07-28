@@ -46,6 +46,20 @@ paragraph. All three are now banned patterns:
 - prefer *"One plausible explanation, consistent with …"* over **any causal verb**.
 
 **Key principle: a correlation a paper reports is not a causal claim the paper makes.**
+
+### 📐 Second rule (Srinivasa, 2026-07-29): prefer the absence claim
+> *"they evaluate X"* requires **a sentence we can cite**.
+> *"they do **not** evaluate X"* requires only **a search we can reproduce**.
+> **Prefer the second whenever the point survives it.**
+
+Triggered by ADoPT C-2.2, which asserted *"the authors evaluate **free-standing road scenes**"* —
+a phrase appearing **0 times** in the paper. A reviewer could ask where the authors say it, and
+we could point to nothing. Rewritten as *"the authors **do not evaluate** corridor-navigation or
+gap-passage scenarios"*, which is provable by count (`corridor` 0, `gap` 0, `passage` 0).
+
+**Also: never state an unevaluated consequence as definite.** *"the passage closes"* →
+*"can effectively close the passage"*. If the cited paper did not test it, hedge it — the hedge
+signals we are describing **our** attack geometry, not reporting **their** result.
 Complements the Part A/B/C/D layout (verbatim / mapping / inference / verified-by-absence) and the
 zero-title-grade rule. Memory: `paper-fact-vs-inference-separation`.
 

@@ -192,10 +192,26 @@ recognizes this fake car as part of the genuine vehicle on the right."*
 **C-2.2 — OUR TECHNICAL INTERPRETATION.** Their harmlessness argument (**Q6**, **Q7**) rests on the
 fake being *attached to a real object you would avoid anyway*. In our setting the camouflage
 phantom **extends a real obstacle across the corridor gap the drone must pass through**, so
-avoiding the real obstacle does not avoid the phantom's claimed extent and the passage closes.
-**The authors evaluate free-standing road scenes and make no claim about gap-navigation; they do
-not state that their harmlessness argument is scenario-dependent.** That reading is entirely ours,
-and must never be attributed to them.
+avoiding the real obstacle does not avoid the phantom's claimed extent and **can effectively close
+the passage**. **The authors do not evaluate corridor-navigation or gap-passage scenarios, and
+they make no claim about how their harmlessness argument extends to such settings.** That reading
+is entirely ours, and must never be attributed to them.
+
+> ✎ **Two wording fixes, Srinivasa 2026-07-29 — minimum reviewer attack surface:**
+>
+> **(1) "free-standing road scenes" → deleted.** That was **our** phrase; a reviewer could ask
+> *"where do the authors say they evaluate free-standing road scenes?"* and we could point to no
+> sentence. Replaced with a statement of what they **do not** evaluate — which is checkable.
+> **Verified by count:** `free-standing` **0**, `corridor` **0**, `gap` **0**, `passage` **0** hits
+> in the full text. The absence claim is therefore provable; the original assertion was not.
+>
+> **(2) "the passage closes" → "can effectively close the passage".** The original stated a
+> definite consequence, inviting *"did ADoPT evaluate that?"* — they did not. The hedge makes
+> clear we are describing **our attack geometry**, not reporting an evaluated result.
+>
+> 🔑 **The distinction being enforced:** *"they evaluate X"* requires a sentence we can cite.
+> *"they do not evaluate X"* requires only a search we can reproduce. **Prefer the second whenever
+> the point survives it** — here it does.
 
 ---
 
