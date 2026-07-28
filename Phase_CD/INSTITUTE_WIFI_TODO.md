@@ -36,6 +36,33 @@ second-order sweep audit and Srinivasa already ran the 3-question check on their
 
 ---
 
+## 🚨 PRIORITY 0 — RLCVP: THE ONLY UNVERIFIED MUST-CITE (added 2026-07-28)
+
+**Do this one first. It is the single highest-value download on this entire page.**
+
+- [ ] 🚨 **Lin, Xiao, Chen, Lv — "Collaborative Perception Against Data Fabrication Attacks in Vehicular
+      Networks"** (IEEE **Transactions on Mobile Computing**, Oct 2025, doc **11006384**)
+      → save as `RLCVP.pdf`
+      https://ieeexplore.ieee.org/abstract/document/11006384/
+
+      **Why this one matters more than anything else here:**
+      - It is a **Level-1 must-cite** — it gets its own differentiator paragraph in our related work.
+      - Its title reads almost exactly like our paper: *RL + collaborative perception + data-fabrication defense*.
+      - Our differentiator sentence — *"their RL selects which CAV to collaborate with, not a driving policy"* —
+        currently rests on **abstract-level evidence only**. It is **not verbatim-verified**.
+      - Every other quoted paper has now been verified word-for-word via the curl→Read path. **RLCVP is the only
+        gap**, and it is not on arXiv, so Claude cannot reach it.
+      - ⚠️ The CATS incident (2026-07-28) proved exactly this risk: an abstract-level differentiator turned out
+        to be **wrong** when the real text was read. RLCVP is the last claim standing on that footing.
+
+      **What to check once the PDF is on disk** (Claude will do this — just get the file):
+      1. Is the RL policy selecting **collaborators**, or is it driving/controlling the vehicle?
+      2. Is the consistency check **spatial only**, or does it accumulate per-neighbour evidence over frames?
+      3. Does it model **honest sensor noise** causing benign disagreement?
+      4. What is the evaluation metric — detection rates, or a driving/navigation outcome?
+
+---
+
 ## ⭐ PRIORITY 1b — FORWARD-SWEEP papers Claude could NOT reach (added 2026-07-28)
 
 These surfaced in the **forward-citation sweep** (who cites CAD / ROBOSAC / TruPercept / Coopernaut).
