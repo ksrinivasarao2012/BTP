@@ -242,7 +242,53 @@ precedent for the CP-navigation paradigm), and (ii) a source of two hard numbers
 
 ---
 
-## A. NOT LOCATABLE — no abstract exists anywhere online (10)
+## ⭐⭐ CATEGORY A LARGELY DISSOLVED (2026-07-28) — 11 → 1
+
+**What happened.** Category A was retried by resolving each paper's **external ID** (arXiv/DOI/CorpusId) via the
+Semantic Scholar *citations* endpoint rather than searching by title. **9 of 10 resolved with verbatim
+abstracts.** Most were never unreachable — **they were filed under different titles.**
+
+### The title collisions that caused the false "unreachable" calls
+| Recorded in the citation list as | ACTUAL title |
+|---|---|
+| Talking Vehicles: Cooperative Driving via Natural Language | **CoopReflect: Towards Natural Language Communication for Cooperative Autonomous Driving via Multi-Agent Learning** (arXiv 2505.18334) |
+| Co-driver: VLM-based Autonomous Driving Assistant… | **VLM-Auto: VLM-based Autonomous Driving Assistant…** (arXiv 2405.05885) |
+| QUEST: Query Stream for Vehicle-Infrastructure Cooperative Perception | **QUEST: Query Stream for Practical Cooperative Perception** (arXiv 2308.01804) |
+| A Novel Multi-layer Task-centric Framework | **…Task-centric *and Data Quality* Framework for Autonomous Driving** (arXiv 2506.17346) |
+| Stealth in Sight: Model-Free Assessment | **…Model-Free Assessment *of LiDAR Vulnerabilities in Autonomous Vehicle Systems*** (ICC Workshops 2026) |
+
+⚠️ **Three of these turned out to be duplicates of papers already read under their real names** (CoopReflect,
+QUEST, and the AD-datasets survey). Note also that **CoopReflect is by Cui, Qiu & Stone — the Coopernaut
+authors** — so it was always going to be in that citation list.
+
+### All 9 resolved — verbatim abstracts obtained, all OUT
+| Paper | Decisive evidence (verbatim) | Verdict |
+|---|---|---|
+| **An Attack Detection Method Based on Spatiotemporal Correlation for Autonomous Vehicles Sensors** (ITSC'22) | ⭐ *This was the #1 category-A concern.* *"we utilize correlation of sensors in the **space domain** to establish distance models **between multi-sensor** and the distance models of **a single sensor in time domain**"* → **multi-SENSOR on ONE vehicle** (lidar/camera/IMU/GPS), **not multi-agent**. KITTI | ❌ no cite — **concern resolved** |
+| **Stealth in Sight** (ICC Workshops'26) | PPO-LSTM under a POMDP injects *"occlusion, point removal, and, noise into LiDAR data via malicious software into the LiDAR preprocessing stage of **Robot Operating System (ROS) middleware**"*; 85% ASR on KITTI | ❌ single-vehicle middleware attack |
+| **Secure3D-CV** (Open Research Europe'26) | OpenCV extension for 3D outlier/tamper detection; evaluated on *"simulated point clouds and depth maps… and **100 anonymised CT volumes**"* | ❌ single-stream integrity, part-medical |
+| **A Novel Multi-layer Task-centric and Data Quality Framework** (2506.17346) | Five-layer **data-quality** framework; nuScenes redundancy case study with YOLOv8 | ❌ no adversary, no CP |
+| **End-to-End Urban Autonomous Driving With Safety Constraints** (IEEE Access'24) | Safety constraints in a PGM + *"auxiliary safety critic"*, deep RL, CARLA | ❌ **single-vehicle**, no CP, no adversary |
+| **CoopReflect** (2505.18334) | LLM V2V natural-language messaging; *"TalkingVehiclesGym"*; multi-agent debriefing | ❌ benign language coordination |
+| **VLM-Auto** (2405.05885) | VLM driving assistant, CARLA + ROS2, 97.82% AP on label prediction | ❌ single-vehicle |
+| **QUEST** (2308.01804) | Query-cooperation paradigm; *"robustness to **packet dropout**"*; DAIR-V2X-Seq | ❌ benign CP (duplicate of the CoDynTrust read) |
+| **A Survey on Autonomous Driving Datasets** (2401.01454) | Survey of **265** AD datasets | ❌ survey |
+
+**Result: zero adversarial multi-agent papers among all 9. Zero competitors.**
+
+### Still unreachable — the only survivor
+**Sense2Com: Coordinating sensing, communication, and computation for V2V cooperative perception** — Jin Tian,
+Yan Shi, Shanzhi Chen — Elsevier *Physical Communication*, 2026, **DOI 10.1016/j.phycom.2026.103214**.
+Paywalled, no preprint, S2 holds no abstract. → `INSTITUTE_WIFI_TODO.md`. *(Title indicates a
+sensing/communication/computation scheduling paper — expected benign, but NOT verified.)*
+
+### 🔑 Method lesson — record this
+**Searching by title produced five false "unreachable" verdicts today** (ER-CoPe, PnPDA, Vehicle-road review,
+OptiMatch, and this batch of nine). **Resolving the external ID first, then fetching by ID, is the reliable
+path.** Titles drift between preprint, proceedings and indexing services; IDs do not. Any future "cannot find
+it" claim must be tested by ID before being recorded.
+
+## A. NOT LOCATABLE — no abstract exists anywhere online (1 remaining)
 These appear only as entries in other papers' reference lists. Repeated searches returned nothing.
 
 | # | Paper | From anchor | Note |
@@ -295,12 +341,12 @@ Verdict assigned on abstract only. Listed in `INSTITUTE_WIFI_TODO.md`.
 
 ## Summary
 
-| Category | Count |
-|---|---|
-| A. Not locatable | **11** |
-| B. Abstract only, conclusion walled | **9** |
-| C. Title only | **6** |
-| **TOTAL WITH NO / PARTIAL VERDICT** | **26** |
+| Category | Was | **NOW** |
+|---|---|---|
+| A. Not locatable | 11 | **1** ✅ (10 resolved 2026-07-28) |
+| B. Abstract only, conclusion walled | 9 | **9** |
+| C. Title only | 6 | **6** |
+| **TOTAL WITH NO / PARTIAL VERDICT** | 26 | **16** |
 
 **Of these, 4 would matter most if they turned out to be competitors:**
 `RLCVP` (Level-1 must-cite) · `Fake-Objects-CPM` (fabricated objects + trust) · `ALADCP` (object-level like ours)
