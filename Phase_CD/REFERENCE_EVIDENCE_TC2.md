@@ -146,11 +146,33 @@ down.** Searching the full phrase will fail; search the tested fragment.
 > key, not the line number**, and re-derive with:
 > `grep -n "tc2_2021" sections/*.tex`
 
-**WE WRITE (verbatim from our manuscript):** "A separate line detects LiDAR spoofing against a
-\emph{single} vehicle by exploiting temporal structure in its own sensor stream, e.g.\
-motion-induced consistency in 3D-TC2~\cite{tc2_2021} and point-level temporal consistency in
-ADoPT~\cite{adopt2023}. These methods test whether observations from a single sensor remain
-temporally self-consistent."
+**WE WRITE (verbatim from our manuscript) — 🔄 REWORDED 2026-07-29 on Srinivasa's instruction:**
+"A separate line detects LiDAR spoofing by exploiting temporal consistency across consecutive
+frames from a \emph{single} ego vehicle's own LiDAR, e.g.\ motion-induced consistency in
+3D-TC2~\cite{tc2_2021} and point-level temporal consistency in ADoPT~\cite{adopt2023}. These
+methods evaluate temporal consistency across consecutive frames from one vehicle."
+
+> ✎ **WHY IT CHANGED (Srinivasa, 2026-07-29): literal fidelity over elegance.** The old wording
+> used two phrases the papers never use. Measured across both PDFs:
+>
+> | phrase | 3D-TC2 | ADoPT | verdict |
+> |---|---|---|---|
+> | `sensor stream` | **0** | **0** | ❌ our abstraction — removed |
+> | `self-consistent` | **0** | **0** | ❌ our abstraction — removed |
+> | `temporal consistency` | **18** | **21** | ✅ **their term** — now used |
+> | `across consecutive` | 2 | 4 | ✅ shared — now used |
+> | `ego-vehicle` / `ego vehicle` | 5 | 2 | ✅ theirs — now used |
+> | `LiDAR observations` | **0** | **0** | ❌ *also ours* — rejected from the proposed rewrite |
+>
+> Srinivasa's proposed replacement used *"a vehicle's own LiDAR observations"*; the count shows
+> that phrase is **also absent from both papers**, so it was swapped for **"consecutive frames"**,
+> which both papers do use. Nothing about the claim changed — only whose vocabulary carries it.
+>
+> ⚠️ **Residual synthesis, disclosed:** `single vehicle` appears **0 times** in either paper. It is
+> **our** contrast, not their self-description — but it is factually correct and proved
+> independently in **Part D** (zero cross-agent terms in 3D-TC2). Likewise *"motion-induced"*
+> remains ours (**C-1**). **No survey sentence can be zero-synthesis; the goal is that every noun
+> and verb tracks the source.**
 
 | Our clause | Backed by |
 |---|---|

@@ -148,11 +148,11 @@ attack-free swarms --- directly, and finding it statistically
 indistinguishable from zero even under an adaptive attacker.
 
 \paragraph{Temporal detection of sensor spoofing.}
-A separate line detects LiDAR spoofing against a \emph{single} vehicle by
-exploiting temporal structure in its own sensor stream, e.g.\ motion-induced
-consistency in 3D-TC2~\cite{tc2_2021} and point-level temporal consistency
-in ADoPT~\cite{adopt2023}. These methods test whether observations from a
-single sensor remain temporally self-consistent. Ours instead aggregates a \emph{cross-agent
+A separate line detects LiDAR spoofing by exploiting temporal consistency
+across consecutive frames from a \emph{single} ego vehicle's own LiDAR, e.g.\
+motion-induced consistency in 3D-TC2~\cite{tc2_2021} and point-level temporal
+consistency in ADoPT~\cite{adopt2023}. These methods evaluate temporal
+consistency across consecutive frames from one vehicle. Ours instead aggregates a \emph{cross-agent
 disagreement} --- the offset between a neighbour's claim and the verifier's
 own view --- whose statistics under honest noise (zero-mean, variance
 $2\sigma^2$) versus fabrication (persistent bias) we can characterize and

@@ -114,11 +114,28 @@ to 0.7 s at ~87% of accuracy (§6.2) ✅. Bibliography = **37 refs** ✅.
 > ⚠️ **Line numbers drift** — was `~117–122` until a paragraph was inserted above on 2026-07-28.
 > Anchor on the `\cite` key: `grep -n "adopt2023" sections/*.tex`
 
-**WE WRITE (verbatim from our manuscript):** "A separate line detects LiDAR spoofing against a
-\emph{single} vehicle by exploiting temporal structure in its own sensor stream, e.g.\
-motion-induced consistency in 3D-TC2~\cite{tc2_2021} and point-level temporal consistency in
-ADoPT~\cite{adopt2023}. These methods test whether observations from a single sensor remain
-temporally self-consistent."
+**WE WRITE (verbatim from our manuscript) — 🔄 REWORDED 2026-07-29 on Srinivasa's instruction:**
+"A separate line detects LiDAR spoofing by exploiting temporal consistency across consecutive
+frames from a \emph{single} ego vehicle's own LiDAR, e.g.\ motion-induced consistency in
+3D-TC2~\cite{tc2_2021} and point-level temporal consistency in ADoPT~\cite{adopt2023}. These
+methods evaluate temporal consistency across consecutive frames from one vehicle."
+
+> ✎ **WHY IT CHANGED — literal fidelity over elegance.** Two phrases in the old wording appear
+> **nowhere** in either paper (`sensor stream` 0/0, `self-consistent` 0/0). Replaced with their own
+> vocabulary: `temporal consistency` (**18** in 3D-TC2, **21** in ADoPT), `across consecutive`
+> (2/4), `ego vehicle` (5/2). Srinivasa's proposed replacement said *"LiDAR observations"*, but the
+> count shows that is **also 0/0** — our abstraction too — so **"consecutive frames"** was used
+> instead, which ADoPT uses **5 times**. The claim is unchanged; only the vocabulary moved to the
+> source.
+>
+> ✅ **ADoPT-specific gain:** the sentence now leads with the exact words of **ADoPT's own title** —
+> *"Point-Level **Temporal Consistency**"* — and its abstract, *"quantitatively measures **temporal
+> consistency across consecutive frames**"*. This is now about as literal as a synthesis sentence
+> can be for this paper.
+>
+> ⚠️ **Residual synthesis, disclosed:** `single vehicle` is **0/0** — our contrast, not their
+> self-description. It is correct (see **D-1**) but it is ours. `motion-induced` likewise (it
+> describes 3D-TC2, flagged in that dossier's C-1).
 
 | Our clause | Backed by |
 |---|---|
