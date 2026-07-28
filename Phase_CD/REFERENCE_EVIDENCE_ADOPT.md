@@ -1,6 +1,26 @@
 # ADoPT — paired claim/evidence sheet
 
-## STATUS: ☑ AUDITED & APPROVED (Srinivasa, 2026-07-26) — re-verified 2026-07-28
+## STATUS: ☐ **AWAITING SRINIVASA'S REVIEW** of the 2026-07-29 fact/interpretation split
+
+> ⚠️ **Attribution.** All verification here — paper reading, quote checking, counts, searches,
+> drafting — is **CLAUDE'S WORK**. Srinivasa's role is **review and approval**.
+
+| Date | Work | Done by | Reviewed & approved by |
+|---|---|---|---|
+| 2026-07-26 | Original dossier | **Claude** | **Srinivasa** ✅ |
+| 2026-07-28 | Quote re-verification, M-1, Parts A–D | **Claude** | **Srinivasa** ✅ |
+| 2026-07-29 | Fact/interpretation split + **scope check on §6.2** | **Claude** | ☐ **PENDING** |
+
+**2026-07-29 closure checks — all pass:**
+
+| Check | Result |
+|---|---|
+| `WE WRITE` ↔ live `related.tex` | ✅ **exact match** |
+| Citation sites (key **and** name) | ✅ `adopt2023` **1×**, `ADoPT` **1×**, same line 154 — only use |
+| Paragraph range | ✅ lines **150–162** |
+| 🔍 **Scope of the §6.2 corroboration** | ✅ **PASSES** — concerns *spoofed/fabricated* objects, matching our attack class. **This is the check 3D-TC2 failed (M-2).** |
+
+_(previously: ☑ approved 2026-07-26, re-verified 2026-07-28)_
 Re-read in full 2026-07-28 (**all 17 pages incl. Appendices A, B, C**) under the verbatim-only
 standard. **Substance fully intact; one paraphrase-inside-quotes corrected (M-1), zero manuscript
 impact.** Sign-off stands.
@@ -113,11 +133,52 @@ temporally self-consistent."
 
 # PART C — OUR INFERENCE (our words, NOT theirs)
 
-- **C-1 — the reference-signal argument** (their check keys on *the ego's own past*; ours on *a
-  neighbour's claim vs the verifier's own sensing*). Analytic contrast, not their text.
-- **C-2 — 🔑 "their harmlessness argument does not transfer to our setting."** Ours entirely.
-  See the sharpened corroboration below. Defensible from **Q6**+**Q7**, but it is our reasoning
-  about *our* scenario and must never be attributed to them.
+> 📏 Split into paper-fact vs interpretation per the standard set by Srinivasa 2026-07-28
+> (`AUDIT_PENDING.md` § DOSSIER WRITING STANDARD).
+
+## C-1 — the reference-signal argument
+
+**C-1.1 — PAPER FACTS.** ADoPT warps the ego's own historical frames F₁…F_L into a synthesis via
+scene-flow estimation and compares it against that same sensor's incoming frame F_{L+1} (§5).
+Their stated observation is that *"injected points demonstrate poor temporal consistency —
+appearing inconsistently within the point cloud frame over time"* (**Q3**). Historical length is
+**10 frames at 10 Hz** (**Q9**).
+
+**C-1.2 — OUR TECHNICAL INTERPRETATION.** We characterise this as keying on **the ego's own past**,
+whereas our test keys on **a neighbour's claim versus the verifier's own sensing**. **The authors
+do not frame their work in terms of a "reference signal" and make no comparison to cross-agent
+verification.** Our analytic contrast, not their text.
+
+## C-2 — 🔑 "their harmlessness argument does not transfer to our setting"
+
+**C-2.1 — PAPER FACTS.** Two statements, both quoted with their scope intact:
+- **Q5** (§6.2, *Failure Cases*): *"As we employ the spatial clustering method for attack
+  detection, most failure cases arise when **spoofed objects are attached to benign road
+  objects**."*
+- **Q6** (§6.2): *"Although classified as false negatives, the spoofed object is identified as part
+  of the benign object it is attached to; thus, **it does not significantly affect existing
+  navigation decisions** or trigger numerous sudden alarms."*
+- **Q7** (Appendix C): the miss *"does not markedly influence driving decisions… **considering the
+  imperative to avoid collisions with the benign object that remains in place**."*
+
+✅ **SCOPE VERIFIED 2026-07-29 — and it passes.** These sentences concern **spoofed / fabricated**
+objects, which is ADoPT's actual threat model (§4: dense and sparse **point injection** producing
+*"a visually recognizable fake object"*). Figure 13's caption is explicit: *"The car marked with a
+yellow circle is a **fake object created through a sparse injection attack**. The perception module
+recognizes this fake car as part of the genuine vehicle on the right."*
+
+> 🔍 **Why this check was run.** 3D-TC2's dossier failed exactly here (**M-2**): its §4.4
+> limitation looked like the same corroboration but sat under the heading *"Object hiding
+> attacks"* — a different attack class. **ADoPT's does not have that defect.** Same structural
+> setup, opposite result — the check discriminates rather than merely flagging.
+
+**C-2.2 — OUR TECHNICAL INTERPRETATION.** Their harmlessness argument (**Q6**, **Q7**) rests on the
+fake being *attached to a real object you would avoid anyway*. In our setting the camouflage
+phantom **extends a real obstacle across the corridor gap the drone must pass through**, so
+avoiding the real obstacle does not avoid the phantom's claimed extent and the passage closes.
+**The authors evaluate free-standing road scenes and make no claim about gap-navigation; they do
+not state that their harmlessness argument is scenario-dependent.** That reading is entirely ours,
+and must never be attributed to them.
 
 ---
 
@@ -130,11 +191,15 @@ ADoPT **does cite cooperative perception**: **Cooper** (ICDCS'19, ref [4]) and *
 Edge-Assisted Multi-Vehicle Perception** (MobiCom'21, ref [36]). A blanket claim that
 "cooperative perception appears nowhere" would be **false**.
 
-What is true, and what our clause actually needs: **both are cited only as evidence that raw
-sensor data is information-rich** — see **Q10**, *"Harnessing the rich and comprehensive
-information present in raw sensor data [36,4]"*. Neither contributes a mechanism. **ADoPT
-consumes only the ego vehicle's own historical frames F₁…F_L against its own incoming frame
-F_{L+1}** (§5, **Q9**). The "single sensor" clause is therefore correct as written.
+**D-1.1 — MEASURED FACT.** Both are cited **only as evidence that raw sensor data is
+information-rich** — see **Q10**, *"Harnessing the rich and comprehensive information present in
+raw sensor data [36,4]"*. Neither contributes a mechanism. ADoPT consumes only the ego vehicle's
+own historical frames F₁…F_L against its own incoming frame F_{L+1} (§5, **Q9**).
+
+**D-1.2 — OUR TECHNICAL INTERPRETATION.** We read this as establishing that ADoPT's *mechanism* is
+single-vehicle, which is what our "single sensor" clause asserts. **The authors do not describe
+their work as "single-vehicle" in contrast to anything — the scope is simply what they built.**
+The citation facts are measured; the sufficiency for our clause is our judgement.
 
 ---
 
