@@ -1,4 +1,45 @@
-# TruPercept — paired claim/evidence sheet (final, 2026-07-10)
+# TruPercept — paired claim/evidence sheet
+
+## STATUS: ☐ **AWAITING SRINIVASA'S REVIEW** — full re-audit 2026-07-29
+
+> ⚠️ **Attribution.** All verification here — paper reading, quote checking, searches, drafting —
+> is **CLAUDE'S WORK**. Srinivasa's role is **review and approval**.
+
+**Why re-audited:** TruPercept has the **largest citation surface of any paper we cite** — 8
+citation sites across **4 files** (`introduction`, `results`, `related` ×5, `discussion`). It was
+also one of six dossiers whose `WE WRITE` blocks had drifted (resynced 2026-07-28).
+
+**Re-audit results (2026-07-29), full 7-page re-read:**
+- ✅ **PDF intact** — 1,291,148 bytes, valid `%%EOF` (the TrustFlip truncation check).
+- ✅ **All 13 load-bearing quotes verified** against the paper text.
+- ⚠️ **3 apparent failures were fi-ligature artifacts** (`confidence`, `significantly`,
+  `verified`) — exactly what this file's own ligature note predicts. Re-verified with ligature
+  normalisation: all three present. **Not errors.**
+- ✅ **All 8 citation sites are documented** by the 7 USE blocks (USE 5 covers two adjacent
+  citations in `related.tex`). Nothing undocumented.
+- 🔄 **TWO blocks resynced** (each with an in-place drift note):
+  - **USE 1** — the introduction paragraph was restructured 2026-07-29; only the framing clause
+    changed, the load-bearing words are byte-identical.
+  - **USE 5** — ⚠️ *found during this audit, not previously known.* A **MATE / aerial-framework
+    clause was inserted mid-sentence** in `related.tex`, invalidating this block's text. Classic
+    shared-paragraph drift: the edit was made for a different paper. No TruPercept claim changed.
+- ✅ **The other five USE blocks re-checked against live `.tex` and match** — USE 2
+  (`results.tex` 24–29), USE 3 (`related.tex` 66–70), USE 4 (81–97), USE 6 (223–247), USE 7
+  (`discussion.tex` 42–49). Only USE 5 had drifted.
+- ⭐ **NEW finding not previously recorded** — see *"Their own coordinated-attack admission"*. It is
+  logged as a **CANDIDATE (not cited anywhere)**, with a scope check (C-1) and three banned
+  sentences, because the naive reading of it is wrong: their trust model **did** catch the
+  malicious vehicles; the weakness they admit is that accuracy degraded anyway.
+- ⚠️ **One self-correction inside this re-audit, logged in Part D** — I wrote an absence claim
+  before running its search; the search then returned a second hit, which became finding A-6. The
+  error is recorded in place rather than silently repaired.
+
+**Nothing in the manuscript changed as a result of this re-audit** apart from the USE 1 resync
+(which tracked an edit made for other reasons). No claim we make about TruPercept was found wrong.
+
+---
+
+_(original header, 2026-07-10)_
 
 Every place our manuscript cites TruPercept, shown as a PAIR:
 **WE WRITE** = the exact current sentence in our `.tex` · **THEY WROTE** = the verbatim passage in
@@ -11,11 +52,21 @@ search shorter fragments (`veri`, `signi`, `conf`).
 
 ## USE 1 — Introduction ¶3: the problem is real
 
-**WE WRITE (`sections/introduction.tex`):**
-> The difficulty of getting this right is not hypothetical: an early study of trust-modulated
-> cooperative perception found that cooperative fusion did not meaningfully improve accuracy over
-> local perception, with false detections inserted at high confidence among the suspected
-> causes~\cite{trupercept2020}.
+**WE WRITE (`sections/introduction.tex` line 57) — 🔄 RESYNCED 2026-07-29:**
+> That this difficulty is not hypothetical is borne out by an early
+> study of trust-modulated cooperative perception, which found that
+> cooperative fusion did not meaningfully improve accuracy over local
+> perception, with false detections inserted at high confidence among the
+> suspected causes~\cite{trupercept2020}.
+
+> ⚠️ **DRIFT NOTE (2026-07-29).** The introduction paragraph was restructured on 2026-07-29 (the
+> orphaned *"Our third finding"* was removed and this citation moved from the middle of the
+> paragraph to its end, where it corroborates the claim instead of delaying it).
+> **Only the framing clause changed** — *"The difficulty of getting this right is not
+> hypothetical:"* → *"That this difficulty is not hypothetical is borne out by"*.
+> **The load-bearing words are byte-identical**: *"cooperative fusion did not meaningfully improve
+> accuracy over local perception, with false detections inserted at high confidence among the
+> suspected causes"*. The verification below therefore still holds unchanged.
 
 **THEY WROTE (§VI.A):**
 > "The most important insight is that none of the tested methods improve the perceptual accuracy
@@ -104,12 +155,28 @@ clouds" error removed — catch #5 of the wording series.)
 
 ## USE 5 — Related Work: evasion finding + central-server contrast
 
-**WE WRITE (`sections/related.tex`):**
-> ...TruPercept further reports that unreliable agents which mostly report truthfully are not
-> separated from honest ones by its trust model~\cite{trupercept2020} --- an early indication of
-> the evasion regime we formalize. Where our setting departs further: TruPercept aggregates trust
-> at a central server, whereas our verdicts are pairwise and local, as a swarm without
-> infrastructure requires.
+**WE WRITE (`sections/related.tex` lines 103–113) — 🔄 RESYNCED 2026-07-29, character-exact:**
+> ...TruPercept further reports that unreliable agents which mostly
+> report truthfully are not separated from honest ones by its trust
+> model~\cite{trupercept2020} --- an early indication of the evasion regime we
+> formalize. Where our setting departs further:
+> TruPercept~\cite{trupercept2020} aggregates trust at a central server and
+> MATE~\cite{mate2025} at a central computing centre (the aerial
+> framework~\cite{aerialtrust2025} does distribute the estimation), whereas
+> our verdicts are pairwise and local, as a swarm without infrastructure
+> requires.
+
+> ⚠️ **DRIFT NOTE (2026-07-29).** The block previously recorded here read *"TruPercept aggregates
+> trust at a central server, whereas our verdicts are pairwise and local…"*. The live sentence has
+> since had a **MATE / aerial-framework clause inserted mid-sentence**. This is textbook
+> **shared-paragraph drift**: the edit was made for MATE's sake and silently invalidated
+> TruPercept's `WE WRITE` block. **No TruPercept claim changed** — every word this dossier
+> verifies (*"aggregates trust at a central server"*, *"our verdicts are pairwise and local, as a
+> swarm without infrastructure requires"*) is byte-identical. The evidence below still holds.
+> ⬜ **Cross-check owed:** the inserted clause asserts things about **MATE** and **AerialTrust** —
+> *"at a central computing centre"* and *"does distribute the estimation"*. Those are **not this
+> dossier's to verify**; they must be checked in `REFERENCE_EVIDENCE_MATE.md` and
+> `REFERENCE_EVIDENCE_AERIALTRUST.md`, both of which are still unaudited.
 
 **THEY WROTE (§VI.C):**
 > "The trust value for unreliable vehicles is not significantly different than trustworthy
@@ -164,6 +231,124 @@ the per-vehicle alternative exists).
 **THEY WROTE (§VI.C):** same passage as USE 5 ("not significantly different than trustworthy...").
 
 **Match:** direct; the second sentence is about OUR study (bind table, `adaptive_offset_f2_500.txt`).
+
+---
+
+## ⭐ Their own coordinated-attack admission (NEW, 2026-07-29) — **CANDIDATE, NOT YET USED**
+
+> **Status: NOT CITED ANYWHERE IN THE MANUSCRIPT.** This block records verified evidence found
+> during the 2026-07-29 re-read. It has **no `WE WRITE` counterpart** because we do not currently
+> use it. Do not treat its absence from the `.tex` as drift. If we ever wire it in, the wording
+> must come from Part-A below, not from Part-B.
+
+### PART A — PAPER FACTS (their exact words, §VI.C "Trust Levels")
+
+**A-1. What their "malicious" behaviour actually is:**
+> "Malicious: a vehicle and pedestrian are inserted in front of the ego-vehicle for every frame
+> from 10% of vehicles."
+
+**A-2. The harm:**
+> "The malicious detections decrease the performance significantly, even for pedestrians."
+
+**A-3. The admission (verbatim):**
+> "The malicious detections behaviour represents a coordinated attack between 10% of the vehicles
+> specifically targeted towards the ego-vehicle. This shows a weakness in the model towards
+> coordinated attacks."
+
+**A-4. Their measured trust separation:**
+> "The mean trust values at the termination of the experiments were: 0.27 trustworthy, 0.25
+> unreliable, and 0.13 malicious."
+
+**A-5. And — critically — they state the malicious agents WERE caught:**
+> "The trust model was able to detect blatantly malicious behaviour with a much higher success."
+
+**A-6. The same detect-but-don't-remove pattern, stated for a single frame (§V.A, "Scenario 1:
+Algorithm Analysis Using a Single-Frame") — found while re-running the Part-D searches:**
+> "A false detection in a dangerous location (less than 10m away, directly in its trajectory, and
+> oncoming) for the ego-vehicle is inserted into the broadcast of the oncoming vehicle. The false
+> detection is given a high detection score (1.0) in an attempt to fool the ego-vehicle."
+
+and, two sentences later:
+> "Unfortunately the false detection, although the score is decreased, is still present. However,
+> if the plausibility checker is also run, it can eliminate the possibility that the false
+> detection exists while still maintaining the pedestrian which is occluded."
+
+**Tested Ctrl+F fragments** (each verified to sit on a single PDF line, no fi/ffi ligature, no
+hyphenation across the fragment — so each should match in a reader's find box):
+| fragment | for |
+|---|---|
+| `a vehicle and pedestrian are inserted in front` | A-1 |
+| `malicious detections decrease the performance` | A-2 (stops before the `fi` ligature) |
+| `represents a coordinated attack between 10% of the vehicles` | A-3 |
+| `weakness in the model towards coordinated attacks` | A-3 |
+| `0.27 trustworthy, 0.25 unreliable, and 0.13` | A-4 |
+| `The trust model was able to detect blatantly` | A-5 |
+| `detection score (1.0) in an attempt to fool the ego-vehicle` | A-6 |
+| `although the score is decreased, is still present` | A-6 |
+
+### PART C — OUR TECHNICAL INTERPRETATION (**not attributable to the authors**)
+
+> ⚠️ Everything below is OUR reading. TruPercept states A-1..A-5 and nothing further. None of the
+> sentences here may be presented as the authors' conclusion.
+
+**C-1. SCOPE CHECK — what their admitted weakness is, and what it is NOT.**
+Read together, A-2 + A-3 + A-5 say: their trust model **identified** the malicious vehicles
+(trust 0.13, well below 0.27) and perception accuracy **still degraded significantly**. Their
+admitted weakness is therefore **detection without sufficient mitigation** under a coordinated
+minority, *not* a failure to detect. **This distinction is load-bearing.** Writing "TruPercept's
+trust model fails to catch coordinated attackers" would be the same class of error as the
+3D-TC2 M-2 scope failure — a correct quote used for a claim its context contradicts.
+
+**A-6 independently corroborates this reading in the authors' own words**, on a single frame and
+without any aggregation: the trust mechanism *downweighted* the injected false detection but did
+not remove it (*"although the score is decreased, is still present"*), and it was the
+**plausibility checker** — not the trust score — that eliminated it. Note the coupling to USE 4:
+the component that actually removed the phantom is the **free-space** frustum test whose evidence
+a camouflaged fabrication is designed not to supply. We may state that coupling only as OUR
+reading; TruPercept never discusses camouflage (`camouflage` = 0 hits, recorded at USE 4).
+
+**BANNED SENTENCES** (each contradicted by A-5; never write any of these):
+- ❌ "TruPercept could not detect coordinated attackers."
+- ❌ "Their trust model breaks down when multiple agents lie."
+- ❌ "Their 0.13 malicious trust value shows the attack evaded detection." *(0.13 is the LOWEST of
+  the three — it shows the opposite.)*
+
+**C-2. What it legitimately supports.** A-3 is an author-stated open weakness under a
+**multi-agent, persistently-fabricating** adversary — the same adversary class we sweep in
+$f = 1\ldots7$. It is usable as corroboration that multi-traitor coordination was flagged as an
+open problem by an early trust-modelling paper, i.e. motivation for our $f$-sweep. It is **not**
+usable as a comparison of detection performance, because they report AP and mean trust and we
+report navigation success and detection recall — different quantities on different tasks.
+
+**C-3. Why it is only a candidate.** Our current multi-traitor argument rests on our own
+$f = 4\ldots7$ CIs, which do not need external corroboration. Adding this citation buys motivation
+but adds a scope-error surface (C-1). Recommendation: **hold unless a reviewer challenges the
+premise that coordinated multi-agent fabrication is an open problem**, in which case cite A-3.
+
+### PART D — VERIFIED BY ABSENCE (searches re-run and **corrected** 2026-07-29)
+
+> ⚠️ **Self-correction, logged.** My first draft of this Part D asserted *"the only 'fool'
+> occurrence is about the unreliable behaviour."* **That was wrong** — running the search returned
+> **two** hits. The second (line 436 of the extracted text, §V.A) is the source of A-6 above. The
+> claim was written before the search was executed; that is precisely the failure mode this
+> dossier standard exists to prevent, so it is recorded rather than quietly fixed.
+
+Search performed over the full extracted text
+(`scratchpad/trupercept_text.txt`, 7 pages, case-insensitive):
+
+| pattern | hits | where |
+|---|---|---|
+| `fool` | **2** | L436 §V.A (→ A-6); L594 §VI.C (the *unreliable* behaviour, already USE 5 / USE 7) |
+| `evade` / `evasi` | 0 | — |
+| `undetected` | 0 | — |
+| `escape` | 0 | — |
+| `not detected` | 0 | — |
+| `coordinat` | **2** | L586, L588 — both in the A-3 sentence pair; the word appears nowhere else |
+
+**What this establishes:** the authors nowhere claim the coordinated/malicious attack *evaded*
+trust scoring. Both surviving statements about their mechanism being defeated concern the
+**unreliable** (mostly-truthful) behaviour, not the malicious one. Confirms C-1 and the banned
+sentences above.
 
 ---
 

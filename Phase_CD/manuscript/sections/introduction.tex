@@ -36,23 +36,25 @@ harder to detect than a blatant phantom wall.
 The natural defense is cross-agent consistency checking: if a verifier is
 positioned to see a reported obstacle and does not, the reporter loses
 trust and is excluded from fusion. Under idealized sensing this neutralizes
-the attack almost completely. The difficulty of getting this right is not
-hypothetical: an early study of trust-modulated cooperative perception found
-that cooperative fusion did not meaningfully improve accuracy over local
+the attack almost completely. It breaks down, however, in exactly the
+conditions that make collaboration valuable. Under realistic ranging noise
+two honest views of the same obstacle legitimately disagree by about
+$\sqrt{2}\sigma$; once that exceeds the verifier's fixed tolerance, honest
+neighbours are condemned as liars. Detection precision collapses from
+$1.00$ to $0.23$, and merely enabling the filter destroys up to 27
+percentage points of success in swarms containing no attacker at all:
+\emph{the defense is worse than no defense}. Widening the tolerance with
+$\sigma$ repairs the false accusations but opens the complementary hole ---
+a camouflage attacker hides its fabrication \emph{inside} the widened band,
+where no single-frame test can contradict it, and at the severest noise
+level such a filter catches only 13\% of camouflage lies. The bind is
+structural rather than a matter of tuning: on any single frame, a tolerance
+tight enough to expose the lie is tight enough to condemn an honest
+neighbour. That this difficulty is not hypothetical is borne out by an early
+study of trust-modulated cooperative perception, which found that
+cooperative fusion did not meaningfully improve accuracy over local
 perception, with false detections inserted at high confidence among the
-suspected causes~\cite{trupercept2020}. Our third finding is that this defense is
-\emph{brittle in exactly the conditions that make collaboration valuable}.
-Under realistic ranging noise, two honest views of the same obstacle
-legitimately disagree by about $\sqrt{2}\sigma$; once this exceeds the
-verifier's fixed tolerance, honest neighbours are condemned as liars.
-Detection precision collapses from $1.00$ to $0.23$, and the defense
-becomes \emph{worse than no defense at all}, destroying up to 27
-percentage points of success in attack-free swarms. A noise-aware variant
-that widens the tolerance with $\sigma$ repairs the false accusations, but
-opens a blind spot: the camouflage attacker can hide its fabrication
-\emph{inside} the widened tolerance band, where no single-frame test can
-contradict it. At the severest noise level the robust filter catches only
-13\% of camouflage lies.
+suspected causes~\cite{trupercept2020}.
 
 Our central contribution closes this blind spot with time rather than with
 looser thresholds. The per-frame \emph{offset vector} between a neighbour's

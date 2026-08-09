@@ -80,7 +80,26 @@ Cross-check each against the paper PDF in `Phase_CD/Research paper/` and against
 - ☐ **GCP** — `REFERENCE_EVIDENCE_GCP.md` (spatial-temporal malicious-agent detection; TDSC accept year)
 - ☐ **PRBI** — `REFERENCE_EVIDENCE_PRBI.md` (⭐ MOST IMPORTANT — the 3 "does not" novelty claims must be bulletproof)
 - ☑ **TrustFlip** — `REFERENCE_EVIDENCE_TRUSTFLIP.md` (trust-poisoning, expels honest agents) — **Srinivasa audited & approved 2026-07-26; incl. the "expel"→"downweight or exclude" wording tightening**
-- ☐ **TruPercept** — `REFERENCE_EVIDENCE_TRUPERCEPT.md` (trust modelling; detection-vs-feature wording)
+- ◑ **TruPercept** — `REFERENCE_EVIDENCE_TRUPERCEPT.md` (trust modelling; detection-vs-feature wording)
+  — **Claude's full re-audit DONE 2026-07-29; ⬜ AWAITING SRINIVASA'S REVIEW.**
+  Largest citation surface of any paper we cite: **8 sites across 4 files** (`introduction.tex:57`,
+  `results.tex:28`, `related.tex` ×5 at 67/85/107/109/246, `discussion.tex:44`) — all 8 documented
+  by the 7 USE blocks. PDF integrity checked (1,291,148 B, valid `%%EOF`). All **13 load-bearing
+  quotes verified**; 3 apparent failures were **fi-ligature artifacts**, not errors. USE 1 resynced
+  after the 2026-07-29 introduction restructure (load-bearing words byte-identical).
+  **Two things need your eye:**
+  (i) ⭐ a **NEW finding** logged as a *candidate, not cited anywhere*: their §VI.C admission
+  *"This shows a weakness in the model towards coordinated attacks."* It comes with a **scope check
+  and three banned sentences**, because the tempting reading is **wrong** — their trust model *did*
+  catch the malicious vehicles (trust 0.13 vs 0.27); what they admit is that accuracy degraded
+  **anyway**. Misusing it would repeat the 3D-TC2 M-2 error exactly. My recommendation is to
+  **hold the citation** — our own $f=4..7$ CIs already carry the multi-traitor claim, so it buys
+  motivation at the cost of a scope-error surface;
+  (ii) ⚠️ **a self-correction inside the audit, logged in Part D**: I wrote an absence claim
+  (*"the only 'fool' occurrence is…"*) **before running its search**; the search then returned a
+  second hit, which became finding **A-6** — the authors stating that trust scoring *decreased but
+  did not remove* an injected false detection, and that the **free-space plausibility checker** was
+  what eliminated it. Left in place rather than silently repaired.
 - ☐ **MATE** — `REFERENCE_EVIDENCE_MATE.md` (Hallyburton & Pajic; Bayesian FoV trust — task #5)
 - ☐ **AerialTrust** — `REFERENCE_EVIDENCE_AERIALTRUST.md` (same authors; UAV distributed trust — task #5)
 - ☐ **ROBOSAC** — `REFERENCE_EVIDENCE_ROBOSAC.md` (full read; 5-axis table; 3 precision traps — task #1)
