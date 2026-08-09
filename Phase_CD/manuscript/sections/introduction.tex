@@ -73,7 +73,12 @@ lifts camouflage detection recall from $0.13$ to $0.69$ and recovers up to
 $+12.2$ percentage points of navigation success at the severest noise
 level, while leaving attack-free swarms statistically untouched (the
 measured cost is $-0.4$ percentage points with a confidence interval
-spanning zero). Anticipating the strongest objection --- that a static
+spanning zero). Because each verdict is pairwise --- a robot tests each
+neighbour against its own sensing and never counts votes --- the rule needs
+no honest majority: its recovery remains statistically significant with up
+to seven of ten robots lying, past the point where an honest robot's
+neighbourhood is majority traitor, whereas the single-frame check is no
+longer distinguishable from no defense there. Anticipating the strongest objection --- that a static
 attacker is a strawman --- we also evaluate an adaptive attacker that knows
 the defense and tunes its fabrication to evade it. The attacker faces a
 \emph{stealth/harm bind}: as the phantom drifts far enough from real
@@ -93,7 +98,9 @@ weakened but \emph{destructive} under sensor noise. \textbf{(iv)}~We give a
 noise-aware robust filter that restores safe operation and characterize its
 single-frame camouflage limit. \textbf{(v)}~We introduce a temporal
 offset-bias trust rule that recovers this limit at no measured cost to
-honest swarms, and validate it against an adaptive, defense-aware attacker
+honest swarms and, being pairwise, retains a significant recovery with up to
+seven of ten robots lying --- past the loss of an honest local majority ---
+and we validate it against an adaptive, defense-aware attacker
 across one to three traitors, demonstrating a stealth/harm bind that makes
 the recovery difficult to game.
 
