@@ -14,16 +14,23 @@ Companions: `PAPER_TODO.md` (submission checklist) · `AUDIT_PENDING.md` (review
 
 | # | Work | Status | Effort |
 |---|---|---|---|
-| **1** | Dossier auditing | **3 of 18 closed** | 2–3 sessions |
+| **1** | Dossier auditing | **3 of 18 closed** (TruPercept awaiting review) | 2–3 sessions |
 | **2** | Must-cites wired into the paper | **1 of 7** | ~1 day |
 | **3** | Hygiene (PDF integrity, venues, missing blocks) | mostly not started | ~2 hours |
 | **4** | 🔴 **LaTeX compile** | **NEVER DONE** | ~30 min |
 | **5** | 🔴 **Figures** | **ZERO drawn** | days |
+| **6** | 🆕 **Density/parameter repair in `setup.tex`** | **open — a stated justification is wrong** | ~half day |
+| **7** | 🆕 Reproduction check against the frozen tag | **owed** | ~1–2 h |
+| ~~8~~ | ~~Artifact freeze (tag, untrack `.pyc`, ship all scripts)~~ | ✅ **DONE 2026-08-09** — tag `camera-ready-v1` → `8878ea30`, pushed | — |
 
 > ⚠️ **The honest ranking.** Items 1–3 are *supporting material*. **Items 4–5 are the paper.**
 > A perfectly audited citation set does not help if the document has never built and has no
 > figures. Prior art is ~460 papers deep with **zero pre-emptions**; the manuscript has never
 > been compiled once.
+>
+> 🆕 **Item 6 outranks 1–3.** It is the only open item where the paper currently states something
+> we know to be **unsupported** — every other item is work not yet done, which is a different and
+> lesser problem than a claim that is wrong on the page.
 
 ---
 
@@ -49,8 +56,18 @@ Companions: `PAPER_TODO.md` (submission checklist) · `AUDIT_PENDING.md` (review
 Their `WE WRITE` blocks had drifted from `related.tex`; the **quotes are fixed but the content
 was never reviewed**.
 
-`PRBI` · `CAD` · `GCP` · **`TruPercept`** (⚠ largest surface: **7 uses across 4 files**) ·
-`MATE` (3 uses) · `AerialTrust` (5 uses across 3 files)
+`PRBI` · `CAD` · `GCP` · `MATE` (3 uses) · `AerialTrust` (5 uses across 3 files)
+
+**`TruPercept` — MOVED OUT of this group 2026-08-09.** Claude's full re-audit is **done**;
+⬜ **awaiting Srinivasa's review**. Largest surface of any paper we cite: **8 citation sites across
+4 files**, all documented. 13 load-bearing quotes verified (3 apparent failures were fi-ligature
+artifacts). Two things need your eye: (i) a **new candidate finding**, logged but deliberately
+**not cited** — their §VI.C *"weakness in the model towards coordinated attacks"*, which comes with
+three banned sentences because their trust model **did** catch the malicious agents (0.13 vs 0.27);
+misusing it would repeat M-2 exactly; (ii) a **self-correction logged in place** — an absence claim
+was written before its search was run, and the search then returned a second hit (finding A-6).
+Also found: **USE 5 had drifted** because a MATE clause was inserted mid-sentence in `related.tex`
+— which means the MATE and AerialTrust dossiers now owe a cross-check on wording they never wrote.
 
 ### 🔴 GROUP 3 — never audited at all (7)
 `CoDynTrust` · `MADE` · `ROBOSAC` · `Conformity` · `Coopernaut` · **`Vadivelu`** · `Stealthy-Fab`
@@ -97,7 +114,64 @@ closest papers go uncited. A reviewer from that community notices immediately.
 - [ ] **Venue confirmations** before submission: ADoPT (BMVC 2023 — arXiv PDF has no stamp) ·
       SwarmRaft (IoT-J template, `VOL. NN` unfilled) · TrustFlip (v1, no venue stated).
 - [ ] `refs.bib` TODO-VERIFY notes (Coopernaut pages, Stealthy-Fab venue).
-- [ ] 62 MB of PDFs are tracked in git on a **public** repo — check none are publisher PDFs.
+- [ ] 🚨 **27 third-party PDFs are tracked in `Phase_CD/Research paper/` on a PUBLIC repo**
+      (`github.com/ksrinivasarao2012/BTP`) — confirmed by `git ls-files` 2026-08-09, and now
+      inside the pushed `camera-ready-v1` tag. This is redistribution of copyrighted papers.
+      Removing them from the working tree is trivial; purging them from **history** is not, and
+      gets harder with every commit. **Decide before submission.**
+      (The publisher's own RAS author guide and `temp.png` are now gitignored and were never committed.)
+
+---
+
+# 6. 🆕 DENSITY / PARAMETER REPAIR — a stated justification is wrong
+
+Found 2026-08-09. **Nothing here changes any experimental RESULT** — it is entirely about how
+parameters are described and justified.
+
+**The defect.** `setup.tex` says *"96.8% of sampled maps are solvable"*, and
+`PAPER_MASTER_PLAN §8.1` justifies density 0.27 as the *"calibrated fairness ceiling"*. Both trace
+to `FINAL_PARAMETER.md`, whose sweep (`PhaseB2/density_sweep_v14_specific.py:113-121`) uses a
+generator that **rejects overlapping obstacles**. Our env has **no overlap test at all**. At the
+same nominal 0.27 the two produce different worlds:
+
+| | sweep @ 0.27 | our env @ 0.27 |
+|---|---|---|
+| obstacles/map | 68.9 | 28.0 |
+| true coverage | 0.2725 | **0.237** |
+| overlap | forbidden | unconstrained |
+
+`FINAL_PARAMETER.md §2` claims the sweep reproduces the env *"exactly"* — true for spawn and BFS
+parameters, **false for obstacle generation**.
+
+**Measured replacement** (`Noise_added/calibrate_density_realenv.py`, probe): our maps are
+**100% solvable at every density 0.20–0.30**, so **0.27 is nowhere near a feasibility ceiling for
+our generator** and the stated reason for choosing it does not hold. The honest replacement is
+**train/eval density match** — stage 2 was trained at 0.27 (`train_noise_robust.py:52`).
+
+**Owed:**
+- [ ] Full run: `calibrate_density_realenv.py 2000 10` (~1 h) or `10000 10` (~5 h)
+- [ ] Rewrite the `setup.tex` solvability sentence; state true vs nominal coverage
+- [ ] Rejustify 0.27 in `setup.tex` **and** `PAPER_MASTER_PLAN §8.1`
+- [ ] Add the consolidated parameter table — goal tolerance (1.0 m), goal keep-out (2.0 m), BFS
+      clearance (0.20 m), and the fact that there is **no minimum obstacle gap**, all currently
+      absent from the manuscript
+- [ ] Fix `methods.tex:12` "48-ray" → 192 rays encoded to 48 dimensions
+- [ ] Rebind root `PARAMETER_JUSTIFICATION.md`'s citations, which justify 12 m LiDAR / 8 m comm
+      while the paper runs **8 m / 10 m**
+- [ ] Resolve `setup.tex` obstacle-count range 13–56 vs `§2.2`'s 15–56
+- [ ] Update stale `PARAMETER_JUSTIFICATION_PHASE_CD §2.5` (calls the 0.27 lock-in "optional"; done)
+
+Full list: `PROJECT_READING_GUIDE.md` → *"Known documentation defects"*.
+
+---
+
+# 7. 🆕 REPRODUCTION CHECK — owed against the frozen tag
+
+`camera-ready-v1` states that the eval-code changes carried into it are behaviour-preserving.
+That was established by **code inspection** (the `comm_loss > 0.0` guard short-circuits before the
+RNG is drawn, so the random stream is untouched), **not by re-running**. That claim is now public.
+- [ ] Re-run one camera-ready cell (σ=0.6 camouflage, f=2) and match the published number.
+      Converts the tag's claim from *"should reproduce"* to *"does reproduce"*.
 
 ---
 
@@ -133,9 +207,13 @@ directory. This is the long pole and it has not started.
 
 | Metric | Value | As of |
 |---|---|---|
-| Dossiers closed | **3 / 18** | 2026-07-29 |
+| Dossiers closed (Srinivasa-approved) | **3 / 18** | 2026-08-09 |
+| Dossiers with Claude's audit done, awaiting review | **1** (TruPercept) | 2026-08-09 |
 | Must-cites in the paper | **1 / 7** | 2026-07-29 |
 | Papers eventually needing a dossier | **25** | 2026-07-29 |
-| LaTeX compiled | **never** | 2026-07-29 |
-| Figures drawn | **0** | 2026-07-29 |
+| LaTeX compiled | **never** | 2026-08-09 |
+| Figures drawn | **0** | 2026-08-09 |
 | Prior-art pre-emptions found | **0** ✅ | 2026-07-28 |
+| Code artifact frozen + pushed | ✅ **`camera-ready-v1` → `8878ea30`** | 2026-08-09 |
+| Manuscript claims known to be **unsupported** | **1** (density 0.27 justification) | 2026-08-09 |
+| Third-party PDFs published on the public repo | **27** ⚠️ | 2026-08-09 |
