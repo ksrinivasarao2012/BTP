@@ -90,9 +90,8 @@ def _init(model_path, conds):
 
 
 def _build_env(cfg):
-    from env_noisy_byzantine import NoisyByzantineEnv
-    return NoisyByzantineEnv(
-        render_mode=None, target_density=0.27, communication_range=10.0,
+    kw = dict(
+        render_mode=None, target_density=cfg.get("density", 0.27), communication_range=10.0,
         congestion_mode="lidar", lidar_range=8.0,
         lidar_dropout=0.10, dropout_sustain=5, use_shared_map=True,
         false_obstacle_attack=(cfg["n_traitors"] > 0),
@@ -103,7 +102,15 @@ def _build_env(cfg):
         verify_k_sigma=cfg["k_sigma"], trust_alpha=cfg["alpha"], tau_trust=cfg["tau"],
         temporal_defense=cfg["temporal"],
         temporal_bias_eps=cfg["eps"], temporal_min_k=cfg["min_k"],
+        comm_loss=cfg.get("comm_loss", 0.0),      # R3 realism study (default 0 = unchanged)
     )
+    # assumption-vi study only: build the bias SUBCLASS (keeps the pristine env untouched). Every
+    # other eval (sensor_bias absent or 0) uses the unmodified camera-ready NoisyByzantineEnv.
+    if cfg.get("sensor_bias", 0.0) > 0.0:
+        from env_biased_byzantine import BiasedNoisyByzantineEnv
+        return BiasedNoisyByzantineEnv(sensor_bias=cfg["sensor_bias"], **kw)
+    from env_noisy_byzantine import NoisyByzantineEnv
+    return NoisyByzantineEnv(**kw)
 
 
 def _run(task):
@@ -171,10 +178,12 @@ def resolve_path(path):
 
 
 def _cfg(label, noise, n_traitors, defense, k_sigma, alpha, tau, attack_mode,
-         temporal=False, eps=TEMPORAL_EPS, min_k=TEMPORAL_MIN_K, randomize=False):
+         temporal=False, eps=TEMPORAL_EPS, min_k=TEMPORAL_MIN_K, randomize=False, comm_loss=0.0,
+         density=0.27, sensor_bias=0.0):
     return dict(label=label, sensor_noise=noise, n_traitors=n_traitors, defense=defense,
                 k_sigma=k_sigma, alpha=alpha, tau=tau, attack_mode=attack_mode,
-                temporal=temporal, eps=eps, min_k=min_k, randomize=randomize)
+                temporal=temporal, eps=eps, min_k=min_k, randomize=randomize, comm_loss=comm_loss,
+                density=density, sensor_bias=sensor_bias)
 
 
 def main():

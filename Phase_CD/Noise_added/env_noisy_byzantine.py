@@ -37,9 +37,15 @@ from env_byzantine_adaptive import AdaptiveByzantineEnv
 class NoisyByzantineEnv(AdaptiveByzantineEnv):
     def __init__(self, *args, sensor_noise=0.0, verify_k_sigma=0.0,
                  temporal_defense=False, temporal_bias_eps=0.5, temporal_min_k=10,
-                 phantom_jitter=0.0, phantom_duty=1.0, **kwargs):
+                 phantom_jitter=0.0, phantom_duty=1.0, comm_loss=0.0, **kwargs):
         super().__init__(*args, **kwargs)
         self.sensor_noise = sensor_noise        # Gaussian std (m) on sensed obstacle positions
+        # COMM-LOSS (R3 realism study): each neighbour's broadcast is independently DROPPED with
+        # probability comm_loss per (receiver, sender, step) — a lost packet delivers nothing, so it
+        # contributes neither to fusion NOR to the trust verification that frame. Models lossy radio.
+        # Temporal defense should degrade gracefully: at loss p it needs ~min_k/(1-p) frames to reach a
+        # verdict (still << the 1200-step episode for moderate p), while honest fusion also loses some help.
+        self.comm_loss = comm_loss
         # FILTER-AWARE ADAPTIVE ATTACKER (§5.11 rebuttal) — an attacker that KNOWS the temporal filter:
         #  * phantom_jitter (m): per-frame zero-mean Gaussian added to the broadcast phantom centre.
         #    Intent: try to fake "honest noise". PREDICTION: fails — jitter raises the offset VARIANCE
@@ -201,6 +207,8 @@ class NoisyByzantineEnv(AdaptiveByzantineEnv):
                 continue
             if np.linalg.norm(pos - self.positions[j]) > self.communication_range:
                 continue
+            if self.comm_loss > 0.0 and np.random.random() < self.comm_loss:
+                continue                                  # dropped packet: no fusion, no verification this frame
             bc_c, bc_r = [], []
             if not self.lidar_blind[j] and M:
                 m = self._in_range[j]

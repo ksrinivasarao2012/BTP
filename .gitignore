@@ -1,0 +1,20 @@
+# Repo-root ignores. Added 2026-08-09 when 17 tracked .pyc files were untracked.
+# Convention follows "Phase A/.gitignore".
+#
+# DELIBERATELY NARROW. This repository is PUBLIC and the paper's data-availability
+# statement promises the environment, models, evaluation scripts and raw per-condition
+# result logs. Do NOT add models/, results*/, or *.txt log patterns here -- those are
+# the artifact. Only build junk belongs below.
+
+# Python bytecode -- compiled output, platform- and version-specific, never source.
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
