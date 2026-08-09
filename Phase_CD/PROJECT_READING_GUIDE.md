@@ -298,8 +298,13 @@ experimental RESULT; all of it is about how parameters are described.
    `swarm_env_phasecd.py:745`), goal keep-out (2.0 m), the BFS clearance (0.20 m) that is the only
    thing guaranteeing traversable corridors, and the fact that there is **no minimum gap between
    obstacles at all**. A consolidated parameter table for `setup.tex` is owed.
-6. **`RESULTS_027_CAMERA_READY.md`** had stray text pasted into the σ=0.20 robust-recovery cell
-   (`+1provide7.8`); confirm the intended value is `+17.8` before relying on that row.
+6. ~~**`RESULTS_027_CAMERA_READY.md`** had stray text pasted into the σ=0.20 robust-recovery cell.~~
+   ✅ **FIXED 2026-08-09.** The cell read `+1provide7.8`; restored to **`+17.8 [14.9,20.7]`**,
+   confirmed by Srinivasa and independently checked against the table's own columns
+   (recovery = robust − off = 76.0 − 58.3 ≈ 17.8; the temporal column reconciles the same way).
+   A repo-wide search found **no other corruption site** — every remaining "provide" is prose.
+   *Lesson worth keeping: a stray paste inside a number survives every spell- and lint-check.
+   The arithmetic self-consistency of a results table is the only thing that catches it.*
 
 ---
 
