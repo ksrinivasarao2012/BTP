@@ -99,7 +99,12 @@ read directly. Search case-insensitively, or read the list.
 
 # PART B — OUR `.tex` TEXT → WHICH QUOTE BACKS IT
 
-## USE 1 — the ONLY use, **verified 2026-07-28** — `related.tex` lines **142–148** (`\cite{trustflip2026}` at line 143)
+## USE 1 — `related.tex` lines **142–148** (`\cite{trustflip2026}` at line 143)
+
+> ⚠️ **NO LONGER THE ONLY USE — updated 2026-07-29.** A **second citation site was added** at
+> `discussion.tex:54` while auditing that section (see **USE 2** below). The "only use" claim was
+> correct when written on 2026-07-28 and became false the moment the manuscript changed —
+> a reminder that these blocks track a living file.
 
 > ✅ **"Only use" is now PROVEN, not assumed.** Searched `sections/*.tex`, `main.tex`,
 > `highlights.tex`: the key `trustflip2026` occurs **once**; the name `TrustFlip` occurs
@@ -133,6 +138,41 @@ indistinguishable from zero even under an adaptive attacker."
   graded no-harm metric. **Both edits verified as improvements.**
 
 **VERDICT: ✅ VERIFIED — no manuscript change needed.**
+
+---
+
+## USE 2 — `discussion.tex` line 54 (§ Robustness to trust-poisoning attacks) — **ADDED 2026-07-29**
+
+**WE WRITE (verbatim from live `discussion.tex`):** "A recognized failure mode of
+consistency-based trust is that an adversary can engineer disagreements to make the defense
+downweight or exclude \emph{honest} agents~\cite{trustflip2026}. Our evaluation confronts this
+directly by reporting no-harm under an adaptive, defense-aware attacker and finding it near zero:
+the temporal test does not provide a lever by which induced disagreement translates into honest
+exclusion, because it thresholds a time-averaged bias that honest neighbours, by construction, do
+not accumulate."
+
+| Our clause | Backed by |
+|---|---|
+| "engineer disagreements" | **Q1** — *"deploys physical adversarial objects… induce inconsistent observations among benign vehicles"* |
+| "**downweight or exclude** honest agents" | **Q1** — near-verbatim (*"downweighting or exclusion from collaboration"*) |
+| "does not provide a lever…" | **C-1** (ours — our no-harm result, not a claim about their paper) |
+
+> 🔧 **TWO DEFECTS FIXED HERE 2026-07-29, both found while auditing `discussion.tex`:**
+>
+> **(1) The word Srinivasa rejected had survived in this file.** On 2026-07-26 he changed
+> *"expel"* → *"downweight or exclude"* in `related.tex`, because TrustFlip's abstract frames the
+> harm as a **spectrum**, and "expel" captures only the severe endpoint. **The same word was still
+> sitting in `discussion.tex` and nobody had noticed** — the correction was applied where it was
+> found, not everywhere it applied. Now consistent in both files.
+>
+> **(2) The paragraph described TrustFlip's core finding with no citation.** *"A recognized
+> failure mode… engineer disagreements to make the defense [exclude] honest agents"* **is**
+> TrustFlip's contribution, stated as though it were common knowledge. `\cite{trustflip2026}`
+> added.
+>
+> 🔑 **Lesson:** a wording correction must be swept across **all** sections, not just the one it
+> was spotted in. Searching for the rejected word (`expel`) across `sections/*.tex` would have
+> caught this in seconds on 2026-07-26.
 
 ---
 

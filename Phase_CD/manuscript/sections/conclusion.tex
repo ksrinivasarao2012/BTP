@@ -16,11 +16,16 @@ verifier's own view of it is zero-mean for honest noise and biased for a
 persistent lie; thresholding this mean recovers camouflage detection recall
 from $0.13$ to $0.69$ and navigation success by up to $+12.2$ percentage
 points at the severest noise level, with no measurable cost to attack-free
-swarms, and with an advantage that grows as the number of traitors grows. A
+swarms. Because the verdict is pairwise rather than a majority vote, the
+recovery does not require an honest majority: it strengthens as traitors are
+added, reaching roughly $+15$ percentage points at four to six traitors of
+ten and remaining significant at seven, where an honest robot has only two
+honest neighbours and the single-frame check is no longer distinguishable
+from no defense. A
 defense-aware adaptive attacker cannot escape the mechanism: evading the
 temporal test forces its phantom onto real geometry, where it blocks no new
-space --- a stealth/harm bind we verify across noise levels and traitor
-counts. Notably, no learned trust component is required.
+space --- a stealth/harm bind we verify at one to three traitors across
+noise levels. Notably, no learned trust component is required.
 
 Several directions follow. Removing the routed-heading dependency would let
 the policy own global planning and sharpen the security claim. Applying
