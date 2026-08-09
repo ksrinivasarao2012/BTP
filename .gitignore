@@ -18,3 +18,8 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Scratch / not part of the public artifact
+Phase_CD/temp.png          # Task Manager screenshot; Srinivasa's decision: never commit
+Phase_CD/Papers/           # publisher's own RAS author guide (5.2 MB), not our work
+claude                     # stray 0-byte file
